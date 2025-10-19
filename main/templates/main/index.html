@@ -1,0 +1,25 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+<h1>動物推し活アプリ メインページ</h1>
+
+<ul>
+  <!-- main -->
+  <li><a href="{% url 'main:index' %}">①メインページ</a></li>
+
+  <!-- accounts -->
+  <li><a href="{% url 'accounts:signup' %}">②新規登録</a></li>
+
+  <!-- animals -->
+  <li><a href="/animals/1/">③動物紹介(サンプルID=1)</a></li>
+
+  <!-- pages -->
+  <li><a href="{% url 'pages:about' %}">④支援システムについて</a></li>
+
+  <!-- ranking -->
+  <li><a href="{% url 'ranking:index' %}">⑤ランキング</a></li>
+
+  <!-- money -->
+  <li><a href="{% url 'money:charge' %}">⑥課金ページ</a></li>
+</ul>
+{% endblock %}
