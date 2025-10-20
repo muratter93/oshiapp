@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "ranking",
     "pages",
     "money",
+    "goods",
 ]
 
 MIDDLEWARE = [
