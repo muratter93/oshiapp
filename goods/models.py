@@ -41,3 +41,17 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.goods.name} x {self.quantity}"
+    
+
+#--- 買い物かごモデル ---
+class CartItem(models.Model):
+    member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    goods = models.ForeignKey(Goods, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def get_required_stanning_points(self):
+        return self.goods.required_stanning_points * self.quantity
+
+    def __str__(self):
+        return f"{self.goods.name} x {self.quantity}（{self.member.username}）"    

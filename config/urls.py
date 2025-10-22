@@ -12,4 +12,4 @@ urlpatterns = [
     path("pages/", include("pages.urls")),
     path("money/", include("money.urls")),
     path('goods/', include('goods.urls')),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

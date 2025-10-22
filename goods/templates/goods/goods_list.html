@@ -1,8 +1,20 @@
-グッズ一覧
-{% for item in goods_list %}
-{{ item.image.url }}
-{{ item.name }}
-必要スターポイント：{{ item.required_stanning_points }}
+<h2>グッズ一覧</h2>
 
-交換
-{% endfor %}
+<div class="row">
+    {% for item in goods_list %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <!-- 画像表示 -->
+           
+            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text">{{ item.description }}</p>
+                <p class="card-text">必要スターポイント：{{ item.required_stanning_points }}</p>
+                <button class="btn btn-success">交換</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
