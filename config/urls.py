@@ -11,4 +11,5 @@ urlpatterns = [
     path("ranking/", include("ranking.urls")),
     path("pages/", include("pages.urls")),
     path("money/", include("money.urls")),
+    path('goods/', include('goods.urls')),
 ]

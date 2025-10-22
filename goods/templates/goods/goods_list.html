@@ -1,0 +1,8 @@
+グッズ一覧
+{% for item in goods_list %}
+{{ item.image.url }}
+{{ item.name }}
+必要スターポイント：{{ item.required_stanning_points }}
+
+交換
+{% endfor %}
