@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}アニマルマニア{% endblock %}</title>
-        <link rel="stylesheet" href="static/css/base.css">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
         <link rel="shortcut icon" href="#">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,7 +19,7 @@
     <body>
         <div id="main_body">
             <div id="main_left">
-                <img class="main_left_image" src="static/img/animalmania_logo_kari.png" alt="animalmania_logo_kari" 
+                <img class="main_left_image" src="{% static 'img/animalmania_logo_kari.png' %}" alt="animalmania_logo_kari" 
                 oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 <nav>
                     <ul>
