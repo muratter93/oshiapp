@@ -59,7 +59,7 @@ a:hover img { opacity: 0.4;} */
 
 
 nav {
-  font-family: 'Zen Kurenaido Regular';
+  font-family: 'Zen Kurenaido';
   font-size: 17px;
   padding-top: 50px;
 }
@@ -81,10 +81,9 @@ nav ul li a {
   margin-left: 200px;
   padding-top: 100px;
   padding-left: 10px;
-  padding-right: 50px;
+  padding-right: 40px;
   /* height: 1500px; */
-  background-color: rgb(22, 22, 205);
-  opacity:0.7;
+  background-color: rgb(168, 168, 234);
   /* width: 900px; */
 }
 
@@ -127,6 +126,8 @@ footer {
 #footer_nav ul li a {
   text-decoration: none;
 }
+
+
 
 
 

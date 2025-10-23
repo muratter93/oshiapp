@@ -21,12 +21,13 @@
                 oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 <nav>
                     <ul>
-                        <li><a href="#">トップ</a></li>
-                        <li><a href="#">アバウト</a></li>
-                        <li><a href="#">ランキング</a></li>
+                        <li><a href="{% url 'main:index' %}">トップ</a></li>
+                        <li><a href="{% url 'pages:about' %}">アバウト</a></li>
+                        <li><a href="{% url 'ranking:index' %}">動物ランキング</a></li>
                         <li><a href="#">LIVE動画</a></li>
-                        <li><a href="#">チアコを買う</a></li>
-                        <li><a href="#">グッズ交換</a></li>
+                        <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
+                        <li><a href="{% url 'goods:list' %}">グッズ交換</a></li>
+                        <li><a href="/animals/1/">動物紹介制作閲覧用</a></li>
                     </ul>
                 </nav>
             </div>
@@ -185,12 +186,12 @@
         <footer>
             <div id="footer_nav">
                 <ul>
-                    <li><a href="#">トップ</a></li>
-                    <li><a href="#">アバウト</a></li>
-                    <li><a href="#">ランキング</a></li>
+                    <li><a href="{% url 'main:index' %}">トップ</a></li>
+                    <li><a href="{% url 'pages:about' %}">アバウト</a></li>
+                    <li><a href="{% url 'ranking:index' %}">動物ランキング</a></li>
                     <li><a href="#">LIVE動画</a></li>
-                    <li><a href="#">チアコを買う</a></li>
-                    <li><a href="#">グッズ交換</a></li>
+                    <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
+                    <li><a href="{% url 'goods:list' %}">グッズ交換</a></li>
                 </ul>
             </div>
             <small>アニマルマニア</small>
