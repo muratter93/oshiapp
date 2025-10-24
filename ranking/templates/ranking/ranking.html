@@ -1,2 +1,64 @@
-ランキング
-第1位
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light" style="text-align:center"> どうぶつ　『推し』　ランキング!</h1>
+            <p class="lead text-center" style="text-align:center">
+               <br><br>
+            </p>
+        </div>
+    </div>
+</section>
+
+{% for a in animals %}
+    <p>{{ forloop.counter }}位 : {{ a.japanese }}</p>
+    <img src="{{a.pic1.url}}" alt="{{animal.japanese}}" style="width:300px"><br>
+    {{a.name}} {{a.total_point}}スタポ
+{% endfor %}
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>どうぶつ推しランキング！</title>
+    <style>
+        body { text-align: center; font-family: sans-serif; }
+        h1 { font-size: 2em; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+        .animal-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            width: 180px;
+            transition: 0.2s;
+        }
+        .animal-card:hover {
+            transform: scale(1.05);
+        }
+        .animal-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>どうぶつ『推し』ランキング！</h1>
+    <div class="grid">
+        {% for animal in animals %}
+        <div class="animal-card">
+            <a>
+                <img src="{{ animal.image.url }}" alt="{{ animal.name }}">
+                <h3>{{ animal.rank }}位 {{ animal.name }}</h3>
+                <p>{{ animal.total_point }} CheerCoin</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html> -->
