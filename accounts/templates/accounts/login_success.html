@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン完了</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <style>
+        .success-box {
+            text-align: center;
+            padding: 80px 40px;
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #2b6777;
+            margin-bottom: 30px;
+        }
+        
+        .success-box h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .success-box p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .home-button {
+            padding: 15px 50px;
+            background-color: #2b6777;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        
+        .home-button:hover {
+            background-color: #1f4d5a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-side">
+            デザイン
+        </div>
+        
+        <div class="right-side">
+            <div class="login-box success-box">
+                <div class="success-icon">✓</div>
+                <h1>ログイン完了</h1>
+                <p>ようこそ、{{ user.username }}さん！<br>ログインに成功しました。</p>
+                <a href="/" class="home-button">ホームへ</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
