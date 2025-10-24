@@ -5,7 +5,7 @@ from django.conf import settings
 from money.models import Wallet
 from .models import SubscribePlan
 
-def grant_plan_points_to_wallet(user: settings.AUTH_USER_MODEL, plan_code: str) -> int:
+def grant_plan_points_to_wallet(user, plan_code: str) -> int:
     """
     指定ユーザーの Wallet に、そのプランのスタポを加算して新残高を返す。
     """
