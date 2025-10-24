@@ -1,0 +1,42 @@
+<!-- 確認モーダル -->
+<div id="confirmModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
+  <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px;">
+    <h3>購入確認</h3>
+    <p><span id="confirmCoinsText">—</span> チアコインを <strong><span id="confirmPriceText">—</span> 円</strong> で購入しますか？</p>
+    <div style="text-align:right;">
+      <button id="cancelConfirmBtn">キャンセル</button>
+      <button id="okConfirmBtn" style="background:#2563eb;color:#fff;">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- 完了モーダル -->
+<div id="doneModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
+  <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px;">
+    <h3>購入完了</h3>
+    <p>
+      <span id="doneCoinsText">—</span> チアコイン（
+      <strong><span id="donePriceText">—</span> 円</strong>）の購入が完了しました。
+    </p>
+    <p id="donePointText" style="margin-top:8px; color:#16a34a; font-weight:bold;"></p>
+    <div style="text-align:right;">
+      <button id="doneOkBtn" style="background:#16a34a;color:#fff;">OK</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- 認証誘導モーダル -->
+<div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
+  <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px;">
+    <h3>ログインが必要です</h3>
+    <p>チアコインを購入するにはログインまたは新規登録をしてください。</p>
+    <div style="text-align:right;">
+      <button id="authCancelBtn">キャンセル</button>
+      <a href="{% url 'accounts:signup' %}?next={% url 'money:charge' %}"
+         style="background:#6b7280;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">新規登録</a>
+      <a href="{% url 'accounts:login' %}?next={% url 'money:charge' %}"
+         style="background:#2563eb;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">ログイン</a>
+    </div>
+  </div>
+</div>

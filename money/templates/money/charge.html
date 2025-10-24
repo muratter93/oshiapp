@@ -1,1 +1,46 @@
-課金ページ
+{% extends "common/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+<h1>チアコイン購入</h1>
+
+{% if user.is_authenticated %}
+  <p>現在の残高：<strong>{{ wallet.cheer_coin_balance|intcomma }}</strong> チアコイン</p>
+{% endif %}
+
+<table border="1" cellpadding="8" style="border-collapse:collapse; text-align:center; width:100%; max-width:560px;">
+  <tr><th>チアコイン</th><th>価格</th><th>購入</th></tr>
+  {% for plan in plans %}
+  <tr>
+    <td>{{ plan.coins|intcomma }} チアコ</td>
+    <td>{{ plan.price|intcomma }} 円</td>
+    <td>
+      <button
+        class="purchase-btn"
+        data-url="{% url 'money:buy' plan.coins %}"
+        data-coins="{{ plan.coins }}"
+        data-price="{{ plan.price }}">
+        購入
+      </button>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<p style="margin-top:1rem; color:#666;">
+  ※ 決済連携は未実装のため、ボタン押下で残高だけ増えるデモ挙動です。
+</p>
+
+<form id="hiddenBuyForm" method="post" style="display:none;">
+  {% csrf_token %}
+</form>
+
+{% include "money/modals.html" %}
+
+<script>
+  window.IS_AUTH = {{ user.is_authenticated|yesno:"true,false" }};
+</script>
+<script src="{% static 'js/money.js' %}" defer></script>
+
+{% endblock %}
