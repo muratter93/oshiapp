@@ -1,6 +1,22 @@
-{% extends "common/base.html" %}
-{% block content %}
+{% load static %}
+<section id="about">
 
-支援システムについて akita akita akita
+  <!-- 🔹 まず文章 -->
+  <div class="concept-wrap">
+    <div class="concept-text">
+      <h1>動物を、推そう。</h1>
+      <p>ここは「みんなの推し」が集まる小さな動物園。</p>
+      <p>あなたの一票が、今日もどこかの動物を笑顔にする。</p>
+      <p>好きな子を見つけて、たくさん推してあげよう。</p>
+      <p class="subcopy">推しポイントはランキングに反映されます。あなたの“好き”が、推しを輝かせます。</p>
+    </div>
+  </div>
 
-{% endblock %}
+  <!-- 🔹 次に画像 -->
+  <header class="hero" role="img" aria-label="推し動物園のイメージ写真">
+    <img src="{% static 'img/kirin.png' %}" alt="推し動物園メイン画像" loading="eager" />
+  </header>
+
+</section>
+
+

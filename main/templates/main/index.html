@@ -1,28 +1,83 @@
 {% extends "common/base.html" %}
+{% load humanize %}
+{% load static %}
 
 {% block content %}
-<h1>動物推し活アプリ メインページ</h1>
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
 
-<ul>
-  <!-- main -->
-  <li><a href="{% url 'main:index' %}">①メインページ</a></li>
+<div class="animal-grid">
+  {% for a in animals %}
+    <article class="animal-card" data-id="{{ a.animal_id }}">
+      <div class="animal-media">
+        {% if a.pic1 %}
+          <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+        {% else %}
+          <img src="{% static 'img/noimage-4x3.png' %}" alt="画像なし">
+        {% endif %}
 
-  <!-- accounts -->
-  <li><a href="{% url 'accounts:signup' %}">②新規登録</a></li>
+        <div class="media-overlay" aria-hidden="true">
+        <p class="media-title">{{ a.japanese }}</p>
+        <p class="media-sub">{{ a.name }}
+        <span class="animal-age">
+          {% if a.age %}
+            {{ a.age }}歳
+          {% else %}
+            （年齢不明）
+          {% endif %}
 
-  <!-- animals -->
-  <li><a href="/animals/1/">③動物紹介(サンプルID=1)</a></li>
+          {% if a.sex == "M" %}
+            ♂
+          {% elif a.sex == "F" %}
+            ♀
+          {% else %}
+            不明
+          {% endif %}
+        </span>
+        </p>
 
-  <!-- pages -->
-  <li><a href="{% url 'pages:about' %}">④支援システムについて</a></li>
+      </div>
 
-  <!-- ranking -->
-  <li><a href="{% url 'ranking:index' %}">⑤ランキング</a></li>
+        <span class="oshii-badge">推しP：<span class="point">{{ a.total_point }}</span></span>
+        <a class="intro-btn" href="/animals/{{ a.animal_id }}/">紹介</a>
+        <button class="push-btn" data-id="{{ a.animal_id }}">推し銭🪙</button>
 
-  <!-- money -->
-  <li><a href="{% url 'money:charge' %}">⑥課金ページ</a></li>
+<div class="animal-body">
+  <div class="animal-header">
+    <p class="animal-title">{{ a.japanese }}</p>
+    {% if a.animal_id == 1 %}
+      <span class="oshi-label">💖推し💖</span>
+    {% endif %}
+  </div>
+<p class="animal-sub">
+    {{ a.name }}
+    <span class="animal-age">
+      {% if a.age %} {{ a.age }}歳 {% else %}（年齢不明）{% endif %}
+      {% if a.sex == "M" %}
+        ♂
+      {% elif a.sex == "F" %}
+        ♀
+      {% else %}
+        不明
+      {% endif %}
+    </span>
+  </p>
+</div>
 
-  <!-- goods -->
-  <li><a href="{% url 'goods:goods_list' %}">⑦交換ページ</a></li>
-</ul>
+    </article>
+  {% endfor %}
+</div>
+
+{% if user.is_authenticated and wallet %}
+  <p>
+    残高：
+    <strong id="wallet-balance">{{ wallet.cheer_coin_balance|intcomma }}</strong> チアコイン /
+    スタポ：
+    <strong id="wallet-stapo">{{ wallet.stanning_point_balance|intcomma }}</strong>
+  </p>
+{% endif %}
+
+{% include 'pages/about.html' %}
+
+<script src="{% static 'js/main.js' %}"></script>
+
 {% endblock %}
