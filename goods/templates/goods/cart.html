@@ -1,0 +1,100 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block title %}買い物かご{% endblock %}
+
+{% block extra_head %}
+<style>
+/* 中央部分の余白 */
+#main_center {
+    padding-top: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* カートテーブル */
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cart-table th, .cart-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+/* 操作リンク */
+.cart-table a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.cart-table a:hover {
+    text-decoration: underline;
+}
+
+/* 交換手続きボタン */
+.checkout-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.checkout-link:hover {
+    background-color: #0056b3;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>買い物かご</h2>
+
+{% if messages %}
+<script>
+    {% for message in messages %}
+        alert("{{ message }}");
+    {% endfor %}
+</script>
+{% endif %}
+
+{% if cart_items %}
+<table class="cart-table">
+    <tr>
+        <th>グッズ</th>
+        <th>数量</th>
+        <th>必要スタポ</th>
+        <th>操作</th>
+    </tr>
+    {% for item in cart_items %}
+    <tr>
+        <td>{{ item.goods.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.get_required_stanning_points }}</td>
+        <td>
+            <a href="{% url 'goods:cart_item_increase' item.id %}">＋</a>
+            <a href="{% url 'goods:cart_item_decrease' item.id %}">－</a>
+            <a href="{% url 'goods:cart_item_remove' item.id %}">削除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="2"><strong>合計スタポ</strong></td>
+        <td>{{ total_stanning }}</td>
+        <td></td>
+    </tr>
+</table>
+
+<a href="{% url 'goods:checkout' %}" class="checkout-link">交換手続きへ</a>
+
+{% else %}
+<p>買い物かごは空です。</p>
+{% endif %}
+{% endblock %}

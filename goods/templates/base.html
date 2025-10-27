@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}アニマルマニア{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div id="main_body">
+        <div id="main_left">
+            <img class="main_left_image" src="{% static 'img/animalmania_logo_kari.png' %}" alt="animalmania_logo_kari">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'main:index' %}">トップ</a></li>
+                    <li><a href="{% url 'pages:about' %}">アバウト</a></li>
+                    <li><a href="{% url 'ranking:index' %}">動物ランキング</a></li>
+                    <li><a href="#">LIVE動画</a></li>
+                    <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
+                    <li><a href="{% url 'goods:goods_list' %}">グッズ交換</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div id="main_center">
+            <main>
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+
+        <div id="main_right">
+            あきた
+        </div>
+    </div>
+
+    <footer>
+        <div id="footer_nav">
+            <ul>
+                <li><a href="{% url 'main:index' %}">トップ</a></li>
+                <li><a href="{% url 'pages:about' %}">アバウト</a></li>
+                <li><a href="{% url 'ranking:index' %}">動物ランキング</a></li>
+                <li><a href="#">LIVE動画</a></li>
+                <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
+                <li><a href="{% url 'goods:goods_list' %}">グッズ交換</a></li>
+            </ul>
+        </div>
+        <small>アニマルマニア</small>
+    </footer>
+</body>
+</html>

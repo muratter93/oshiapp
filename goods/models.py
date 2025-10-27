@@ -14,8 +14,15 @@ class Goods(models.Model):
     def __str__(self):
         return self.name
     
+# 詳細ページ用の画像モデル
+class GoodsImage(models.Model):
+    goods = models.ForeignKey(Goods, on_delete=models.CASCADE, related_name='detail_images')
+    image = models.ImageField(upload_to='goods_detail_images/', verbose_name='詳細画像')
+    order = models.PositiveIntegerField(default=0, verbose_name='並び順')  # 表示順を管理したいとき
 
-
+    def __str__(self):
+        return f"{self.goods.name} - {self.id}"    
+    
 
 
 

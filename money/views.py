@@ -43,7 +43,7 @@ def buy_coins(request, coins: int):
 
     wallet, _ = Wallet.objects.select_for_update().get_or_create(member=request.user)
     wallet.cheer_coin_balance += plan["coins"]
-    wallet.stanning_point_balance += plan["coins"] // 100
+    # wallet.stanning_point_balance += plan["coins"] // 100
     wallet.save(update_fields=["cheer_coin_balance", "stanning_point_balance"])
 
     charge_url = reverse("money:charge")

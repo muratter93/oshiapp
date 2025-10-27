@@ -47,11 +47,11 @@ console.log("[money] donePointText exists?", !!donePointText);
 if (params.get('done') === '1') {
   const coins  = Number(params.get('coins') || 0);
   const price  = Number(params.get('price') || 0);
-  const points = Math.floor(coins / 100); // 100コイン→1pt
+  // const points = Math.floor(coins / 100); // 100コイン→1pt
 
   if (doneCoinsText) doneCoinsText.textContent = coins.toLocaleString();
   if (donePriceText) donePriceText.textContent = price.toLocaleString();
-  if (donePointText) donePointText.textContent = `${points} スタポ獲得しました！`;
+  // if (donePointText) donePointText.textContent = `${points} スタポ獲得しました！`;
 
   if (doneModal) doneModal.style.display = 'block';
   window.history.replaceState(null, '', window.location.pathname);

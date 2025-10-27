@@ -1,20 +1,106 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block title %}グッズ一覧{% endblock %}
+
+{% block extra_head %}
+<style>
+/* 中央部分余白 */
+#main_center {
+    padding-top: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* グリッド表示 */
+.goods-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-items: center;
+    width: 100%;
+}
+
+/* グッズカード */
+.goods-card {
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+/* 画像 */
+.goods-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* 右上カートアイコン */
+.cart-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    text-decoration: none;
+    color: black;
+    z-index: 1000;
+}
+
+.cart-badge {
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    vertical-align: super;
+}
+</style>
+{% endblock %}
+
+{% block content %}
 <h2>グッズ一覧</h2>
 
-<div class="row">
-    {% for item in goods_list %}
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <!-- 画像表示 -->
-           
-            <img src="{{ item.image.url }}" alt="{{ item.name }}">
+<a href="{% url 'goods:cart_view' %}" class="cart-icon">
+    🛒
+    {% if total_quantity > 0 %}
+        <span class="cart-badge">{{ total_quantity }}</span>
+    {% endif %}
+</a>
 
-            <div class="card-body">
-                <h5 class="card-title">{{ item.name }}</h5>
-                <p class="card-text">{{ item.description }}</p>
-                <p class="card-text">必要スターポイント：{{ item.required_stanning_points }}</p>
-                <button class="btn btn-success">交換</button>
-            </div>
+<div class="goods-grid">
+    {% for goods in goods_list %}
+        <div class="goods-card">
+            <a href="{% url 'goods:goods_detail' goods.id %}">
+                {% if goods.image %}
+                    <img src="{{ goods.image.url }}" alt="{{ goods.name }}" class="goods-img">
+                {% else %}
+                    <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}" class="goods-img">
+                {% endif %}
+                <h4>{{ goods.name }}</h4>
+            </a>
+            <p>必要スタポ：{{ goods.required_stanning_points }} pt</p>
+            <a href="{% url 'goods:add_to_cart' goods.id %}" class="btn">交換</a>
         </div>
-    </div>
     {% endfor %}
 </div>
+{% endblock %}

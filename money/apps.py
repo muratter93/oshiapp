@@ -1,6 +1,20 @@
 from django.apps import AppConfig
 
+from django.apps import AppConfig
 
 class MoneyConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'money'
+
+
+
+
+
+# --- signals.py ---
+class MoneyConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'money'
+
+    def ready(self):
+        import money.signals
+

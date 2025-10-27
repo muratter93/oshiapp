@@ -1,0 +1,32 @@
+<!-- goods/templates/goods/goods_detail.html -->
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block title %}{{ goods.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ goods.name }}</h2>
+
+<!-- 代表画像 -->
+{% if goods.image %}
+    <img src="{{ goods.image.url }}" alt="{{ goods.name }}" style="width:300px;height:300px;object-fit:cover;">
+{% else %}
+    <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}" style="width:300px;height:300px;">
+{% endif %}
+
+<!-- 詳細画像一覧 -->
+{% if goods.detail_images.all %}
+    <div style="display:flex; gap:10px; margin-top:20px;">
+        {% for img in goods.detail_images.all %}
+            <img src="{{ img.image.url }}" alt="{{ goods.name }} 詳細画像{{ forloop.counter }}" 
+                 style="width:150px; height:150px; object-fit:cover; border:1px solid #ccc; border-radius:4px;">
+        {% endfor %}
+    </div>
+{% endif %}
+
+<p>必要スタポ：{{ goods.required_stanning_points }} pt</p>
+<p>{{ goods.description }}</p>
+
+<a href="{% url 'goods:add_to_cart' goods.id %}" class="btn">カートに入れる</a>
+<a href="{% url 'goods:goods_list' %}">← グッズ一覧に戻る</a>
+{% endblock %}
