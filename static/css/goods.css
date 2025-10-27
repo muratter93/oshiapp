@@ -1,0 +1,139 @@
+/* ===== 全体レイアウト ===== */
+#goods_main_center {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  text-align: center;
+  font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+}
+
+#goods_main_center h2 {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #ff66a3;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* ===== カートアイコン ===== */
+.goods_cart_icon {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  text-decoration: none;
+  color: #ff66a3;
+}
+
+.goods_cart_badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #ff66a3;
+  color: #fff;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  padding: 3px 7px;
+}
+
+/* ===== 商品グリッド ===== */
+.goods_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* ←固定4列 */
+  gap: 25px;
+  justify-items: center;
+  margin-top: 30px;
+}
+
+/* ===== 商品カード ===== */
+.goods_card {
+  background-color: #fff;
+  border: 2px solid #f4f4f4;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 280px;       /* 固定幅 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.goods_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 102, 163, 0.3);
+}
+
+.goods_card h4 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #333;
+}
+
+.goods_card p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* ===== 商品画像 ===== */
+.goods_img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain; /* 縦横比を保ったまま収まる */
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ===== ボタン ===== */
+.goods_btn {
+  display: inline-block;
+  background-color: #ff66a3;
+  color: white;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.goods_btn:hover {
+  background-color: #ff3380;
+}
+
+/* ===== スマホ対応 ===== */
+@media (max-width: 768px) {
+  .goods_grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .goods_grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cart-icon {
+  position: relative; /* これを追加 */
+  font-size: 2rem;
+  color: #ff66a3;
+  text-decoration: none;
+}
+
+.cart-badge {
+  position: absolute;      /* カートアイコンの上に重ねる */
+  top: -8px;               /* 上の位置調整 */
+  right: -8px;             /* 右の位置調整 */
+  background-color: red;   /* 赤色 */
+  color: white;            /* 文字は白 */
+  font-size: 12px;         /* 数字サイズ */
+  font-weight: bold;       /* 太字で見やすく */
+  border-radius: 50%;      /* 丸にする */
+  width: 20px;             /* 丸の幅 */
+  height: 20px;            /* 丸の高さ */
+  display: flex;           /* 中央寄せ */
+  align-items: center;     /* 縦中央 */
+  justify-content: center; /* 横中央 */
+  box-shadow: 0 0 3px rgba(0,0,0,0.3); /* ちょっと浮かせる */
+}
+
