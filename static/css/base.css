@@ -4,7 +4,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-
 body {
   font-family: 'M PLUS Rounded 1c';
 }
@@ -14,7 +13,6 @@ body {
 /* ーーーーーー */
 /* 共通基本設定 */
 /* ーーーーーー */
-
 
 #main_body {
   margin: 0 auto;
@@ -66,7 +64,6 @@ a:hover img { opacity: 0.4;} */
   width: 200px;
 }
 
-
 nav {
   position: fixed;
   bottom: 50px;
@@ -109,6 +106,7 @@ nav ul li a {
   right: 0;
   width: 350px;
   height: 1500px;
+  pointer-events: none;
   /* background-color: rgb(205, 22, 22); */
 }
 
@@ -165,28 +163,29 @@ nav ul li a {
 /* 右ページページトップ戻るボタン部分 */
 
 .pagetop {
-    height: 60px;
-    width: 60px;
-    position: fixed;
-    right: 40px;
-    bottom: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex; /* 親要素にflexboxを適用 */
-    flex-direction: column; /* 子要素を縦に並べる */
-    text-decoration: none;
+  opacity: 0.5;
+  pointer-events: auto;
+  position: fixed;
+  right: 40px;
+  bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex; /* 親要素にflexboxを適用 */
+  flex-direction: column; /* 子要素を縦に並べる */
+  text-decoration: none;
 }
 
 .pagetop_arrow {
-    height: 40px;
-    width: 40px;
-    border-top: 3px solid #000;
-    border-right: 3px solid #000;
-    transform: translateY(20%) rotate(-45deg);
+  height: 40px;
+  width: 40px;
+  border-top: 3px solid #ffffff;
+  border-right: 3px solid #ffffff;
+  transform: translateY(20%) rotate(-45deg);
 }
 
 .pagetop_lang {
+  color: #ffffff;
   text-align: center;
   line-height: 18px;
 }
