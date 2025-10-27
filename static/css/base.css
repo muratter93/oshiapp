@@ -4,7 +4,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-
 body {
   font-family: 'M PLUS Rounded 1c';
 }
@@ -14,7 +13,6 @@ body {
 /* ーーーーーー */
 /* 共通基本設定 */
 /* ーーーーーー */
-
 
 #main_body {
   margin: 0 auto;
@@ -66,7 +64,6 @@ a:hover img { opacity: 0.4;} */
   width: 200px;
 }
 
-
 nav {
   position: fixed;
   bottom: 50px;
@@ -109,10 +106,12 @@ nav ul li a {
   right: 0;
   width: 350px;
   height: 1500px;
+  pointer-events: none;
   /* background-color: rgb(205, 22, 22); */
 }
 
 #personal_box {
+  pointer-events: auto;
   position: fixed;
   top: 0px;
   border-radius: 0px 0px 10px 10px;
@@ -132,10 +131,15 @@ nav ul li a {
 
 #personal_box_01 {
   margin-bottom: 3px;
+  align-items: center;
+}
+
+.personal_box_link {
+  text-decoration: none;
 }
 
 
-.personal_box_h2, .personal_box_h3, .personal_box_h4, .personal_box_h6 {
+.personal_box_h2, .personal_box_h3, .personal_box_h4, .personal_box_h6, .personal_box_h7 {
   margin: -5px 0px -4px 2px;
 }
 
@@ -161,32 +165,43 @@ nav ul li a {
   padding-bottom: 1px;
 }
 
+.personal_box_h7 {
+  font-size: 24px;
+  font-family: 'Zen Kurenaido';
+  font-weight: 800;
+}
+
+.personal_box_h7 span {
+  font-size: 0.6em;
+}
+
 
 /* 右ページページトップ戻るボタン部分 */
 
 .pagetop {
-    height: 60px;
-    width: 60px;
-    position: fixed;
-    right: 40px;
-    bottom: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex; /* 親要素にflexboxを適用 */
-    flex-direction: column; /* 子要素を縦に並べる */
-    text-decoration: none;
+  opacity: 0.5;
+  pointer-events: auto;
+  position: fixed;
+  right: 40px;
+  bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex; /* 親要素にflexboxを適用 */
+  flex-direction: column; /* 子要素を縦に並べる */
+  text-decoration: none;
 }
 
 .pagetop_arrow {
-    height: 40px;
-    width: 40px;
-    border-top: 3px solid #000;
-    border-right: 3px solid #000;
-    transform: translateY(20%) rotate(-45deg);
+  height: 40px;
+  width: 40px;
+  border-top: 3px solid #4e3c31;
+  border-right: 3px solid #4e3c31;
+  transform: translateY(20%) rotate(-45deg);
 }
 
 .pagetop_lang {
+  color: #4e3c31;
   text-align: center;
   line-height: 18px;
 }
