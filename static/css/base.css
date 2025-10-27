@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+html {
+	scroll-behavior: smooth;
+}
+
+
+body {
+  font-family: 'M PLUS Rounded 1c';
+}
+
+
+
 /* ーーーーーー */
 /* 共通基本設定 */
 /* ーーーーーー */
@@ -8,7 +19,6 @@
 #main_body {
   margin: 0 auto;
   display:flex;
-  font-family: 'Rubik';
   width: 100%;
 }
 
@@ -52,16 +62,18 @@ a:hover img { opacity: 0.4;} */
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
   /* background-color: rgb(173, 180, 34); */
   width: 200px;
 }
 
 
 nav {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  font-weight: 600;
   font-family: 'Zen Kurenaido';
-  font-size: 17px;
-  padding-top: 50px;
+  font-size: 22px;
 }
 
 nav ul {
@@ -95,11 +107,90 @@ nav ul li a {
   position: fixed;
   top: 0;
   right: 0;
-  width: 150px;
+  width: 350px;
   height: 1500px;
-  background-color: rgb(205, 22, 22);
-  opacity:0.2;
+  /* background-color: rgb(205, 22, 22); */
 }
+
+#personal_box {
+  position: fixed;
+  top: 0px;
+  border-radius: 0px 0px 10px 10px;
+  background-color: rgb(44, 29, 16);
+  padding: 6px 15px 6px 15px;
+  display: flex; /* 親要素にflexboxを適用 */
+  flex-direction: column; /* 子要素を縦に並べる */
+  align-items: flex-end;
+}
+
+
+#personal_box_01, #personal_box_02, #personal_box_03 {
+  color: aliceblue;
+  display: flex;
+  align-items: flex-end;
+}
+
+#personal_box_01 {
+  margin-bottom: 3px;
+}
+
+
+.personal_box_h2, .personal_box_h3, .personal_box_h4, .personal_box_h6 {
+  margin: -5px 0px -4px 2px;
+}
+
+.personal_box_h2 {
+  font-size: 24px;
+  font-family: 'Zen Kurenaido';
+  font-weight: 400;
+}
+.personal_box_h3 {
+  margin-left: 9px;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.personal_box_h4 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.personal_box_h6 {
+  font-size: 12px;
+  font-weight: 400;
+  padding-bottom: 1px;
+}
+
+
+/* 右ページページトップ戻るボタン部分 */
+
+.pagetop {
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    right: 40px;
+    bottom: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex; /* 親要素にflexboxを適用 */
+    flex-direction: column; /* 子要素を縦に並べる */
+    text-decoration: none;
+}
+
+.pagetop_arrow {
+    height: 40px;
+    width: 40px;
+    border-top: 3px solid #000;
+    border-right: 3px solid #000;
+    transform: translateY(20%) rotate(-45deg);
+}
+
+.pagetop_lang {
+  text-align: center;
+  line-height: 18px;
+}
+
 
 
 /* フッター部分 */
