@@ -14,6 +14,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+        {% block extra_head %}{% endblock %}
 
     </head>
 
@@ -31,6 +32,9 @@
                         <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                         <li><a href="{% url 'goods:goods_list' %}">グッズ交換</a></li>
                         <li><a href="/animals/1/">動物紹介制作閲覧用</a></li>
+                        <li><a href="{% url 'accounts:login' %}">ログイン</a></li>
+                        <li><a href="{% url 'accounts:logout' %}">ログアウト</a></li>
+                        <li><a href="{% url 'accounts:signup' %}">新規登録</a></li>
                     </ul>
                 </nav>
             </div>
@@ -183,13 +187,15 @@
 
                 <div id="personal_box">
                     <div id="personal_box_01">
-                        <h2 class="personal_box_h2">倉形 光</h2><h3 class="personal_box_h3">様</h3>
+                        <a class="personal_box_link" href="{% url 'accounts:signup' %}">
+                            <h2 class="personal_box_h7"><span>▶ </span>新規登録</h2>
+                        </a>
                     </div>
-                    <div id="personal_box_02">
-                        <h4 class="personal_box_h4">999</h4><h6 class="personal_box_h6">スタポ</h6>
-                    </div>
-                    <div id="personal_box_03">
-                        <h4 class="personal_box_h4">999</h4><h6 class="personal_box_h6">チアコ</h6>
+
+                    <div id="personal_box_01">
+                        <a class="personal_box_link" href="{% url 'accounts:login' %}">
+                            <h2 class="personal_box_h7"><span>▶ </span>ログイン</h2>
+                        </a>
                     </div>
                 </div>
 
