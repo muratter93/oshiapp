@@ -23,12 +23,14 @@
             <!--ここまで　消すかも？-->
 
             <div class="login-box">
-                <form method="post">
+                <form id="login-form" action="{% url 'accounts:login' %}" method="post">
                     {% csrf_token %}
-                    <input type="text" name="email_or_username" placeholder="ユーザ名">
-                    <input type="password" name="password" placeholder="パスワード">
-                    <button type="submit">ログイン</button>
+                    <input type="text" name="username" placeholder="ユーザー名" class="input-field">
+                    <input type="password" name="password" placeholder="パスワード" class="input-field">
+
+                    <button type="submit" class="login-button">ログイン</button>
                 </form>
+
 
                 <div class="divider"></div>
 
