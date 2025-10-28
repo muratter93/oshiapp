@@ -32,6 +32,7 @@ body {
     line-height: 1.5em;
 }
 
+/* ===== 第1位 ===== */
 .rank-1 img {
     width: 40vw;
     max-width: 450px;
@@ -46,6 +47,7 @@ body {
     font-weight: bold;
 }
 
+/* ===== 第2〜3位 ===== */
 .rank-2-3 {
     display: flex;
     justify-content: center;
@@ -65,12 +67,13 @@ body {
     margin-bottom: 8px;
 }
 
+/* ===== 第4〜6位 ===== */
 .rank-4-6 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     width: 90%;
-    margin: 50 auto;
+    margin: 50px auto;
 }
 .rank-4-6 img {
     width: 100%;
@@ -83,6 +86,7 @@ body {
     margin-bottom: 6px;
 }
 
+/* ===== 第7〜10位 ===== */
 .rank-7-10 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -101,6 +105,41 @@ body {
     margin-bottom: 6px;
 }
 
+/* ===== 第11〜20位 ===== */
+.rank-11-15,
+.rank-16-20,
+.rank-other {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    width: 95%;
+    margin: 40px auto;
+}
+.rank-11-15 img,
+.rank-16-20 img,
+.rank-other img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* ===== ページネーション ===== */
+.pagination {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 1.2rem;
+}
+.pagination a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+.pagination a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     body {
         font-size: 1rem;
@@ -110,6 +149,9 @@ body {
     }
     .rank-card p {
         font-size: 1.2rem;
+    }
+    .rank-11-15, .rank-16-20, .rank-other {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 </style>
@@ -155,6 +197,49 @@ body {
         </div>
         {% endfor %}
     </div>
+
+    <div class="rank-11-15">
+        {% for a in animals|slice:"10:15" %}
+        <div class="rank-card">
+            <h5>第{{ forloop.counter|add:10 }}位 {{ a.japanese }}</h5>
+            <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="rank-16-20">
+        {% for a in animals|slice:"15:20" %}
+        <div class="rank-card">
+            <h5>第{{ forloop.counter|add:15 }}位 {{ a.japanese }}</h5>
+            <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    {% if page_obj %}
+    <div class="rank-other">
+        {% for a in page_obj %}
+        <div class="rank-card">
+            <h5>第{{ forloop.counter|add:20|add:page_obj.start_index|add:"-1" }}位 {{ a.japanese }}</h5>
+            <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">＜　前へ</a>
+        {% endif %}
+        <span>ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">次へ　＞</a>
+        {% endif %}
+    </div>
+    {% endif %}
 
 </div>
 {% endblock %}
