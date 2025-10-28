@@ -97,5 +97,6 @@
 
 {% else %}
 <p>買い物かごは空です。</p>
+<a href="{% url 'goods:goods_list' %}" class="btn">グッズページへ戻る</a>
 {% endif %}
 {% endblock %}

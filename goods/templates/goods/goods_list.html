@@ -24,19 +24,22 @@
   <div class="goods_grid">
   {% for goods in goods_list %}
     <div class="goods_card">
-      <!-- ここでリンクを追加 -->
-      <a href="{% url 'goods:goods_detail' goods.id %}">
-        {% if goods.image %}
-          <img src="{{ goods.image.url }}" alt="{{ goods.name }}" class="goods_img">
-        {% else %}
-          <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}" class="goods_img">
-        {% endif %}
-      </a>
+  <!-- ここでリンクを追加 -->
+        <a href="{% url 'goods:goods_detail' goods.id %}">
+            <div class="goods_img_wrapper">
+            {% if goods.image %}
+                <img src="{{ goods.image.url }}" alt="{{ goods.name }}" class="goods_img">
+            {% else %}
+                <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}" class="goods_img">
+            {% endif %}
+            </div>
+        </a>
 
-      <h3>{{ goods.name }}</h3>
-      <p>必要スタポ：{{ goods.required_stanning_points }} pt</p>
-      <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">交換</a>
-    </div>
+  <h3>{{ goods.name }}</h3>
+  <p>必要スタポ：{{ goods.required_stanning_points }} pt</p>
+  <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">交換</a>
+</div>
+
   {% endfor %}
 </div>
 
