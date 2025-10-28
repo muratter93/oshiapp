@@ -3,18 +3,19 @@ from django.contrib.auth.admin import UserAdmin
 from django.shortcuts import get_object_or_404, redirect
 from .models import Member
 
+
 @admin.register(Member)
 class MemberAdmin(UserAdmin):
     model = Member
 
-    list_display = ("id", "username", "email", "name")
+    list_display = ("id", "username", "email", "name", "birth")  # ← birth追加！
 
     search_fields = ("email", "name")
     ordering = ("id",)
 
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        ("個人情報", {"fields": ("name", "postal_code", "address", "phone")}),
+        ("個人情報", {"fields": ("name", "birth", "postal_code", "address", "phone")}),  # ← birth追加！
         ("日付", {"fields": ("last_login", "date_joined")}),
     )
 
