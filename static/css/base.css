@@ -110,20 +110,34 @@ nav ul li a {
   /* background-color: rgb(205, 22, 22); */
 }
 
-#personal_box {
+/* 右サイドしおり部分 */
+
+#personal_box_logout {
   pointer-events: auto;
   position: fixed;
   top: 0px;
   border-radius: 0px 0px 10px 10px;
   background-color: rgb(44, 29, 16);
-  padding: 6px 15px 6px 15px;
+  padding: 8px 15px 10px 15px;
+  display: flex; /* 親要素にflexboxを適用 */
+  flex-direction: column; /* 子要素を縦に並べる */
+  align-items: flex-end;
+}
+
+#personal_box_login {
+  pointer-events: auto;
+  position: fixed;
+  top: 0px;
+  border-radius: 0px 0px 10px 10px;
+  background-color: rgb(44, 29, 16);
+  padding: 6px 15px 9px 15px;
   display: flex; /* 親要素にflexboxを適用 */
   flex-direction: column; /* 子要素を縦に並べる */
   align-items: flex-end;
 }
 
 
-#personal_box_01, #personal_box_02, #personal_box_03 {
+#personal_box_01, #personal_box_02, #personal_box_03, #personal_box_04 {
   color: aliceblue;
   display: flex;
   align-items: flex-end;
@@ -131,7 +145,10 @@ nav ul li a {
 
 #personal_box_01 {
   margin-bottom: 3px;
-  align-items: center;
+}
+
+#personal_box_04 {
+  margin-bottom: -2px;
 }
 
 .personal_box_link {
@@ -139,8 +156,8 @@ nav ul li a {
 }
 
 
-.personal_box_h2, .personal_box_h3, .personal_box_h4, .personal_box_h6, .personal_box_h7 {
-  margin: -5px 0px -4px 2px;
+.personal_box_h2, .personal_box_h3, .personal_box_h4, .personal_box_h6, .personal_box_h7, .personal_box_h8 {
+  margin: -5px 0px -2px 2px;
 }
 
 .personal_box_h2 {
@@ -150,6 +167,7 @@ nav ul li a {
 }
 .personal_box_h3 {
   margin-left: 9px;
+  padding-bottom: 2px;
   font-size: 15px;
   font-weight: 400;
 }
@@ -171,8 +189,60 @@ nav ul li a {
   font-weight: 800;
 }
 
-.personal_box_h7 span {
+.personal_box_h8 {
+  display:flex;
+  padding-top: 2px;
+  font-size: 24px;
+  font-family: 'Zen Kurenaido';
+  font-weight: 600;
+}
+
+.personal_box_h8 span {
+  display:block;
   font-size: 0.6em;
+  padding-top: 7px;
+}
+
+/* 右ページページハンバーガーメニュー部分 */
+
+.hamburger-menu {
+  pointer-events: auto;
+  position: fixed;
+  right: 40px;
+  top: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.hamburger-line {
+    width: 100%;
+    height: 1px;
+    background-color: #333;
+    margin-bottom: 9px;
+}
+
+@keyframes color-change {
+  0% {
+    background-color: #333;
+  }
+  50% {
+    background-color: #ff0000;
+  }
+  100% {
+    background-color: #333;
+  }
+}
+
+.animate-color-change {
+  animation-name: color-change;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 }
 
 

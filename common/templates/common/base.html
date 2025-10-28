@@ -185,19 +185,41 @@
 
             <div id="main_right">
 
-                <div id="personal_box">
+                {% if user.is_authenticated and wallet %}
+                <div id="personal_box_login">
                     <div id="personal_box_01">
+                        <h2 class="personal_box_h2">{{ user.name|default:user.username }}</h2><h3 class="personal_box_h3">様</h3>
+                    </div>
+                    <div id="personal_box_02">
+                        <h4 class="personal_box_h4">{{ wallet.stanning_point_balance }}</h4><h6 class="personal_box_h6">スタポ</h6>
+                    </div>
+                    <div id="personal_box_03">
+                        <h4 class="personal_box_h4">{{ wallet.cheer_coin_balance }}</h4><h6 class="personal_box_h6">チアコ</h6>
+                    </div>
+                </div>
+                {% else %}
+                <div id="personal_box_logout">
+                    <div id="personal_box_04">
                         <a class="personal_box_link" href="{% url 'accounts:signup' %}">
-                            <h2 class="personal_box_h7"><span>▶ </span>新規登録</h2>
+                            <h2 class="personal_box_h8"><span>▶</span>新規登録</h2>
                         </a>
                     </div>
-
-                    <div id="personal_box_01">
+                    <div id="personal_box_04">
                         <a class="personal_box_link" href="{% url 'accounts:login' %}">
-                            <h2 class="personal_box_h7"><span>▶ </span>ログイン</h2>
+                            <h2 class="personal_box_h8"><span>▶</span>ログイン</h2>
                         </a>
                     </div>
                 </div>
+                {% endif %}
+
+                <div class="hamburger-menu">
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                    <div class="hamburger-line"></div>
+                </div>
+
+
+
 
                 <a class="pagetop" href="#">
                         <div class="pagetop_arrow"></div>
