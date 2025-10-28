@@ -1,10 +1,13 @@
 /* ===== 全体レイアウト ===== */
+
+
 #goods_main_center {
   width: 90%;
   max-width: 1200px;
   margin: 40px auto;
   text-align: center;
   font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+  padding-bottom: 20px;  /* スクロールバーの分余白 */
 }
 
 #goods_main_center h2 {
@@ -137,3 +140,87 @@
   box-shadow: 0 0 3px rgba(0,0,0,0.3); /* ちょっと浮かせる */
 }
 
+
+/* 住所確認ページ */
+
+/* ====== 住所確認ページ専用スタイル ====== */
+
+#checkout-main_center {
+    padding-top: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* 新しい住所フォーム */
+#checkout-main_center .address-form {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    width: 350px;
+}
+#checkout-main_center .address-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+#checkout-main_center .address-form input {
+    width: 100%;
+    padding: 6px;
+    margin-top: 3px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* カート内容 */
+.checkout-cart {
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+}
+.checkout-cart li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* ボタン */
+.checkout-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+.checkout-btn:hover {
+    background-color: #0056b3;
+}
+
+/* 戻るリンク */
+.back-link {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #007bff;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* エラーメッセージ */
+.checkout-error-message {
+    background-color: #ffe5e5;
+    color: #b30000;
+    border: 1px solid #b30000;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+/* エラー入力欄 */
+input.checkout-error {
+    border-color: #b30000;
+    background-color: #fff5f5;
+}
