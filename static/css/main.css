@@ -1,43 +1,83 @@
-
-/* ====== Grid ====== */
-.animal-grid {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  max-width: 1280px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  padding: 0 16px;
+/* =========================================
+   Theme Vars (scoped)
+========================================= */
+.index {
+  --gap: 10px;
+  --grid-min: 250px;
+  --rank-width: 250px;
+  --header-offset: 100px;
+  --c-text: #222;
+  --c-bg: #000;
+  --c-white: #fff;
+  --c-muted: #ddd;
+  --c-badge1: rgba(255, 77, 77, 0.80);
+  --c-badge2: rgba(255, 123, 123, 0.70);
+  --c-btn-p1: #ff5a5a;
+  --c-btn-p2: #ff9ca0;
+  --c-btn-p1-hover: #ff7373;
+  --c-btn-p2-hover: #ffb4b8;
+  --c-btn-m1: #8fe8f5;
+  --c-btn-m2: #5cc2d6;
+  --c-btn-m1-hover: #a6f3ff;
+  --c-btn-m2-hover: #64c9e5;
+  --shadow-soft: 0 4px 8px rgba(0,0,0,0.1);
+  --shadow-left: -2px 0 8px rgba(0,0,0,0.1);
 }
 
-/* ====== Card ====== */
-.animal-card {
-  /* background: #000000; */
-  color: #222;
+/* =========================================
+   Grid & Right Ranking Area
+========================================= */
+.index .animal-grid {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
+  box-sizing: border-box;
+  padding-left: 0;
+  padding-right: 16px;
+  margin-right: var(--rank-width);
+  transition: margin-right 0.3s ease;
+}
+
+.index .ranking-box {
+  position: fixed;
+  top: var(--header-offset);
+  right: 0;
+  width: var(--rank-width);
+  height: calc(100vh - var(--header-offset));
+  background-color: #fafafa;
+  border-left: 1px solid #ddd;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: var(--shadow-left);
+  z-index: 10;
+}
+
+/* =========================================
+   Card
+========================================= */
+.index .animal-card {
+  color: var(--c-text);
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   font-size: 1.05em;
-  /* box-shadow: 0 4px 10px rgba(0,0,0,0.2); */
-}
-
-/* ====== 登場アニメーション ====== */
-.animal-card {
   opacity: 0;
   transform: translateY(15px) scale(0.97);
   filter: blur(2px);
-  transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+  transition:
+    opacity 0.45s cubic-bezier(.2,.7,.2,1),
+    transform 0.45s cubic-bezier(.2,.7,.2,1),
+    filter 0.45s cubic-bezier(.2,.7,.2,1);
   will-change: opacity, transform, filter;
-  transition-timing-function: cubic-bezier(.2, .7, .2, 1);
-
 }
-.animal-card.is-revealed {
+.index .animal-card.is-revealed {
   opacity: 1;
   transform: none;
   filter: none;
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .animal-card {
+  .index .animal-card {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;
@@ -45,259 +85,358 @@
   }
 }
 
-
-/* ====== Media (image area) ====== */
-.animal-media {
+/* =========================================
+   Media (image area)
+========================================= */
+.index .animal-media {
   position: relative;
-  aspect-ratio: 4 / 3;         /* 縦を少し詰めた比率 */
-  overflow: hidden;               /* はみ出し防止（ズーム時） */
+  aspect-ratio: 4 / 3;
+  border-radius: inherit;
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: paint;
 }
 
-/* 画像（通常＋hover） */
-.animal-media img {
+.index .animal-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;    /* 上寄せトリミング（お好みでcenterに） */
-  transform: scale(1.05);         /* ほんのり拡大＝上下をトリミング風に */
+  object-position: center center;
+  display: block;
   transition: transform 0.3s ease, filter 0.3s ease;
-  position: relative;
-  z-index: 1;                     /* 背面レイヤー */
 }
-.animal-media:hover img,
-.animal-media img.is-hoverlock {
-  transform: scale(1.1);
+.index .animal-media:hover img,
+.index .animal-media img.is-hoverlock {
+  transform: scale(1.06);
 }
 
-/* クリック時の揺れ演出（任意） */
-.animal-media.shake { animation: mediaShake 0.3s ease; }
-@keyframes mediaShake {
-  0%   { transform: rotate(0deg); }
-  30%  { transform: rotate(2deg); }
-  60%  { transform: rotate(-2deg); }
-  100% { transform: rotate(0deg); }
-}
-
-/* ====== Hover overlay text ====== */
-.media-overlay {
+/* =========================================
+   Hover Overlay (scoped)
+========================================= */
+.index .media-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 6px;
+  padding: 12px;
   text-align: center;
-  color: #fff;
-  opacity: 0;                     /* 初期は非表示 */
-  transform: translateY(6px);
-  transition: opacity .25s ease, transform .25s ease;
-  pointer-events: none;           /* クリックは下の要素へ */
-  z-index: 2;                     /* 画像より前、ボタンより後ろ */
-
-  /* 下方向ほど濃くなる薄い黒グラデ（読みやすさUP） */
+  color: var(--c-white);
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.0),
-    rgba(0,0,0,0.35) 40%,
-    rgba(0,0,0,0.6)
+    rgba(0,0,0,0.15),
+    rgba(0,0,0,0.35)
   );
+  opacity: 0;
+  transform: translateY(6px);
+  visibility: hidden;
+  transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+  pointer-events: none;
+  z-index: 2;
 }
-.animal-media:hover .media-overlay,
-.animal-media.hover .media-overlay { /* タップ用に .hover を付与する場合 */
+.index .animal-media:hover .media-overlay,
+.index .animal-media.hover .media-overlay {
   opacity: 1;
   transform: translateY(0);
+  visibility: visible;
 }
 
-/* オーバーレイ内の文字 */
-.media-title {
+.index .media-title {
   margin: 0;
   font-weight: 800;
-  font-size: 2rem;
+  font-size: 1.8rem;
   letter-spacing: .02em;
 }
-.media-sub {
+.index .media-sub {
   margin: 0;
   font-size: 1.3rem;
   opacity: .9;
 }
 
-/* ====== Badges & Buttons（常に最前面） ====== */
-.oshii-badge,
-.intro-btn,
-.push-btn {
+/* =========================================
+   Badges & Buttons
+========================================= */
+.index .oshii-badge,
+.index .intro-btn,
+.index .push-btn {
   position: absolute;
-  z-index: 3;   /* オーバーレイより前面に固定 */
+  z-index: 3;
 }
 
-/* 推しポイントバッジ */
-.oshii-badge {
+.index .oshii-badge {
   right: 10px;
   top: 10px;
   padding: 6px 10px;
   border-radius: 999px;
   font-weight: 700;
-  color: #fff;
+  color: var(--c-white);
   text-shadow: 0 1px 2px rgba(0,0,0,.3);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 77, 77, 0.80),
-    rgba(255, 123, 123, 0.70)
-  );
+  background: linear-gradient(135deg, var(--c-badge1), var(--c-badge2));
   box-shadow: 0 3px 6px rgba(255, 77, 77, 0.4);
   border: 1px solid rgba(255,255,255,0.25);
   letter-spacing: .5px;
   transition: transform .2s ease, box-shadow .2s ease;
 }
-.oshii-badge:hover {
+.index .oshii-badge:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(255, 77, 77, 0.5);
 }
 
-/* 推しボタン（ピンク） */
-.push-btn {
+.index .push-btn {
   left: 10px;
-  bottom: 10px;
-  background: linear-gradient(135deg, #ff5a5a, #ff9ca0);
-  border: none;
-  color: #fff;
-  font-size: 20px;
+  bottom: 15px;
+  background: #ffffffd6;
+  color: #ff5a5a;
+  font-size: 17px;
   font-weight: 800;
-  padding: 8px 16px;
+  padding: 8px 12px;
   border-radius: 14px;
+  border: 2px solid #ff5a5a;
   cursor: pointer;
-  transition: transform .15s, box-shadow .15s;
-  box-shadow: 0 4px 8px rgba(255, 105, 97, 0.4);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  overflow: hidden;
 }
-.push-btn:hover {
-  background: linear-gradient(135deg, #ff7373, #ffb4b8);
+.index .push-btn:hover {
+  background: linear-gradient(135deg, #ff5a5a, #ff9ca0);
+  color: #fff;
   transform: scale(1.08);
   box-shadow: 0 5px 10px rgba(255, 105, 97, 0.5);
 }
-
-/* ====== 紹介ボタン（ミント） ====== */
-.intro-btn {
+.index .push-btn:active {
+  transform: scale(0.9);
+  transition: transform 0.1s;
+}
+.index .push-btn::after {
+  content: "";
   position: absolute;
-  right: 10px;
-  bottom: 10px;
-  text-decoration: none;
-  font-size: 20px;          /* ← 拡大 */
-  font-weight: 800;
-  padding: 8px 16px;        /* ← 同じく大きく */
-  border-radius: 14px;
-  background: linear-gradient(135deg, #8fe8f5, #5cc2d6);
-  color: #fff;
-  box-shadow: 0 4px 8px rgba(80, 180, 220, 0.4);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+  transform: skewX(-25deg);
+}
+.index .push-btn.shine::after {
+  animation: index-shineMove 0.7s ease forwards;
 }
 
-.intro-btn:hover {
-  background: linear-gradient(135deg, #a6f3ff, #64c9e5);
+.index .intro-btn {
+  right: 10px;
+  bottom: 15px;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 800;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: #ffffffd0;
+  color: #42b8c7;
+  border: 2px solid #42b8c7;
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  overflow: hidden;
+}
+.index .intro-btn:hover {
+  background: linear-gradient(135deg, #8fe8f5, #5cc2d6);
+  color: #fff;
   transform: scale(1.07);
   box-shadow: 0 5px 10px rgba(80, 180, 220, 0.5);
 }
-
-
-/* バッジのポップ演出（任意） */
-.oshii-badge.pop { animation: popBadge 0.25s ease; }
-@keyframes popBadge {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.15); }
-  100% { transform: scale(1); }
-}
-.point.flash { color: #ff5a8b; transition: color 0.3s ease; }
-
-/* ====== Body（下の黒帯） ====== */
-/* ※ 競合していたので .animal-body はこの1箇所に統一 */
-.animal-body {
-  padding: 6px 12px;   /* 上下を控えめにして黒帯を薄く */
-  background: #000;
-  color: #fff;
+.index .intro-btn:active {
+  transform: scale(0.92);
+  transition: transform 0.1s;
 }
 
-/* タイトル行（左の推しラベルと横並び） */
-.animal-header {
+/* ポップ演出 & 強調 */
+.index .oshii-badge.pop { animation: index-popBadge 0.25s ease; }
+
+/* =========================================
+   Body（下の黒帯）
+========================================= */
+.index .animal-body {
+  padding: 6px 12px;
+  background: var(--c-bg);
+  color: var(--c-white);
+}
+.index .animal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0;
 }
-
-/* タイトル＆サブ（余白を詰め気味） */
-.animal-title {
+.index .animal-title {
   margin: 0;
   font-weight: 800;
   font-size: 1.1em;
-  color: #fff;
+  color: var(--c-white);
 }
-.animal-sub {
+.index .animal-sub {
   margin: 2px 0 0 0;
+  color: var(--c-muted);
   opacity: 0.9;
-  color: #ddd;
 }
 
-/* 推しラベル（左上配置） */
-.oshi-label {
-  position: absolute;           /* ← 固定配置に変更 */
-  top: 10px;                    /* 上からの距離 */
-  left: 10px;                   /* 左からの距離 */
+/* 左上の推しラベル */
+.index .oshi-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
   padding: 4px 10px;
   background: linear-gradient(135deg, #ff8bb0, #ff4d7e);
-  color: #fff;
+  color: var(--c-white);
   font-size: 0.9em;
   font-weight: 700;
   border-radius: 999px;
   text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  animation: popIn 0.4s ease;
-  z-index: 4;                   /* 推しバッジ・ボタンより少し後ろでもOK */
+  animation: index-popIn 0.4s ease;
+  z-index: 4;
 }
 
-@keyframes popIn {
-  0%   { transform: scale(0.6); opacity: 0; }
-  80%  { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); }
-}
-
-
-/* ====== Others ====== */
-.hero img {
+/* =========================================
+   Others
+========================================= */
+.index .hero img {
   width: 80%;
   height: auto;
   object-fit: cover;
   display: block;
   margin: 20px auto;
 }
-.concept-wrap {
+
+.index .concept-wrap {
   text-align: center;
   margin: 60px auto;
   font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
   line-height: 1.8;
 }
-.concept-text h1 {
+.index .concept-text h1 {
   font-size: 3rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   margin-bottom: 20px;
 }
-.concept-text p {
+.index .concept-text p {
   font-size: 1.4rem;
   margin: 6px 0;
 }
 
-/* ====== Hearts (flying) ====== */
-.heart {
-  position: fixed;           /* ← ビューポート基準で座標指定 */
+/* 飛ぶハート（.index 内に追加される前提） */
+.index .heart {
+  position: fixed;
   left: 0;
   top: 0;
+  transform: translate(-50%, -50%);
   color: #ff4d6d;
   font-size: 30px;
   opacity: 0.9;
-  animation: floatHeart 1s ease-out forwards;
+  animation: index-floatHeart 1s ease-out forwards;
   pointer-events: none;
-  z-index: 5;             /* ← 最前面に出す */
+  z-index: 5;
 }
 
-@keyframes floatHeart {
-  0%   { transform: translateY(0) scale(1);   opacity: 1; }
-  100% { transform: translateY(-100px) scale(1.6); opacity: 0; }
+/* =========================================
+   Carousel
+========================================= */
+.index .carousel {
+  position: relative;
+  display: grid;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.index .carousel .slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: scale(1);
+  transform-origin: center center;
+  transition:
+    opacity .35s ease,
+    transform .35s cubic-bezier(.22,.61,.36,1);
+  will-change: transform, opacity;
+}
+.index .carousel .slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* カルーセル拡大：表示中のみ */
+.index .animal-media:hover .slide.active,
+.index .animal-media .slide.is-hoverlock {
+  transform: scale(1.06);
+}
+
+/* ドット */
+.index .dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+.index .dots button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(32, 32, 32, 0.6);
+  cursor: pointer;
+  transition: background .2s;
+}
+.index .dots button.active {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* アクション列 */
+.index .card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* =========================================
+   Micro Interactions (keyframes renamed)
+========================================= */
+.index .animal-media.shake { animation: index-mediaShake 0.3s ease; }
+
+@keyframes index-shineMove {
+  0%   { left: -75%; }
+  100% { left: 125%; }
+}
+@keyframes index-popBadge {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+@keyframes index-popIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  80% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes index-floatHeart {
+  0%   { transform: translate(-50%, -50%) translateY(0)    scale(1); }
+  100% { transform: translate(-50%, -50%) translateY(-100px) scale(1.6); opacity: 0; }
+}
+@keyframes index-mediaShake {
+  0%   { transform: rotate(0deg); }
+  30%  { transform: rotate(2deg); }
+  60%  { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
 }

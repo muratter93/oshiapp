@@ -1,89 +1,4 @@
-
-document.querySelectorAll('.push-btn').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    const id = btn.dataset.id;
-
-    try {
-      const res = await fetch(`/like/${id}/`, {
-        method: 'POST',
-        headers: {'X-CSRFToken': getCookie('csrftoken')},
-      });
-      const data = await res.json();
-
-      if (data.total_point !== undefined) {
-        // ① 推しポイント更新
-        const card = btn.closest('.animal-card');
-        card.querySelector('.point').textContent = data.total_point;
-
-        // 💡 推しポイント数値を一瞬ピンクに
-const pointElem = card.querySelector('.point');
-if (pointElem) {
-  pointElem.classList.add('flash');
-  setTimeout(() => {
-    pointElem.classList.remove('flash');
-  }, 350); // 0.3秒後に戻す
-}
-
-        // ✅ 推しポイントのバッジをポンっと拡大
-      const badge = card.querySelector('.oshii-badge');
-      if (badge) {
-        badge.classList.remove('pop');  // 連打時にリセット
-        void badge.offsetWidth;         // reflow（再描画強制）
-        badge.classList.add('pop');     // アニメ再生
-      }
-
-
-        // ② ウォレット残高・スタポ更新
-        const walletElem = document.querySelector('#wallet-balance');
-        const stapoElem = document.querySelector('#wallet-stapo');
-        if (walletElem && data.cheer_coin_balance !== undefined) {
-          walletElem.textContent = Number(data.cheer_coin_balance).toLocaleString();
-        }
-        if (stapoElem && data.stanning_point_balance !== undefined) {
-          stapoElem.textContent = Number(data.stanning_point_balance).toLocaleString();
-        }
-
-        // ③ ハート演出
-        spawnHearts(btn, 3);
-// ④ 画像ズーム揺れ＋ホバー維持
-const media = card.querySelector('.animal-media');
-const img = media?.querySelector('img');
-if (img && media) {
-  // 押した瞬間から1.05維持
-  img.classList.add('is-hoverlock');
-
-  // 親に“揺れ”を付与（rotateのみなのでscaleと干渉しない）
-  media.classList.remove('shake');
-  void media.offsetWidth;
-  media.classList.add('shake');
-
-  // 揺れ終了後もロックは維持（hoverじゃなくても1.05のまま）
-  media.addEventListener('animationend', () => {
-    media.classList.remove('shake');
-  }, { once: true });
-
-  // マウスが外れたらロック解除（1.0へ自然に戻る）
-  media.addEventListener('mouseleave', () => {
-    img.classList.remove('is-hoverlock');
-  }, { once: true });
-}
-
-
-
-      } else if (data.error) {
-        alert(data.error);
-      } else {
-        alert('エラーが発生しました。');
-      }
-
-    } catch (err) {
-      console.error(err);
-      alert('通信に失敗しました。');
-    }
-  });
-});
-
-// ✅ CSRFトークン取得
+// ========= 共通ユーティリティ =========
 function getCookie(name){
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {
@@ -99,49 +14,188 @@ function getCookie(name){
   return cookieValue;
 }
 
-/* ❤️ ハートを飛ばす */
+/* ❤️ ハートを飛ばす（.index 内に追加、position:fixed想定） */
 function spawnHearts(button, count = 3) {
+  const wrapper = button.closest('.index') || document.body;
   const rect = button.getBoundingClientRect();
   for (let i = 0; i < count; i++) {
     const el = document.createElement('span');
-    el.className = 'heart';
+    el.className = 'heart';               // CSSは .index .heart を定義しておく
     el.textContent = '❤️';
-    const startX = rect.left + rect.width / 2;
-    const startY = rect.top + window.scrollY + 4;
-    const offsetX = (Math.random() - 0.5) * 60;
-    el.style.left = `${startX + offsetX}px`;
-    el.style.top  = `${startY}px`;
-    document.body.appendChild(el);
+    const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 40;
+    const y = rect.top  + rect.height / 2;
+    el.style.left = `${x}px`;
+    el.style.top  = `${y}px`;
+    wrapper.appendChild(el);
     setTimeout(() => el.remove(), 1000);
   }
+  // キラッ
+  button.classList.add('shine');
+  setTimeout(() => button.classList.remove('shine'), 700);
 }
 
-// カードを順番に出す
-function revealCards(stagger = 90, initialDelay = 120) {
-  const cards = document.querySelectorAll('.animal-card');
+/* カードを順番に出す（コンテナ単位） */
+function revealCards(container, stagger = 90, initialDelay = 120) {
+  const cards = container.querySelectorAll('.animal-card');
   cards.forEach((card, i) => {
-    card.classList.remove('is-revealed');           // まず隠す（リプレイ用）
-    const delay = initialDelay + i * stagger;       // 90ms刻みでずらす
+    card.classList.remove('is-revealed');  // リプレイ対応
+    const delay = initialDelay + i * stagger;
     setTimeout(() => card.classList.add('is-revealed'), delay);
   });
 }
 
-// 初回（ページ読み込み時）
-window.addEventListener('DOMContentLoaded', () => {
-  // ユーザーの簡略設定を尊重
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReduced) return;
-  revealCards();
-});
-
-// もし「更新」ボタンがあるなら、それを押した時にも再生できる
-// 例: <button id="refresh-btn">更新</button>
-const refreshBtn = document.getElementById('refresh-btn');
-if (refreshBtn) {
-  refreshBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    // ここでリロードするなら location.reload();
-    // もしくはAjaxで並び替え後にアニメだけ再生:
-    revealCards();
-  });
+/* シャッフル（Fisher–Yates） */
+function shuffleChildren(parent) {
+  const nodes = Array.from(parent.children);
+  for (let i = nodes.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
+  }
+  parent.innerHTML = '';
+  nodes.forEach(n => parent.appendChild(n));
 }
+
+/* カルーセル（ホバーでだけオート、離すとその場で停止） */
+function setupCarousel(carousel) {
+  const slides = Array.from(carousel.querySelectorAll('.slide'));
+  const dotsContainer = carousel.querySelector('.dots');
+  if (!slides.length) return;
+
+  const INTERVAL = Number(carousel.dataset.interval) || 1500;
+  let current = 0, timer = null, isHovering = false;
+
+  const goTo = (idx) => {
+    current = (idx + slides.length) % slides.length;
+    slides.forEach(s => s.classList.remove('active'));
+    slides[current].classList.add('active');
+    dotsContainer?.querySelectorAll('button').forEach((b, i) => {
+      b.classList.toggle('active', i === current);
+    });
+  };
+  const next = () => goTo(current + 1);
+  const startAuto = () => { if (!timer && slides.length > 1) timer = setInterval(next, INTERVAL); };
+  const stopAuto  = () => { if (timer) { clearInterval(timer); timer = null; } };
+
+  if (dotsContainer) {
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        goTo(i);
+        if (isHovering) { stopAuto(); startAuto(); }
+      });
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  goTo(0);
+  carousel.addEventListener('mouseenter', () => { isHovering = true;  startAuto(); });
+  carousel.addEventListener('mouseleave', () => { isHovering = false; stopAuto(); });
+}
+
+/* ========= 初期化（.index コンテナごとに実行） ========= */
+window.addEventListener('DOMContentLoaded', () => {
+  const containers = document.querySelectorAll('.index');
+  if (!containers.length) return;
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  containers.forEach(container => {
+    // 1) ボタン：push（いいね）
+    container.querySelectorAll('.push-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if (btn.disabled) return;                // 連打防止
+        btn.disabled = true;
+
+        const id = btn.dataset.id;
+        try {
+          const res = await fetch(`/like/${id}/`, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': getCookie('csrftoken') },
+          });
+
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+
+          if (data.total_point !== undefined) {
+            // ① 推しポイント更新
+            const card = btn.closest('.animal-card');
+            const pointElem = card?.querySelector('.point');
+            if (pointElem) {
+              pointElem.textContent = data.total_point;
+              // ピンク点滅（CSSは .index .point.flash 推奨）
+              pointElem.classList.add('flash');
+              setTimeout(() => pointElem.classList.remove('flash'), 350);
+            }
+
+            // バッジをポン
+            const badge = card?.querySelector('.oshii-badge');
+            if (badge) {
+              badge.classList.remove('pop');
+              void badge.offsetWidth;
+              badge.classList.add('pop');
+            }
+
+            // ② ウォレット更新（グローバルID想定）
+            const walletElem = document.querySelector('#wallet-balance');
+            const stapoElem  = document.querySelector('#wallet-stapo');
+            if (walletElem && data.cheer_coin_balance !== undefined) {
+              walletElem.textContent = Number(data.cheer_coin_balance).toLocaleString();
+            }
+            if (stapoElem && data.stanning_point_balance !== undefined) {
+              stapoElem.textContent = Number(data.stanning_point_balance).toLocaleString();
+            }
+
+            // ③ ハート演出
+            spawnHearts(btn, 3);
+
+            // ④ 画像ズーム揺れ＋ホバー維持
+            const media = card?.querySelector('.animal-media');
+            const img = media?.querySelector('img');
+            if (img && media) {
+              img.classList.add('is-hoverlock');     // 1.06維持（CSSで調整可）
+              media.classList.remove('shake');
+              void media.offsetWidth;
+              media.classList.add('shake');
+              media.addEventListener('animationend', () => {
+                media.classList.remove('shake');
+              }, { once: true });
+              media.addEventListener('mouseleave', () => {
+                img.classList.remove('is-hoverlock');
+              }, { once: true });
+            }
+          } else if (data.error) {
+            alert(data.error);
+          } else {
+            alert('エラーが発生しました。');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('通信に失敗しました。');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    });
+
+    // 2) カード登場アニメ
+    if (!prefersReduced) revealCards(container);
+
+    // 3) 任意の「更新」ボタン（コンテナ内）
+    const refreshBtn = container.querySelector('#refresh-btn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        revealCards(container);
+      });
+    }
+
+    // 4) 初期シャッフル（コンテナ内の全グリッド）
+    container.querySelectorAll('.animal-grid').forEach(grid => shuffleChildren(grid));
+
+    // 5) カルーセル初期化（コンテナ内）
+    container.querySelectorAll('.carousel').forEach(setupCarousel);
+  });
+});
