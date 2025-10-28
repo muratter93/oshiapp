@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 
 <!DOCTYPE html>
 <html>
@@ -191,10 +192,10 @@
                         <h2 class="personal_box_h2">{{ user.name|default:user.username }}</h2><h3 class="personal_box_h3">様</h3>
                     </div>
                     <div id="personal_box_02">
-                        <h4 class="personal_box_h4">{{ wallet.stanning_point_balance }}</h4><h6 class="personal_box_h6">スタポ</h6>
+                        <h4 id="wallet-balance" class="personal_box_h4">{{ wallet.cheer_coin_balance|intcomma }}</h4><h6 class="personal_box_h6">チアコ</h6>
                     </div>
                     <div id="personal_box_03">
-                        <h4 class="personal_box_h4">{{ wallet.cheer_coin_balance }}</h4><h6 class="personal_box_h6">チアコ</h6>
+                        <h4 id="wallet-stapo" class="personal_box_h4">{{ wallet.stanning_point_balance|intcomma }}</h4><h6 class="personal_box_h6">スタポ</h6>
                     </div>
                 </div>
                 {% else %}
@@ -212,11 +213,34 @@
                 </div>
                 {% endif %}
 
-                <div class="hamburger-menu">
+
+                <div class="hamburger-menu" onclick="toggleMenu(this)">
                     <div class="hamburger-line"></div>
                     <div class="hamburger-line"></div>
                     <div class="hamburger-line"></div>
                 </div>
+                
+                <div id="hamburger_menu_content_outside">
+
+                <ul id="hamburger_menu_content">
+                    <li id="hamburger_menu_content_01">
+                        <a href="#">トップ</a>
+                        <a href="#">アバウト</a>
+                        <a href="#">アニマルランキング</a>
+                        <a href="#">動物たちの様子を観る</a>
+                        <a href="#">チアコを買う</a>
+                        <a href="#">グッズに交換する</a>
+                    </li>
+                    <li id="hamburger_menu_content_02">
+                        <a href="#">新規登録</a>
+                        <a href="#">ログイン</a>
+                        <a href="#">会員情報変更</a>
+                        <a href="#">ログアウト</a>
+                    </li>
+                </ul>
+                </div>
+
+                <script src="{% static 'js/base.js' %}"></script>
 
 
 

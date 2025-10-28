@@ -4,79 +4,114 @@
 {% block title %}住所確認{% endblock %}
 
 {% block extra_head %}
-<style>
-/* 中央部分の余白調整 */
-#main_center {
-    padding-top: 100px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-/* カート内容リスト */
-.checkout-cart {
-    margin-top: 20px;
-    list-style: none;
-    padding: 0;
-}
-
-.checkout-cart li {
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-/* 確定ボタン */
-.checkout-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-}
-
-.checkout-btn:hover {
-    background-color: #0056b3;
-}
-
-/* 戻るリンク */
-.back-link {
-    display: inline-block;
-    margin-top: 10px;
-    text-decoration: none;
-    color: #007bff;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/goods.css' %}">
 {% endblock %}
 
 {% block content %}
-<h2>住所確認ページ</h2>
+<div id="checkout-main_center">
+  <h2>住所確認ページ</h2>
 
-<p><strong>名前:</strong> {{ member.name }}</p>
-<p><strong>郵便番号:</strong> {{ member.postal_code }}</p>
-<p><strong>住所:</strong> {{ member.address }}</p>
-<p><strong>電話番号:</strong> {{ member.phone }}</p>
+  <!-- エラーメッセージ -->
+  <div id="error-container" class="checkout-error-message" style="display:none;"></div>
 
-<h3>カート内容</h3>
-<ul class="checkout-cart">
-    {% for item in cart_items %}
-        <li>{{ item.goods.name }} × {{ item.quantity }}個（{{ item.get_required_stanning_points }}スタポ）</li>
-    {% endfor %}
-</ul>
+  <form method="post" action="{% url 'goods:confirm_exchange' %}" id="address-form">
+      {% csrf_token %}
 
-<p><strong>合計スタポ:</strong> {{ total_stanning }}</p>
-<p><strong>現在のウォレット残高:</strong> {{ wallet.stanning_point_balance }}スタポ</p>
+      <h3>配送先の選択</h3>
+      <label>
+          <input type="radio" name="address_option" value="registered" checked> 登録済み住所を使用
+      </label><br>
+      <label>
+          <input type="radio" name="address_option" value="new"> 新しい住所を使用
+      </label>
 
-<form method="post" action="{% url 'goods:confirm_exchange' %}">
-    {% csrf_token %}
-    <button type="submit" class="checkout-btn">交換を確定する</button>
-</form>
+      <!-- 登録済み住所 -->
+      <div id="registered-address" style="margin-top:10px;">
+          <p><strong>名前:</strong> {{ member.name }}</p>
+          <p><strong>郵便番号:</strong> {{ member.postal_code }}</p>
+          <p><strong>住所:</strong> {{ member.address }}</p>
+          <p><strong>電話番号:</strong> {{ member.phone }}</p>
+      </div>
 
-<a href="{% url 'goods:cart_view' %}" class="back-link">← カートに戻る</a>
+      <!-- 新しい住所フォーム -->
+      <div id="new-address" class="address-form" style="display:none;">
+          <label>名前
+              <input type="text" name="new_name">
+          </label>
+          <label>郵便番号
+              <input type="text" name="new_postal_code" placeholder="例：123-4567">
+          </label>
+          <label>住所
+              <input type="text" name="new_address" placeholder="都道府県・市区町村・番地など">
+          </label>
+          <label>電話番号
+              <input type="text" name="new_phone" placeholder="例：09012345678">
+          </label>
+      </div>
+
+      <h3>カート内容</h3>
+      <ul class="checkout-cart">
+          {% for item in cart_items %}
+              <li>{{ item.goods.name }} × {{ item.quantity }}個（{{ item.get_required_stanning_points }}スタポ）</li>
+          {% endfor %}
+      </ul>
+
+      <p><strong>合計スタポ:</strong> {{ total_stanning }}</p>
+      <p><strong>現在のウォレット残高:</strong> {{ wallet.stanning_point_balance }}スタポ</p>
+
+      <button type="submit" class="checkout-btn">交換を確定する</button>
+  </form>
+
+  <a href="{% url 'goods:cart_view' %}" class="back-link">← カートに戻る</a>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const registered = document.getElementById("registered-address");
+    const newAddress = document.getElementById("new-address");
+    const radios = document.querySelectorAll('input[name="address_option"]');
+    const form = document.getElementById("address-form");
+    const errorContainer = document.getElementById("error-container");
+
+    radios.forEach(radio => {
+        radio.addEventListener("change", function() {
+            if (this.value === "new") {
+                newAddress.style.display = "block";
+                registered.style.display = "none";
+            } else {
+                newAddress.style.display = "none";
+                registered.style.display = "block";
+            }
+        });
+    });
+
+    form.addEventListener("submit", function(event) {
+        errorContainer.style.display = "none";
+        errorContainer.innerHTML = "";
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach(i => i.classList.remove("checkout-error"));
+
+        const selected = document.querySelector('input[name="address_option"]:checked').value;
+        if (selected === "new") {
+            const name = form.new_name.value.trim();
+            const postal = form.new_postal_code.value.trim();
+            const address = form.new_address.value.trim();
+            const phone = form.new_phone.value.trim();
+            const errors = [];
+
+            if (!name) { errors.push("名前を入力してください。"); form.new_name.classList.add("checkout-error"); }
+            if (!postal) { errors.push("郵便番号を入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
+            if (!address) { errors.push("住所を入力してください。"); form.new_address.classList.add("checkout-error"); }
+            if (!phone) { errors.push("電話番号を入力してください。"); form.new_phone.classList.add("checkout-error"); }
+
+            if (errors.length > 0) {
+                event.preventDefault();
+                errorContainer.innerHTML = errors.join("<br>");
+                errorContainer.style.display = "block";
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+        }
+    });
+});
+</script>
 {% endblock %}

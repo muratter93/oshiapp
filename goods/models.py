@@ -31,11 +31,17 @@ class Order(models.Model):
     member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     total_stanning_points = models.PositiveIntegerField()
-    shipping_address = models.TextField()
     is_confirmed = models.BooleanField(default=False)
+
+    # 新規追加
+    recipient_name = models.CharField(max_length=100, verbose_name="名前")
+    postal_code = models.CharField(max_length=20, verbose_name="郵便番号")
+    address = models.TextField(verbose_name="住所")
+    phone_number = models.CharField(max_length=20, verbose_name="電話番号")
 
     def __str__(self):
         return f"{self.member.username} の注文"
+
 
 # --- 注文アイテムモデル ---
 class OrderItem(models.Model):

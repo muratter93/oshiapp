@@ -119,45 +119,70 @@ def checkout(request):
 # 完了ページ
 @login_required
 def confirm_exchange(request):
+    if request.method != 'POST':
+        return redirect('goods:checkout')
+
     member = request.user
     cart_items = CartItem.objects.filter(member=member)
     total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
-
     wallet = member.wallet
 
-    # スタポ不足の場合
+    # スタポ不足
     if wallet.stanning_point_balance < total_stanning:
         messages.error(request, "スタポが足りません！")
         return redirect('goods:cart_view')
 
-    # 在庫減らしてウォレット更新
+    # 在庫チェック
     for item in cart_items:
-        goods = item.goods
-        if goods.stock >= item.quantity:
-            goods.stock -= item.quantity
-            goods.save()
-        else:
-            messages.error(request, f"{goods.name}の在庫が足りません")
+        if item.goods.stock < item.quantity:
+            messages.error(request, f"{item.goods.name}の在庫が足りません")
             return redirect('goods:cart_view')
 
+    # ウォレット更新
     wallet.stanning_point_balance -= total_stanning
     wallet.save()
 
-    # 注文履歴に記録
+    # 住所情報取得
+    address_option = request.POST.get('address_option')
+    if address_option == "registered":
+        recipient_name = member.name
+        postal_code = member.postal_code
+        address = member.address
+        phone_number = member.phone
+    else:  # 新規入力
+        recipient_name = request.POST.get('new_name')
+        postal_code = request.POST.get('new_postal_code')
+        address = request.POST.get('new_address')
+        phone_number = request.POST.get('new_phone')
+
+    # 注文登録
     order = Order.objects.create(
         member=member,
-        total_stanning_points=total_stanning,  # ← フィールド名を正しく！
-        shipping_address=member.address
+        total_stanning_points=total_stanning,
+        recipient_name=recipient_name,
+        postal_code=postal_code,
+        address=address,
+        phone_number=phone_number
     )
 
+    # 注文アイテム登録＆在庫減少
+    for item in cart_items:
+        OrderItem.objects.create(
+            order=order,
+            goods=item.goods,
+            quantity=item.quantity
+        )
+        item.goods.stock -= item.quantity
+        item.goods.save()
 
-    # カートを空にする
+    # カート空にする
     cart_items.delete()
 
-    # 完了ページへ
     return render(request, 'goods/exchange_complete.html', {
-        'total_stanning': total_stanning
+        'total_stanning': total_stanning,
+        'order': order
     })
+
 
 
 

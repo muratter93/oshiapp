@@ -93,8 +93,10 @@
 </table>
 
 <a href="{% url 'goods:checkout' %}" class="checkout-link">交換手続きへ</a>
+<a href="{% url 'goods:goods_list' %}" class="btn">グッズページへ戻る</a>
 
 {% else %}
 <p>買い物かごは空です。</p>
+<a href="{% url 'goods:goods_list' %}" class="btn">グッズページへ戻る</a>
 {% endif %}
 {% endblock %}
