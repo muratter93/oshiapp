@@ -138,6 +138,77 @@ window.addEventListener('DOMContentLoaded', () => {
               badge.classList.add('pop');
             }
 
+            // 💫 現在のランキングを取得（HTML置換前に呼ぶ）
+            function getCurrentRankingOrder() {
+            const current = [];
+            document.querySelectorAll('.animal-ranking-sidebar .animal-ranking-list li').forEach(li => {
+                const nameEl = li.querySelector('.rank-japanese');
+                if (nameEl) current.push(nameEl.textContent.trim());
+            });
+            return current;
+            }
+
+            // 💫 "UP"エフェクトを飛ばす
+            function showUpEffect(targetEl) {
+            const up = document.createElement('span');
+            up.textContent = 'UP↑';
+            up.className = 'rank-up';
+            targetEl.style.position = 'relative';
+            up.style.position = 'absolute';
+            up.style.right = '-40px';
+            up.style.top = '0';
+            up.style.color = '#ff4081';
+            up.style.fontWeight = 'bold';
+            up.style.fontSize = '1.1rem';
+            up.style.animation = 'flyUp 1.2s ease-out forwards';
+            targetEl.appendChild(up);
+            setTimeout(() => up.remove(), 1200);
+            }
+
+            // 💫 CSSアニメーションも追加
+            const style = document.createElement('style');
+            style.textContent = `
+            @keyframes flyUp {
+            0%   { transform: translateY(0); opacity: 1; }
+            60%  { transform: translateY(-15px); opacity: 1; }
+            100% { transform: translateY(-35px); opacity: 0; }
+            }
+            .rank-up {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            }
+            `;
+            document.head.appendChild(style);
+
+
+            // 💖ランキング更新（UPエフェクト付き）
+            if (data.ranking_html) {
+            const sidebar = document.querySelector('.animal-ranking-sidebar');
+            if (sidebar) {
+                // 1️⃣ 現在のランキングを記録
+                const oldRanking = getCurrentRankingOrder();
+
+                // 2️⃣ 一旦差し替え
+                sidebar.outerHTML = data.ranking_html;
+
+                // 3️⃣ 新しいランキングを取得
+                const newRanking = getCurrentRankingOrder();
+
+                // 4️⃣ 順位が上がった動物にUP↑演出
+                newRanking.forEach((name, idx) => {
+                const oldIndex = oldRanking.indexOf(name);
+                if (oldIndex !== -1 && oldIndex > idx) {
+                    // ランクが上がった
+                    const newLi = document.querySelectorAll('.animal-ranking-list li')[idx];
+                    if (newLi) {
+                    const nameEl = newLi.querySelector('.rank-japanese');
+                    if (nameEl) showUpEffect(nameEl);
+                    }
+                }
+                });
+            }
+            }
+
+
             // ② ウォレット更新（グローバルID想定）
             const walletElem = document.querySelector('#wallet-balance');
             const stapoElem  = document.querySelector('#wallet-stapo');

@@ -3,9 +3,8 @@
 ========================================= */
 .index {
   --gap: 10px;
-  --grid-min: 250px;
-  --rank-width: 250px;
-  --header-offset: 100px;
+  --grid-min: 240px;
+  --rank-width: 280px;
   --c-text: #222;
   --c-bg: #000;
   --c-white: #fff;
@@ -25,32 +24,81 @@
 }
 
 /* =========================================
-   Grid & Right Ranking Area
+   全体は縦積み。横並びは .index-main だけ
 ========================================= */
-.index .animal-grid {
+.index {
+  display: flex;
+  flex-direction: column;   /* ← 縦積みに変更 */
+  gap: 40px;                /* セクション間の余白 */
+  align-items: center;      /* 横幅を中央に寄せたい場合 */
+}
+
+/* 横並びにする部分だけラップ */
+.index-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  max-width: 1400px;        /* 画面の最大幅をコントロール（任意） */
+}
+
+/* 左：カードグリッド（右余白は不要） */
+.index-main .animal-grid {   /* ← 対象を .index-main 内に限定 */
+  flex: 1;
   display: grid;
   gap: var(--gap);
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
   box-sizing: border-box;
-  padding-left: 0;
-  padding-right: 16px;
-  margin-right: var(--rank-width);
-  transition: margin-right 0.3s ease;
+  padding: 0;
+  margin: 0;
 }
 
-.index .ranking-box {
-  position: fixed;
-  top: var(--header-offset);
-  right: 0;
+/* 右：ランキング（追尾なし/固定幅） */
+.animal-ranking-sidebar {
+  box-sizing: border-box;
+  flex: 0 0 var(--rank-width);
   width: var(--rank-width);
-  height: calc(100vh - var(--header-offset));
-  background-color: #fafafa;
-  border-left: 1px solid #ddd;
-  overflow-y: auto;
+  background-color: #DEB887;
+  color: #f5f5f5;
   padding: 20px;
-  box-shadow: var(--shadow-left);
-  z-index: 10;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
+
+/* ランキング内の装飾（そのまま） */
+.ranking-title {
+  font-size: 1.3rem;
+  color: #333333;
+  margin-bottom: 15px;
+  text-align: left;
+  border-bottom: 1px solid #FFFFFF;
+  padding-bottom: 5px;
+}
+.animal-ranking-list { list-style: none; margin: 0; padding: 0; }
+.animal-ranking-list li {
+  display: flex; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid #FFFFFF;
+}
+.animal-ranking-list li:last-child { border-bottom: none; }
+.rank-number { font-weight: bold; color: #333; width: 25px; text-align: right; margin-right: 10px; font-size: 1.1rem; }
+.rank-info { flex: 1; text-align: left; line-height: 1.4; }
+.rank-japanese { font-weight: bold; color: #fff; font-size: 1rem; }
+.rank-name { color: #fff; font-size: .9rem; }
+
+/* スマホでは縦並びに */
+@media (max-width: 1024px) {
+  .index-main {
+    flex-direction: column;
+    align-items: center;
+  }
+  .animal-ranking-sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+
+
 
 /* =========================================
    Card
