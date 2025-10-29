@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.db import transaction
-from .models import Wallet
+from .models import Wallet, CheerCoinPurchase 
 
 COIN_PLANS = [
     {"coins": 100,  "price": 100},
@@ -46,5 +46,19 @@ def buy_coins(request, coins: int):
     # wallet.stanning_point_balance += plan["coins"] // 100
     wallet.save(update_fields=["cheer_coin_balance", "stanning_point_balance"])
 
+     #  購入履歴を登録
+    CheerCoinPurchase.objects.create(
+        member=request.user,
+        coins=plan["coins"],
+        price=plan["price"],
+    )
+
     charge_url = reverse("money:charge")
     return redirect(f"{charge_url}?done=1&coins={plan['coins']}&price={plan['price']}")
+
+# チアコイン購入履歴
+@login_required
+def purchase_history(request):
+    # ログインユーザーの購入履歴を取得（作成日時の新しい順）
+    purchases = CheerCoinPurchase.objects.filter(member=request.user).order_by('-purchased_at')
+    return render(request, 'money/cheer-purchases.html', {'purchases': purchases})

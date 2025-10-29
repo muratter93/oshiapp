@@ -28,3 +28,19 @@ class Wallet(models.Model):
 
     def __str__(self):
         return f"{self.member.username} のウォレット"
+
+
+# --- 購入履歴モデル ---
+class CheerCoinPurchase(models.Model):
+    member = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='cheercoin_purchases',
+        verbose_name='購入者'
+    )
+    coins = models.PositiveIntegerField(verbose_name='購入チアコイン数')
+    price = models.PositiveIntegerField(verbose_name='購入金額（円）')
+    purchased_at = models.DateTimeField(auto_now_add=True, verbose_name='購入日時')
+
+    def __str__(self):
+        return f"{self.member.username} が {self.coins} チアコイン購入 ({self.price}円)"

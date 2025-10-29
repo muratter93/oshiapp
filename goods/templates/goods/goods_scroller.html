@@ -1,0 +1,48 @@
+{% load static %}
+<div class="goods-scroller-wrapper">
+    <div class="goods-scroller">
+        {% for i in "12345" %}  {# 3回ループさせる #}
+            {% for good in goods_list %}
+                <div class="goods-item">
+                    <img src="{{ good.image.url }}" alt="{{ good.name }}">
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.goods-scroller-wrapper {
+    width: 100%;
+    overflow: hidden;
+    background-color: #f8f8f8;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+
+.goods-scroller {
+    display: flex;
+    width: max-content;
+    animation: scroll-left 30s linear infinite;
+}
+
+.goods-item {
+    flex: 0 0 auto;
+    margin-right: 20px;
+}
+
+.goods-item img {
+    height: 100px; /* お好みで調整 */
+    border-radius: 8px;
+}
+
+/* 無限スクロールアニメーション */
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-33.33%); /* 3回分ループさせる */
+    }
+}
+</style>
