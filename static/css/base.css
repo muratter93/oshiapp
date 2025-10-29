@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+/* ーーーーーー */
+/* 共通基本設定 */
+/* ーーーーーー */
+
 html {
   overflow-x: hidden;
 	scroll-behavior: smooth;
@@ -7,13 +11,9 @@ html {
 
 body {
   font-family: 'M PLUS Rounded 1c';
+  margin: 0;
+  padding: 0;
 }
-
-
-
-/* ーーーーーー */
-/* 共通基本設定 */
-/* ーーーーーー */
 
 #main_body {
   margin: 0 auto;
@@ -25,28 +25,22 @@ body {
 /* ホバー時等設定 */
 /* ーーーーーー */
 
-/* a:visited { 
+a:visited { 
   color: rgb(44, 44, 43);
 }
 
 a:hover {
-  color: #1ab193;
+  color: #b78033;
 }
 
 #work_image ul li a:hover {
-  color: #1ab193;
+  color: #b78033;
 }
 
-a:hover img { opacity: 0.4;} */
+a:hover img { opacity: 0.4;}
 
 
-/* #work_image ul li a img:hover{
-	opacity:0.2;
-	transition:0.3s;
-} */
-
-
-/* メイン左上ロゴ部分 */
+/* 左部分ロゴ部分 */
 
 .main_left_image {
   background-color: rgb(255, 255, 255);
@@ -55,15 +49,18 @@ a:hover img { opacity: 0.4;} */
 }
 
 
-/* 左サイド部分 */
+/* 左部分 */
 
 #main_left {
   position: fixed;
   top: 0;
   left: 0;
-  /* background-color: rgb(173, 180, 34); */
+  background-color: rgb(173, 180, 34);
   width: 200px;
 }
+
+
+/* 左部分ナビゲーション部分 */
 
 nav {
   position: fixed;
@@ -71,52 +68,58 @@ nav {
   left: 0;
   font-weight: 600;
   font-family: 'Zen Kurenaido';
-  font-size: 22px;
+  font-size: 21px;
 }
 
 nav ul {
   list-style: none;
 }
 
+nav ul li {
+  margin-bottom: -3px;
+}
+
 nav ul li a {
+  letter-spacing: -0.1em;
   text-decoration: none;
 }
 
-
+nav ul li a span {
+  letter-spacing: -0.15em;
+  font-size: 19.5px;
+}
 
 
 /* 中央部分 */
 
 #main_center {
-  margin-left: 200px;
-  padding-top: 100px;
-  padding-left: 10px;
-  padding-right: 40px;
-  /* height: 1500px; */
+  /* margin-top: -5px;
+  margin-left: 200px; */
+  margin: 0px 0px 0px 200px;
+  padding: 100px 40px 0px 10px;
   background-color: rgb(168, 168, 234);
-  /* width: 900px; */
 }
 
 
-
-/* 右サイド部分 */
+/* 右部分 */
 
 #main_right {
   position: fixed;
   top: 0;
   right: 0;
-  width: 350px;
+  width: 550px;
   height: 1500px;
   pointer-events: none;
   /* background-color: rgb(205, 22, 22); */
 }
 
-/* 右サイドしおり部分 */
+/* 右部分しおり部分 */
 
 #personal_box_logout {
   pointer-events: auto;
   position: fixed;
   top: 0px;
+  right: 250px;
   border-radius: 0px 0px 10px 10px;
   background-color: rgb(44, 29, 16);
   padding: 8px 15px 10px 15px;
@@ -129,6 +132,7 @@ nav ul li a {
   pointer-events: auto;
   position: fixed;
   top: 0px;
+  right: 250px;
   border-radius: 0px 0px 10px 10px;
   background-color: rgb(44, 29, 16);
   padding: 6px 15px 9px 15px;
@@ -137,8 +141,8 @@ nav ul li a {
   align-items: flex-end;
 }
 
-
-#personal_box_01, #personal_box_02, #personal_box_03, #personal_box_04 {
+#personal_box_01, #personal_box_02, 
+#personal_box_03, #personal_box_04 {
   color: aliceblue;
   display: flex;
   align-items: flex-end;
@@ -156,8 +160,8 @@ nav ul li a {
   text-decoration: none;
 }
 
-
-.personal_box_h2, .personal_box_h3, .personal_box_h4, .personal_box_h6, .personal_box_h7, .personal_box_h8 {
+.personal_box_h2, .personal_box_h3, .personal_box_h4, 
+.personal_box_h6, .personal_box_h7, .personal_box_h8 {
   margin: -5px 0px -2px 2px;
 }
 
@@ -204,10 +208,10 @@ nav ul li a {
   padding-top: 7px;
 }
 
-/* 右ページページハンバーガーメニュー部分 */
 
+/* 右部分ハンバーガーメニュー部分 */
 
-.hamburger-menu {
+#hamburger_menu {
   pointer-events: auto;
   position: fixed;
   right: 50px;
@@ -222,76 +226,89 @@ nav ul li a {
   transition: transform 0.3s;
 }
 
-.hamburger-line {
-  border-bottom: 3px solid #333;
-  width: 100%;
+.hamburger_line {
+  border: 2px solid rgb(44, 29, 16);
+  border-radius: 5px;
   margin-bottom: 13px;
+  width: 80%;
   transition: background-color 0.3s;
 }
 
-.active .hamburger-line:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
+.active .hamburger_line:nth-child(1) {
+  transform: translateY(15.5px) rotate(45deg);
 }
 
-.active .hamburger-line:nth-child(2) {
+.active .hamburger_line:nth-child(2) {
   opacity: 0;
 }
 
-.active .hamburger-line:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
+.active .hamburger_line:nth-child(3) {
+  transform: translateY(-15.5px) rotate(-45deg);
 }
 
 #hamburger_menu_content_outside {
+  pointer-events: auto;
+  border-radius: 5px;
+  margin-top: 100px;
+  margin-right: 46px;
   display: none;
-  background-color: #af9898;
-  padding: 25px;
-  opacity: 0.5;
+  background-color: #ffffff;
+  opacity: 0.8;
   font-family: 'Zen Kurenaido';
-  font-size: 23px;
+  font-size: 20px;
   font-weight: 600;
 }
 
 #hamburger_menu_content {
   display: flex;
+  padding: 25px 25px 25px 25px;
+  justify-content: space-between;
 }
 
-#hamburger_menu_content li {
+#hamburger_menu_content_01, #hamburger_menu_content_03 {
   list-style: none;
+  display:flex;
+  flex-flow: column;
 }
 
-#hamburger_menu_content_01, #hamburger_menu_content_02 {
-  display: flex;
-  flex-direction: row;
+#hamburger_menu_content_02 {
+  margin-right: 23px;
+  margin-left: 17px;
+  list-style: none;
+  border: 0.1px solid rgb(44, 29, 16);
+  border-radius: 5px;
 }
 
 .active + #hamburger_menu_content_outside {
   display: block;
 }
 
+/* .active_02 + #hamburger_menu_content_outside {
+  display: none;
+} */
 
-@keyframes color-change {
-  0% {
-    color: #333;
-  }
-  50% {
-    color: #ff0000;
-  }
-  100% {
-    color: #333;
-  }
+
+
+.hamburger_menu_content_a {
+  text-decoration: none;
 }
 
-.animate-color-change {
-  animation-name: color-change;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
+.hamburger_menu_content_h3 {
+  color: rgb(44, 29, 16);
+  font-size: 28px;
+  font-weight: 900;
+  margin: -5px 0px 20px 0px;
+  text-align: right;
+}
+
+.hamburger_menu_content_h3 span {
+  font-size: 20px;
 }
 
 
-/* 右ページページトップ戻るボタン部分 */
+/* 右部分トップ戻るボタン部分 */
 
 .pagetop {
-  opacity: 0.5;
   pointer-events: auto;
   position: fixed;
   right: 50px;
@@ -307,17 +324,18 @@ nav ul li a {
 .pagetop_arrow {
   height: 40px;
   width: 40px;
-  border-top: 3px solid #4e3c31;
-  border-right: 3px solid #4e3c31;
+  border-top: 2.5px solid rgb(44, 29, 16);
+  border-right: 2.5px solid rgb(44, 29, 16);
+  border-top-right-radius: 6px;
   transform: translateY(20%) rotate(-45deg);
 }
 
 .pagetop_lang {
-  color: #4e3c31;
+  color: rgb(44, 29, 16);
   text-align: center;
   line-height: 18px;
+  font-weight: 600;
 }
-
 
 
 /* フッター部分 */

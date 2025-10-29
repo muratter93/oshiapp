@@ -1,0 +1,16 @@
+<aside class="animal-ranking-sidebar">
+  <h3 class="ranking-title">HOT10</h3>
+  <ol class="animal-ranking-list">
+    {% for a in ranking %}
+      <li>
+        <span class="rank-number">{{ forloop.counter }}</span>
+        <div class="rank-info">
+          <span class="rank-japanese">{{ a.japanese }}</span><br>
+          <span class="rank-name">{{ a.name }}</span>
+        </div>
+      </li>
+    {% empty %}
+      <li>ランキングデータがありません。</li>
+    {% endfor %}
+  </ol>
+</aside>

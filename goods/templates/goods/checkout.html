@@ -1,4 +1,4 @@
-{% extends "common/base.html" %}
+{% extends "common/base.html" %} 
 {% load static %}
 
 {% block title %}住所確認{% endblock %}
@@ -39,13 +39,13 @@
               <input type="text" name="new_name">
           </label>
           <label>郵便番号
-              <input type="text" name="new_postal_code" placeholder="例：123-4567">
+              <input type="text" name="new_postal_code" id="postal_code" placeholder="例：1234567(ハイフン不要)">
           </label>
           <label>住所
-              <input type="text" name="new_address" placeholder="都道府県・市区町村・番地など">
+              <input type="text" name="new_address" id="address" placeholder="都道府県・市区町村・番地など">
           </label>
           <label>電話番号
-              <input type="text" name="new_phone" placeholder="例：09012345678">
+              <input type="text" name="new_phone" placeholder="例：09012345678（ハイフン不要）">
           </label>
       </div>
 
@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("address-form");
     const errorContainer = document.getElementById("error-container");
 
+    // --- 新しい住所フォームの表示切り替え ---
     radios.forEach(radio => {
         radio.addEventListener("change", function() {
             if (this.value === "new") {
@@ -85,6 +86,27 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    // --- 郵便番号→住所自動補完（ZipCloud API） ---
+    const postalInput = document.getElementById("postal_code");
+    postalInput.addEventListener("blur", function() {
+        const postal = this.value.replace(/[^0-9]/g, ""); // 数字以外除去
+        if (postal.length === 7) {
+            fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${postal}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results) {
+                    const result = data.results[0];
+                    const address = result.address1 + result.address2 + result.address3;
+                    document.getElementById("address").value = address;
+                } else {
+                    alert("住所が見つかりませんでした。");
+                }
+            })
+            .catch(() => alert("住所検索に失敗しました。"));
+        }
+    });
+
+    // --- 入力チェック（エラーメッセージ表示） ---
     form.addEventListener("submit", function(event) {
         errorContainer.style.display = "none";
         errorContainer.innerHTML = "";
@@ -101,8 +123,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (!name) { errors.push("名前を入力してください。"); form.new_name.classList.add("checkout-error"); }
             if (!postal) { errors.push("郵便番号を入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
+            else if (!/^\d{7}$/.test(postal)) { errors.push("郵便番号は7桁の数字で入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
             if (!address) { errors.push("住所を入力してください。"); form.new_address.classList.add("checkout-error"); }
             if (!phone) { errors.push("電話番号を入力してください。"); form.new_phone.classList.add("checkout-error"); }
+            else if (!/^\d+$/.test(phone)) { errors.push("電話番号は数字のみで入力してください。"); form.new_phone.classList.add("checkout-error"); }
 
             if (errors.length > 0) {
                 event.preventDefault();

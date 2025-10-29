@@ -28,14 +28,11 @@
                     <ul>
                         <li><a href="{% url 'main:index' %}">トップ</a></li>
                         <li><a href="{% url 'pages:about' %}">アバウト</a></li>
-                        <li><a href="{% url 'ranking:index' %}">動物ランキング</a></li>
-                        <li><a href="#">LIVE動画</a></li>
+                        <li><a href="{% url 'ranking:index' %}"><span>アニマルランキング</span></a></li>
+                        <li><a href="#"><span>動物たちの様子を見る</span></a></li>
                         <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
-                        <li><a href="{% url 'goods:goods_list' %}">グッズ交換</a></li>
+                        <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                         <li><a href="/animals/1/">動物紹介制作閲覧用</a></li>
-                        <li><a href="{% url 'accounts:login' %}">ログイン</a></li>
-                        <li><a href="{% url 'accounts:logout' %}">ログアウト</a></li>
-                        <li><a href="{% url 'accounts:signup' %}">新規登録</a></li>
                     </ul>
                 </nav>
             </div>
@@ -213,47 +210,47 @@
                 </div>
                 {% endif %}
 
-
-                <div class="hamburger-menu" onclick="toggleMenu(this)">
-                    <div class="hamburger-line"></div>
-                    <div class="hamburger-line"></div>
-                    <div class="hamburger-line"></div>
+                <div id="hamburger_menu" onmouseover="toggleMenu(this)" onmouseout="toggleMenu_02(this)">
+                    <div class="hamburger_line"></div>
+                    <div class="hamburger_line"></div>
+                    <div class="hamburger_line"></div>
                 </div>
                 
                 <div id="hamburger_menu_content_outside">
-
-                <ul id="hamburger_menu_content">
-                    <li id="hamburger_menu_content_01">
-                        <a href="#">トップ</a>
-                        <a href="#">アバウト</a>
-                        <a href="#">アニマルランキング</a>
-                        <a href="#">動物たちの様子を観る</a>
-                        <a href="#">チアコを買う</a>
-                        <a href="#">グッズに交換する</a>
-                    </li>
-                    <li id="hamburger_menu_content_02">
-                        <a href="#">新規登録</a>
-                        <a href="#">ログイン</a>
-                        <a href="#">会員情報変更</a>
-                        <a href="#">ログアウト</a>
-                    </li>
-                </ul>
+                    <ul id="hamburger_menu_content">
+                        <li id="hamburger_menu_content_01">
+                            <a class="hamburger_menu_content_a" href="{% url 'main:index' %}">トップ</a>
+                            <a class="hamburger_menu_content_a" href="{% url 'pages:about' %}">アバウト</a>
+                            <a class="hamburger_menu_content_a" href="{% url 'ranking:index' %}">アニマルランキング</a>
+                            <a class="hamburger_menu_content_a" href="#">動物たちの様子を見る</a>
+                            <a class="hamburger_menu_content_a" href="{% url 'money:charge' %}">チアコを買う</a>
+                            <a class="hamburger_menu_content_a" href="{% url 'goods:goods_list' %}">グッズ交換する</a>
+                        </li>
+                        <li id="hamburger_menu_content_02"></li>
+                        <li id="hamburger_menu_content_03">
+                            {% if user.is_authenticated and wallet %}
+                            <h3 class="hamburger_menu_content_h3">{{ user.name|default:user.username }}<span> 様</span></h3>
+                            <a class="hamburger_menu_content_a" href="#">マイページ</a>
+                            <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history' %}">チアコ·スタポ購入履歴</a>
+                            <a class="hamburger_menu_content_a" href="#">グッズ交換履歴</a>
+                            <a class="hamburger_menu_content_a" href="#">会員情報変更</a>
+                            <a class="hamburger_menu_content_a" href="{% url 'accounts:logout' %}">ログアウト</a>
+                            {% else %}
+                            <a class="hamburger_menu_content_a" href="{% url 'accounts:login' %}">ログイン</a>
+                            <a class="hamburger_menu_content_a" href="{% url 'accounts:signup' %}">新規登録</a>
+                            {% endif %}
+                        </li>
+                    </ul>
                 </div>
 
                 <script src="{% static 'js/base.js' %}"></script>
-
-
-
 
                 <a class="pagetop" href="#">
                         <div class="pagetop_arrow"></div>
                         <div class="pagetop_lang">return<br>Top</div>
                 </a>
 
-                
-
             </div>
-
 
         </div>
 
@@ -262,10 +259,10 @@
                 <ul>
                     <li><a href="{% url 'main:index' %}">トップ</a></li>
                     <li><a href="{% url 'pages:about' %}">アバウト</a></li>
-                    <li><a href="{% url 'ranking:index' %}">動物ランキング</a></li>
-                    <li><a href="#">LIVE動画</a></li>
+                    <li><a href="{% url 'ranking:index' %}">アニマルランキング</a></li>
+                    <li><a href="#">動物たちの様子を見る</a></li>
                     <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
-                    <li><a href="{% url 'goods:goods_list' %}">グッズ交換</a></li>
+                    <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                 </ul>
             </div>
             <small>アニマルマニア</small>
@@ -274,6 +271,5 @@
         </footer>
         
     </body>
-
 
 </html>
