@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            font-family: "Noto Sans JP", sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+            font-size: 2.2em;
+            margin-bottom: 35px;
+            font-weight: bold;
+        }
+
+        .animal-ranking-sidebar {
+            margin: 0;
+            padding: 0;
+            width: 250px;
+            background-color: #DEB887;
+            color: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .ranking-title {
+            font-size: 1.3rem;
+            color: #333333;
+            margin-bottom: 15px;
+            text-align: left;
+            border-bottom: 1px solid #FFFFFF;
+            padding-bottom: 5px;
+        }
+
+        .animal-ranking-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .animal-ranking-list li {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #FFFFFF;
+        }
+
+        .rank-number {
+            font-weight: bold;
+            color: #333333;
+            width: 25px;
+            text-align: right;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .rank-info {
+            flex: 1;
+            text-align: left;
+            line-height: 1.4em;
+        }
+
+        .rank-japanese {
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .rank-name {
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .animal-ranking-list li:last-child {
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="animal-ranking-sidebar">
+        <h3 class="ranking-title">HOT10</h3>
+        <ol class="animal-ranking-list">
+            {% for a in animals|slice:":10" %}
+            <li>
+                <span class="rank-number">{{ forloop.counter }}</span>
+                <div class="rank-info">
+                    <span class="rank-japanese">{{ a.japanese }}</span><br>
+                    <span class="rank-name">{{ a.name }}</span>
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+</body>
+</html>
