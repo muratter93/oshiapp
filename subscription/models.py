@@ -19,7 +19,7 @@ class SubscribePlan(models.Model):
 
     def __str__(self):
         return f"{self.code} ({self.plan_name})"
-
+    
 
     #サブスク加入情報
 def _add_months(d: date, months: int) -> date:
@@ -50,7 +50,6 @@ class SubMember(models.Model):
     sing_up = models.DateField("加入日", default=date.today)
     end_day = models.DateField("終了日", blank=True, null=True)
     sing_mon = models.PositiveIntegerField("合計加入月", default=0)
-
 
     class Meta:
         db_table = "sub_member"
