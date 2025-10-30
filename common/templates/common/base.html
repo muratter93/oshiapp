@@ -245,10 +245,7 @@
                             <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history' %}">チアコ·スタポ購入履歴</a>
                             <a class="hamburger_menu_content_a" href="#">グッズ交換履歴</a>
                             <a class="hamburger_menu_content_a" href="#">会員情報変更</a>
-                            <form id="logout-form" action="{% url 'accounts:logout' %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="hamburger_menu_content_a">ログアウト</button>
-                            </form>
+                            <a class="hamburger_menu_content_a" href="{% url 'accounts:logout' %}">ログアウト</a>
                             {% else %}
                             <a class="hamburger_menu_content_a" href="{% url 'accounts:login' %}">ログイン</a>
                             <a class="hamburger_menu_content_a" href="{% url 'accounts:signup' %}">新規登録</a>
@@ -275,6 +272,9 @@
                     <li><a href="{% url 'pages:about' %}">アバウト</a></li>
                     <li><a href="{% url 'ranking:index' %}">アニマルランキング</a></li>
                     <li><a href="#">動物たちの様子を見る</a></li>
+                    <li><a href="#">チアコとスタポのしくみ</a></li>
+                </ul>
+                <ul>
                     <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                     <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                 </ul>
