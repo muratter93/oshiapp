@@ -3,8 +3,8 @@
 ========================================= */
 .index {
   --gap: 10px;
-  --grid-min: 240px;
-  --rank-width: 280px;
+  --grid-min: 250px;
+  --rank-width: 260px;
   --c-text: #222;
   --c-bg: #000;
   --c-white: #fff;
@@ -46,7 +46,8 @@
 .index-main .animal-grid {   /* ← 対象を .index-main 内に限定 */
   flex: 1;
   display: grid;
-  gap: var(--gap);
+  gap: 8px var(--gap);              /* ← 行8px / 列 --gap */
+  overflow-anchor: none;
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
   box-sizing: border-box;
   padding: 0;
@@ -60,7 +61,7 @@
   width: var(--rank-width);
   background-color: #DEB887;
   color: #f5f5f5;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
@@ -69,7 +70,8 @@
 .ranking-title {
   font-size: 1.3rem;
   color: #333333;
-  margin-bottom: 15px;
+  margin-top: 0px;
+  margin-bottom: 5px;
   text-align: left;
   border-bottom: 1px solid #FFFFFF;
   padding-bottom: 5px;
@@ -314,6 +316,32 @@
 /* ポップ演出 & 強調 */
 .index .oshii-badge.pop { animation: index-popBadge 0.25s ease; }
 
+/* 共通：background を常に “background” で指定、transition対象も background に */
+.index .push-btn,
+.index .intro-btn {
+  background: linear-gradient(135deg, #ffffffd6, #ffffffd6); /* ← 通常時も gradient */
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  will-change: transform, background, color;
+  backface-visibility: hidden;
+  transform: translateZ(0); /* flicker抑止 */
+}
+
+/* hover 時は gradient を差し替えるだけ（background-color ではなく background） */
+.index .push-btn:hover {
+  background: linear-gradient(135deg, var(--c-btn-p1), var(--c-btn-p2));
+  color: #fff;
+}
+
+.index .intro-btn:hover {
+  background: linear-gradient(135deg, var(--c-btn-m1), var(--c-btn-m2));
+  color: #fff;
+}
+
+
 /* =========================================
    Body（下の黒帯）
 ========================================= */
@@ -435,18 +463,20 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 6px;
+  gap: 4px;
   z-index: 3;
 }
 .index .dots button {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  aspect-ratio: 1 / 1;   /* ← 幅高さを常に同一比率に */
+  border-radius: 100%;   /* ← 完全な円に */
   border: none;
   background: rgba(32, 32, 32, 0.6);
   cursor: pointer;
   transition: background .2s;
 }
+
 .index .dots button.active {
   background: rgba(255, 255, 255, 0.7);
 }
@@ -456,7 +486,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 8px;
+  margin-top: 0px;
 }
 
 /* =========================================
