@@ -245,7 +245,10 @@
                             <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history' %}">チアコ·スタポ購入履歴</a>
                             <a class="hamburger_menu_content_a" href="#">グッズ交換履歴</a>
                             <a class="hamburger_menu_content_a" href="#">会員情報変更</a>
-                            <a class="hamburger_menu_content_a" href="{% url 'accounts:logout' %}">ログアウト</a>
+                            <form id="logout-form" action="{% url 'accounts:logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="hamburger_menu_content_a">ログアウト</button>
+                            </form>
                             {% else %}
                             <a class="hamburger_menu_content_a" href="{% url 'accounts:login' %}">ログイン</a>
                             <a class="hamburger_menu_content_a" href="{% url 'accounts:signup' %}">新規登録</a>
