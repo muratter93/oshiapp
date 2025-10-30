@@ -55,7 +55,7 @@ a:hover img { opacity: 0.4;}
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgb(173, 180, 34);
+  /* background-color: rgb(173, 180, 34); */
   width: 200px;
 }
 
@@ -84,9 +84,15 @@ nav ul li a {
   text-decoration: none;
 }
 
-nav ul li a span {
+.nav_ul_li_a_01 {
   letter-spacing: -0.15em;
   font-size: 19.5px;
+}
+
+.nav_ul_li_a_02 {
+  letter-spacing: -0.17em;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 
@@ -272,8 +278,9 @@ nav ul li a span {
 }
 
 #hamburger_menu_content_02 {
-  margin-right: 23px;
-  margin-left: 17px;
+  /* margin-right: 23px;
+  margin-left: 17px; */
+  margin: 2px 23px 2px 17px;
   list-style: none;
   border: 0.1px solid rgb(44, 29, 16);
   border-radius: 5px;
@@ -291,6 +298,10 @@ nav ul li a span {
 
 .hamburger_menu_content_a {
   text-decoration: none;
+}
+
+.hamburger_menu_content_a span{
+  letter-spacing: -0.1em;
 }
 
 .hamburger_menu_content_h3 {

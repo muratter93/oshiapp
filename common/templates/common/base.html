@@ -28,8 +28,9 @@
                     <ul>
                         <li><a href="{% url 'main:index' %}">トップ</a></li>
                         <li><a href="{% url 'pages:about' %}">アバウト</a></li>
-                        <li><a href="{% url 'ranking:index' %}"><span>アニマルランキング</span></a></li>
-                        <li><a href="#"><span>動物たちの様子を見る</span></a></li>
+                        <li><a href="{% url 'ranking:index' %}"><span class="nav_ul_li_a_01">アニマルランキング</span></a></li>
+                        <li><a href="#"><span class="nav_ul_li_a_01">動物たちの様子を見る</span></a></li>
+                        <li><a href="{% url 'pages:about' %}"><span class="nav_ul_li_a_02">チアコとスタポのしくみ</span></a></li>
                         <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                         <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                         <li><a href="/animals/1/">動物紹介制作閲覧用</a></li>
@@ -210,7 +211,7 @@
                 </div>
                 {% endif %}
 
-                <div id="hamburger_menu" onmouseover="toggleMenu(this)" onmouseout="toggleMenu_02(this)">
+                <div id="hamburger_menu" onclick="toggleMenu(this)">
                     <div class="hamburger_line"></div>
                     <div class="hamburger_line"></div>
                     <div class="hamburger_line"></div>
@@ -223,6 +224,7 @@
                             <a class="hamburger_menu_content_a" href="{% url 'pages:about' %}">アバウト</a>
                             <a class="hamburger_menu_content_a" href="{% url 'ranking:index' %}">アニマルランキング</a>
                             <a class="hamburger_menu_content_a" href="#">動物たちの様子を見る</a>
+                            <a class="hamburger_menu_content_a" href="#"><span>チアコとスタポのしくみ</span></a>
                             <a class="hamburger_menu_content_a" href="{% url 'money:charge' %}">チアコを買う</a>
                             <a class="hamburger_menu_content_a" href="{% url 'goods:goods_list' %}">グッズ交換する</a>
                         </li>
