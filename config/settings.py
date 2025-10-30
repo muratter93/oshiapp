@@ -41,12 +41,12 @@ INSTALLED_APPS = [
     "common",
     "main",
     "accounts",
-    "animals",
+    "animals.apps.AnimalsConfig",
     "ranking",
     "pages",
     "money",
     "goods",
-    "subscription",
+    "subscription.apps.SubscriptionConfig",
 ]
 
 MIDDLEWARE = [
