@@ -26,7 +26,7 @@ body {
 /* ーーーーーー */
 
 a:visited { 
-  color: rgb(44, 44, 43);
+  color: rgb(150, 226, 28);
 }
 
 a:hover {
@@ -119,13 +119,40 @@ nav ul li a {
   /* background-color: rgb(205, 22, 22); */
 }
 
+/* 右部分カート部分 */
+
+#cart {
+  pointer-events: auto;
+  width: 50px;
+  position: fixed;
+  top: 19px;
+  right: 340px;
+}
+
+#cart_num {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #b78033;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;     /* 縦中央 */
+  justify-content: center; /* 横中央 */
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
 /* 右部分しおり部分 */
 
 #personal_box_logout {
   pointer-events: auto;
   position: fixed;
   top: 0px;
-  right: 250px;
+  right: 190px;
   border-radius: 0px 0px 10px 10px;
   background-color: rgb(44, 29, 16);
   padding: 8px 15px 10px 15px;
@@ -138,7 +165,7 @@ nav ul li a {
   pointer-events: auto;
   position: fixed;
   top: 0px;
-  right: 250px;
+  right: 190px;
   border-radius: 0px 0px 10px 10px;
   background-color: rgb(44, 29, 16);
   padding: 6px 15px 9px 15px;
@@ -152,6 +179,10 @@ nav ul li a {
   color: aliceblue;
   display: flex;
   align-items: flex-end;
+}
+
+#personal_box_01 a {
+  text-decoration: none;
 }
 
 #personal_box_01 {
@@ -221,7 +252,7 @@ nav ul li a {
   pointer-events: auto;
   position: fixed;
   right: 50px;
-  top: 55px;
+  top: 43px;
 
   display: flex;
   flex-direction: column;
@@ -255,7 +286,7 @@ nav ul li a {
 #hamburger_menu_content_outside {
   pointer-events: auto;
   border-radius: 5px;
-  margin-top: 100px;
+  margin-top: 90px;
   margin-right: 46px;
   display: none;
   background-color: #ffffff;
