@@ -73,6 +73,7 @@ TEMPLATES = [{
         "django.contrib.auth.context_processors.auth",
         "django.contrib.messages.context_processors.messages",
         "common.context_processors.navbar",
+        'goods.context_processors.cart_total_quantity',  # ←かご表示！
     ]},
 }]
 
