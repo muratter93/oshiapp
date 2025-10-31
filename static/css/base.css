@@ -13,6 +13,10 @@ body {
   font-family: 'M PLUS Rounded 1c';
   margin: 0;
   padding: 0;
+  /* background-image: url("/static/img/animalmania_logo_kari.png"); */
+  background-size: cover; /* 画像を領域いっぱいに拡大縮小 */
+  background-position: center; /* 常に中央に表示 */
+  background-repeat: no-repeat; /* 画像の繰り返しを禁止 */
 }
 
 #main_body {
@@ -26,16 +30,16 @@ body {
 /* ーーーーーー */
 
 a:visited { 
-  color: rgb(150, 226, 28);
+  color: rgb(100, 212, 135);
 }
 
 a:hover {
-  color: #b78033;
+  color: rgb(0, 255, 81);
 }
 
-#work_image ul li a:hover {
+/* #work_image ul li a:hover {
   color: #b78033;
-}
+} */
 
 a:hover img { opacity: 0.4;}
 
@@ -63,19 +67,15 @@ a:hover img { opacity: 0.4;}
 
 nav {
   position: fixed;
-  bottom: 50px;
+  bottom: 30px;
   left: 0;
   font-weight: 600;
   font-family: 'Zen Kurenaido';
-  font-size: 21px;
+  font-size: 20.5px;
 }
 
 nav ul {
   list-style: none;
-}
-
-nav ul li {
-  margin-bottom: -3px;
 }
 
 nav ul li a {
@@ -85,13 +85,13 @@ nav ul li a {
 
 .nav_ul_li_a_01 {
   letter-spacing: -0.15em;
-  font-size: 19.5px;
+  font-size: 19px;
 }
 
 .nav_ul_li_a_02 {
   letter-spacing: -0.17em;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 
@@ -110,7 +110,7 @@ nav ul li a {
   position: fixed;
   top: 0;
   right: 0;
-  width: 550px;
+  /* width: 610px; */
   height: 1500px;
   pointer-events: none;
   /* background-color: rgb(205, 22, 22); */
@@ -120,17 +120,16 @@ nav ul li a {
 
 #cart {
   pointer-events: auto;
-  width: 50px;
   position: fixed;
-  top: 17px;
-  right: 210px;
+  top: 25px;
+  right: 200px;
 }
 
 #cart_num {
   position: absolute;
   top: -8px;
   right: -8px;
-  background-color: #b78033;
+  background-color: rgb(15, 81, 36);
   color: white;
   font-size: 14px;
   font-weight: bold;
@@ -140,7 +139,7 @@ nav ul li a {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  box-shadow: 0 0 3px rgba(13, 47, 13, 0.3);
 }
 
 /* 右部分しおり部分 */
@@ -151,7 +150,7 @@ nav ul li a {
   top: 0px;
   right: 280px;
   border-radius: 0px 0px 10px 10px;
-  background-color: rgb(44, 29, 16);
+  background-color: rgb(11, 158, 58);
   padding: 6px 15px 9px 15px;
   display: flex;
   flex-direction: column;
@@ -164,7 +163,7 @@ nav ul li a {
   top: 0px;
   right: 280px;
   border-radius: 0px 0px 10px 10px;
-  background-color: rgb(44, 29, 16);
+  background-color: rgb(11, 158, 58);
   padding: 8px 15px 10px 15px;
   display: flex;
   flex-direction: column;
@@ -201,13 +200,16 @@ nav ul li a {
 
 .personal_box_h2 {
   text-align: right;
-  margin-top: 7px;
+  margin-top: 8px;
   margin-bottom: 5px;
   font-size: 24px;
   font-family: 'Zen Kurenaido';
   font-weight: 400;
-  line-height: 20px;
-  max-width: 300px;
+  line-height: 22px;
+  max-width: 600px;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  overflow-wrap: break-word
 }
 .personal_box_h3 {
   margin-left: 9px;
@@ -266,7 +268,7 @@ nav ul li a {
 }
 
 .hamburger_line {
-  border: 2px solid rgb(44, 29, 16);
+  border: 2px solid rgb(11, 158, 58);
   border-radius: 5px;
   margin-bottom: 13px;
   width: 80%;
@@ -290,10 +292,9 @@ nav ul li a {
   border-radius: 5px;
   margin: 90px 46px 0px 0px;
   display: none;
-  background-color: #ffffff;
-  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.9);
   font-family: 'Zen Kurenaido';
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
 }
 
@@ -312,7 +313,7 @@ nav ul li a {
 #hamburger_menu_content_02 {
   margin: 2px 23px 2px 17px;
   list-style: none;
-  border: 0.1px solid rgb(44, 29, 16);
+  border: 0.1px solid rgb(255, 255, 255);
   border-radius: 5px;
 }
 
@@ -329,15 +330,22 @@ nav ul li a {
 }
 
 .hamburger_menu_content_h3 {
-  color: rgb(44, 29, 16);
-  font-size: 28px;
+  color: rgb(15, 81, 36);
+  font-size: 25px;
   font-weight: 900;
-  margin: -5px 0px 20px 0px;
+  margin: -5px 0px 2px 0px;
   text-align: right;
+  line-height: 26px;
+  max-width: 270px;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .hamburger_menu_content_h3 span {
-  font-size: 20px;
+  font-family: 'M PLUS Rounded 1c';
+  font-weight: 400;
+  font-size: 16px;
 }
 
 
@@ -359,14 +367,14 @@ nav ul li a {
 .pagetop_arrow {
   height: 40px;
   width: 40px;
-  border-top: 2.5px solid rgb(44, 29, 16);
-  border-right: 2.5px solid rgb(44, 29, 16);
+  border-top: 2.5px solid rgb(11, 158, 58);
+  border-right: 2.5px solid rgb(11, 158, 58);
   border-top-right-radius: 6px;
   transform: translateY(20%) rotate(-45deg);
 }
 
 .pagetop_lang {
-  color: rgb(44, 29, 16);
+  color: rgb(11, 158, 58);
   text-align: center;
   line-height: 18px;
   font-weight: 600;
@@ -379,15 +387,21 @@ footer {
   text-align: center;
 }
 
+#footer_box {
+  background-color: rgb(11, 158, 58);
+}
+
 #footer_nav {
-  background-color: rgb(77, 205, 22);
+  background-color: rgb(11, 158, 58);
   font-family: 'Zen Kurenaido Regular';
+  padding-top: 5px;
 }
 
 #footer_nav ul {
   display: flex;
   justify-content: center;
   list-style: none;
+  margin-bottom: -10px;
 }
 
 #footer_nav ul li {
@@ -398,6 +412,12 @@ footer {
   text-decoration: none;
   font-size: 16px;
 }
+
+#footer_box small {
+  color: #ffffff;
+}
+
+
 
 
 

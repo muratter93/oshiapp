@@ -186,7 +186,7 @@
 
                 <div id="cart">
                     <a href="{% url 'goods:cart_view' %}">
-                        <img src="{% static 'img/shop_cart_01.png' %}" alt="アニマニアカート" width="65">
+                        <img src="{% static 'img/shop_cart_01.png' %}" alt="アニマニアカート" width="50">
                         {% if total_quantity > 0 %}
                         <span id="cart_num">{{ total_quantity }}</span>
                         {% endif %}
@@ -266,22 +266,32 @@
         </div>
 
         <footer>
-            <div id="footer_nav">
-                <ul>
-                    <li><a href="{% url 'main:index' %}">トップ</a></li>
-                    <li><a href="{% url 'pages:about' %}">アバウト</a></li>
-                    <li><a href="{% url 'ranking:index' %}">アニマルランキング</a></li>
-                    <li><a href="#">動物たちの様子を見る</a></li>
-                    <li><a href="#">チアコとスタポのしくみ</a></li>
-                </ul>
-                <ul>
-                    <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
-                    <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
-                </ul>
+            
+            <div id="footer_goodsimages_move">
             </div>
-            <small>アニマルマニア</small>
-            <br>
-            <br>
+
+            <div id="footer_forest">
+                <img class="" src="{% static 'img/####.png' %}" alt="footer_forest">
+            </div>
+
+            <div id="footer_box">
+                <div id="footer_nav">
+                    <ul>
+                        <li><a href="{% url 'main:index' %}">トップ</a></li>
+                        <li><a href="{% url 'pages:about' %}">アバウト</a></li>
+                        <li><a href="{% url 'ranking:index' %}">アニマルランキング</a></li>
+                        <li><a href="#">動物たちの様子を見る</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">チアコとスタポのしくみ</a></li>
+                        <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
+                        <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
+                    </ul>
+                </div>
+                <br><br>
+                <small>アニマルマニア</small>
+                <br><br><br><br>
+            </div>
         </footer>
         
     </body>
