@@ -26,14 +26,37 @@
                 oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
                 <nav>
                     <ul>
-                        <li><a href="{% url 'main:index' %}">トップ</a></li>
-                        <li><a href="{% url 'pages:about' %}">アバウト</a></li>
-                        <li><a href="{% url 'ranking:index' %}"><span class="nav_ul_li_a_01">アニマルランキング</span></a></li>
-                        <li><a href="#"><span class="nav_ul_li_a_01">動物たちの様子を見る</span></a></li>
-                        <li><a href="{% url 'pages:about' %}"><span class="nav_ul_li_a_02">チアコとスタポのしくみ</span></a></li>
-                        <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
-                        <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
-                        <li><a href="/animals/1/">動物紹介制作閲覧用</a></li>
+                        {% if not request.path == '/' %}
+                            <li><a href="{% url 'main:index' %}">トップ</a></li>
+                        {% endif %}
+ 
+                        {% if '/about' not in request.path %}
+                            <li><a href="{% url 'pages:about' %}">アバウト</a></li>
+                        {% endif %}
+ 
+                        {% if '/ranking' not in request.path %}
+                            <li><a href="{% url 'ranking:index' %}"><span class="nav_ul_li_a_01">アニマルランキング</span></a></li>
+                        {% endif %}
+ 
+                        {% if '/animals' not in request.path %}
+                            <li><a href="#"><span class="nav_ul_li_a_01">動物たちの様子を見る</span></a></li>
+                        {% endif %}
+ 
+                        {% if '/system' not in request.path %}
+                            <li><a href="{% url 'pages:about' %}"><span class="nav_ul_li_a_02">チアコとスタポのしくみ</span></a></li>
+                        {% endif %}
+ 
+                        {% if '/charge' not in request.path %}
+                            <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
+                        {% endif %}
+ 
+                        {% if '/goods' not in request.path %}
+                            <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
+                        {% endif %}
+ 
+                        {% if '/animals/' not in request.path %}
+                            <li><a href="/animals/1/">動物紹介制作閲覧用</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
