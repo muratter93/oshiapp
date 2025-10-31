@@ -13,7 +13,7 @@ from django.urls import reverse
 # グッズ一覧ページ
 @login_required
 def goods_list(request):
-    print("goods_list ビューが呼ばれました")  # 追加
+    print("goods_list ビューが呼ばれました")  # 追加あとでけす～
     goods_list = Goods.objects.all()
     # カート
     cart_items = CartItem.objects.filter(member=request.user)

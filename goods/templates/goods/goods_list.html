@@ -11,12 +11,12 @@
 <div id="goods_main_center">
 
   <!-- カートアイコン -->
-  <a href="{% url 'goods:cart_view' %}" class="cart-icon">
+  {% comment %} <a href="{% url 'goods:cart_view' %}" class="cart-icon">
   🛒
   {% if total_quantity > 0 %}
     <span class="cart-badge">{{ total_quantity }}</span>
   {% endif %}
-  </a>
+  </a> {% endcomment %}
 
 
   <h1>グッズ交換一覧</h1>

@@ -8,6 +8,9 @@
           <span class="rank-japanese">{{ a.japanese }}</span><br>
           <span class="rank-name">{{ a.name }}</span>
         </div>
+        <div class="rank-img">
+          <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+        </div>
       </li>
     {% empty %}
       <li>ランキングデータがありません。</li>

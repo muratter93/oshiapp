@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, login as auth_login, get_user_model
 from django.shortcuts import render, redirect
 
 
@@ -64,3 +63,6 @@ def signup_view(request):
         return redirect("accounts:login")
 
     return render(request, "accounts/signup.html")
+
+def logout_done(request):
+    return render(request, "accounts/logout_done.html")
