@@ -10,6 +10,7 @@ from .models import Goods, CartItem, Order, OrderItem # 注文履歴モデル
 from django.urls import reverse
 
 
+
 # グッズ一覧ページ
 @login_required
 def goods_list(request):
@@ -193,3 +194,5 @@ from .models import Goods
 def goods_detail(request, goods_id):
     goods = get_object_or_404(Goods, pk=goods_id)
     return render(request, 'goods/goods_detail.html', {'goods': goods})
+
+

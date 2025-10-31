@@ -1,0 +1,70 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block title %}グッズ登録（管理者）{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/goods.css' %}">
+<style>
+.goods-admin-container {
+    width: 70%;
+    margin: 30px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.goods-admin-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.goods-admin-container form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.goods-admin-container form input,
+.goods-admin-container form textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+.goods-admin-container button {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.goods-admin-container button:hover {
+    background-color: #0056b3;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="goods-admin-container">
+    <h2>グッズ新規登録</h2>
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">登録する</button>
+    </form>
+
+    <p style="margin-top:20px;">
+        <a href="{% url 'goods:goods_list' %}">← グッズ一覧に戻る</a>
+    </p>
+</div>
+{% endblock %}
