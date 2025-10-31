@@ -13,10 +13,10 @@ body {
   font-family: 'M PLUS Rounded 1c';
   margin: 0;
   padding: 0;
-  /* background-image: url("/static/img/animalmania_logo_kari.png"); */
-  background-size: cover; /* 画像を領域いっぱいに拡大縮小 */
-  background-position: center; /* 常に中央に表示 */
-  background-repeat: no-repeat; /* 画像の繰り返しを禁止 */
+  /* background-image: url("/static/img/animal_haikei.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
 }
 
 #main_body {
