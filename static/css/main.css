@@ -28,9 +28,9 @@
 ========================================= */
 .index {
   display: flex;
-  flex-direction: column;   /* ← 縦積みに変更 */
-  gap: 40px;                /* セクション間の余白 */
-  align-items: center;      /* 横幅を中央に寄せたい場合 */
+  flex-direction: column;
+  gap: 40px;
+  padding-right: 10px; 
 }
 
 /* 横並びにする部分だけラップ */
@@ -39,22 +39,24 @@
   align-items: flex-start;
   gap: 12px;
   width: 100%;
-  max-width: 1400px;        /* 画面の最大幅をコントロール（任意） */
+  max-width: unset;
+  box-sizing: border-box;
 }
 
 /* 左：カードグリッド（右余白は不要） */
-.index-main .animal-grid {   /* ← 対象を .index-main 内に限定 */
+.index-main .animal-grid {
   flex: 1;
   display: grid;
-  gap: 8px var(--gap);              /* ← 行8px / 列 --gap */
   overflow-anchor: none;
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  gap: var(--gap);
+  justify-content: start;
 }
 
-/* 右：ランキング（追尾なし/固定幅） */
+/* 右：ランキング */
 .animal-ranking-sidebar {
   box-sizing: border-box;
   flex: 0 0 var(--rank-width);
@@ -71,21 +73,43 @@
   font-size: 1.3rem;
   color: #333333;
   margin-top: 0px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   text-align: left;
   border-bottom: 1px solid #FFFFFF;
-  padding-bottom: 5px;
+  padding-bottom: 0px;
 }
 .animal-ranking-list { list-style: none; margin: 0; padding: 0; }
 .animal-ranking-list li {
   display: flex; align-items: flex-start;
-  padding: 10px 0; border-bottom: 1px solid #FFFFFF;
+  padding: 5px 0; border-bottom: 1px solid #FFFFFF;
 }
 .animal-ranking-list li:last-child { border-bottom: none; }
-.rank-number { font-weight: bold; color: #333; width: 25px; text-align: right; margin-right: 10px; font-size: 1.1rem; }
+.rank-number { font-weight: bold; color: #333; width: 20px; text-align: left; margin-right: 5px; font-size: 1.1rem; }
 .rank-info { flex: 1; text-align: left; line-height: 1.4; }
 .rank-japanese { font-weight: bold; color: #fff; font-size: 1rem; }
 .rank-name { color: #fff; font-size: .9rem; }
+
+.rank-img {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 60px;
+  border-radius: 10px;
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: paint;
+}
+
+.rank-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transform: scale(1.12);
+  transform-origin: center 20%;
+}
+
 
 /* スマホでは縦並びに */
 @media (max-width: 1024px) {
@@ -330,7 +354,7 @@
   transform: translateZ(0); /* flicker抑止 */
 }
 
-/* hover 時は gradient を差し替えるだけ（background-color ではなく background） */
+/* hover 時は gradient を差し替えるだけ */
 .index .push-btn:hover {
   background: linear-gradient(135deg, var(--c-btn-p1), var(--c-btn-p2));
   color: #fff;
