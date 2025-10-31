@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login, get_user_model
+from django.contrib.auth import authenticate, login as auth_login, get_user_model, logout as auth_logout
 from django.shortcuts import render, redirect
 
 
@@ -64,5 +64,12 @@ def signup_view(request):
 
     return render(request, "accounts/signup.html")
 
-def logout_done(request):
-    return render(request, "accounts/logout_done.html")
+def logout_view(request):
+    if request.method == "POST":
+        auth_logout(request)
+        return redirect("accounts:logout_success")
+    
+    return render(request, "accounts/logout.html")
+
+def logout_success_view(request):
+    return render(request, "accounts/logout_success.html")

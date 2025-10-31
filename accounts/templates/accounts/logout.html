@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログアウト中...</title>
+    <!-- <link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
+</head>
+<body>
+    <div class="container">
+
+        <div class="right-side">
+            <div class="login-box">
+                <h1>ログアウト中...</h1>
+                <p>少々お待ちください。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 非表示のフォーム -->
+    <form id="logout-form" method="post" action="{% url 'accounts:logout' %}">
+        {% csrf_token %}
+    </form>
+
+    <!-- ページ表示後に自動的にログアウト実行 -->
+    <script>
+        window.addEventListener('load', function() {
+            // ページが完全に読み込まれたら、0.5秒後にフォームを送信
+            setTimeout(function() {
+                document.getElementById('logout-form').submit();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
