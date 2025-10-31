@@ -1,10 +1,11 @@
-{% extends "common/base.html" %} 
+{% extends "common/base.html" %}
 {% load static %}
 
 {% block title %}住所確認{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/goods.css' %}">
+
 {% endblock %}
 
 {% block content %}
@@ -59,11 +60,21 @@
       <p><strong>合計スタポ:</strong> {{ total_stanning }}</p>
       <p><strong>現在のウォレット残高:</strong> {{ wallet.stanning_point_balance }}スタポ</p>
 
-      <button type="submit" class="checkout-btn">交換を確定する</button>
+      <button type="button" id="confirm-btn" class="checkout-btn">交換を確定する</button>
   </form>
 
   <a href="{% url 'goods:cart_view' %}" class="back-link">← カートに戻る</a>
 </div>
+
+<!--  モーダル部 -->
+<div class="goods_exchange_modal" id="completeModal">
+  <div class="goods_exchange_modal-content">
+      <h2>交換完了！</h2>
+      <p>{{ total_stanning }} スタポを使用しました</p>
+      <a href="{% url 'goods:goods_list' %}" class="goods_exchange_btn">OK</a>
+  </div>
+</div>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -72,6 +83,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const radios = document.querySelectorAll('input[name="address_option"]');
     const form = document.getElementById("address-form");
     const errorContainer = document.getElementById("error-container");
+    const confirmBtn = document.getElementById("confirm-btn");
+    const modal = document.getElementById("completeModal");
 
     // --- 新しい住所フォームの表示切り替え ---
     radios.forEach(radio => {
@@ -88,8 +101,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // --- 郵便番号→住所自動補完（ZipCloud API） ---
     const postalInput = document.getElementById("postal_code");
-    postalInput.addEventListener("blur", function() {
-        const postal = this.value.replace(/[^0-9]/g, ""); // 数字以外除去
+    const addressInput = document.getElementById("address");
+
+    // 住所エラー表示欄（なければ作成）
+    let postalError = document.createElement("div");
+    postalError.style.color = "red";
+    postalError.style.marginTop = "5px";
+    postalError.id = "postal-error";
+    postalInput.parentNode.appendChild(postalError);
+
+    // 共通の住所検索処理
+    function fetchAddressFromPostal() {
+        const postal = postalInput.value.replace(/[^0-9]/g, "");
+        postalError.textContent = ""; // エラーリセット
+
         if (postal.length === 7) {
             fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${postal}`)
             .then(response => response.json())
@@ -97,23 +122,43 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data.results) {
                     const result = data.results[0];
                     const address = result.address1 + result.address2 + result.address3;
-                    document.getElementById("address").value = address;
+                    addressInput.value = address;
+                    postalError.textContent = ""; // 成功時は消す
                 } else {
-                    alert("住所が見つかりませんでした。");
+                    postalError.textContent = "住所が見つかりませんでした。";
                 }
             })
-            .catch(() => alert("住所検索に失敗しました。"));
+            .catch(() => {
+                postalError.textContent = "住所検索に失敗しました。";
+            });
+        } else if (postal.length > 0) {
+            postalError.textContent = "郵便番号は7桁で入力してください。";
         }
-    });
+    }
 
-    // --- 入力チェック（エラーメッセージ表示） ---
-    form.addEventListener("submit", function(event) {
+    // フォーカスが外れたとき
+    postalInput.addEventListener("blur", fetchAddressFromPostal);
+
+    // Enterキー押下時にフォーム送信を防ぎつつ検索
+    postalInput.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            e.preventDefault(); // フォーム送信をブロック
+            fetchAddressFromPostal();
+        }
+});
+
+
+
+
+    // --- バリデーション＋モーダル表示 ---
+    confirmBtn.addEventListener("click", function(event) {
         errorContainer.style.display = "none";
         errorContainer.innerHTML = "";
         const inputs = form.querySelectorAll("input");
         inputs.forEach(i => i.classList.remove("checkout-error"));
 
         const selected = document.querySelector('input[name="address_option"]:checked').value;
+        let valid = true;
         if (selected === "new") {
             const name = form.new_name.value.trim();
             const postal = form.new_postal_code.value.trim();
@@ -129,11 +174,16 @@ document.addEventListener("DOMContentLoaded", function() {
             else if (!/^\d+$/.test(phone)) { errors.push("電話番号は数字のみで入力してください。"); form.new_phone.classList.add("checkout-error"); }
 
             if (errors.length > 0) {
-                event.preventDefault();
+                valid = false;
                 errorContainer.innerHTML = errors.join("<br>");
                 errorContainer.style.display = "block";
                 window.scrollTo({ top: 0, behavior: "smooth" });
             }
+        }
+
+        if (valid) {
+            // 本来ならサーバー処理後に表示だけど、演出的にここでモーダルを表示
+            modal.style.display = "flex";
         }
     });
 });

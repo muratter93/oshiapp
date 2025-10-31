@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import views_admin
 
 app_name = 'goods'
 
@@ -13,5 +14,7 @@ urlpatterns = [
     path('checkout/', views.checkout, name='checkout'),
     path('confirm/', views.confirm_exchange, name='confirm_exchange'),
     path('detail/<int:goods_id>/', views.goods_detail, name='goods_detail'),  # ← 詳細ページ
+    path('admin/add/', views_admin.goods_admin_add, name='goods_admin_add'),  # ← 管理者グッズ追加
+    
 ]
 
