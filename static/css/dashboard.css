@@ -61,17 +61,43 @@ body {
 .subtle { color: #666; font-size: 0.9rem; }
 .container { max-width: 960px; }
 
-/* ボタン（シンプル） */
+
+
+
+/* 共通ボタン */
 .btn {
   display: inline-block;
-  padding: 6px 10px;              /* ← 少し細め */
+  padding: 6px 10px;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
   text-decoration: none;
   color: inherit;
-  transition: background-color .15s ease;
+  transition: background-color .15s ease, color .15s ease;
 }
 .btn:hover { background: #f9fafb; }
+
+/* 編集ボタン（緑） */
+.btn-edit {
+  background-color: #10b981; /* green-500 */
+  color: #fff;
+  border: none;
+}
+.btn-edit:hover {
+  background-color: #059669; /* green-600 */
+}
+
+/* 削除不可ボタン（灰色・クリック不可） */
+.btn-disabled {
+  background-color: #e5e7eb;
+  color: #888;
+  cursor: not-allowed;
+  border: none;
+}
+.btn-disabled:hover {
+  background-color: #e5e7eb; /* hoverしても変化しない */
+  color: #888;
+}
+
 
 /* セクション見出し（トグル） */
 .menu-section {
@@ -104,3 +130,164 @@ body {
 
 /* 子メニュー内リンクの間隔も気持ち詰める */
 .menu-items > li + li { margin-top: 2px; }
+
+/* 見出し <a> も .nav a と同じ見た目に */
+.sidebar .nav a,
+.sidebar h2 > a.nav-link {
+  display: block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: color .15s ease, background-color .15s ease;
+}
+
+/* hover */
+.sidebar .nav a:hover,
+.sidebar h2 > a.nav-link:hover {
+  color: #2563eb;
+  background: #f9fafb;
+}
+
+/* 現在ページ表示（任意で aria-current 使う時） */
+.sidebar .nav a[aria-current="page"],
+.sidebar h2 > a.nav-link[aria-current="page"] {
+  font-weight: 600;
+  outline: 1px solid #e5e7eb;
+}
+
+/* カード全体をフル幅に */
+.card {
+  width: 100%;
+  max-width: none;        /* ← 最大幅制限を解除 */
+  margin: 0;              /* ← 中央寄せを防ぐ */
+  padding: 0;             /* ← 余白をなくしたい場合 */
+  border: none;           /* ← 枠を消す場合（任意） */
+  box-shadow: none;       /* ← 影を消す場合（任意） */
+}
+
+/* テーブルを横いっぱいに */
+.card table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;    /* ← 列幅を均等に（任意） */
+}
+
+/* テーブルヘッダーとセルをもう少し詰めたい場合 */
+.card th,
+.card td {
+  padding: 8px 12px;
+  text-align: left;
+  word-break: break-word; /* ← 長いメールアドレスなどが折り返される */
+}
+
+
+/* ========================================
+   管理者一覧テーブルのレイアウト調整
+======================================== */
+
+/* テーブル全体 */
+.card table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* 各列幅を指定しやすくする */
+}
+
+/* 列幅のバランス調整 */
+.card th:nth-child(1),
+.card td:nth-child(1) { /* メール列 */
+  width: 22%;           /* ← 少し広く */
+}
+
+/* 列幅のバランス調整 */
+.card th:nth-child(2),
+.card td:nth-child(2) { /* メール列 */
+  width: 25%;           /* ← 少し広く */
+}
+
+.card th:nth-child(3),
+.card td:nth-child(3) { /* 最終ログイン列 */
+  width: 20%;
+}
+
+/* 操作列 */
+.card td:last-child {
+  width: 25%;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ボタンの共通サイズ調整 */
+.btn {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color .15s ease, color .15s ease;
+  white-space: nowrap; /* 折り返し防止 */
+}
+
+/* 編集ボタン（緑） */
+.btn-edit {
+  background-color: #10b981; /* 緑 */
+  color: #fff;
+  border: none;
+}
+.btn-edit:hover {
+  background-color: #059669;
+}
+
+/* 削除不可ボタン（灰） */
+.btn-disabled {
+  background-color: #e5e7eb;
+  color: #888;
+  cursor: not-allowed;
+  border: none;
+}
+.btn-disabled:hover {
+  background-color: #e5e7eb;
+  color: #888;
+}
+
+/* 操作セル内のボタンを確実に横並びにするラッパー */
+.admin-table td.actions .action-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;  /* 幅が足りないときは折り返し。不要なら nowrap に */
+}
+
+/* form を横並びのフローに載せる */
+.admin-table td.actions .action-row form {
+  display: inline-flex;
+  margin: 0;
+}
+
+/* 念のため：ラッパー内のボタンは改行しない */
+.admin-table td.actions .action-row .btn {
+  white-space: nowrap;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.admin-table th, .admin-table td {
+  padding: 8px 10px;
+  word-break: break-word;
+}
+
+.admin-table th, .admin-table td {
+  max-width: 1px; /* ← 各セルを必要以上に広げない */
+}

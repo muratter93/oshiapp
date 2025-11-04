@@ -17,7 +17,11 @@
 <!-- 左メニュー -->
 <aside class="sidebar">
 <div>
-<h2>{% block sidebar_title %}管理メニュー{% endblock %}</h2>
+<h2>
+  <a class="nav-link" href="{% url 'dashboard:dashboard' %}">
+    {% block sidebar_title %}管理メニュー{% endblock %}
+  </a>
+</h2>
 <ul class="nav">
   {% block sidebar %}
   <li class="menu-section"><span class="menu-icon">▶</span> ユーザー管理</li>
