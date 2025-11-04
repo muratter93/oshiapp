@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "money",
     "goods",
     "subscription.apps.SubscriptionConfig",
+    "dashboard",
 ]
 
 MIDDLEWARE = [

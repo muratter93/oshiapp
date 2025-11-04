@@ -1,0 +1,164 @@
+{% block content %}
+<style>
+  /* 全体レイアウト */
+  .dashboard-layout {
+    display: flex;
+    min-height: 100vh; /* ← ページ全体の高さを確保 */
+    font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    margin: 0;          /* ← 外側の余白を削除 */
+    padding: 0;         /* ← 内側の余白も削除 */
+  }
+
+  /* サイドバー */
+  .dashboard-sidebar {
+    width: 220px;
+    background: #2e7d32;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 2px solid rgba(255,255,255,0.3);
+    padding-bottom: 8px;
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar-menu li {
+    margin-bottom: 10px;
+  }
+
+  .sidebar-menu a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+  }
+
+  .sidebar-menu a:hover {
+    background-color: rgba(255,255,255,0.15);
+  }
+
+  .sidebar-footer {
+    margin-top: auto;
+  }
+
+  .sidebar-footer a {
+    color: #ffdddd;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .sidebar-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* メイン部分 */
+  .dashboard-main {
+    flex: 1;
+    background-color: #fafafa;
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* ← 上寄せ */
+  }
+
+  .dashboard-header {
+    border-bottom: 2px solid #4caf50;
+    margin-bottom: 25px;
+    padding-bottom: 8px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+  }
+
+  .dashboard-user {
+    color: #666;
+    margin-bottom: 25px;
+  }
+
+  .dashboard-content {
+    flex-grow: 1; /* ← 内容が少ないときも伸びる */
+  }
+
+  .dashboard-content a {
+    display: inline-block;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin: 10px 10px 10px 0;
+    transition: background-color 0.2s, transform 0.1s;
+  }
+
+  .dashboard-content a:hover {
+    background-color: #43a047;
+    transform: translateY(-1px);
+  }
+
+  /* スクロールバーを隠す微調整 */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+</style>
+
+<div class="dashboard-layout">
+  <!-- 左サイドバー -->
+  <aside class="dashboard-sidebar">
+    <div>
+      <div class="sidebar-header">
+        <h2>管理メニュー</h2>
+      </div>
+      <ul class="sidebar-menu">
+        <li><a href="#">🐾 動物データ管理</a></li>
+        <li><a href="{% url 'goods:goods_admin_add' %}" class="btn btn-primary">グッズを追加</a></li>
+        <li><a href="#">📊 アクセス分析</a></li>
+      </ul>
+    </div>
+
+<div class="sidebar-footer">
+  <form action="{% url 'dashboard_logout' %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="logout-button">🚪 ログアウト</button>
+  </form>
+</div>
+
+  </aside>
+
+  <!-- 右メイン -->
+  <main class="dashboard-main">
+    <div class="dashboard-header">
+      <h1>管理者ダッシュボード</h1>
+    </div>
+
+    <p class="dashboard-user">
+      {{ user.username }} さん、ようこそ。  
+      <br>（ログイン日時：{{ user.last_login|date:"Y年m月d日 H:i" }}）
+    </p>
+
+    <div class="dashboard-content">
+      <a href="#">＋ 新しい動物を登録</a>
+      <a href="#">＋ 新しいグッズを登録</a>
+      <a href="#">📈 アクセスレポートを見る</a>
+    </div>
+  </main>
+</div>
+{% endblock %}
