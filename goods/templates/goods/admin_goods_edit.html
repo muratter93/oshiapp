@@ -1,0 +1,47 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}グッズ編集{% endblock %}
+
+{% block content %}
+<div class="admin-edit-container">
+  <h1>グッズ情報を編集</h1>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="form-table">
+      {{ form.as_table }}
+    </table>
+    <button type="submit" class="save-btn">保存する</button>
+  </form>
+
+  <br>
+  <a href="{% url 'goods:goods_admin_list' %}">← 一覧に戻る</a>
+</div>
+
+<style>
+.admin-edit-container {
+  width: 80%;
+  margin: 40px auto;
+}
+.form-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.form-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+.save-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.save-btn:hover {
+  background-color: #45a049;
+}
+</style>
+{% endblock %}

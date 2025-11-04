@@ -159,6 +159,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const selected = document.querySelector('input[name="address_option"]:checked').value;
         let valid = true;
+
         if (selected === "new") {
             const name = form.new_name.value.trim();
             const postal = form.new_postal_code.value.trim();
@@ -182,10 +183,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         if (valid) {
-            // 本来ならサーバー処理後に表示だけど、演出的にここでモーダルを表示
-            modal.style.display = "flex";
+            //  バリデーション通過したらフォーム送信！
+            form.submit();
+
+            //  送信後にモーダル演出を見せたいなら少し遅らせてもOK
+            // modal.style.display = "flex";
         }
     });
+
 });
 </script>
 {% endblock %}

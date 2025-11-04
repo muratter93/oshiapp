@@ -1,0 +1,27 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% block title %}注文詳細{% endblock %}
+{% block content_title %}注文詳細{% endblock %}
+{% block content %}
+
+<h3>注文者情報</h3>
+<p>名前：{{ order.recipient_name }}</p>
+<p>住所：{{ order.postal_code }} {{ order.address }}</p>
+<p>電話番号：{{ order.phone_number }}</p>
+
+<h3>注文内容</h3>
+<ul>
+  {% for item in order.items.all %}
+  <li>{{ item.goods.name }} × {{ item.quantity }}</li>
+  {% endfor %}
+</ul>
+
+<p><strong>合計スタポ：</strong>{{ order.total_stanning_points }}</p>
+<p><strong>発送状況：</strong>{{ order.get_status_display }}</p>
+
+{% if order.status == 'pending' %}
+<a href="{% url 'goods:admin_order_ship' order.id %}" class="btn btn-ship">発送にする</a>
+{% endif %}
+
+<a href="{% url 'goods:admin_order_list' %}" class="btn">一覧に戻る</a>
+
+{% endblock %}

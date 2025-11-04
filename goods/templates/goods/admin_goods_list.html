@@ -1,0 +1,89 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}グッズ管理一覧{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+  <h1>グッズ管理一覧</h1>
+
+  <p><a href="{% url 'goods:goods_admin_add' %}" class="add-btn">＋ 新しいグッズを登録</a></p>
+
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>画像</th>
+        <th>名前</th>
+        <th>必要スタポ</th>
+        <th>在庫</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in goods_list %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>
+          {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" width="60">
+          {% else %}
+            <img src="{% static 'img/no_image.png' %}" alt="no image" width="60">
+          {% endif %}
+        </td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.required_stanning_points }}</td>
+        <td>{{ item.stock }}</td>
+        <td>
+        <a href="{% url 'goods:goods_admin_edit' item.id %}" class="edit-btn">編集</a>
+        <a href="{% url 'goods:goods_admin_delete' item.id %}" class="delete-btn">削除</a>
+        </td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<style>
+.admin-container {
+  width: 90%;
+  margin: 30px auto;
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin-table th, .admin-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.admin-table th {
+  background-color: #f3f3f3;
+}
+.edit-btn, .add-btn {
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+.edit-btn:hover, .add-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn {
+  background-color: #e53935;
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-left: 5px;
+}
+.delete-btn:hover {
+  background-color: #c62828;
+}
+
+</style>
+{% endblock %}

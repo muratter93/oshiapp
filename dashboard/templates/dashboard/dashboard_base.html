@@ -37,13 +37,13 @@
 
   <li class="menu-section"><span class="menu-icon">▶</span> グッズ管理</li>
   <ul class="menu-items">
-    <li><a href="#">グッズ一覧</a></li>
+    <li><a href="{% url 'goods:goods_admin_list' %}">グッズ一覧</a></li>
     <li><a href="{% url 'goods:goods_admin_add' %}">新しいグッズを登録</a></li>
   </ul>
 
   <li class="menu-section"><span class="menu-icon">▶</span> 注文管理</li>
   <ul class="menu-items">
-    <li><a href="#">注文一覧</a></li>
+    <li><a href="{% url 'goods:admin_order_list' %}">注文一覧</a></li>
   </ul>
 
   <li class="menu-section"><span class="menu-icon">▶</span> 動物管理</li>

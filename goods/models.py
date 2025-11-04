@@ -33,14 +33,21 @@ class Order(models.Model):
     total_stanning_points = models.PositiveIntegerField()
     is_confirmed = models.BooleanField(default=False)
 
-    # 新規追加
     recipient_name = models.CharField(max_length=100, verbose_name="名前")
     postal_code = models.CharField(max_length=20, verbose_name="郵便番号")
     address = models.TextField(verbose_name="住所")
     phone_number = models.CharField(max_length=20, verbose_name="電話番号")
 
+    # 🆕 発送状態
+    STATUS_CHOICES = [
+        ('pending', '未発送'),
+        ('shipped', '発送済み'),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending', verbose_name="発送状況")
+
     def __str__(self):
-        return f"{self.member.username} の注文"
+        return f"{self.member.username} の注文（{self.get_status_display()}）"
+
 
 
 # --- 注文アイテムモデル ---

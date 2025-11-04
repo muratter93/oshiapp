@@ -5,43 +5,42 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/goods.css' %}">
+
 {% endblock %}
 
 {% block content %}
 <div id="goods_main_center">
-
-  <!-- カートアイコン -->
-  {% comment %} <a href="{% url 'goods:cart_view' %}" class="cart-icon">
-  🛒
-  {% if total_quantity > 0 %}
-    <span class="cart-badge">{{ total_quantity }}</span>
-  {% endif %}
-  </a> {% endcomment %}
-
-
   <h1>グッズ交換一覧</h1>
 
   <div class="goods_grid">
-  {% for goods in goods_list %}
-    <div class="goods_card">
-  <!-- ここでリンクを追加 -->
+    {% for goods in goods_list %}
+      <div class="goods_card">
         <a href="{% url 'goods:goods_detail' goods.id %}">
-            <div class="goods_img_wrapper">
+          <div class="goods_img_wrapper">
             {% if goods.image %}
-                <img src="{{ goods.image.url }}" alt="{{ goods.name }}" class="goods_img">
+              <img src="{{ goods.image.url }}" alt="{{ goods.name }}" class="goods_img">
             {% else %}
-                <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}" class="goods_img">
+              <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}" class="goods_img">
             {% endif %}
-            </div>
+          </div>
         </a>
 
-  <h3>{{ goods.name }}</h3>
-  <p>必要スタポ：{{ goods.required_stanning_points }} pt</p>
-  <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">交換</a>
-</div>
+        <h3>{{ goods.name }}</h3>
+        <p>必要スタポ：{{ goods.required_stanning_points }} pt</p>
 
-  {% endfor %}
-</div>
-{% include "goods/goods_scroller.html" %}
+        {% if goods.stock == 0 %}
+          <button class="goods_btn disabled" disabled>在庫なし</button>
+        {% elif goods.stock <= 10 %}
+          <p class="low-stock">残りわずか！</p>
+          <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">交換</a>
+        {% else %}
+          <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">交換</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% include "goods/goods_scroller.html" %}
+  <a href="{% url 'goods:order_history' %}">交換履歴を見る</a>
 </div>
 {% endblock %}
