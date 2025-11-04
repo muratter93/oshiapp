@@ -1,0 +1,106 @@
+:root { --sidebar-width: 200px; }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+  line-height: 1.6; color: #222; background: #fff;
+}
+
+/* レイアウト */
+.layout { display: flex; min-height: 100vh; }
+.sidebar {
+  position: fixed;
+  font-size: 0.95rem; /* ← ここを追加。全体を1割小さく */
+  top: 0;
+  left: 0;
+  height: 100vh;             /* 全高固定 */
+  width: var(--sidebar-width);
+  padding: 16px;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #fff;          /* 背景を明示して重なり防止 */
+  overflow-y: auto;          /* メニューが長い時にスクロール可能 */
+  z-index: 1000;             /* 他要素より上 */
+}
+.sidebar h2 { font-size: 1rem; margin: 0; }
+.nav { list-style: none; margin: 0; padding: 0; }
+.nav li { margin: 0; }
+
+/* メニューリンク（内容側） */
+.nav a {
+  display: block;
+  padding: 4px 8px;               /* ← 上下幅を狭く */
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: color .15s ease, background-color .15s ease;
+}
+.nav a:hover {
+  color: #2563eb;                 /* ← ホバーで青（Tailwindのblue-600相当） */
+  background: #f9fafb;     /* ← グレー背景はやめてテキストだけ青に */
+}
+.nav a[aria-current="page"] {
+  font-weight: 600;
+  outline: 1px solid #e5e7eb;
+}
+
+/* フッター */
+.sidebar-footer { margin-top: auto; }
+.sidebar-footer form { display: inline; }
+
+/* メイン領域 */
+.main {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 24px;
+}.header { margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #e5e7eb; }
+.header h1 { font-size: 1.25rem; margin: 0; }
+.subtle { color: #666; font-size: 0.9rem; }
+.container { max-width: 960px; }
+
+/* ボタン（シンプル） */
+.btn {
+  display: inline-block;
+  padding: 6px 10px;              /* ← 少し細め */
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color .15s ease;
+}
+.btn:hover { background: #f9fafb; }
+
+/* セクション見出し（トグル） */
+.menu-section {
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;               /* ← 見出しも縦を詰める */
+  border-radius: 6px;
+  transition: background .15s ease;
+  user-select: none;
+}
+.menu-section:hover { background: #f3f4f6; }
+
+/* 見出しアイコン（▶/▼だけ小さく） */
+.menu-icon {
+  font-size: 0.8em;
+  opacity: 0.8;
+  margin-right: 4px;
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+}
+
+/* 子メニュー（初期はJSでopenにする想定） */
+.menu-items {
+  display: none;
+  list-style: none;
+  padding-left: 12px;
+  margin: 2px 0;                  /* ← 上下幅をさらに狭く */
+}
+
+/* 子メニュー内リンクの間隔も気持ち詰める */
+.menu-items > li + li { margin-top: 2px; }

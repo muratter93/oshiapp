@@ -11,9 +11,12 @@ urlpatterns = [
         # redirect_authenticated_user=True
     ), name='dashboard_login'),
 
-path('logout/', auth_views.LogoutView.as_view(
-    next_page=reverse_lazy('main:index')  # ← mainアプリのトップページへ！
-), name='dashboard_logout'),
+    path('dashboard_error/', views.access_denied, name='dashboard_error'),
+
+
+    path('logout/', auth_views.LogoutView.as_view(
+        next_page=reverse_lazy('main:index')  # ← mainアプリのトップページへ！
+    ), name='dashboard_logout'),
 
     path('', views.admin_dashboard, name='dashboard'),
 ]

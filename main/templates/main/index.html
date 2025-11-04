@@ -36,7 +36,9 @@
           <div class="card-actions">
             <span class="oshii-badge">推しP：<span class="point">{{ a.total_point }}</span></span>
             <a class="intro-btn" href="/animals/{{ a.animal_id }}/">紹介</a>
-            <button class="push-btn" data-id="{{ a.animal_id }}">推し❤</button>
+            {% if request.user.is_authenticated %}
+              <button class="push-btn" data-id="{{ a.animal_id }}">推し❤</button>
+            {% endif %}
           </div>
         </article>
       {% endfor %}

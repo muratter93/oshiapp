@@ -1,24 +1,36 @@
 # dashboard/views.py
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
+from functools import wraps
+from typing import Callable
 from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.urls import reverse, reverse_lazy
+from django.http import HttpRequest, HttpResponse
 
-# 独自: staff だけ通す（未ログインや staff 以外は /dashboard/login/ へ）
-staff_required = user_passes_test(
-    lambda u: u.is_authenticated and u.is_staff,
-    login_url='dashboard_login'
-)
+def staff_required(view_func: Callable) -> Callable:
+    @wraps(view_func)
+    def _wrapped(request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        user = request.user
+        if not user.is_authenticated:
+            login_url = f"{reverse('dashboard_login')}?next={request.get_full_path()}"
+            return redirect(login_url)
+        if not user.is_staff:
+            return redirect('dashboard_error')
+        return view_func(request, *args, **kwargs)
+    return _wrapped
 
 # 管理者ダッシュボード
 @staff_required
-def admin_dashboard(request):
+def admin_dashboard(request: HttpRequest) -> HttpResponse:
     return render(request, "dashboard/dashboard.html")
 
-# 管理者ログインページ
-class DashboardLoginView(LoginView):
-    template_name = 'dashboard/dashboard_login.html'
-    redirect_authenticated_user = True  # 既にログイン済みならダッシュボードへ
+# アクセス拒否（権限不足）
+def access_denied(request: HttpRequest) -> HttpResponse:
+    return render(request, "dashboard/dashboard_error.html")
 
-    def get_success_url(self):
-        return reverse_lazy('dashboard')
+# 管理者ログイン
+class DashboardLoginView(LoginView):
+    template_name = "dashboard/dashboard_login.html"
+    redirect_authenticated_user = True
+
+    def get_success_url(self) -> str:
+        return self.get_redirect_url() or reverse_lazy("dashboard")
