@@ -7,6 +7,7 @@
 html {
   overflow-x: hidden;
 	scroll-behavior: smooth;
+  position: relative;
 }
 
 body {
@@ -15,9 +16,6 @@ body {
   padding: 0;
   /* background-image: url("/static/img/animal_haikei.jpg"); */
   background-size: 100%;
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
-  /* background-position: center; */
   /* background-repeat: no-repeat; */
 }
 
@@ -39,11 +37,11 @@ nav ul li a:hover {
   color: #ffffff;
 }
 
-/* #work_image ul li a:hover {
+a:hover {
   color: #b78033;
-} */
+}
 
-a:hover img { opacity: 0.4;}
+a:hover img { opacity: 0.7;}
 
 
 /* 左部分ロゴ部分 */
@@ -292,14 +290,14 @@ nav ul li a {
 
 #hamburger_menu_content_outside {
   pointer-events: auto;
-  border-radius: 5px;
+  border-radius: 7px;
   margin: 90px 46px 0px 0px;
   display: none;
-  background-color: rgba(255, 254, 254, 0.95);
+  background-color: rgba(230, 246, 179, 0.95);
   font-family: 'Zen Kurenaido';
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 600;
-  box-shadow: 0 0 2px rgb(216, 216, 216);
+  /* box-shadow: 0 0 2px rgb(216, 216, 216); */
 }
 
 #hamburger_menu_content {
@@ -314,18 +312,22 @@ nav ul li a {
   flex-flow: column;
 }
 
+#hamburger_menu_content_01 {
+  padding-right: 6px;
+}
+
 #hamburger_menu_content_03 a {
   text-decoration: none;
 }
 
-.hamburger_menu_content_h3:visited {
-  color: rgb(51, 158, 158);
+.hum_name:visited {
+  color: rgb(22, 137, 56);
 }
 
 #hamburger_menu_content_02 {
-  margin: 2px 23px 2px 17px;
+  margin: 5px 23px 5px 17px;
   list-style: none;
-  border: 0.1px solid rgb(61, 91, 64);
+  border: 0.1px solid rgb(197, 229, 165);
   border-radius: 5px;
 }
 
@@ -335,6 +337,7 @@ nav ul li a {
 
 .hamburger_menu_content_a {
   text-decoration: none;
+  line-height: 33px;
 }
 
 .hamburger_menu_content_a span{
@@ -347,7 +350,7 @@ nav ul li a {
   font-weight: 900;
   margin: -5px 0px 2px 0px;
   text-align: right;
-  line-height: 26px;
+  line-height: 32px;
   max-width: 270px;
   overflow-wrap: break-word;
   word-break: keep-all;
@@ -356,8 +359,8 @@ nav ul li a {
 
 .hamburger_menu_content_h3 span {
   font-family: 'M PLUS Rounded 1c';
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 17px;
 }
 
 
@@ -379,9 +382,9 @@ nav ul li a {
 .pagetop_arrow {
   height: 40px;
   width: 40px;
-  border-top: 2.5px solid rgb(22, 137, 56);
-  border-right: 2.5px solid rgb(22, 137, 56);
-  border-top-right-radius: 6px;
+  border-top: 3.5px solid rgb(22, 137, 56);
+  border-right: 3.5px solid rgb(22, 137, 56);
+  border-top-right-radius: 8px;
   transform: translateY(20%) rotate(-45deg);
 }
 
@@ -390,7 +393,7 @@ nav ul li a {
   text-align: center;
   line-height: 18px;
   font-weight: 600;
-  /* mix-blend-mode: multiply; */
+  font-size: 16px;
 }
 
 
@@ -403,6 +406,8 @@ footer {
 /* フッターグッズスクロール部分 */
 
 .goods-scroller {
+  position: relative;
+  z-index: -1;
   display: flex;
   width: max-content;
   animation: scroll-left 30s linear infinite;
@@ -432,6 +437,7 @@ footer {
 
 #footer_box {
   background-color: rgb(22, 137, 56);
+  text-align: center;
 }
 
 #footer_forest {
@@ -451,6 +457,7 @@ footer {
   justify-content: center;
   list-style: none;
   margin-bottom: -10px;
+  margin-left: -22px;
 }
 
 #footer_nav ul li {
@@ -459,16 +466,18 @@ footer {
 
 #footer_nav ul li a {
   text-decoration: none;
-  font-size: 17px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(102, 217, 133);
 }
 
 #footer_box small {
-  color: #ffffff;
+  color: rgb(102, 217, 133);
+  text-align: center;
 }
 
 #footer_tree_kanri {
   width: 30px;
-  
 }
 
 

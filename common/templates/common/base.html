@@ -283,7 +283,7 @@
                         <li id="hamburger_menu_content_02"></li>
                         <li id="hamburger_menu_content_03">
                             {% if user.is_authenticated and wallet %}
-                            <a href="#"><h3 class="hamburger_menu_content_h3">{{ user.name|default:user.username }}</a><span> 様</span></h3>
+                            <a class="hum_name" href="#"><h3 class="hamburger_menu_content_h3">{{ user.name|default:user.username }}</a><span> 様</span></h3>
                             <a class="hamburger_menu_content_a" href="#">マイページ</a>
                             <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history' %}">チアコ·スタポ購入履歴</a>
                             <a class="hamburger_menu_content_a" href="#">グッズ交換履歴</a>
@@ -360,7 +360,7 @@
                 <br><br>
                 <small>アニマルマニア</small>
                 <br><br>
-                <a href="{% url 'dashboard_login' %}">
+                <a href="{% url 'dashboard:dashboard_login' %}">
                     <img id="footer_tree_kanri" src="{% static 'img/tree_kanri.png' %}" alt="tree_kanri">
                 </a>
                 <br><br><br>
