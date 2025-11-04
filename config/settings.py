@@ -75,6 +75,7 @@ TEMPLATES = [{
         "django.contrib.messages.context_processors.messages",
         "common.context_processors.navbar",
         'goods.context_processors.cart_total_quantity',  # ←かご表示！
+        'goods.context_processors.all_goods',  # グッズ画像！
     ]},
 }]
 
