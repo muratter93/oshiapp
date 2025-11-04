@@ -13,8 +13,8 @@ body {
   font-family: 'M PLUS Rounded 1c';
   margin: 0;
   padding: 0;
-  /* background-image: url("/static/img/animal_haikei.jpg");
-  background-size: 100%; */
+  /* background-image: url("/static/img/animal_haikei.jpg"); */
+  background-size: 100%;
   /* background-size: cover; */
   /* background-position: center; */
   /* background-repeat: no-repeat; */
@@ -34,8 +34,8 @@ a:visited {
   color: rgb(100, 212, 135);
 }
 
-a:hover {
-  color: rgb(0, 255, 81);
+nav ul li a:hover {
+  color: #ffffff;
 }
 
 /* #work_image ul li a:hover {
@@ -151,7 +151,7 @@ nav ul li a {
   top: 0px;
   right: 280px;
   border-radius: 0px 0px 10px 10px;
-  background-color: rgb(11, 158, 58);
+  background-color: rgb(15, 81, 36);
   padding: 6px 15px 9px 15px;
   display: flex;
   flex-direction: column;
@@ -164,7 +164,7 @@ nav ul li a {
   top: 0px;
   right: 280px;
   border-radius: 0px 0px 10px 10px;
-  background-color: rgb(11, 158, 58);
+  background-color: rgb(15, 81, 36);
   padding: 8px 15px 10px 15px;
   display: flex;
   flex-direction: column;
@@ -269,7 +269,7 @@ nav ul li a {
 }
 
 .hamburger_line {
-  border: 2px solid rgb(11, 158, 58);
+  border: 2px solid rgb(15, 81, 36);
   border-radius: 5px;
   margin-bottom: 13px;
   width: 80%;
@@ -368,14 +368,14 @@ nav ul li a {
 .pagetop_arrow {
   height: 40px;
   width: 40px;
-  border-top: 2.5px solid rgb(11, 158, 58);
-  border-right: 2.5px solid rgb(11, 158, 58);
+  border-top: 2.5px solid rgb(15, 81, 36);
+  border-right: 2.5px solid rgb(15, 81, 36);
   border-top-right-radius: 6px;
   transform: translateY(20%) rotate(-45deg);
 }
 
 .pagetop_lang {
-  color: rgb(11, 158, 58);
+  color: rgb(15, 81, 36);
   text-align: center;
   line-height: 18px;
   font-weight: 600;
@@ -389,11 +389,11 @@ footer {
 }
 
 #footer_box {
-  background-color: rgb(11, 158, 58);
+  background-color: rgb(15, 81, 36);
 }
 
 #footer_nav {
-  background-color: rgb(11, 158, 58);
+  background-color: rgb(15, 81, 36);
   font-family: 'Zen Kurenaido Regular';
   padding-top: 5px;
 }
