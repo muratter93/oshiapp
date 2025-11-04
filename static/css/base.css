@@ -15,6 +15,7 @@ body {
   padding: 0;
   /* background-image: url("/static/img/animal_haikei.jpg"); */
   background-size: 100%;
+  /* background-repeat: no-repeat; */
   /* background-size: cover; */
   /* background-position: center; */
   /* background-repeat: no-repeat; */
@@ -31,7 +32,7 @@ body {
 /* ーーーーーー */
 
 a:visited { 
-  color: rgb(100, 212, 135);
+  color: rgb(46, 65, 48);
 }
 
 nav ul li a:hover {
@@ -68,11 +69,12 @@ a:hover img { opacity: 0.4;}
 
 nav {
   position: fixed;
-  bottom: 30px;
+  bottom: 20px;
   left: 0;
   font-weight: 600;
   font-family: 'Zen Kurenaido';
-  font-size: 20.5px;
+  font-size: 20px;
+  color: rgb(81, 54, 35);
 }
 
 nav ul {
@@ -130,7 +132,7 @@ nav ul li a {
   position: absolute;
   top: -8px;
   right: -8px;
-  background-color: rgb(15, 81, 36);
+  background-color: rgb(22, 137, 56);
   color: white;
   font-size: 14px;
   font-weight: bold;
@@ -151,7 +153,7 @@ nav ul li a {
   top: 0px;
   right: 280px;
   border-radius: 0px 0px 10px 10px;
-  background-color: rgb(15, 81, 36);
+  background-color: rgb(22, 137, 56);
   padding: 6px 15px 9px 15px;
   display: flex;
   flex-direction: column;
@@ -164,7 +166,7 @@ nav ul li a {
   top: 0px;
   right: 280px;
   border-radius: 0px 0px 10px 10px;
-  background-color: rgb(15, 81, 36);
+  background-color: rgb(22, 137, 56);
   padding: 8px 15px 10px 15px;
   display: flex;
   flex-direction: column;
@@ -269,7 +271,7 @@ nav ul li a {
 }
 
 .hamburger_line {
-  border: 2px solid rgb(15, 81, 36);
+  border: 2px solid rgb(22, 137, 56);
   border-radius: 5px;
   margin-bottom: 13px;
   width: 80%;
@@ -293,10 +295,11 @@ nav ul li a {
   border-radius: 5px;
   margin: 90px 46px 0px 0px;
   display: none;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 254, 254, 0.95);
   font-family: 'Zen Kurenaido';
   font-size: 18px;
   font-weight: 600;
+  box-shadow: 0 0 2px rgb(216, 216, 216);
 }
 
 #hamburger_menu_content {
@@ -311,10 +314,18 @@ nav ul li a {
   flex-flow: column;
 }
 
+#hamburger_menu_content_03 a {
+  text-decoration: none;
+}
+
+.hamburger_menu_content_h3:visited {
+  color: rgb(51, 158, 158);
+}
+
 #hamburger_menu_content_02 {
   margin: 2px 23px 2px 17px;
   list-style: none;
-  border: 0.1px solid rgb(255, 255, 255);
+  border: 0.1px solid rgb(61, 91, 64);
   border-radius: 5px;
 }
 
@@ -331,7 +342,7 @@ nav ul li a {
 }
 
 .hamburger_menu_content_h3 {
-  color: rgb(15, 81, 36);
+  color: rgb(22, 137, 56);
   font-size: 25px;
   font-weight: 900;
   margin: -5px 0px 2px 0px;
@@ -368,17 +379,18 @@ nav ul li a {
 .pagetop_arrow {
   height: 40px;
   width: 40px;
-  border-top: 2.5px solid rgb(15, 81, 36);
-  border-right: 2.5px solid rgb(15, 81, 36);
+  border-top: 2.5px solid rgb(22, 137, 56);
+  border-right: 2.5px solid rgb(22, 137, 56);
   border-top-right-radius: 6px;
   transform: translateY(20%) rotate(-45deg);
 }
 
 .pagetop_lang {
-  color: rgb(15, 81, 36);
+  color: rgb(22, 137, 56);
   text-align: center;
   line-height: 18px;
   font-weight: 600;
+  /* mix-blend-mode: multiply; */
 }
 
 
@@ -388,12 +400,48 @@ footer {
   text-align: center;
 }
 
+/* フッターグッズスクロール部分 */
+
+.goods-scroller {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 30s linear infinite;
+  width: 100%;
+  height: 120px;
+}
+
+.goods-item {
+  flex: 0 0 auto;
+  height: 120px;
+}
+
+.goods-item img {
+  height: 120px;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* フッター緑山から下部分 */
+
 #footer_box {
-  background-color: rgb(15, 81, 36);
+  background-color: rgb(22, 137, 56);
+}
+
+#footer_forest {
+  margin: 0;
+  padding: 0;
+  margin-bottom: -10px;
 }
 
 #footer_nav {
-  background-color: rgb(15, 81, 36);
+  background-color: rgb(22, 137, 56);
   font-family: 'Zen Kurenaido Regular';
   padding-top: 5px;
 }
@@ -411,11 +459,16 @@ footer {
 
 #footer_nav ul li a {
   text-decoration: none;
-  font-size: 16px;
+  font-size: 17px;
 }
 
 #footer_box small {
   color: #ffffff;
+}
+
+#footer_tree_kanri {
+  width: 30px;
+  
 }
 
 
