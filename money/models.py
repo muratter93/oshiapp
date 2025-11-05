@@ -30,7 +30,7 @@ class Wallet(models.Model):
         return f"{self.member.username} のウォレット"
 
 
-# --- 購入履歴モデル ---
+# --- チアコ購入履歴 ---
 class CheerCoinPurchase(models.Model):
     member = models.ForeignKey(
         settings.AUTH_USER_MODEL,

@@ -1,7 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import GoodsForm
+from .models import Goods
+
+from django.contrib.admin.views.decorators import staff_member_required
+from .models import Order
 
 # --- 管理者チェック関数 ---
 def is_admin(user):
@@ -24,3 +28,83 @@ def goods_admin_add(request):
         form = GoodsForm()
 
     return render(request, 'goods/goods_admin_add.html', {'form': form})
+
+
+# 管理者チェック関数（is_staff または superuser）
+def admin_check(user):
+    return user.is_authenticated and (user.is_staff or user.is_superuser)
+
+
+@user_passes_test(admin_check)
+def goods_admin_list(request):
+    """グッズ一覧を管理者用に表示"""
+    goods_list = Goods.objects.all().order_by('-id')
+    return render(request, 'goods/admin_goods_list.html', {'goods_list': goods_list})
+
+
+@user_passes_test(admin_check)
+def goods_admin_edit(request, goods_id):
+    """指定グッズを編集"""
+    goods = get_object_or_404(Goods, id=goods_id)
+
+    if request.method == 'POST':
+        form = GoodsForm(request.POST, request.FILES, instance=goods)
+        if form.is_valid():
+            form.save()
+            return redirect('goods:goods_admin_list')
+    else:
+        form = GoodsForm(instance=goods)
+
+    return render(request, 'goods/admin_goods_edit.html', {
+        'form': form,
+        'goods': goods
+    })
+
+# 削除
+@user_passes_test(admin_check)
+def goods_admin_delete(request, goods_id):
+    """グッズ削除（確認付き）"""
+    goods = get_object_or_404(Goods, id=goods_id)
+
+    if request.method == "POST":
+        goods.delete()
+        return redirect('goods:goods_admin_list')
+
+    return render(request, 'goods/admin_goods_delete_confirm.html', {'goods': goods})
+
+# 注文一覧
+@staff_member_required
+def admin_order_list(request):
+    orders = Order.objects.prefetch_related('items__goods').order_by('-created_at')
+    return render(request, 'goods/admin_order_list.html', {'orders': orders})
+
+
+@staff_member_required
+def admin_order_detail(request, order_id):
+    order = get_object_or_404(Order.objects.prefetch_related('items__goods'), id=order_id)
+    return render(request, 'goods/admin_order_detail.html', {'order': order})
+
+
+@staff_member_required
+def admin_order_ship(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    order.status = 'shipped'
+    order.save()
+    return redirect('goods:admin_order_list')
+
+# 発送状態を切り替えるビュー
+@staff_member_required
+def toggle_shipping_status(request, order_id):
+    """発送状態を「未発送⇄発送済み」に切り替える"""
+    order = get_object_or_404(Order, id=order_id)
+
+    # 状態をトグル（切り替え）
+    if order.status == 'pending':
+        order.status = 'shipped'
+        messages.success(request, f"注文ID {order.id} を『発送済み』に変更しました。")
+    else:
+        order.status = 'pending'
+        messages.info(request, f"注文ID {order.id} を『未発送』に戻しました。")
+
+    order.save()
+    return redirect('goods:admin_order_list')

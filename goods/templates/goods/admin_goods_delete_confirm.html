@@ -1,0 +1,60 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load static %}
+
+{% block title %}グッズ削除確認{% endblock %}
+
+{% block content %}
+<div class="delete-confirm-container">
+  <h1>グッズ削除確認</h1>
+
+  <p>本当にこのグッズを削除しますか？</p>
+
+  <div class="goods-preview">
+    {% if goods.image %}
+      <img src="{{ goods.image.url }}" alt="{{ goods.name }}" width="100">
+    {% endif %}
+    <p><strong>{{ goods.name }}</strong></p>
+    <p>必要スタポ：{{ goods.required_stanning_points }}</p>
+    <p>在庫：{{ goods.stock }}</p>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="delete-btn">削除する</button>
+    <a href="{% url 'goods:goods_admin_list' %}" class="cancel-btn">キャンセル</a>
+  </form>
+</div>
+
+<style>
+.delete-confirm-container {
+  width: 80%;
+  margin: 40px auto;
+  text-align: center;
+}
+.goods-preview {
+  margin: 20px 0;
+}
+.delete-btn {
+  background-color: #e53935;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  background-color: #c62828;
+}
+.cancel-btn {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #333;
+  padding: 6px 12px;
+  border: 1px solid #999;
+  border-radius: 6px;
+}
+.cancel-btn:hover {
+  background-color: #eee;
+}
+</style>
+{% endblock %}
