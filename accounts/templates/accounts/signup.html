@@ -10,15 +10,11 @@
 <body>
     <div class="container">
         <div class="left-side">
-            デザイン
+            <img src="{% static 'img/animalmania_logo_kari.png' %}" class="logo-img">
         </div>
 
         <div class="right-side">
-            <div class="login-header">
-                新規登録
-                <div class="arrow-icon"></div>
-                <span class="fullscreen-icon">⛶</span>
-            </div>
+            
 
             <div class="login-box">
 
@@ -26,19 +22,24 @@
                     {% csrf_token %}
                     <input type="text" name="username" class="input-field" placeholder="ユーザーID" required>
                     <input type="email" name="email" class="input-field" placeholder="メールアドレス" required>
-                    <input type="password" name="password" class="input-field" placeholder="パスワード" required>
+                    <input type="password" name="password" class="input-field" placeholder="パスワード" required pattern="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}" title="英字・数字・記号を含む8文字以上で入力してください">
+                    <!-- パスワードの例　Test1234! -->
                     <input type="password" name="password_confirm" class="input-field" placeholder="パスワード（確認）" required>
-                    <input type="text" name="name" class="input-field" placeholder="名前" required>
-                    <input type="text" name="postal_code" class="input-field" placeholder="郵便番号" required>
+                    <input type="text" name="name" class="input-field" placeholder="名前" required pattern="^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龥]{1,}$" title="日本語で入力してください">
+
+                    <!-- 最大値は決める？ max="2007-12-31"とか-->
+                    <input type="date" name="birth" class="input-field" placeholder="生年月日" required min="1900-01-01">
+
+                    <input type="text" name="postal_code" class="input-field" placeholder="郵便番号" required pattern="\d{7}" title="数字7桁で入力してください（ハイフン不要）">
                     <input type="text" name="address" class="input-field" placeholder="住所" required>
-                    <input type="text" name="phone" class="input-field" placeholder="電話番号" required>
+                    <input type="text" name="phone" class="input-field" placeholder="電話番号" required pattern="\d{10,11}" title="数字10〜11桁で入力してください（ハイフン不要）">
                     <button type="submit" class="signup-button">登録する</button>
                 </form>
 
                 <div class="divider"></div>
 
                 <a href="{% url 'accounts:login' %}">
-                    <button class="login-button">ログインに戻る</button>
+                    <button class="login-button">ログイン</button>
                 </a>
             </div>
         </div>

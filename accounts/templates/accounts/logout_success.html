@@ -1,2 +1,44 @@
-<h1>ログアウトしました</h1>
-<a href="{% url 'main:index' %}">トップページへ戻る</a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログアウト完了</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center; /* 横中央 */
+            align-items: center;    /* 縦中央 */
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        .center-box {
+            text-align: center;
+        }
+        .center-box a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            border-radius: 8px;
+            background-color: #3c8dbc;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: opacity .2s;
+        }
+        .center-box a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-box">
+        <h2>ログアウトしました</h2>
+        <a href="{% url 'main:index' %}">トップページへ戻る</a>
+    </div>
+</body>
+</html>

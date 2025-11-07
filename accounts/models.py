@@ -15,11 +15,3 @@ class Member(AbstractUser):
 
     def __str__(self):
         return self.username
-
-    """
-    元から含まれているフィールド
-    id          (PK)
-    username    (一意)  ← ログインID
-    email       
-    password    (ハッシュ保存)
-    """

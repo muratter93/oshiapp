@@ -20,4 +20,3 @@ AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailOrUsernameBackend',  # 先にカスタムバックエンド
     'django.contrib.auth.backends.ModelBackend', # フォールバック（標準）
 ]
-

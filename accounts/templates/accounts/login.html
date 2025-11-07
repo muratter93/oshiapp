@@ -10,18 +10,10 @@
 <body>
     <div class="container">
         <div class="left-side">
-            デザイン
+            <img src="{% static 'img/animalmania_logo_kari.png' %}" class="logo-img">
         </div>
         
         <div class="right-side">
-            <!--ここから-->
-            <div class="login-header">
-                ログイン
-                <div class="arrow-icon"></div>
-                <span class="fullscreen-icon">⛶</span>
-            </div>
-            <!--ここまで　消すかも？-->
-
             <div class="login-box">
                 <form id="login-form" action="{% url 'accounts:login' %}" method="post">
                     {% csrf_token %}
@@ -29,8 +21,8 @@
                     <input type="password" name="password" placeholder="パスワード" class="input-field">
 
                     <button type="submit" class="login-button">ログイン</button>
+                    <a href="{% url 'accounts:password_reset' %}">パスワードを忘れた方はこちら</a>
                 </form>
-
 
                 <div class="divider"></div>
 

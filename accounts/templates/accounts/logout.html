@@ -5,16 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ログアウト中...</title>
-    <!-- <link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center; /* 横中央 */
+            align-items: center;    /* 縦中央 */
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .login-box h1 {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-
-        <div class="right-side">
-            <div class="login-box">
-                <h1>ログアウト中...</h1>
-                <p>少々お待ちください。</p>
-            </div>
+        <div class="login-box">
+            <h1>ログアウト中...</h1>
+            <p>少々お待ちください。</p>
         </div>
     </div>
 
