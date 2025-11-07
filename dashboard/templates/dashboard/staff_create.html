@@ -1,0 +1,64 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}新しい管理者を登録{% endblock %}
+{% block content_title %}新しい管理者を登録{% endblock %}
+
+{% block content %}
+<div class="card staff-create">
+  <div class="container">
+
+    {# ===== フォーム全体のエラー（例: パスワード不一致 など） ===== #}
+    {% if form.non_field_errors %}
+      <div class="form-errors">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <div class="form-grid" style="display:grid; gap:12px; max-width:520px;">
+        <label>
+          ユーザー名
+          {{ form.username }}
+          {% if form.username.errors %}<div class="field-error">{{ form.username.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          メール
+          {{ form.email }}
+          {% if form.email.errors %}<div class="field-error">{{ form.email.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          パスワード
+          {{ form.password1 }}
+          {% if form.password1.errors %}<div class="field-error">{{ form.password1.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          パスワード（確認）
+          {{ form.password2 }}
+          {% if form.password2.errors %}<div class="field-error">{{ form.password2.errors.0 }}</div>{% endif %}
+        </label>
+
+        {# is_keeper がフォームにある場合のみ表示 #}
+        {% if form.fields.is_keeper %}
+        <label style="display:flex; gap:8px; align-items:center;">
+          {{ form.is_keeper }} 飼育員権限も付与
+        </label>
+        {% endif %}
+
+        <p class="subtle">※ このユーザーは「管理者（is_staff）」として作成されます（最高管理者にはなりません）。</p>
+
+        <div class="form-actions" style="display:flex; gap:8px;">
+          <button class="btn btn-edit" type="submit">登録する</button>
+          <a class="btn" href="{% url 'dashboard:admins_list' %}">一覧へ戻る</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

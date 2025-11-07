@@ -1,0 +1,79 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% block title %}管理者編集{% endblock %}
+{% block content_title %}管理者を編集{% endblock %}
+
+{% block content %}
+<div class="card staff-edit">
+  <div class="container">
+
+    {# ===== フォーム全体のエラー ===== #}
+    {% if form.non_field_errors %}
+      <div class="form-errors">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <div class="form-grid"> {# ← 幅はCSSで 520px に統一 #}
+
+        {# 変更不可：ユーザー名 #}
+        <label>
+          ユーザー名（変更不可）
+          <div class="readonly-box">{{ target_user.username }}</div>
+        </label>
+
+        {# 変更可：メール #}
+        <label>
+          メール
+          {{ form.email }}
+          {% for e in form.email.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
+
+        {# 変更可：氏名 #}
+        <label>
+          氏名
+          {{ form.name }}
+          {% for e in form.name.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
+
+        {# 変更可：郵便番号 #}
+        <label>
+          郵便番号
+          {{ form.postal_code }}
+          {% for e in form.postal_code.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
+
+        {# 変更可：住所 #}
+        <label>
+          住所
+          {{ form.address }}
+          {% for e in form.address.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
+
+        {# 変更可：電話 #}
+        <label>
+          電話番号
+          {{ form.phone }}
+          {% for e in form.phone.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
+
+        {# 変更可：生年月日 #}
+        <label>
+          生年月日
+          {{ form.birth }}
+          {% for e in form.birth.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
+
+        <div class="form-actions">
+          <button class="btn btn-edit" type="submit">保存</button>
+          <a class="btn" href="{% url 'dashboard:admins_list' %}">一覧へ戻る</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

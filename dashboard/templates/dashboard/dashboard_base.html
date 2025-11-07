@@ -54,8 +54,10 @@
 
     <li class="menu-section"><span class="menu-icon">▶</span> 管理者管理</li>
   <ul class="menu-items">
-    <li><a href="#">管理者一覧</a></li>
-    <li><a href="#">新しい管理者を登録</a></li>
+    <li><a href="{% url 'dashboard:admins_list' %}">管理者一覧</a></li>
+{% if request.user.is_superuser %}
+  <li><a href="{% url 'dashboard:staff_create' %}">新しい管理者を登録</a></li>
+{% endif %}
     <li><a href="#">新しい飼育員を登録</a></li>
   </ul>
 

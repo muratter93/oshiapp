@@ -270,3 +270,4 @@ window.addEventListener('DOMContentLoaded', () => {
     container.querySelectorAll('.carousel').forEach(setupCarousel);
   });
 });
+

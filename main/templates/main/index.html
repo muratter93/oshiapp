@@ -7,42 +7,52 @@
 
 <div class="index">
   <div class="index-main">
-    <div class="animal-grid">
-      {% for a in animals %}
-        <article class="animal-card" data-id="{{ a.animal_id }}">
-          <div class="animal-media carousel">
-            {% if a.pic1 %}<img src="{{ a.pic1.url }}" alt="{{ a.japanese }}" class="slide active">{% endif %}
-            {% if a.pic2 %}<img src="{{ a.pic2.url }}" alt="{{ a.japanese }}" class="slide">{% endif %}
-            {% if not a.pic1 and not a.pic2 %}<img src="{% static 'img/noimage-4x3.png' %}" alt="画像なし" class="slide active">{% endif %}
+<div class="animal-grid">
+  {% for a in animals %}
+<article class="animal-card" data-id="{{ a.animal_id }}">
+  <div class="animal-media carousel
+    {% if a.animal_id == 1 %}
+      rainbow-border
+    {% elif a.animal_id == 2 or a.animal_id == 5 or a.animal_id == 6 or a.animal_id == 11 %}
+      red-border
+    {% elif a.animal_id == 3 or a.animal_id == 7 or a.animal_id == 8 or a.animal_id == 12 %}
+      blue-border
+    {% elif a.animal_id == 4 or a.animal_id == 9 or a.animal_id == 10 %}
+      green-border
+    {% endif %}
+  ">
+    {# 画像 #}
+    {% if a.pic1 %}<img src="{{ a.pic1.url }}" alt="{{ a.japanese }}" class="slide active">{% endif %}
+    {% if a.pic2 %}<img src="{{ a.pic2.url }}" alt="{{ a.japanese }}" class="slide">{% endif %}
+    {% if not a.pic1 and not a.pic2 %}<img src="{% static 'img/noimage-4x3.png' %}" alt="画像なし" class="slide active">{% endif %}
 
-            {% if a.animal_id == 1 %}
-              <span class="oshi-label">💖推し💖</span>
-            {% endif %}
+    {# ボタン類は画像の上のまま #}
+    <span class="oshii-badge">推しP：<span class="point">{{ a.total_point }}</span></span>
+    <a class="intro-btn" href="/animals/{{ a.animal_id }}/">紹介</a>
+    {% if request.user.is_authenticated %}
+      <button class="push-btn" data-id="{{ a.animal_id }}">推し❤</button>
+    {% endif %}
 
-            <div class="media-overlay">
-              <p class="media-title">{{ a.japanese }}</p>
-              <p class="media-sub">
-                {{ a.name }}
-                <span class="animal-age">
-                  {% if a.age %}{{ a.age }}歳{% else %}（年齢不明）{% endif %}
-                  {% if a.sex == "M" %} ♂{% elif a.sex == "F" %} ♀{% else %} 不明{% endif %}
-                </span>
-              </p>
-            </div>
+    {% if a.animal_id == 1 %}<span class="oshi-label">💖担当💖</span>{% endif %}
+    {% if a.pic2 %}<div class="dots"></div>{% endif %}
+  </div>
 
-            <div class="dots"></div>
-          </div>
+  {# 文字は下 #}
+  <div class="animal-body">
+    <p class="animal-title">{{ a.japanese }}</p>
+    <p class="animal-sub">
+      {{ a.name }}
+      <span class="animal-age">
+        {% if a.age %}{{ a.age }}歳{% else %}（年齢不明）{% endif %}
+        {% if a.sex == "M" %} ♂{% elif a.sex == "F" %} ♀{% else %} 不明{% endif %}
+      </span>
+    </p>
+  </div>
+</article>
 
-          <div class="card-actions">
-            <span class="oshii-badge">推しP：<span class="point">{{ a.total_point }}</span></span>
-            <a class="intro-btn" href="/animals/{{ a.animal_id }}/">紹介</a>
-            {% if request.user.is_authenticated %}
-              <button class="push-btn" data-id="{{ a.animal_id }}">推し❤</button>
-            {% endif %}
-          </div>
-        </article>
-      {% endfor %}
-    </div>
+  {% endfor %}
+</div>
+
 
     {% include "ranking/top.html" %}
   </div>

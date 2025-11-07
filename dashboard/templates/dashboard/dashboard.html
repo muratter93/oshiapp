@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<!-- ユーザー管理 -->
+{% comment %} <!-- ユーザー管理 -->
 <section id="users">
   <h2>ユーザー管理</h2>
   <div class="grid">
@@ -106,32 +106,7 @@
       </ul>
     </div>
   </div>
-</section>
+</section> {% endcomment %}
 
-<!-- 管理者管理 -->
-<section id="admins">
-  <h2>管理者管理</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>管理者一覧</h3>
-      <ul>
-        <li>氏名・権限（is_staff / is_superuser / is_keeper）</li>
-        <li>編集・削除</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>新規管理者</h3>
-      <ul>
-        <li>基本情報登録・is_staff付与</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>新規飼育員</h3>
-      <ul>
-        <li>is_keeper 付与</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
 {% endblock %}
