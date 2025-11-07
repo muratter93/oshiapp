@@ -1,0 +1,55 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% block title %}会員編集{% endblock %}
+
+{% block content %}
+<div class="staff-edit">  {# ← 管理者編集と同じCSSを使えるように #}
+  <div class="container">
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-grid">
+
+        <label>
+          ユーザー名
+          <input type="text" name="username" value="{{ member.username }}">
+        </label>
+
+        <label>
+          名前
+          <input type="text" name="name" value="{{ member.name }}">
+        </label>
+
+        <label>
+          メール
+          <input type="email" name="email" value="{{ member.email }}">
+        </label>
+
+        <label>
+          生年月日
+          <input type="date" name="birth" value="{{ member.birth|date:'Y-m-d' }}">
+        </label>
+
+        <label>
+          郵便番号
+          <input type="text" name="postal_code" value="{{ member.postal_code }}">
+        </label>
+
+        <label>
+          住所
+          <input type="text" name="address" value="{{ member.address }}">
+        </label>
+
+        <label>
+          電話番号
+          <input type="text" name="phone" value="{{ member.phone }}">
+        </label>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-edit">保存</button>
+        <a href="{% url 'dashboard:member_list' %}" class="btn">戻る</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -474,3 +474,38 @@ body {
 html, body {
   scrollbar-gutter: stable both-edges; /* 対応ブラウザで幅の揺れを防止 */
 }
+
+/* 一般会員一覧専用：列幅調整 */
+.members-page .admin-table th:nth-child(1),
+.members-page .admin-table td:nth-child(1) {
+  width: 6%;
+  text-align: center;
+}
+.members-page .admin-table th:nth-child(2),
+.members-page .admin-table td:nth-child(2) {
+  width: 20%;
+}
+.members-page .admin-table th:nth-child(3),
+.members-page .admin-table td:nth-child(3) {
+  width: 28%;
+}
+.members-page .admin-table th:nth-child(4),
+.members-page .admin-table td:nth-child(4) {
+  width: 20%;
+}
+.members-page .admin-table th:nth-child(5),
+.members-page .admin-table td:nth-child(5) {
+  width: 10%;
+  text-align: center;
+}
+.members-page .admin-table th:nth-child(6),
+.members-page .admin-table td:nth-child(6) {
+  width: auto;
+}
+
+/* ===============================
+   テーブル：偶数行を薄いグレーで
+================================ */
+.admin-table tbody tr:nth-child(even) {
+  background-color: #f9fafb; /* Tailwindの gray-50 相当 */
+}

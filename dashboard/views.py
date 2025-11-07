@@ -348,3 +348,75 @@ class StaffUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         resp = super().form_valid(form)
         messages.success(self.request, f"「{self.object.username}」の情報を更新しました。")
         return resp
+
+
+class MemberListView(LoginRequiredMixin, ListView):
+    """一般会員一覧"""
+    model = User
+    template_name = "dashboard/members_list.html"
+    context_object_name = "users"
+
+    def get_queryset(self):
+        # staff/superuserを除いた通常会員のみ
+        return User.objects.filter(is_staff=False, is_superuser=False).order_by('id')
+
+
+class MemberUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """一般会員編集ページ"""
+class MemberUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = User
+    fields = [
+        "username", "name", "email",
+        "birth", "postal_code", "address", "phone",
+    ]
+    template_name = "dashboard/member_edit.html"
+    context_object_name = "member"
+    success_url = reverse_lazy("dashboard:member_list")
+
+    def test_func(self):
+        u = self.request.user
+        obj = self.get_object()
+        return u.is_superuser or u.is_staff or (u == obj)
+
+    def form_valid(self, form):
+        messages.success(self.request, "会員情報を更新しました。")
+        return super().form_valid(form)
+
+
+    def test_func(self):
+        # staff/superuser は全員編集可。一般会員は自分のみ編集可。
+        u = self.request.user
+        obj = self.get_object()
+        return u.is_superuser or u.is_staff or (u == obj)
+
+    def handle_no_permission(self):
+        messages.error(self.request, "権限がありません。")
+        return redirect("dashboard:member_list")
+
+
+# --- POSTアクション系 ---
+from django.views.decorators.http import require_POST
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
+@login_required
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+@require_POST
+def withdraw_member(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    user.is_active = False
+    user.save()
+    messages.warning(request, f"{user.username} を退会処理しました。")
+    return redirect("dashboard:member_list")
+
+
+@login_required
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+@require_POST
+def reactivate_member(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    user.is_active = True
+    user.save()
+    messages.success(request, f"{user.username} を再開しました。")
+    return redirect("dashboard:member_list")

@@ -26,7 +26,7 @@
   {% block sidebar %}
   <li class="menu-section"><span class="menu-icon">▶</span> ユーザー管理</li>
   <ul class="menu-items">
-    <li><a href="#">会員一覧</a></li>
+    <li><a href="{% url 'dashboard:member_list' %}">会員一覧</a></li>
   </ul>
 
   <li class="menu-section"><span class="menu-icon">▶</span> サブスク管理</li>
