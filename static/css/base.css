@@ -14,7 +14,7 @@ body {
   font-family: 'M PLUS Rounded 1c';
   margin: 0;
   padding: 0;
-  /* background-image: url("/static/img/animal_haikei.jpg"); */
+  background-image: url("/static/img/animal_haikei.jpg");
   background-size: 100%;
   /* background-repeat: no-repeat; */
 }
@@ -47,8 +47,9 @@ a:hover img { opacity: 0.7;}
 /* 左部分ロゴ部分 */
 
 .main_left_image {
-  top: 10px;
-  width: 200px;
+  width: 178px;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
 
@@ -101,7 +102,7 @@ nav ul li a {
 #main_center {
   margin-left: 200px;
   padding: 100px 40px 0px 10px;
-  background-color: rgb(168, 168, 234);
+  /* background-color: rgb(168, 168, 234); */
 }
 
 
@@ -471,9 +472,8 @@ footer {
   color: rgb(102, 217, 133);
 }
 
-#footer_box small {
-  color: rgb(102, 217, 133);
-  text-align: center;
+#footer_logo {
+  width: 230px;
 }
 
 #footer_tree_kanri {
