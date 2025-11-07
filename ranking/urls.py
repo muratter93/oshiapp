@@ -6,3 +6,4 @@ app_name = "ranking"
 urlpatterns = [
     path("", views.ranking, name="index"),
 ]
+

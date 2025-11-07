@@ -1,10 +1,18 @@
 {% extends "common/base.html" %}
+{% block title %}
+    アニマルランキング | アニマルマニア
+{% endblock %}
 {% block content %}
 <section class="text-center container" style="padding-top:0px;">
     <div class="col-lg-8 col-md-10 mx-auto">
         <h1 class="fw-light" style="text-align:center; font-size:3em; margin-bottom:40px;">
-            どうぶつ『推し』ランキング！
+            アニマル『 推し! 』ランキング
         </h1>
+        {% if not is_page_1 %}
+            <h2 style="font-size: 1.5em; margin-bottom: 20px;">
+                {{ actual_page_num }}ページ目 ({{ start_rank }}位 〜)
+            </h2>
+        {% endif %}
     </div>
 </section>
 
@@ -32,7 +40,6 @@ body {
     line-height: 1.5em;
 }
 
-/* ===== 第1位 ===== */
 .rank-1 img {
     width: 40vw;
     max-width: 450px;
@@ -47,7 +54,6 @@ body {
     font-weight: bold;
 }
 
-/* ===== 第2〜3位 ===== */
 .rank-2-3 {
     display: flex;
     justify-content: center;
@@ -67,7 +73,6 @@ body {
     margin-bottom: 8px;
 }
 
-/* ===== 第4〜6位 ===== */
 .rank-4-6 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -86,7 +91,6 @@ body {
     margin-bottom: 6px;
 }
 
-/* ===== 第7〜10位 ===== */
 .rank-7-10 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -105,7 +109,6 @@ body {
     margin-bottom: 6px;
 }
 
-/* ===== 第11〜20位 ===== */
 .rank-11-15,
 .rank-16-20,
 .rank-other {
@@ -124,20 +127,49 @@ body {
     border-radius: 8px;
 }
 
-/* ===== ページネーション ===== */
 .pagination {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
     margin: 50px 0;
     font-size: 1.2rem;
 }
-.pagination a {
-    margin: 0 15px;
+.pagination a,
+.pagination .current,
+.pagination .dots,
+.pagination .disabled {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
     text-decoration: none;
-    color: #007bff;
     font-weight: bold;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #007bff;
+    min-width: 45px; /* ボタンの幅をある程度揃える */
+    text-align: center;
 }
 .pagination a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    background-color: #f4f4f4;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination .dots {
+    color: #999;
+    border: none; /* ... には枠線不要 */
+    font-weight: normal;
+}
+/* 無効化された「前へ」「次へ」 */
+.pagination .disabled {
+    color: #ccc;
+    border-color: #eee;
 }
 
 @media (max-width: 768px) {
@@ -153,93 +185,130 @@ body {
     .rank-11-15, .rank-16-20, .rank-other {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    /* モバイル用にページネーションの余白を少し詰める */
+    .pagination a,
+    .pagination .current,
+    .pagination .dots,
+    .pagination .disabled {
+        margin: 0 3px;
+        padding: 6px 10px;
+        min-width: 35px;
+    }
 }
+
 </style>
 
 <div class="ranking-container">
 
-    {% with a=animals.0 %}
-    {% if a %}
-    <div class="rank-1 rank-card">
-        <h2>第1位 {{ a.japanese }}</h2>
-        <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-        <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
-    </div>
-    {% endif %}
-    {% endwith %}
+    {% if is_page_1 %}
 
-    <div class="rank-2-3">
-        {% for a in animals|slice:"1:3" %}
-        <div class="rank-card">
-            <h3>第{{ forloop.counter|add:1 }}位 {{ a.japanese }}</h3>
+        {% with a=animals.0 %}
+        {% if a %}
+        <div class="rank-1 rank-card">
+            <h2>第1位 {{ a.japanese }}</h2>
             <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
+            <p>{{ a.name }} <br>{{ a.total_point }} 推しP</p>
         </div>
-        {% endfor %}
-    </div>
-
-    <div class="rank-4-6">
-        {% for a in animals|slice:"3:6" %}
-        <div class="rank-card">
-            <h4>第{{ forloop.counter|add:3 }}位 {{ a.japanese }}</h4>
-            <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="rank-7-10">
-        {% for a in animals|slice:"6:10" %}
-        <div class="rank-card">
-            <h5>第{{ forloop.counter|add:6 }}位 {{ a.japanese }}</h5>
-            <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="rank-11-15">
-        {% for a in animals|slice:"10:15" %}
-        <div class="rank-card">
-            <h5>第{{ forloop.counter|add:10 }}位 {{ a.japanese }}</h5>
-            <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="rank-16-20">
-        {% for a in animals|slice:"15:20" %}
-        <div class="rank-card">
-            <h5>第{{ forloop.counter|add:15 }}位 {{ a.japanese }}</h5>
-            <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
-        </div>
-        {% endfor %}
-    </div>
-
-
-    {% if page_obj %}
-    <div class="rank-other">
-        {% for a in page_obj %}
-        <div class="rank-card">
-            <h5>第{{ forloop.counter|add:20|add:page_obj.start_index|add:"-1" }}位 {{ a.japanese }}</h5>
-            <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-            <p>{{ a.name }} <br>{{ a.total_point }} スタポ</p>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="pagination">
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">＜　前へ</a>
         {% endif %}
-        <span>ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">次へ　＞</a>
-        {% endif %}
-    </div>
+        {% endwith %}
+
+        <div class="rank-2-3">
+            {% for a in animals|slice:"1:3" %}
+            <div class="rank-card">
+                <h3>第{{ forloop.counter|add:1 }}位 {{ a.japanese }}</h3>
+                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                <p>{{ a.name }} <br>{{ a.total_point }} 推しP</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="rank-4-6">
+            {% for a in animals|slice:"3:6" %}
+            <div class="rank-card">
+                <h4>第{{ forloop.counter|add:3 }}位 {{ a.japanese }}</h4>
+                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                <p>{{ a.name }} <br>{{ a.total_point }} 推しP</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="rank-7-10">
+            {% for a in animals|slice:"6:10" %}
+            <div class="rank-card">
+                <h5>第{{ forloop.counter|add:6 }}位 {{ a.japanese }}</h5>
+                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                <p>{{ a.name }} <br>{{ a.total_point }} 推しP</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="rank-11-15">
+            {% for a in animals|slice:"10:15" %}
+            <div class="rank-card">
+                <h5>第{{ forloop.counter|add:10 }}位 {{ a.japanese }}</h5>
+                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                <p>{{ a.name }} <br>{{ a.total_point }} 推しP</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="rank-16-20">
+            {% for a in animals|slice:"15:20" %}
+            <div class="rank-card">
+                <h5>第{{ forloop.counter|add:15 }}位 {{ a.japanese }}</h5>
+                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                <p>{{ a.name }} <br>{{ a.total_point }} 推しP</p>
+            </div>
+            {% endfor %}
+        </div>
+    
+    {% else %}
+        <div class="rank-other">
+            {% for a in page_obj %}
+            <div class="rank-card">
+                <h5>第{{ forloop.counter0|add:start_rank }}位 {{ a.japanese }}</h5>
+                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                <p>{{ a.name }} <br>{{ a.total_point }} 推しP</p>
+            </div>
+            {% empty %}
+            <p>該当するどうぶつがいません。</p>
+            {% endfor %}
+        </div>
     {% endif %}
 
 </div>
+
+{% if total_pages > 1 %}
+<div class="pagination">
+    <span class="step-links">
+        
+        {% if actual_page_num > 1 %}
+            <a href="?page={{ actual_page_num|add:'-1' }}">&laquo;</a>
+        {% else %}
+            <span class="disabled">&laquo;</span>
+        {% endif %}
+
+        {% for page_num in page_range %}
+            {% if page_num == '...' %}
+            
+                <span class="dots">...</span>
+            {% elif page_num == actual_page_num %}
+    
+                <span class="current">{{ page_num }}</span>
+            {% else %}
+                <a href="?page={{ page_num }}">{{ page_num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if actual_page_num < total_pages %}
+            <a href="?page={{ actual_page_num|add:'1' }}">&raquo;</a>
+        {% else %}
+            <span class="disabled">&raquo;</span>
+        {% endif %}
+
+    </span>
+</div>
+{% endif %}
+
 {% endblock %}
