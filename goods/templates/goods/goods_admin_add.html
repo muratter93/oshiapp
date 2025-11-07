@@ -60,11 +60,17 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+
+        <label for="id_detail_images">詳細画像（複数選択可）</label>
+        <input type="file" name="detail_images" id="id_detail_images" multiple>  <!-- ← ここが重要！ -->
+
         <button type="submit">登録する</button>
     </form>
 
+
+
     <p style="margin-top:20px;">
-        <a href="{% url 'goods:goods_list' %}">← グッズ一覧に戻る</a>
+        <a href="{% url 'goods:goods_admin_list' %}">← グッズ一覧に戻る</a>
     </p>
 </div>
 {% endblock %}

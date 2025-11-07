@@ -3,7 +3,7 @@
 {% block content_title %}注文一覧{% endblock %}
 {% block content %}
 
-<table class="table">
+<table class="admin_order_table">
   <thead>
     <tr>
       <th>会員名</th>
@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     {% for order in orders %}
-    <tr>
+    <tr class="{% if order.status == 'cancelled' %}admin_order_cancelled_row{% endif %}">
       <td>{{ order.member.username }}</td>
       <td>{{ order.created_at|date:"Y/m/d H:i" }}</td>
       <td>
@@ -27,23 +27,27 @@
       <td>{{ order.total_stanning_points }}</td>
       <td>
         {% if order.status == 'shipped' %}
-          <span class="badge bg-success">発送済み</span>
+          <span class="admin_order_badge admin_order_bg_success">発送済み</span>
+        {% elif order.status == 'cancelled' %}
+          <span class="admin_order_badge admin_order_bg_secondary">キャンセル</span>
         {% else %}
-          <span class="badge bg-warning text-dark">未発送</span>
+          <span class="admin_order_badge admin_order_bg_warning">未発送</span>
         {% endif %}
       </td>
       <td>
-        <!-- ✅ URL名を goods:admin_order_detail に統一 -->
-        <a href="{% url 'goods:admin_order_detail' order.id %}" class="btn btn-info btn-sm">詳細</a>
+        <a href="{% url 'goods:admin_order_detail' order.id %}" class="admin_order_btn admin_order_btn_info">詳細</a>
 
-        <!-- ✅ トグルボタン -->
-        <a href="{% url 'goods:toggle_shipping_status' order.id %}" class="btn btn-secondary btn-sm">
-          {% if order.status == 'shipped' %}
-            未発送に戻す
-          {% else %}
+        {% if order.status == 'pending' %}
+          <a href="{% url 'goods:toggle_shipping_status' order.id %}" class="admin_order_btn admin_order_btn_secondary">
             発送済みにする
-          {% endif %}
-        </a>
+          </a>
+        {% elif order.status == 'shipped' %}
+          <a href="{% url 'goods:toggle_shipping_status' order.id %}" class="admin_order_btn admin_order_btn_secondary">
+            未発送に戻す
+          </a>
+        {% else %}
+          <span class="admin_order_text_muted">-</span>
+        {% endif %}
       </td>
     </tr>
     {% endfor %}
@@ -51,14 +55,55 @@
 </table>
 
 <style>
-.table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-.table th, .table td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-.btn { padding: 5px 10px; border-radius: 4px; background: #007bff; color: #fff; text-decoration: none; }
-.btn:hover { background: #0056b3; }
-.btn-secondary { background: #6c757d; }
-.badge { padding: 4px 8px; border-radius: 4px; }
-.bg-success { background-color: #28a745; color: #fff; }
-.bg-warning { background-color: #ffc107; color: #000; }
+.admin_order_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.admin_order_table th,
+.admin_order_table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+/* ボタン */
+.admin_order_btn {
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  color: #fff;
+}
+.admin_order_btn:hover { opacity: 0.85; }
+
+.admin_order_btn_info { background-color: #007bff; }
+.admin_order_btn_secondary { background-color: #6c757d; }
+
+/* バッジ */
+.admin_order_badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  display: inline-block;
+}
+.admin_order_bg_success { background-color: #28a745; color: #fff; }
+.admin_order_bg_warning { background-color: #ffc107; color: #000; }
+.admin_order_bg_secondary { background-color: #6c757d; color: #fff; }
+
+/* キャンセル行 */
+.admin_order_cancelled_row {
+  background-color: #f8f9fa;
+  color: #777;
+}
+
+/* テキスト補助 */
+.admin_order_text_muted {
+  color: #999;
+  font-size: 13px;
+}
 </style>
 
 {% endblock %}

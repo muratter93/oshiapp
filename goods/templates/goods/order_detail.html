@@ -1,0 +1,45 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block title %}注文詳細{% endblock %}
+{% block content %}
+<div class="order-detail">
+  <h2>注文詳細</h2>
+  <p><strong>注文ID：</strong> {{ order.id }}</p>
+  <p><strong>注文日：</strong> {{ order.created_at|date:"Y/m/d H:i" }}</p>
+  <p><strong>発送状況：</strong> {{ order.get_status_display }}</p>
+
+  <h3>配送先情報</h3>
+  <p><strong>名前：</strong> {{ order.recipient_name }}</p>
+  <p><strong>郵便番号：</strong> {{ order.postal_code }}</p>
+  <p><strong>住所：</strong> {{ order.address }}</p>
+  <p><strong>電話番号：</strong> {{ order.phone_number }}</p>
+
+  <h3>注文内容</h3>
+  <ul>
+    {% for item in order.items.all %}
+      <li>{{ item.goods.name }} × {{ item.quantity }}</li>
+    {% endfor %}
+  </ul>
+  <p><strong>合計スターポイント：</strong> {{ order.total_stanning_points }}</p>
+
+  <a href="{% url 'goods:order_history' %}" class="back-link">← 戻る</a>
+</div>
+
+<style>
+.order-detail {
+  width: 80%;
+  margin: 30px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #3498db;
+  text-decoration: none;
+}
+.back-link:hover { text-decoration: underline; }
+</style>
+{% endblock %}

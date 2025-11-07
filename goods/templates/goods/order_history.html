@@ -1,106 +1,110 @@
 {% extends 'common/base.html' %}
 {% load static %}
 
+{% block title %}グッズ交換履歴{% endblock %}
+
 {% block content %}
+<div class="order-history-container">
+  <h2>グッズ交換履歴</h2>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if orders %}
+  <table class="order-table">
+    <thead>
+      <tr>
+        <th>注文ID</th>
+        <th>注文日</th>
+        <th>グッズ</th>
+        <th>合計スターポイント</th>
+        <th>発送状況</th>
+        <th>詳細</th>
+        <th>キャンセル</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.created_at|date:"Y/m/d H:i" }}</td>
+        <td>
+          {% for item in order.items.all %}
+            {{ item.goods.name }} × {{ item.quantity }}<br>
+          {% endfor %}
+        </td>
+        <td>{{ order.total_stanning_points }}</td>
+        <td>
+          {% if order.status == 'pending' %}
+            未発送
+          {% elif order.status == 'shipped' %}
+            <span class="status shipped">発送済み</span>
+          {% else %}
+            <span class="status cancelled">キャンセル</span>
+          {% endif %}
+        </td>
+        <td><a href="{% url 'goods:order_detail' order.id %}" class="detail-link">詳細を見る</a></td>
+        <td>
+          {% if order.status == 'pending' %}
+            <form action="{% url 'goods:cancel_order' order.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="cancel-btn">キャンセル</button>
+            </form>
+          {% else %}
+            -
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>注文履歴はありません。</p>
+  {% endif %}
+</div>
+
+
+
 <style>
-.order-history {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 30px;
-}
-
-.order-item {
-  width: calc(25% - 20px);
+.order-history-container {
+  width: 90%;
+  margin: 30px auto;
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-
-.order-item img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
 }
-
-.order-item h3 {
-  font-size: 1rem;
-  margin: 10px 0 5px;
-  text-align: center;
+.order-table th, .order-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
-
-.order-item p {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-}
-
-.order-item form button {
-  background-color: #4CAF50;
+.cancel-btn {
+  background-color: #e74c3c;
   color: #fff;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
-
-.order-item form button:hover {
-  background-color: #43A047;
+.cancel-btn:hover {
+  background-color: #c0392b;
 }
-
-.pagination {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.pagination span,
-.pagination a {
-  margin: 0 5px;
-  padding: 8px 12px;
-  border-radius: 5px;
-  background-color: #f1f1f1;
+.status.shipped { color: green; font-weight: bold; }
+.status.cancelled { color: gray; font-weight: bold; }
+.detail-link {
+  color: #3498db;
   text-decoration: none;
-  color: #333;
 }
-
-.pagination .current {
-  background-color: #4CAF50;
-  color: white;
-}
+.detail-link:hover { text-decoration: underline; }
 </style>
 
-<div class="order-history">
-  {% for item in page_obj %}
-  <div class="order-item">
-    <h3>{{ item.goods.name }}</h3>
-    <img src="{{ item.goods.image.url }}" alt="{{ item.goods.name }}">
-    <p>必要スタポ：{{ item.goods.required_stanning_points }}</p>
-
-    <form action="{% url 'goods:add_to_cart' item.goods.id %}" method="post">
-      {% csrf_token %}
-      <button type="submit">もう一度交換する</button>
-    </form>
-  </div>
-  {% empty %}
-  <p>まだ交換履歴がありません。</p>
-  {% endfor %}
-</div>
-
-<div class="pagination">
-  {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}">« 前へ</a>
-  {% endif %}
-
-  <span class="current">ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
-
-  {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}">次へ »</a>
-  {% endif %}
-</div>
 {% endblock %}

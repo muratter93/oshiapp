@@ -12,6 +12,25 @@
     <table class="form-table">
       {{ form.as_table }}
     </table>
+
+    <h3>現在登録されている詳細画像</h3>
+    <div class="current-images">
+      {% for img in goods.detail_images.all %}
+        <div class="detail-image-item">
+          <img src="{{ img.image.url }}" alt="詳細画像" class="thumb">
+          <form method="post" action="{% url 'goods:delete_detail_image' img.id %}">
+            {% csrf_token %}
+            <button type="submit" class="delete-btn">削除</button>
+          </form>
+        </div>
+      {% empty %}
+        <p>詳細画像はまだ登録されていません。</p>
+      {% endfor %}
+    </div>
+
+    <label for="id_detail_images">新しい詳細画像を追加（複数選択可）</label>
+    <input type="file" name="detail_images" id="id_detail_images" multiple>
+
     <button type="submit" class="save-btn">保存する</button>
   </form>
 
@@ -42,6 +61,35 @@
 }
 .save-btn:hover {
   background-color: #45a049;
+}
+.current-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.detail-image-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.thumb {
+  max-width: 150px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  background-color: #c0392b;
 }
 </style>
 {% endblock %}

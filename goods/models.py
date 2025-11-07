@@ -40,13 +40,16 @@ class Order(models.Model):
 
     # 🆕 発送状態
     STATUS_CHOICES = [
-        ('pending', '未発送'),
-        ('shipped', '発送済み'),
+    ('pending', '未発送'),
+    ('shipped', '発送済み'),
+    ('cancelled', 'キャンセル'),
     ]
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending', verbose_name="発送状況")
-
-    def __str__(self):
-        return f"{self.member.username} の注文（{self.get_status_display()}）"
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='pending',
+        verbose_name="発送状況"
+    )
 
 
 

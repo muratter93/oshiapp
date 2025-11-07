@@ -1,5 +1,5 @@
 from django import forms
-from .models import Goods
+from .models import Goods, GoodsImage
 
 class GoodsForm(forms.ModelForm):
     class Meta:
@@ -14,4 +14,14 @@ class GoodsForm(forms.ModelForm):
         }
         widgets = {
             'description': forms.Textarea(attrs={'rows': 3}),
+        }
+
+
+#  詳細画像フォーム
+class GoodsImageForm(forms.ModelForm):
+    class Meta:
+        model = GoodsImage
+        fields = ['image']
+        labels = {
+            'image': '詳細画像'
         }

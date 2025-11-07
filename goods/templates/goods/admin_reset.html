@@ -1,0 +1,46 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% block title %}データリセット{% endblock %}
+{% block content_title %}データリセット{% endblock %}
+{% block content %}
+
+<div class="admin_reset_container">
+  <h3>⚠️ 注意</h3>
+  <p>この操作は <strong>すべてのグッズ・注文・カート情報</strong> バルス!!!!!!!!!</p>
+  <p>削除後、IDは 1 から再スタートします。</p>
+
+  <form method="POST" onsubmit="return confirm('本当にすべてのデータを削除しますか？');">
+    {% csrf_token %}
+    <button type="submit" class="admin_reset_button">データを完全にリセットする</button>
+  </form>
+
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: green;">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<style>
+.admin_reset_container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 2px solid #dc3545;
+  border-radius: 8px;
+  background: #fff8f8;
+}
+.admin_reset_button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.admin_reset_button:hover {
+  background-color: #c82333;
+}
+</style>
+
+{% endblock %}
