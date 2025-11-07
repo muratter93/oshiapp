@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.db import transaction
 from .models import Wallet, CheerCoinPurchase 
 
+from subscription.models import SubMember
+
 COIN_PLANS = [
     {"coins": 100,  "price": 100},
     {"coins": 1000, "price": 1000},
@@ -56,9 +58,21 @@ def buy_coins(request, coins: int):
     charge_url = reverse("money:charge")
     return redirect(f"{charge_url}?done=1&coins={plan['coins']}&price={plan['price']}")
 
-# チアコイン購入履歴
+# チアコ/スタポ購入履歴
 @login_required
 def purchase_history(request):
-    # ログインユーザーの購入履歴を取得（作成日時の新しい順）
-    purchases = CheerCoinPurchase.objects.filter(member=request.user).order_by('-purchased_at')
-    return render(request, 'money/cheer-purchases.html', {'purchases': purchases})
+    # チアコ履歴
+    cheer_purchases = CheerCoinPurchase.objects.filter(member=request.user).order_by('-purchased_at')
+
+    # スタポ履歴（サブスク加入履歴を新しい順で取得）
+    stanning_purchases = (
+        SubMember.objects
+        .filter(member=request.user)
+        .select_related('plan')
+        .order_by('-sing_up')
+    )
+
+    return render(request, 'money/purchase_history.html', {
+        'cheer_purchases': cheer_purchases,
+        'stanning_purchases': stanning_purchases,
+    })
