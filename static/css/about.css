@@ -1,0 +1,18 @@
+
+#about_mainbox {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#about_sentence {
+  font-family: 'Zen Kurenaido';
+  color: rgb(84, 62, 44);
+  font-size: 23px;
+}
+
+#about_sentence_en {
+  color: rgb(84, 62, 44);
+  font-size: 25px;
+  line-height: 40px;    
+}

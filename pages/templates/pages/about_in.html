@@ -1,16 +1,7 @@
-{% extends "common/base.html" %}
 {% load static %}
 
-{% block title %}アニマルマニア|アバウト{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/about.css' %}">
-{% endblock %}
-
-
-{% block content %}
 <div id="about_mainbox">
-  <img src="{% static 'img/atari_01.jpg' %}" alt="動物集合イラスト" width="90%">
+  <img src="{% static 'img/atari_01.jpg' %}" alt="動物集合イラスト" width="100%">
   <h3 id="about_sentence">
     ここは「みんなの推し」が集まる小さな動物広場。<br>
     <br>
@@ -27,6 +18,4 @@
     support our zoo<br>
     <br>
   </h4>
-
 </div>
-{% endblock %}
