@@ -150,3 +150,20 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 🔹 メールの送信設定（開発用） 
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025 
+
+# 管理者メール（送信者名に使用される場合がある） 
+# DEFAULT_FROM_EMAIL = 'no-reply@example.com'
+
+# メール送信設定（Gmailの場合）
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = ''   # 送信元メールアドレス
+EMAIL_HOST_PASSWORD = ''       # Gmailのアプリパスワード
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
