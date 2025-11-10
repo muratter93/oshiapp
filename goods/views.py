@@ -11,12 +11,19 @@ from money.models import Wallet
 # ===============================
 # グッズ一覧ページ
 # ===============================
-@login_required
+
 def goods_list(request):
     goods_list = Goods.objects.all()
-    cart_items = CartItem.objects.filter(member=request.user)
-    total_quantity = sum(item.quantity for item in cart_items)
-    total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
+
+    cart_items = []
+    total_quantity = 0
+    total_stanning = 0
+
+    # 🔽 ログインしている時だけカート情報を取得
+    if request.user.is_authenticated:
+        cart_items = CartItem.objects.filter(member=request.user)
+        total_quantity = sum(item.quantity for item in cart_items)
+        total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
 
     return render(request, 'goods/goods_list.html', {
         'goods_list': goods_list,
@@ -24,6 +31,7 @@ def goods_list(request):
         'total_quantity': total_quantity,
         'total_stanning': total_stanning,
     })
+
 
 
 # ===============================
