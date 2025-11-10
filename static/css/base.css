@@ -92,10 +92,11 @@ nav ul li a {
 /* 中央部分 */
 
 #main_center {
-  position: relative;
-  z-index: -1;
+  /* position: relative;
+  z-index: -1; */
   margin-left: 200px;
   padding: 100px 40px 0px 10px;
+  /* pointer-events: auto; */
   /* background-color: rgb(168, 168, 234); */
 }
 
