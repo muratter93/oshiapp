@@ -1,0 +1,224 @@
+body {
+    font-size: 1.2rem;
+}
+.ranking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.rank-card {
+    text-align: center;
+    font-size: 1.3rem;
+}
+.rank-card p {
+    margin: 10px 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.5em;
+}
+
+.rank-1 img {
+    width: 40vw;
+    max-width: 450px;
+    min-width: 280px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.rank-1 h2 {
+    font-size: 2.3em;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.rank-2-3 {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+.rank-2-3 img {
+    width: 28vw;
+    max-width: 430px;
+    min-width: 260px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.rank-2-3 h3 {
+    font-size: 1.8em;
+    margin-bottom: 8px;
+}
+
+.rank-4-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 90%;
+    margin: 50px auto;
+}
+.rank-4-6 img {
+    width: 80%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.rank-4-6 h4 {
+    font-size: 1.8em;
+    margin-bottom: 6px;
+}
+
+.rank-7-10 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 95%;
+    margin: 0 auto;
+}
+.rank-7-10 img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.rank-7-10 h5 {
+    font-size: 1.5em;
+    margin-bottom: 6px;
+}
+
+.rank-11-15,
+.rank-16-20,
+.rank-other {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    width: 95%;
+    margin: 40px auto;
+}
+.rank-11-15 img,
+.rank-16-20 img,
+.rank-other img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 50px 0;
+    font-size: 1.2rem;
+}
+.pagination a,
+.pagination .current,
+.pagination .dots,
+.pagination .disabled {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #007bff;
+    min-width: 45px; /* ボタンの幅をある程度揃える */
+    text-align: center;
+}
+.pagination a:hover {
+    text-decoration: none;
+    background-color: #f4f4f4;
+}
+
+.pagination .current {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination .dots {
+    color: #999;
+    border: none; /* ... には枠線不要 */
+    font-weight: normal;
+}
+/* 無効化された「前へ」「次へ」 */
+.pagination .disabled {
+    color: #ccc;
+    border-color: #eee;
+}
+
+/* ====== リンク色の統一 ====== */
+.rank-card a,
+.rank-card a:visited {
+    color: #006633;           /* 常に同じ緑系カラー */
+    text-decoration: none;    /* 下線消す */
+}
+
+/* hoverしても白っぽくならないように */
+.rank-card a:hover {
+    color: #004d26;           /* 少し濃い緑 */
+    opacity: 1;               /* 明るさ変化なし */
+    text-decoration: none;
+}
+
+/* ====== 画像ホバー時のアニメーション ====== */
+.rank-card img {
+    transition: transform 0.3s ease;
+    filter: none;             /* 明るさ補正なし */
+    opacity: 1;               /* 完全不透明 */
+}
+
+.rank-card img:hover {
+    transform: scale(1.05);   /* 拡大だけ */
+    cursor: pointer;
+    filter: none;             /* 白くならないように */
+    opacity: 1;               /* 不透明維持 */
+}
+
+/* クリック中（active）の色 */
+.rank-card a:active {
+    color: #004d26;
+}
+
+
+
+
+@media (max-width: 768px) {
+    body {
+        font-size: 1rem;
+    }
+    .rank-card h2, .rank-card h3, .rank-card h4, .rank-card h5 {
+        font-size: 1.4em;
+    }
+    .rank-card p {
+        font-size: 1.2rem;
+    }
+    .rank-11-15, .rank-16-20, .rank-other {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* モバイル用にページネーションの余白を少し詰める */
+    .pagination a,
+    .pagination .current,
+    .pagination .dots,
+    .pagination .disabled {
+        margin: 0 3px;
+        padding: 6px 10px;
+        min-width: 35px;
+    }
+}
+
+.rank-card img {
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
