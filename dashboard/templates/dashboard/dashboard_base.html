@@ -23,45 +23,60 @@
   </a>
 </h2>
 <ul class="nav">
-  {% block sidebar %}
-  <li class="menu-section"><span class="menu-icon">▶</span> ユーザー管理</li>
-  <ul class="menu-items">
-    <li><a href="{% url 'dashboard:member_list' %}">会員一覧</a></li>
-  </ul>
+{% block sidebar %}
+  {% if request.user.is_superuser or request.user.is_staff %}
+    <li class="menu-section"><span class="menu-icon">▶</span> ユーザー管理</li>
+    <ul class="menu-items">
+      <li><a href="{% url 'dashboard:member_list' %}">会員一覧</a></li>
+    </ul>
 
-  <li class="menu-section"><span class="menu-icon">▶</span> サブスク管理</li>
-  <ul class="menu-items">
-    <li><a href="#">加入状況一覧</a></li>
-    <li><a href="#">特典管理</a></li>
-  </ul>
+    <li class="menu-section"><span class="menu-icon">▶</span> サブスク管理</li>
+    <ul class="menu-items">
+      <li><a href="#">加入状況一覧</a></li>
+      <li><a href="#">特典管理</a></li>
+    </ul>
 
-  <li class="menu-section"><span class="menu-icon">▶</span> グッズ管理</li>
-  <ul class="menu-items">
-    <li><a href="{% url 'goods:goods_admin_list' %}">グッズ一覧</a></li>
-    <li><a href="{% url 'goods:goods_admin_add' %}">新しいグッズを登録</a></li>
-  </ul>
+    <li class="menu-section"><span class="menu-icon">▶</span> グッズ管理</li>
+    <ul class="menu-items">
+      <li><a href="{% url 'goods:goods_admin_list' %}">グッズ一覧</a></li>
+      <li><a href="{% url 'goods:goods_admin_add' %}">新しいグッズを登録</a></li>
+    </ul>
 
-  <li class="menu-section"><span class="menu-icon">▶</span> 注文管理</li>
-  <ul class="menu-items">
-    <li><a href="{% url 'goods:admin_order_list' %}">注文一覧</a></li>
-  </ul>
+    <li class="menu-section"><span class="menu-icon">▶</span> 注文管理</li>
+    <ul class="menu-items">
+      <li><a href="{% url 'goods:admin_order_list' %}">注文一覧</a></li>
+    </ul>
 
-  <li class="menu-section"><span class="menu-icon">▶</span> 動物管理</li>
-  <ul class="menu-items">
-    <li><a href="#">動物一覧</a></li>
-    <li><a href="#">新しい動物を登録</a></li>
-  </ul>
+    <li class="menu-section"><span class="menu-icon">▶</span> 動物管理</li>
+    <ul class="menu-items">
+      <li><a href="#">動物一覧</a></li>
+      <li><a href="#">新しい動物を登録</a></li>
+    </ul>
 
     <li class="menu-section"><span class="menu-icon">▶</span> 管理者管理</li>
-  <ul class="menu-items">
-    <li><a href="{% url 'dashboard:admins_list' %}">管理者一覧</a></li>
-{% if request.user.is_superuser %}
-  <li><a href="{% url 'dashboard:staff_create' %}">新しい管理者を登録</a></li>
-{% endif %}
-    <li><a href="#">新しい飼育員を登録</a></li>
-  </ul>
+    <ul class="menu-items">
+      <li><a href="{% url 'dashboard:admins_list' %}">管理者一覧</a></li>
+      {% if request.user.is_superuser %}
+        <li><a href="{% url 'dashboard:staff_create' %}">新しい管理者を登録</a></li>
+      {% endif %}
+      <li><a href="{% url 'dashboard:keeper_create' %}">新しい飼育員を登録</a></li>
+    </ul>
 
-  {% endblock %}
+  {% elif request.user.is_keeper %}
+
+    <li class="menu-section"><span class="menu-icon">▶</span> サブスク管理</li>
+    <ul class="menu-items">
+      <li><a href="#">加入状況一覧</a></li>
+      <li><a href="#">特典管理</a></li>
+    </ul>
+
+    <li class="menu-section"><span class="menu-icon">▶</span> 動物管理</li>
+    <ul class="menu-items">
+      <li><a href="#">動物一覧</a></li>
+      <li><a href="#">新しい動物を登録</a></li>
+    </ul>
+  {% endif %}
+{% endblock %}
 </ul>
       </div>
 

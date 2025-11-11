@@ -14,25 +14,57 @@ function getCookie(name){
   return cookieValue;
 }
 
+// /* ❤️ ハートを飛ばす（.index 内に追加、position:fixed想定） */
+// function spawnHearts(button, count = 3) {
+//   const wrapper = button.closest('.index') || document.body;
+//   const rect = button.getBoundingClientRect();
+//   for (let i = 0; i < count; i++) {
+//     const el = document.createElement('span');
+//     el.className = 'heart';               // CSSは .index .heart を定義しておく
+//     el.textContent = '❤️';
+//     const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 40;
+//     const y = rect.top  + rect.height / 2;
+//     el.style.left = `${x}px`;
+//     el.style.top  = `${y}px`;
+//     wrapper.appendChild(el);
+//     setTimeout(() => el.remove(), 1000);
+//   }
+//   // キラッ
+//   button.classList.add('shine');
+//   setTimeout(() => button.classList.remove('shine'), 700);
+// }
+
 /* ❤️ ハートを飛ばす（.index 内に追加、position:fixed想定） */
-function spawnHearts(button, count = 3) {
+function spawnHearts(button, count = 1) {
   const wrapper = button.closest('.index') || document.body;
   const rect = button.getBoundingClientRect();
+
   for (let i = 0; i < count; i++) {
-    const el = document.createElement('span');
-    el.className = 'heart';               // CSSは .index .heart を定義しておく
-    el.textContent = '❤️';
+    const el = document.createElement('img');
+    el.className = 'heart'; // CSSは .index .heart で定義
+    el.src = 'static/img/heart-cl9.png';
+    el.alt = 'heart';
+    
     const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 40;
-    const y = rect.top  + rect.height / 2;
+    const y = rect.top + rect.height / 2;
     el.style.left = `${x}px`;
-    el.style.top  = `${y}px`;
+    el.style.top = `${y}px`;
+
+    // ここでサイズ指定（例：幅30px）
+    el.style.width = `${20 + Math.random() * 25}px`; // 20〜35pxくらいでランダム
+    el.style.position = 'fixed';
+    el.style.pointerEvents = 'none'; // クリックを無視
+
     wrapper.appendChild(el);
-    setTimeout(() => el.remove(), 1000);
+    setTimeout(() => el.remove(), 4000);
+
   }
-  // キラッ
+
+  // キラッ✨
   button.classList.add('shine');
   setTimeout(() => button.classList.remove('shine'), 700);
 }
+
 
 /* カードを順番に出す（コンテナ単位） */
 function revealCards(container, stagger = 90, initialDelay = 120) {

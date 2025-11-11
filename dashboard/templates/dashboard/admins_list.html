@@ -12,6 +12,7 @@
       <table class="admin-table">
         <thead>
           <tr>
+            <th>ID</th>
             <th>ユーザー名</th>
             <th>メール</th>
             <th>最終ログイン</th>
@@ -25,6 +26,7 @@
         <tbody>
           {% for u in users %}
           <tr class="{% if not u.is_active %}inactive{% endif %}">
+            <td>{{ u.id }}</td>
             <td>
               {{ u.username }}{% if u == request.user %} <span class="subtle">(自分)</span>{% endif %}
               {% if not u.is_active %} <span class="subtle">(退会済)</span>{% endif %}
@@ -33,12 +35,19 @@
             <td>{{ u.last_login|date:"Y/m/d H:i" }}</td>
             <td>{% if u.is_superuser %}✓{% endif %}</td>
             <td>{% if u.is_staff %}✓{% endif %}</td>
-            <td>{% if u.is_keeper %}✓{% endif %}</td>
+            <td>
+              {% if u.is_keeper %}
+                ✓
+                {% if u.zoo %}
+                  <span class="subtle">({{ u.zoo.zoo_name }})</span>
+                {% endif %}
+              {% endif %}
+            </td>
 
             <td class="actions">
               <div class="action-row">
 
-                {# --- superuser の扱い --- #}
+                {# --- superuser の行 --- #}
                 {% if u.is_superuser %}
                   {% if request.user.is_superuser %}
                     <a class="btn btn-edit" href="{% url 'dashboard:admin_edit' u.pk %}">編集</a>
@@ -47,9 +56,8 @@
                   {% endif %}
                   <button class="btn btn-disabled" type="button" disabled title="最高管理者は退会不可">退会</button>
 
-                {# --- is_staff (非superuser) の扱い --- #}
+                {# --- staff（非superuser）の行 --- #}
                 {% elif u.is_staff %}
-
                   {% if request.user.is_superuser %}
                     <a class="btn btn-edit" href="{% url 'dashboard:admin_edit' u.pk %}">編集</a>
 
@@ -85,44 +93,49 @@
                     <button class="btn btn-disabled" type="button" disabled title="権限不足により退会不可">退会</button>
                   {% endif %}
 
-                {# --- is_keeper（非staff/非superuser 想定）--- #}
+                {# --- keeper（非staff/非superuser想定）の行 --- #}
                 {% elif u.is_keeper %}
-                  {% if request.user.is_superuser %}
-                    <a class="btn btn-edit" href="{% url 'dashboard:admin_edit' u.pk %}">編集</a>
+                  {% if request.user.is_superuser or request.user.is_staff %}
+                    {# ★ keeper は keeper_edit へ #}
+                    <a class="btn btn-edit" href="{% url 'dashboard:keeper_edit' u.pk %}">編集</a>
 
-                    {% if u == request.user %}
-                      <button class="btn btn-disabled" type="button" disabled title="自分は退会不可">退会</button>
-                    {% else %}
-                      {% if u.is_active %}
-                        <form method="post" action="{% url 'dashboard:withdraw_user' u.pk %}"
-                              onsubmit="return confirm('このユーザーを退会処理します。よろしいですか？');">
-                          {% csrf_token %}
-                          <button class="btn btn-danger" type="submit">退会</button>
-                        </form>
+                    {% if request.user.is_superuser %}
+                      {% if u == request.user %}
+                        <button class="btn btn-disabled" type="button" disabled title="自分は退会不可">退会</button>
                       {% else %}
-                        <form method="post" action="{% url 'dashboard:reactivate_user' u.pk %}"
-                              onsubmit="return confirm('このユーザーを再開します。よろしいですか？');">
-                          {% csrf_token %}
-                          <button class="btn btn-restart" type="submit">再開</button>
-                        </form>
+                        {% if u.is_active %}
+                          <form method="post" action="{% url 'dashboard:withdraw_user' u.pk %}"
+                                onsubmit="return confirm('このユーザーを退会処理します。よろしいですか？');">
+                            {% csrf_token %}
+                            <button class="btn btn-danger" type="submit">退会</button>
+                          </form>
+                        {% else %}
+                          <form method="post" action="{% url 'dashboard:reactivate_user' u.pk %}"
+                                onsubmit="return confirm('このユーザーを再開します。よろしいですか？');">
+                            {% csrf_token %}
+                            <button class="btn btn-restart" type="submit">再開</button>
+                          </form>
+                        {% endif %}
                       {% endif %}
+                    {% else %}
+                      {# staff は keeper を退会不可 #}
+                      <button class="btn btn-disabled" type="button" disabled title="staffはkeeperを退会不可">退会</button>
                     {% endif %}
-
-                  {% elif request.user.is_staff %}
-                    <a class="btn btn-edit" href="{% url 'dashboard:admin_edit' u.pk %}">編集</a>
-                    <button class="btn btn-disabled" type="button" disabled title="staffはkeeperを退会不可">退会</button>
 
                   {% else %}
                     <button class="btn btn-disabled" type="button" disabled title="権限不足により編集不可">編集</button>
                     <button class="btn btn-disabled" type="button" disabled title="権限不足により退会不可">退会</button>
                   {% endif %}
+
+                {% else %}
+                  <button class="btn btn-disabled" type="button" disabled>編集</button>
                 {% endif %}
               </div>
             </td>
           </tr>
           {% empty %}
           <tr>
-            <td colspan="7" class="subtle">該当するユーザーはいません。</td>
+            <td colspan="8" class="subtle">該当するユーザーはいません。</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -130,6 +143,21 @@
       </table>
     </div>
   </div>
-</div>
 
+  {# === 下部アクションバー === #}
+  <div class="list-actions" style="margin-top: 16px;">
+    {% if request.user.is_superuser %}
+      <a class="btn btn-edit" href="{% url 'dashboard:staff_create' %}">＋ 新しい管理者を登録</a>
+    {% else %}
+      <button class="btn btn-disabled" disabled title="最高管理者のみ作成できます">＋ 新しい管理者を登録</button>
+    {% endif %}
+
+    {% if request.user.is_superuser or request.user.is_staff %}
+      <a class="btn btn-edit" href="{% url 'dashboard:keeper_create' %}">＋ 新しい飼育員を登録</a>
+    {% else %}
+      <button class="btn btn-disabled" disabled title="管理者のみ作成できます">＋ 新しい飼育員を登録</button>
+    {% endif %}
+  </div>
+
+</div>
 {% endblock %}

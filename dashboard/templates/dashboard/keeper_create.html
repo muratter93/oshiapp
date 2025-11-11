@@ -1,7 +1,7 @@
 {% extends "dashboard/dashboard_base.html" %}
 
-{% block title %}新しい管理者を登録{% endblock %}
-{% block content_title %}新しい管理者を登録{% endblock %}
+{% block title %}新しい飼育員を登録{% endblock %}
+{% block content_title %}新しい飼育員を登録{% endblock %}
 
 {% block content %}
 <div class="card staff-create">
@@ -43,7 +43,9 @@
           {% if form.password2.errors %}<div class="field-error">{{ form.password2.errors.0 }}</div>{% endif %}
         </label>
 
-              
+        <label>所属動物園 {{ form.zoo }}</label>
+
+             
         <details class="optional-section" style="margin-top:8px;">
         <summary class="optional-summary">追加のプロフィール情報（任意）</summary>
 
@@ -80,10 +82,10 @@
         </div>
       </details>
 
-        <p class="subtle">※ このユーザーは「管理者（is_staff）」として作成されます（最高管理者にはなりません）。</p>
+        <p class="subtle">※ このユーザーは「飼育員（is_keeper）」として登録されます（機能が制限されます）。</p>
 
         <div class="form-actions" style="display:flex; gap:8px;">
-          <button class="btn btn-edit" type="submit">管理者を登録する</button>
+          <button class="btn btn-edit" type="submit">飼育員を登録する</button>
           <a class="btn" href="{% url 'dashboard:admins_list' %}">一覧へ戻る</a>
         </div>
       </div>

@@ -1,7 +1,6 @@
-{# dashboard/admin_edit.html #}
 {% extends "dashboard/dashboard_base.html" %}
-{% block title %}管理者編集{% endblock %}
-{% block content_title %}管理者を編集{% endblock %}
+{% block title %}飼育員編集{% endblock %}
+{% block content_title %}飼育員を編集{% endblock %}
 
 {% block content %}
 <div class="card staff-edit">
@@ -17,7 +16,6 @@
 
     <form method="post" novalidate>
       {% csrf_token %}
-
       <div class="form-grid">
 
         <label>
@@ -25,12 +23,8 @@
           <div class="readonly-box">{{ target_user.username }}</div>
         </label>
 
-        <label>
-          メール
-          {{ form.email }}
-          {% for e in form.email.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
-        </label>
-
+        <label>メール {{ form.email }}</label>
+        
         <details class="optional-section" style="margin-top:8px;">
           <summary class="optional-summary">追加のプロフィール情報</summary>
 
@@ -42,6 +36,12 @@
             <label>生年月日 {{ form.birth }}</label>
           </div>
         </details>
+
+        <label>
+          所属動物園
+          {{ form.zoo }}
+          {% for e in form.zoo.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
 
         <div class="form-actions">
           <button class="btn btn-edit" type="submit">保存</button>
