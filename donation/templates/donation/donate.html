@@ -1,0 +1,33 @@
+{% extends "common/base.html" %}
+
+{% block title %}寄付する{% endblock %}
+
+{% block content %}
+<h1>動物園に寄付する</h1>
+
+{% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  <label>動物園を選択:</label>
+  <select name="zoo">
+    <option value="">選択してください</option>
+    {% for zoo in zoos %}
+      <option value="{{ zoo.pk }}">{{ zoo.zoo_name }}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+
+  <label>寄付額:</label>
+  <select name="amount">
+    <option value="10000">10,000円</option>
+    <option value="50000">50,000円</option>
+    <option value="100000">100,000円</option>
+  </select>
+  <br><br>
+
+  <button type="submit">次へ</button>
+
+  <a href="{% url 'donation:donation_history' %}">寄付履歴を見る</a>
+</form>
+{% endblock %}

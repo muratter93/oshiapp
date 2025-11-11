@@ -1,0 +1,16 @@
+{% extends "common/base.html" %}
+
+{% block title %}寄付確認{% endblock %}
+
+{% block content %}
+<h1>寄付内容確認</h1>
+<p>動物園: {{ zoo.zoo_name }}</p>
+<p>寄付額: {{ amount }}円</p>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">寄付を確定する</button>
+</form>
+
+<a href="{% url 'donation:donate' %}">戻る</a>
+{% endblock %}

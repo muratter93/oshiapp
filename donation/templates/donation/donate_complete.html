@@ -1,0 +1,14 @@
+{% extends "common/base.html" %}
+
+{% block title %}寄付完了{% endblock %}
+
+{% block content %}
+<h1>寄付が完了しました！</h1>
+<p>{{ donation.zoo.zoo_name }} に {{ donation.amount }}円 寄付しました。</p>
+<p>
+    <a href="{% url 'donation:donation_receipt_pdf' donation.donation_id %}" target="_blank">
+        寄附金受領証明書（PDF）を見る
+    </a>
+</p>
+<a href="{% url 'donation:donate' %}">別の寄付をする</a>
+{% endblock %}

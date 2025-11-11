@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "goods",
     "subscription.apps.SubscriptionConfig",
     "dashboard",
+    'donation',  # ← 寄付ページ！
 ]
 
 MIDDLEWARE = [

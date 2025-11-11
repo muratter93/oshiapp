@@ -13,7 +13,8 @@ urlpatterns = [
     path("money/", include("money.urls")),
     path('goods/', include('goods.urls')),
     path("subscription/", include("subscription.urls")),
-    path('dashboard/', include('dashboard.urls')), 
+    path('dashboard/', include('dashboard.urls')),  # 寄付ページ
+    path('donation/', include('donation.urls')),
     
 ]
 
