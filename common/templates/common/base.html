@@ -8,6 +8,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}アニマルマニア{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <script src="{% static 'js/base.js' %}"></script>
         <link rel="shortcut icon" href="#">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,18 +23,18 @@
     <body>
         <div id="main_body">
             <div id="main_left">
-                <img class="main_left_image" src="{% static 'img/animalmania_logo_kari.png' %}" alt="animalmania_logo_kari" 
+                <img class="main_left_image" src="{% static 'img/animalmania_logo.png' %}" alt="animalmania_logo_kari" 
                 oncontextmenu="return false;" onselectstart="return false;" onmousedown="return false;">
             </div>
-            
-            <nav>
+
+            <nav id="targetElement">
                 <ul>
                     {% if not request.path == '/' %}
                     <li><a href="{% url 'main:index' %}">トップ</a></li>
                     {% endif %}
 
                     {% if '/about' not in request.path %}
-                    <li><a href="{% url 'pages:about' %}">アバウト</a></li>
+                    <li><a href="#about_mainbox">アバウト</a></li>
                     {% endif %}
 
                     {% if '/ranking' not in request.path %}
@@ -208,6 +209,7 @@
 
             <div id="main_right">
 
+                {% if user.is_authenticated and wallet %}
                 <div id="cart">
                     <a href="{% url 'goods:cart_view' %}">
                         <img src="{% static 'img/shop_cart_01.png' %}" alt="アニマニアカート" width="52">
@@ -216,6 +218,8 @@
                         {% endif %}
                     </a>
                 </div>
+                {% else %}
+                {% endif %}
 
                 {% if user.is_authenticated and wallet %}
                 <div id="personal_box_login">
@@ -233,7 +237,7 @@
                 <div id="personal_box_logout">
                     <div id="personal_box_04">
                         <a class="personal_box_link" href="{% url 'accounts:signup' %}">
-                            <h2 class="personal_box_h8"><span>▶</span>新規登録</h2>
+                            <h2 class="personal_box_h8"><span>▶</span>新規会員登録</h2>
                         </a>
                     </div>
                     <div id="personal_box_04">
@@ -294,13 +298,11 @@
                         <a class="hamburger_menu_content_a" href="{% url 'accounts:logout' %}">ログアウト</a>
                         {% else %}
                         <a class="hamburger_menu_content_a" href="{% url 'accounts:login' %}">ログイン</a>
-                        <a class="hamburger_menu_content_a" href="{% url 'accounts:signup' %}">新規登録</a>
+                        <a class="hamburger_menu_content_a" href="{% url 'accounts:signup' %}">新規会員登録</a>
                         {% endif %}
                     </li>
                 </ul>
             </div>
-
-            <script src="{% static 'js/base.js' %}"></script>
 
             <a class="pagetop" href="#">
                 <div class="pagetop_arrow"></div>
@@ -308,9 +310,10 @@
             </a>
 
         </div>
+        
 
-        <footer>
-            
+        <footer id="siteFooter">
+          
             <!-- <div class="goods-scroller">
                 {% for i in "123456" %}
                     {% for good in goods_list %}
@@ -381,7 +384,5 @@
                 <br><br><br><br>
             </div>
         </footer>
-        
-    </body>
 
 </html>

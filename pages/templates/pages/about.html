@@ -1,16 +1,11 @@
-{% extends "common/base.html" %}
 {% load static %}
 
 {% block title %}アニマルマニア|アバウト{% endblock %}
 
-{% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/about.css' %}">
-{% endblock %}
 
-
-{% block content %}
 <div id="about_mainbox">
-  <img src="{% static 'img/atari_01.jpg' %}" alt="動物集合イラスト" width="90%">
+  <img id="animal_entrance" src="{% static 'img/atari_01.jpg' %}" alt="動物集合イラスト" width="85%">
   <h3 id="about_sentence">
     ここは「みんなの推し」が集まる小さな動物広場。<br>
     <br>
@@ -18,15 +13,18 @@
     <br>
     動物たちを応援してくださるあなたの"推し"の力が<br>
     動物たちの毎日と動物園の支援につながります。<br>
-    みんなの"推し"が沢山集まれば動物園の未来の大きな力に。<br>
+    <br>
+    みんなの"推し"がたくさん集まれば<br>
+    動物園の未来の大きな力に。<br>
     <br>
     さあ、あなたの"推し"を見つけてみよう！<br>
   </h3>
   <h4 id="about_sentence_en">
     support your favorite<br>
     support our zoo<br>
-    <br>
   </h4>
-
+  <div id="about_registration_button"><a href="#">▶新規会員登録する</a></div>
+  <div id="about_login_button"><a href="#">▶ログインする</a></div>
+  <img id="people_photo" src="#" alt="人がPCを閲覧しているイラスト">
+  <br><br>
 </div>
-{% endblock %}
