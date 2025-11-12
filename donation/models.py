@@ -32,6 +32,11 @@ class Donation(models.Model):
     # 寄付日時
     created_at = models.DateTimeField("寄付日時", default=timezone.now)
 
+    zoo_address = models.CharField("寄付先住所", max_length=255, blank=True, null=True)
+    zoo_postcode = models.CharField("寄付先郵便番号", max_length=20, blank=True, null=True)
+    # 寄付先電話番号
+    zoo_phone = models.CharField("寄付先電話番号", max_length=20, blank=True, null=True)
+
     class Meta:
         db_table = "donations"
         verbose_name = "寄付"

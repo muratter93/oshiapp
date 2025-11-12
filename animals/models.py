@@ -77,6 +77,9 @@ class Zoo(models.Model):
     zoo_address = models.CharField("住所", max_length=255, blank=True, null=True)
     zoo_phone   = models.CharField("電話番号", max_length=20,  blank=True, null=True)
 
+    # 追加：郵便番号
+    zoo_postcode = models.CharField("郵便番号", max_length=10, blank=True, null=True)
+   
     class Meta:
         db_table = "zoos"
         verbose_name = "Zoo"

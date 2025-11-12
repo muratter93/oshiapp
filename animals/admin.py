@@ -25,14 +25,14 @@ class AnimalAdmin(admin.ModelAdmin):
         (None, {
             "fields": ("japanese", "name", "zoo", "sex", "birth", "txt"),
         }),
-        ("学術情報", {
-            # readonly_fields に入れてあれば fields に並べてOK
-            "fields": ("generic", "specific", "scientific"),
-            "classes": ("collapse",),
-        }),
+        # ("学術情報", {
+        #     # readonly_fields に入れてあれば fields に並べてOK
+        #     "fields": ("generic", "specific", "scientific"),
+        #     "classes": ("collapse",),
+        # }),
         ("画像", {
             "fields": ("pic1",),
-            "classes": ("collapse",),
+            # "classes": ("collapse",),
         }),
         ("メタ", {
             "fields": ("total_point",),
@@ -41,10 +41,10 @@ class AnimalAdmin(admin.ModelAdmin):
 
 @admin.register(Zoo)
 class ZooAdmin(admin.ModelAdmin):
-    list_display = ("zoo_id", "zoo_no", "zoo_name", "zoo_address", "zoo_phone", "zoo_created_at")
-    search_fields = ("zoo_no", "zoo_name", "zoo_address", "zoo_phone")
+    list_display = ("zoo_id", "zoo_no", "zoo_name", "zoo_postcode", "zoo_address", "zoo_phone", "zoo_created_at")
+    search_fields = ("zoo_no", "zoo_name", "zoo_address", "zoo_phone", "zoo_postcode")
     list_per_page = 20
-    fields = ("zoo_no", "zoo_name", "zoo_address", "zoo_phone")
+    fields = ("zoo_no", "zoo_name", "zoo_postcode", "zoo_address", "zoo_phone")
     readonly_fields = ("zoo_no",)
 
 @admin.register(Picture)

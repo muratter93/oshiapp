@@ -58,7 +58,7 @@ class SubMember(models.Model):
     )
 
     is_recurring = models.BooleanField("継続", db_column="sub", default=True)
-    sign_up      = models.DateField("加入日", db_column="sing_up", default=date.today)
+    sign_up = models.DateField("加入日", db_column="sing_up", default=date.today)
     end_day      = models.DateField("終了日", blank=True, null=True)
     sign_mon     = models.PositiveIntegerField("合計加入月", db_column="sing_mon", default=0)
 

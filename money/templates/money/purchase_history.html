@@ -20,12 +20,18 @@
 <h2>スタポ履歴</h2>
 {% if stanning_purchases %}
 <table border="1" cellpadding="6">
-  <tr><th>プラン名</th><th>付与スタポ</th><th>加入日</th><th>終了日</th></tr>
+  <tr><th>プラン名</th>
+    <th>動物</th>
+    <th>付与スタポ</th>
+    <th>加入日</th>
+    <th>終了日</th>
+  </tr>
   {% for s in stanning_purchases %}
   <tr>
     <td>{{ s.plan.plan_name }}</td>
+    <td>{{ s.animal.japanese }}</td>  
     <td>{{ s.plan.st_point }} スタポ</td>
-    <td>{{ s.sing_up|date:"Y年m月d日" }}</td>
+    <td>{{ s.sign_up|date:"Y年m月d日" }}</td>
     <td>{{ s.end_day|date:"Y年m月d日" }}</td>
   </tr>
   {% endfor %}

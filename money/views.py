@@ -69,7 +69,7 @@ def purchase_history(request):
         SubMember.objects
         .filter(member=request.user)
         .select_related('plan')
-        .order_by('-sing_up')
+        .order_by('-sign_up')
     )
 
     return render(request, 'money/purchase_history.html', {

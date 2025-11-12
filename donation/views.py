@@ -50,7 +50,10 @@ def donate_confirm(request):
             zoo=zoo,
             amount=amount,
             address=request.user.address,  # 会員モデルの住所を使う
-            message=default_message         # ← ここを追加！
+            message=default_message,         # ← ここを追加！
+            zoo_address=zoo.zoo_address,     
+            zoo_postcode=zoo.zoo_postcode, 
+            zoo_phone=zoo.zoo_phone,    
         )
 
         # 確認用にセッション削除
@@ -134,6 +137,19 @@ def donation_receipt_pdf(request, donation_id):
     p.drawString(value_x, y, donation.zoo.zoo_name)
 
     y -= line_height
+    # 動物園住所と郵便番号
+    p.drawRightString(label_x, y, "動物園住所：")
+    zoo_address = donation.zoo_address or ""
+    zoo_postcode = donation.zoo_postcode or ""
+    p.drawString(value_x, y, f"{zoo_postcode} {zoo_address}")
+
+    y -= line_height
+    # 電話番号
+    p.drawRightString(label_x, y, "動物園電話番号：")
+    p.drawString(value_x, y, donation.zoo.zoo_phone)
+
+
+    y -= line_height
     p.drawRightString(label_x, y, "寄付金額：")
     p.drawString(value_x, y, f"{donation.amount:,}円")
 
@@ -152,8 +168,8 @@ def donation_receipt_pdf(request, donation_id):
     
     # フッター
     footer_x = 480
-    footer_y_text = 50
-    footer_y_date = 40
+    footer_y_text = 70
+    footer_y_date = 50
 
     p.drawRightString(footer_x, footer_y_text, "動物園支援サイト")
     p.drawRightString(footer_x, footer_y_date, donation.created_at.strftime("%Y年%m月%d日"))
