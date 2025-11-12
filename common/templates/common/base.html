@@ -7,8 +7,11 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}アニマルマニア{% endblock %}</title>
+
+        {% block extra_head %}{% endblock %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
         <script src="{% static 'js/base.js' %}"></script>
+
         <link rel="shortcut icon" href="#">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,8 +19,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
-        {% block extra_head %}{% endblock %}
-
     </head>
 
     <body>
