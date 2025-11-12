@@ -26,8 +26,8 @@ class Donation(models.Model):
     # 寄付者住所（証明書発行時に利用）
     address = models.CharField("寄付者住所", max_length=255, blank=True, null=True)
 
-    # 任意の応援メッセージ
-    message = models.TextField("応援メッセージ", blank=True, null=True)
+    # 任意のメッセージ
+    message = models.TextField("メッセージ", blank=True, null=True)
 
     # 寄付日時
     created_at = models.DateTimeField("寄付日時", default=timezone.now)
@@ -39,3 +39,17 @@ class Donation(models.Model):
 
     def __str__(self):
         return f"{self.donor.username} → {self.zoo.zoo_name}（{self.amount}円）"
+
+
+# ハンコ画像
+class Stamp(models.Model):
+    zoo = models.ForeignKey(Zoo, on_delete=models.CASCADE, verbose_name="動物園")
+    name = models.CharField(max_length=50, verbose_name="ハンコ名")
+    image = models.ImageField(upload_to="stamps/", verbose_name="ハンコ画像")
+    is_active = models.BooleanField(default=True, verbose_name="使用中")
+
+    class Meta:
+        unique_together = ('zoo', 'is_active')  # 園ごとに「使用中」は1つだけ
+
+    def __str__(self):
+        return f"{self.zoo.zoo_name}：{self.name}"

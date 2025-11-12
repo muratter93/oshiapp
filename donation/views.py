@@ -41,13 +41,18 @@ def donate_confirm(request):
     amount = int(data["amount"])
 
     if request.method == "POST":
+        # 固定メッセージ
+        default_message = "上記のとおり、寄附金を受領いたしました。ここに感謝の意を表します。"
+
         # 寄付を登録
         donation = Donation.objects.create(
             donor=request.user,
             zoo=zoo,
             amount=amount,
-            address=request.user.address  # 会員モデルの住所を使う
+            address=request.user.address,  # 会員モデルの住所を使う
+            message=default_message         # ← ここを追加！
         )
+
         # 確認用にセッション削除
         del request.session["donation_data"]
         return redirect("donation:donate_complete", donation_id=donation.donation_id)
@@ -56,6 +61,7 @@ def donate_confirm(request):
         "zoo": zoo,
         "amount": amount
     })
+
 
 
 # -----------------------------
@@ -79,6 +85,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 from django.contrib.auth.decorators import login_required
 from .models import Donation
 from django.conf import settings
+
+from .models import Stamp
 
 @login_required
 def donation_receipt_pdf(request, donation_id):
@@ -119,6 +127,11 @@ def donation_receipt_pdf(request, donation_id):
     y -= line_height
     message = donation.message or "-"
     p.drawString(50, y, f"備考: {message}")
+
+    #  動物園ごとの有効ハンコを取得して描画
+    stamp = Stamp.objects.filter(zoo=donation.zoo, is_active=True).first()
+    if stamp and stamp.image:
+        p.drawImage(stamp.image.path, 420, 100, width=100, height=100, mask='auto')
 
     # フッター
     p.drawRightString(550, 50, "動物園支援サイト")
