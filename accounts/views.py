@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, get_user_model, logout as auth_logout
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+
 
 
 def login_view(request):
@@ -73,3 +76,6 @@ def logout_view(request):
 
 def logout_success_view(request):
     return render(request, "accounts/logout_success.html")
+
+class MyPageView(LoginRequiredMixin, TemplateView):
+    template_name = 'accounts/mypage.html'

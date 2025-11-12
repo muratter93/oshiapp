@@ -51,4 +51,6 @@ urlpatterns = [
         ),
         name='password_reset_complete'
     ),
+
+    path('mypage/', views.MyPageView.as_view(), name='mypage'),
 ]

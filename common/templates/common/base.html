@@ -291,7 +291,7 @@
                     <li id="hamburger_menu_content_03">
                         {% if user.is_authenticated and wallet %}
                         <a class="hum_name" href="#"><h3 class="hamburger_menu_content_h3">{{ user.name|default:user.username }}</a><span> 様</span></h3>
-                        <a class="hamburger_menu_content_a" href="#">マイページ</a>
+                        <a class="hamburger_menu_content_a" href="{% url 'accounts:mypage' %}">マイページ</a>
                         <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history' %}">チアコ·スタポ購入履歴</a>
                         <a class="hamburger_menu_content_a" href="{% url 'goods:order_history' %}">グッズ交換履歴</a>
                         <a class="hamburger_menu_content_a" href="#">会員情報変更</a>

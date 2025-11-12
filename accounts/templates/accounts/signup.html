@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="left-side">
-            <img src="{% static 'img/animalmania_logo_kari.png' %}" class="logo-img">
+            <img src="{% static 'img/animalmania_logo.png' %}" class="logo-img">
         </div>
 
         <div class="right-side">
@@ -23,7 +23,7 @@
                     <input type="text" name="username" class="input-field" placeholder="ユーザーID" required>
                     <input type="email" name="email" class="input-field" placeholder="メールアドレス" required>
                     <input type="password" name="password" class="input-field" placeholder="パスワード" required pattern="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}" title="英字・数字・記号を含む8文字以上で入力してください">
-                    <!-- パスワードの例　Test1234! -->
+                    <!-- パスワードの例　Test@1234 -->
                     <input type="password" name="password_confirm" class="input-field" placeholder="パスワード（確認）" required>
                     <input type="text" name="name" class="input-field" placeholder="名前" required pattern="^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龥]{1,}$" title="日本語で入力してください">
 
