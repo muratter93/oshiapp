@@ -111,31 +111,62 @@ def donation_receipt_pdf(request, donation_id):
     # タイトル
     p.drawCentredString(300, 800, "寄附金受領証明書")
 
-    # 内容
-    y = 750
+
+    # -----------------------------
+    # 内容（中央寄せ）
+    # -----------------------------
+    y = 730
     line_height = 25
     p.setFont("IPAexGothic", 12)
-    p.drawString(50, y, f"寄付者名: {donation.donor.name}")
-    y -= line_height
-    p.drawString(50, y, f"寄付者住所: {donation.address}")
-    y -= line_height
-    p.drawString(50, y, f"寄付先動物園: {donation.zoo.zoo_name}")
-    y -= line_height
-    p.drawString(50, y, f"寄付金額: {donation.amount:,}円")
-    y -= line_height
-    p.drawString(50, y, f"寄付日: {donation.created_at.strftime('%Y年%m月%d日')}")
-    y -= line_height
-    message = donation.message or "-"
-    p.drawString(50, y, f"備考: {message}")
 
-    #  動物園ごとの有効ハンコを取得して描画
+    label_x = 250   # ラベル位置
+    value_x = 270   # 値の開始位置
+
+    p.drawRightString(label_x, y, "寄付者名：")
+    p.drawString(value_x, y, donation.donor.name)
+
+    y -= line_height
+    p.drawRightString(label_x, y, "寄付者住所：")
+    p.drawString(value_x, y, donation.address)
+
+    y -= line_height
+    p.drawRightString(label_x, y, "寄付先動物園：")
+    p.drawString(value_x, y, donation.zoo.zoo_name)
+
+    y -= line_height
+    p.drawRightString(label_x, y, "寄付金額：")
+    p.drawString(value_x, y, f"{donation.amount:,}円")
+
+    y -= line_height
+    p.drawRightString(label_x, y, "寄付日：")
+    p.drawString(value_x, y, donation.created_at.strftime("%Y年%m月%d日"))
+
+    # -----------------------------
+    # 備考（左寄せで独立）
+    # -----------------------------
+    y -= 40  # ← 少し間隔を空ける！
+    message = donation.message or "-"
+    p.drawString(50, y, f"備考：{message}")
+
+
+    
+    # フッター
+    footer_x = 480
+    footer_y_text = 50
+    footer_y_date = 40
+
+    p.drawRightString(footer_x, footer_y_text, "動物園支援サイト")
+    p.drawRightString(footer_x, footer_y_date, donation.created_at.strftime("%Y年%m月%d日"))
+
+    # ハンコをフッターの右横に配置
     stamp = Stamp.objects.filter(zoo=donation.zoo, is_active=True).first()
     if stamp and stamp.image:
-        p.drawImage(stamp.image.path, 420, 100, width=100, height=100, mask='auto')
+        # 画像の幅・高さ
+        stamp_width = 100
+        stamp_height = 100
+        # フッター右端に合わせる
+        p.drawImage(stamp.image.path, footer_x + 10, footer_y_text - 20, width=stamp_width, height=stamp_height, mask='auto')
 
-    # フッター
-    p.drawRightString(550, 50, "動物園支援サイト")
-    p.drawRightString(550, 30, donation.created_at.strftime("%Y年%m月%d日"))
 
     p.showPage()
     p.save()
