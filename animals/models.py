@@ -13,6 +13,15 @@ class Animal(models.Model):
     japanese = models.CharField("和名", max_length=100)
     name = models.CharField("名前", max_length=100)
 
+    zoo = models.ForeignKey(
+    "animals.Zoo",
+    on_delete=models.SET_NULL,
+    verbose_name="所属動物園",
+    related_name="animals",
+    null=True,
+    blank=True,
+)
+
     SEX_CHOICES = [
         ("M", "オス"),
         ("F", "メス"),
@@ -38,7 +47,9 @@ class Animal(models.Model):
 
 # オブジェクトの文字列表現
     def __str__(self):
-        return f"{self.japanese}（{self.animal_id}） - {self.name}"
+        # 所属動物園も見えるようにする
+        zoo_name = self.zoo.zoo_name if self.zoo else "（所属なし）"
+        return f"{self.japanese}（{self.animal_id}） - {self.name} / {zoo_name}"
 
 # 計算で得る年齢
     @property
@@ -62,6 +73,9 @@ class Zoo(models.Model):
 
     zoo_created_at = models.DateTimeField("登録日", default=timezone.now, editable=False)
     zoo_updated_at = models.DateTimeField("最終更新日", auto_now=True)
+
+    zoo_address = models.CharField("住所", max_length=255, blank=True, null=True)
+    zoo_phone   = models.CharField("電話番号", max_length=20,  blank=True, null=True)
 
     class Meta:
         db_table = "zoos"
