@@ -44,9 +44,7 @@
                     <li><a href="#"><span class="nav_ul_li_a_01">動物たちの様子を見る</span></a></li>
                     {% endif %}
 
-                    {% if '/structure' not in request.path %}
-                    <li><a href="{% url 'pages:structure' %}">チアコとスタポのしくみ</a></li>
-                    {% endif %}
+                    <li><a href="{% url 'main:index' %}#structure_mainbox">チアコとスタポのしくみ</a></li>
 
                     {% if '/charge' not in request.path %}
                     <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
@@ -223,7 +221,7 @@
                 {% if user.is_authenticated and wallet %}
                 <div id="personal_box_login">
                     <div id="personal_box_01">
-                        <a href="{% url 'accounts:mypage' %}"><h2 class="personal_box_h2">{{ user.name|default:user.username }}</h2></a><h3 class="personal_box_h3">様</h3>
+                        <a class="personal_box_name" href="{% url 'accounts:mypage' %}"><h2 class="personal_box_h2">{{ user.name|default:user.username }}</h2></a><h3 class="personal_box_h3">様</h3>
                     </div>
                     <div id="personal_box_02">
                         <h4 id="wallet-balance" class="personal_box_h4">{{ wallet.cheer_coin_balance|intcomma }}</h4><h6 class="personal_box_h6">チアコ</h6>
@@ -236,12 +234,12 @@
                 <div id="personal_box_logout">
                     <div id="personal_box_04">
                         <a class="personal_box_link" href="{% url 'accounts:signup' %}">
-                            <h2 class="personal_box_h8"><span>▶</span>新規会員登録</h2>
+                            <h2 class="personal_box_h8"><span>▶　</span>新規会員登録</h2>
                         </a>
                     </div>
                     <div id="personal_box_04">
                         <a class="personal_box_link" href="{% url 'accounts:login' %}">
-                            <h2 class="personal_box_h8"><span>▶</span>ログイン</h2>
+                            <h2 class="personal_box_h8"><span>▶　</span>ログイン</h2>
                         </a>
                     </div>
                 </div>
@@ -272,9 +270,7 @@
                         <a class="hamburger_menu_content_a" href="#">動物たちの様子を見る</a>
                         {% endif %}
 
-                        {% if '/structure' not in request.path %}
-                        <a class="hamburger_menu_content_a" href="{% url 'pages:structure' %}"><span>チアコとスタポのしくみ</span></a>
-                        {% endif %}
+                        <a class="hamburger_menu_content_a" href="{% url 'main:index' %}#structure_mainbox"><span>チアコとスタポのしくみ</span></a>
 
                         {% if '/charge' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'money:charge' %}">チアコを買う</a>
@@ -359,9 +355,7 @@
                         {% endif %}
                     </ul>
                     <ul>
-                        {% if '/structure' not in request.path %}
-                        <li><a href="{% url 'pages:structure' %}">チアコとスタポのしくみ</a></li>
-                        {% endif %}
+                        <li><a href="{% url 'main:index' %}#structure_mainbox">チアコとスタポのしくみ</a></li>
 
                         {% if '/charge' not in request.path %}
                         <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
