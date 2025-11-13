@@ -54,7 +54,7 @@ class MemberUpdateForm(forms.ModelForm):
                 'class': 'input-field',
                 'placeholder': '名前',
                 'required': 'required',
-                'pattern': '^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龥]{1,}$',
+                'pattern': '^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龥 　]{1,}$',
                 'title': '日本語で入力してください',
             }),
             'birth': forms.DateInput(attrs={
