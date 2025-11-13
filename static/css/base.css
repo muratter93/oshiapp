@@ -207,10 +207,10 @@ nav ul li a {
   font-family: 'Zen Kurenaido';
   font-weight: 400;
   line-height: 22px;
-  max-width: 600px;
+  max-width: 800px;
   overflow-wrap: break-word;
   word-break: keep-all;
-  overflow-wrap: break-word
+  overflow-wrap: break-word;
 }
 .personal_box_h3 {
   margin-left: 9px;

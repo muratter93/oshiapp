@@ -54,12 +54,12 @@
                     <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                     {% endif %}
 
-                    {% if '/goods' not in request.path %}
+                    {% if '/goods/goods_list' not in request.path %}
                     <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                     {% endif %}
 
-                    {% if '/animals/' not in request.path %}
-                    <li><a href="/animals/1/">動物紹介制作閲覧用</a></li>
+                    {% if '/donation/donate' not in request.path %}
+                    <li><a href="{% url 'donation:donate' %}">寄付する</a></li>
                     {% endif %}
                 </ul>
             </nav>
@@ -225,7 +225,7 @@
                 {% if user.is_authenticated and wallet %}
                 <div id="personal_box_login">
                     <div id="personal_box_01">
-                        <a href="#"><h2 class="personal_box_h2">{{ user.name|default:user.username }}</h2></a><h3 class="personal_box_h3">様</h3>
+                        <a href="{% url 'accounts:mypage' %}"><h2 class="personal_box_h2">{{ user.name|default:user.username }}</h2></a><h3 class="personal_box_h3">様</h3>
                     </div>
                     <div id="personal_box_02">
                         <h4 id="wallet-balance" class="personal_box_h4">{{ wallet.cheer_coin_balance|intcomma }}</h4><h6 class="personal_box_h6">チアコ</h6>
@@ -284,17 +284,21 @@
                         <a class="hamburger_menu_content_a" href="{% url 'money:charge' %}">チアコを買う</a>
                         {% endif %}
 
-                        {% if '/goods' not in request.path %}
+                        {% if '/goods/goods_list' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'goods:goods_list' %}">グッズ交換する</a>
+                        {% endif %}
+                        {% if '/donation/donate' not in request.path %}
+                        <a class="hamburger_menu_content_a" href="{% url 'donation:donate' %}">寄付する</a>
                         {% endif %}
                     </li>
                     <li id="hamburger_menu_content_02"></li>
                     <li id="hamburger_menu_content_03">
                         {% if user.is_authenticated and wallet %}
-                        <a class="hum_name" href="#"><h3 class="hamburger_menu_content_h3">{{ user.name|default:user.username }}</a><span> 様</span></h3>
+                        <a class="hum_name" href="{% url 'accounts:mypage' %}"><h3 class="hamburger_menu_content_h3">{{ user.name|default:user.username }}</a><span> 様</span></h3>
                         <a class="hamburger_menu_content_a" href="{% url 'accounts:mypage' %}">マイページ</a>
                         <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history' %}">チアコ·スタポ購入履歴</a>
                         <a class="hamburger_menu_content_a" href="{% url 'goods:order_history' %}">グッズ交換履歴</a>
+                        <a class="hamburger_menu_content_a" href="{% url 'donation:donation_history' %}">寄付履歴</a>
                         <a class="hamburger_menu_content_a" href="#">会員情報変更</a>
                         <a class="hamburger_menu_content_a" href="{% url 'accounts:logout' %}">ログアウト</a>
                         {% else %}
@@ -369,8 +373,12 @@
                         <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                         {% endif %}
 
-                        {% if '/goods' not in request.path %}
+                        {% if '/goods/goods_list' not in request.path %}
                         <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
+                        {% endif %}
+
+                        {% if '/donation/donate' not in request.path %}
+                        <li><a href="{% url 'donation:donate' %}">寄付する</a></li>
                         {% endif %}
                     </ul>
                 </div>
