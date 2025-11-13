@@ -44,3 +44,47 @@ class CustomSetPasswordForm(SetPasswordForm):
             'placeholder': 'パスワード（確認）',
             'required': 'required'
         })
+
+class MemberUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ['name', 'birth', 'postal_code', 'address', 'phone', 'email']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'input-field',
+                'placeholder': '名前',
+                'required': 'required',
+                'pattern': '^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龥]{1,}$',
+                'title': '日本語で入力してください',
+            }),
+            'birth': forms.DateInput(attrs={
+                'class': 'input-field',
+                'type': 'date',
+                'required': 'required',
+                'min': '1900-01-01',
+            }),
+            'postal_code': forms.TextInput(attrs={
+                'class': 'input-field',
+                'placeholder': '郵便番号',
+                'required': 'required',
+                'pattern': '\\d{7}',
+                'title': '数字7桁で入力してください（ハイフン不要）',
+            }),
+            'address': forms.TextInput(attrs={
+                'class': 'input-field',
+                'placeholder': '住所',
+                'required': 'required',
+            }),
+            'phone': forms.TextInput(attrs={
+                'class': 'input-field',
+                'placeholder': '電話番号',
+                'required': 'required',
+                'pattern': '\\d{10,11}',
+                'title': '数字10〜11桁で入力してください（ハイフン不要）',
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'input-field',
+                'placeholder': 'メールアドレス',
+                'required': 'required',
+            }),
+        }

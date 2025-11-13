@@ -1,0 +1,30 @@
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">確認</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+$(function() {
+    // 郵便番号入力欄のIDに合わせてください
+    $('#id_postal_code').on('keyup', function() {
+        var postal = $(this).val().replace('-', '');
+        if (postal.length === 7) {  // 郵便番号が7桁になったら
+            $.ajax({
+                url: "{% url 'accounts:ajax_get_address' %}", // 名前空間込み
+                data: { postal_code: postal },
+                dataType: "json",
+                success: function(data) {
+                    if (data.address) {
+                        $('#id_address').val(data.address);
+                    } else {
+                        $('#id_address').val('');
+                        alert('住所が見つかりません');
+                    }
+                }
+            });
+        }
+    });
+});
+</script>

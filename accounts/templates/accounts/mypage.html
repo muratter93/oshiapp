@@ -1,13 +1,14 @@
 {% extends 'common/base.html' %}
+{% load phone_filters %}
 {% block content %}
 <h2>マイページ</h2>
 
 <p>ユーザー名: {{ user.username }}</p>
 <p>名前: {{ user.name }}</p>
 <p>生年月日: {{ user.birth }}</p>
-<p>郵便番号: {{ user.postal_code }}</p>
+<p>郵便番号: {{ user.postal_code|postal_format }}</p>
 <p>住所: {{ user.address }}</p>
-<p>電話番号: {{ user.phone }}</p>
+<p>電話番号:  {{ user.phone|phone_format }}</p>
 <p>メール: {{ user.email }}</p>
 
 {% if user.wallet %}
@@ -19,6 +20,7 @@
 <a href="{% url 'goods:order_history' %}">交換履歴を見る</a><br>
 <br>
 <a href="{% url 'accounts:password_reset' %}">パスワード変更はこちら</a><br>
-<a href="{% url 'accounts:logout' %}">ログアウト</a><br
+<a href="{% url 'accounts:edit_profile' %}">会員情報の変更はこちら</a><br>
+<a href="{% url 'accounts:logout' %}">ログアウト</a><br>
 
 {% endblock %}

@@ -53,4 +53,7 @@ urlpatterns = [
     ),
 
     path('mypage/', views.MyPageView.as_view(), name='mypage'),
+    path('edit/', views.MemberEditView.as_view(), name='edit_profile'),
+    path('edit/confirm/', views.MemberEditConfirmView.as_view(), name='edit_profile_confirm'),
+    path('ajax/get_address/', views.ajax_get_address, name='ajax_get_address'),
 ]

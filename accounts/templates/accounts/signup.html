@@ -30,8 +30,8 @@
                     <!-- 最大値は決める？ max="2007-12-31"とか-->
                     <input type="date" name="birth" class="input-field" placeholder="生年月日" required min="1900-01-01">
 
-                    <input type="text" name="postal_code" class="input-field" placeholder="郵便番号" required pattern="\d{7}" title="数字7桁で入力してください（ハイフン不要）">
-                    <input type="text" name="address" class="input-field" placeholder="住所" required>
+                    <input type="text" id="id_postal_code" name="postal_code" class="input-field" placeholder="郵便番号" required pattern="\d{7}" title="数字7桁で入力してください（ハイフン不要）">
+                    <input type="text" id="id_address" name="address" class="input-field" placeholder="住所" required>
                     <input type="text" name="phone" class="input-field" placeholder="電話番号" required pattern="\d{10,11}" title="数字10〜11桁で入力してください（ハイフン不要）">
                     <button type="submit" class="signup-button">登録する</button>
                 </form>
@@ -44,5 +44,36 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('#id_postal_code').on('blur', function(){
+            let postal = $(this).val();
+            if(!/^\d{7}$/.test(postal)){
+                alert('郵便番号はハイフンなし7桁で入力してください');
+                $('#id_address').val('');
+                return;
+            }
+
+            $.ajax({
+                url: "{% url 'accounts:ajax_get_address' %}",
+                data: { postal_code: postal },
+                dataType: "json",
+                success: function(data){
+                    if(data.address){
+                        $('#id_address').val(data.address);
+                    } else {
+                        $('#id_address').val('');
+                        alert('住所が見つかりません');
+                    }
+                },
+                error: function(){
+                    $('#id_address').val('');
+                    alert('住所の取得に失敗しました');
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
