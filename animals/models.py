@@ -39,19 +39,26 @@ class Animal(models.Model):
 
     total_point = models.PositiveIntegerField("推しポイント", default=0)
 
-# このモデルのテーブル名を明示指定
+    is_active = models.BooleanField("有効", default=True, db_index=True)
+
+    DIET_CHOICES = [
+        ("A", "肉食"),
+        ("B", "草食"),
+        ("C", "魚食"),
+        ("D", "果実食"),
+        ("E", "昆虫食"),
+    ]
+    diet = models.CharField("主食", max_length=1, choices=DIET_CHOICES, blank=True, null=True)
+
     class Meta:
         db_table = "animals"
         verbose_name = "Animal"
         verbose_name_plural = "Animals"
 
-# オブジェクトの文字列表現
     def __str__(self):
-        # 所属動物園も見えるようにする
         zoo_name = self.zoo.zoo_name if self.zoo else "（所属なし）"
         return f"{self.japanese}（{self.animal_id}） - {self.name} / {zoo_name}"
 
-# 計算で得る年齢
     @property
     def age(self):
         """誕生日から自動計算した年齢を返す"""
@@ -76,8 +83,6 @@ class Zoo(models.Model):
 
     zoo_address = models.CharField("住所", max_length=255, blank=True, null=True)
     zoo_phone   = models.CharField("電話番号", max_length=20,  blank=True, null=True)
-
-    # 追加：郵便番号
     zoo_postcode = models.CharField("郵便番号", max_length=10, blank=True, null=True)
    
     class Meta:
@@ -104,7 +109,6 @@ class Picture(models.Model):
     """2枚目以降の画像（URL参照）。1枚目は Animal.pic1 を使用"""
     pic_id = models.AutoField(primary_key=True)
 
-    # Animal は既存モデル名を参照
     animal = models.ForeignKey(
         "animals.Animal",
         on_delete=models.CASCADE,
@@ -113,11 +117,10 @@ class Picture(models.Model):
         verbose_name="動物",
     )
 
-    image_url = models.TextField("画像URL")   # S3等のURL/キー
+    image_url = models.TextField("画像URL")
     caption = models.TextField("説明", blank=True)
     credit = models.CharField("クレジット", max_length=200, blank=True)
 
-    # 2,3,4... を想定。1は Animal.pic1
     display_order = models.PositiveIntegerField("表示順", default=2)
     is_primary = models.BooleanField("サムネにする", default=False)
 
@@ -129,7 +132,6 @@ class Picture(models.Model):
         verbose_name = "追加画像（URL）"
         verbose_name_plural = "追加画像（URL）"
         constraints = [
-            # 同じ動物内で並び順の重複を禁止
             models.UniqueConstraint(
                 fields=["animal", "display_order"],
                 name="uq_picture_order_per_animal",

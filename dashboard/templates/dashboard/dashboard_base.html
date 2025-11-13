@@ -49,8 +49,8 @@
 
     <li class="menu-section"><span class="menu-icon">▶</span> 動物管理</li>
     <ul class="menu-items">
-      <li><a href="#">動物一覧</a></li>
-      <li><a href="#">新しい動物を登録</a></li>
+      <li><a href="{% url 'dashboard:animals_list' %}">動物一覧</a></li>
+      <li><a href="{% url 'dashboard:animal_create' %}">新しい動物を登録</a></li>
     </ul>
 
     <li class="menu-section"><span class="menu-icon">▶</span> 管理者管理</li>
@@ -72,8 +72,8 @@
 
     <li class="menu-section"><span class="menu-icon">▶</span> 動物管理</li>
     <ul class="menu-items">
-      <li><a href="#">動物一覧</a></li>
-      <li><a href="#">新しい動物を登録</a></li>
+      <li><a href="{% url 'dashboard:animals_list' %}">動物一覧</a></li>
+      <li><a href="{% url 'dashboard:animal_create' %}">新しい動物を登録</a></li>
     </ul>
   {% endif %}
 {% endblock %}

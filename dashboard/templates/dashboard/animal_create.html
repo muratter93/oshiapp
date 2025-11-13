@@ -1,0 +1,80 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}動物登録{% endblock %}
+{% block content_title %}新しい動物を登録{% endblock %}
+
+{% block content %}
+<div class="card animal-create">
+  <div class="container">
+
+    {% if form.non_field_errors %}
+      <div class="form-errors">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+
+      <div class="form-grid" style="display:grid; gap:12px; max-width:520px;">
+
+        <label>
+          和名(動物名)
+          {{ form.japanese }}
+          {% if form.japanese.errors %}<div class="field-error">{{ form.japanese.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          名前
+          {{ form.name }}
+          {% if form.name.errors %}<div class="field-error">{{ form.name.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          所属動物園
+          {{ form.zoo }}
+          {% if form.zoo.errors %}<div class="field-error">{{ form.zoo.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          性別
+          {{ form.sex }}
+          {% if form.sex.errors %}<div class="field-error">{{ form.sex.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          誕生日
+          {{ form.birth }}
+          {% if form.birth.errors %}<div class="field-error">{{ form.birth.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          主食
+          {{ form.diet }}
+          {% if form.diet.errors %}<div class="field-error">{{ form.diet.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label class="full">
+          説明文
+          {{ form.txt }}
+          {% if form.txt.errors %}<div class="field-error">{{ form.txt.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          画像1（必須）
+          {{ form.pic1 }}
+          {% if form.pic1.errors %}<div class="field-error">{{ form.pic1.errors.0 }}</div>{% endif %}
+        </label>
+
+      </div>
+
+      <div class="form-actions" style="display:flex; gap:8px; margin-top:16px;">
+        <button class="btn btn-edit" type="submit">登録する</button>
+        <a class="btn" href="{% url 'dashboard:animals_list' %}">一覧へ戻る</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

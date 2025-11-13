@@ -34,9 +34,15 @@ urlpatterns = [
     path('members/<int:pk>/reactivate/', views.reactivate_member, name='reactivate_member'),
 
     # --- 飼育員（is_keeper）一覧・作成 追加 ---
-    # 一覧ビュー：必要なら専用の KeeperListView を作って差し替え可（下に例あり）
     path('keepers/new/', views.keeper_create, name='keeper_create'),
     path("keepers/<int:pk>/edit/", views.KeeperUpdateView.as_view(), name="keeper_edit"),
+
+    path("animals/", views.animals_list, name="animals_list"),
+    path("animals/add/", views.animal_create, name="animal_create"),
+    path("animals/<int:pk>/edit/", views.animal_edit, name="animal_edit"),
+
+    path("animals/<int:pk>/withdraw/", views.animal_withdraw, name="animal_withdraw"),
+    path("animals/<int:pk>/reactivate/", views.animal_reactivate, name="animal_reactivate"),
 
     # ダッシュボード本体
     path('', views.admin_dashboard, name='dashboard'),

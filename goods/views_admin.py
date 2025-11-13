@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import GoodsForm, GoodsImageForm
 from .models import Goods, GoodsImage
+from django.core.paginator import Paginator
 
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import Order
@@ -44,9 +45,17 @@ def admin_check(user):
 
 @user_passes_test(admin_check)
 def goods_admin_list(request):
-    """グッズ一覧を管理者用に表示"""
-    goods_list = Goods.objects.all().order_by('-id')
-    return render(request, 'goods/admin_goods_list.html', {'goods_list': goods_list})
+    goods = Goods.objects.all().order_by('-id')
+
+    paginator = Paginator(goods, 10) 
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'goods/admin_goods_list.html', {
+        'goods_list': page_obj.object_list,
+        'page_obj': page_obj,
+        'is_paginated': page_obj.has_other_pages(), 
+    })
 
 
 @user_passes_test(admin_check)
@@ -90,11 +99,25 @@ def goods_admin_delete(request, goods_id):
     return render(request, 'goods/admin_goods_delete_confirm.html', {'goods': goods})
 
 # 注文一覧
+from django.core.paginator import Paginator
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render
+from .models import Order
+
 @staff_member_required
 def admin_order_list(request):
-    orders = Order.objects.prefetch_related('items__goods').order_by('-created_at')
-    return render(request, 'goods/admin_order_list.html', {'orders': orders})
+    # もともとのクエリ
+    order_qs = Order.objects.prefetch_related('items__goods').order_by('-created_at')
 
+    # ▼ ページネーション部分を追加
+    paginator = Paginator(order_qs, 20)
+    page_number = request.GET.get('page')
+    pagenated = paginator.get_page(page_number)
+
+    # pagenated をテンプレートへ渡す
+    return render(request, 'goods/admin_order_list.html', {
+        'pagenated': pagenated,
+    })
 
 @staff_member_required
 def admin_order_detail(request, order_id):

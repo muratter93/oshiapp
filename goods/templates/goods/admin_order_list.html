@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for order in orders %}
+{% for order in pagenated %}
     <tr class="{% if order.status == 'cancelled' %}admin_order_cancelled_row{% endif %}">
       <td>{{ order.member.username }}</td>
       <td>{{ order.created_at|date:"Y/m/d H:i" }}</td>
@@ -53,6 +53,31 @@
     {% endfor %}
   </tbody>
 </table>
+</table>
+
+{% if pagenated.has_other_pages %}
+  <div class="admin_pagination">
+    {% if pagenated.has_previous %}
+      <a href="?page={{ pagenated.previous_page_number }}" class="admin_page_link">前へ</a>
+    {% else %}
+      <span class="admin_page_link admin_page_disabled">前へ</span>
+    {% endif %}
+
+    {% for num in pagenated.paginator.page_range %}
+      {% if num == pagenated.number %}
+        <span class="admin_page_link admin_page_current">{{ num }}</span>
+      {% else %}
+        <a href="?page={{ num }}" class="admin_page_link">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if pagenated.has_next %}
+      <a href="?page={{ pagenated.next_page_number }}" class="admin_page_link">次へ</a>
+    {% else %}
+      <span class="admin_page_link admin_page_disabled">次へ</span>
+    {% endif %}
+  </div>
+{% endif %}
 
 <style>
 .admin_order_table {
@@ -104,6 +129,39 @@
   color: #999;
   font-size: 13px;
 }
+
+.admin_pagination {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.admin_page_link {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 13px;
+  color: #333;
+}
+
+.admin_page_link:hover {
+  background-color: #f0f0f0;
+}
+
+.admin_page_current {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.admin_page_disabled {
+  color: #bbb;
+  border-color: #ddd;
+  pointer-events: none;
+}
+
 </style>
 
 {% endblock %}

@@ -1,0 +1,85 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}動物編集{% endblock %}
+{% block content_title %}動物編集{% endblock %}
+
+{% block content %}
+<div class="staff-edit">
+  <div class="container">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {# フォーム全体のエラー #}
+      {% if form.non_field_errors %}
+        <div class="form-errors">
+          {% for e in form.non_field_errors %}<p class="error">{{ e }}</p>{% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="form-grid">
+
+        <label>
+          和名(動物名)
+          {{ form.japanese }}
+          {% for e in form.japanese.errors %}<span class="error">{{ e }}</span>{% endfor %}
+        </label>
+
+        <label>
+          名前
+          {{ form.name }}
+          {% for e in form.name.errors %}<span class="error">{{ e }}</span>{% endfor %}
+        </label>
+
+        <label>
+          所属動物園
+          {{ form.zoo }} {# プルダウン #}
+          {% for e in form.zoo.errors %}<span class="error">{{ e }}</span>{% endfor %}
+        </label>
+
+        <label>
+          性別
+          {{ form.sex }}
+          {% for e in form.sex.errors %}<span class="error">{{ e }}</span>{% endfor %}
+        </label>
+
+        <label>
+          誕生日
+          {{ form.birth }}
+          {% for e in form.birth.errors %}<span class="error">{{ e }}</span>{% endfor %}
+        </label>
+
+        <label>
+          主食
+          {{ form.diet }}
+          {% for e in form.diet.errors %}<span class="error">{{ e }}</span>{% endfor %}
+        </label>
+
+        <label class="full">
+          説明文
+          {{ form.txt }}
+          {% for e in form.txt.errors %}<span class="error">{{ e }}</span>{% endfor %}
+        </label>
+
+        <div class="full images-block">
+          <div class="image-row">
+            <label>
+              画像1（必須）
+              {% if animal and animal.pic1 %}
+                <div class="thumb"><img src="{{ animal.pic1.url }}" alt="{{ animal.japanese }}" style="max-height:100px;"></div>
+              {% endif %}
+              {{ form.pic1 }}
+              {% for e in form.pic1.errors %}<span class="error">{{ e }}</span>{% endfor %}
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-edit">保存</button>
+        <a href="{% url 'dashboard:animals_list' %}" class="btn">戻る</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

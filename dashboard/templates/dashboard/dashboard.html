@@ -5,8 +5,127 @@
 {% block content_meta %}
 <p class="subtle">{{ user.username }} さん（ログイン: {{ user.last_login|date:"Y年m月d日 H:i" }}）</p>
 {% endblock %}
-
 {% block content %}
+
+<p>地図の練習</p>
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<style>
+  #map { height: 65vh; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+  .jump-buttons { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); /* ← 全体ボタンも入るので4列に変更 */
+    gap: .5rem; 
+    margin-top: .75rem; 
+  }
+  .jump-buttons button {
+    padding: .6rem .8rem;
+    border-radius: .75rem;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    transition: background .2s;
+    font-weight: 600;
+  }
+  .jump-buttons button:hover { background: #f3f4f6; }
+</style>
+
+<div id="map"></div>
+
+<div class="jump-buttons">
+  <button onclick="resetView()">🗺️ 全体マップ表示</button>
+  <button onclick="flyToSpot('jyouyama')">🐒 城山動物園</button>
+  <button onclick="flyToSpot('chausuyama')">🐘 茶臼山動物園</button>
+  <button onclick="flyToSpot('suzaka')">🦘 須坂市動物園</button>
+</div>
+
+<!-- Leaflet JS -->
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+
+<script>
+  // ▼ 各動物園の詳細情報
+ const spots = [
+  {
+    id: 'jyouyama',
+    name: '🐒城山動物園',
+    lat: 36.66490806254121, 
+    lng: 138.1942988606473,
+    zoom: 16,
+    address: '〒380-0802 長野県長野市上松２丁目１−１９',
+    tel: '026-233-0586'
+  },
+  {
+    id: 'chausuyama',
+    name: '🐘茶臼山動物園',
+    lat: 36.58530392097484, 
+    lng: 138.11518754155875, 
+    zoom: 16,
+    address: '〒388-8016 長野県長野市篠ノ井有旅５７０−１',
+    tel: '026-293-5167'
+  },
+  {
+    id: 'suzaka',
+    name: '🦘須坂市動物園',
+    lat: 36.6423500355432, 
+    lng: 138.31111727750795,
+    zoom: 16,
+    address: '〒382-0028 長野県須坂市臥竜２丁目４−８',
+    tel: '026-245-1770'
+  }
+];
+
+  // 地図作成
+  const map = L.map('map');
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // マーカー追加
+  const markers = [];
+  spots.forEach((s) => {
+    const popupContent = `
+      <b>${s.name}</b><br>
+      ${s.address}<br>
+      ☎ ${s.tel}
+    `;
+    const marker = L.marker([s.lat, s.lng]).addTo(map).bindPopup(popupContent);
+    marker.on('click', () => {
+      map.flyTo([s.lat, s.lng], s.zoom, { duration: 0.6 });
+      marker.openPopup();
+    });
+    markers.push(marker);
+  });
+
+  // 全体ビューを計算
+  const group = L.featureGroup(markers);
+  const fullBounds = group.getBounds().pad(0.3);
+  map.fitBounds(fullBounds);
+
+  // ボタンで飛ぶ
+  function flyToSpot(id) {
+    const s = spots.find(x => x.id === id);
+    if (!s) return;
+    map.flyTo([s.lat, s.lng], s.zoom, { duration: 0.6 });
+    const idx = spots.indexOf(s);
+    markers[idx].openPopup();
+  }
+
+  // 🌏 全体マップに戻る
+  function resetView() {
+    map.flyToBounds(fullBounds, { duration: 0.8 });
+    map.closePopup(); // ポップアップを閉じる
+  }
+</script>
 
 {% comment %} <!-- ユーザー管理 -->
 <section id="users">

@@ -1,0 +1,97 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}動物一覧{% endblock %}
+{% block content_title %}動物一覧{% endblock %}
+
+{% block content %}
+<div class="admin-animals">
+  <div class="card">
+    <div class="table-wrap">
+      <div class="admin-animals animals-page">
+
+        <table class="admin-table">
+        <thead>
+            <tr>
+            <th>ID</th>
+            <th>動物名</th>
+            <th>名前</th>
+            <th>画像</th>
+            <th>性別</th>
+            <th>所属動物園</th>
+            <th>誕生日</th>
+            <th>主食</th>
+            <th>アクティブ</th>
+            <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in animals %}
+            <tr>
+            <td>{{ a.animal_id }}</td>
+            <td>{{ a.japanese }}</td>
+            <td>{{ a.name }}</td>
+            <td>
+                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="120">
+            </td>
+            <td>
+                {% if a.sex == "M" %}オス{% elif a.sex == "F" %}メス{% else %}不明{% endif %}
+            </td>
+            <td>{% firstof a.zoo.zoo_name "（所属なし）" %}</td>
+            <td>{{ a.birth|date:"Y/m/d" }}</td>
+
+            <td>{{ a.get_diet_display|default:"—" }}</td>
+
+            <td>
+                {% if a.is_active %}
+                <span class="badge bg-success">有効</span>
+                {% else %}
+                <span class="badge bg-secondary">休止</span>
+                {% endif %}
+            </td>
+
+            <td class="actions">
+                <div class="action-row">
+                <a class="btn btn-edit" href="{% url 'dashboard:animal_edit' a.pk %}">編集</a>
+
+                {% if a.is_active %}
+                    <form method="post" action="{% url 'dashboard:animal_withdraw' a.pk %}" style="display:inline;"
+                        onsubmit="return confirm('この動物を退園扱いにします。よろしいですか？');">
+                        {% csrf_token %}
+                        <button class="btn btn-warning" type="submit">退園</button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'dashboard:animal_reactivate' a.pk %}" style="display:inline;"
+                        onsubmit="return confirm('この動物を再開（在園）状態に戻します。よろしいですか？');">
+                        {% csrf_token %}
+                        <button class="btn btn-restart" type="submit">再開</button>
+                    </form>
+                {% endif %}
+
+                </div>
+            </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="10" class="subtle">登録された動物はいません。</td></tr>
+            {% endfor %}
+        </tbody>
+        </table>
+
+        <div class="pagination" style="margin-top: 20px; text-align:center;">
+            {% if page_obj.has_previous %}
+                <a class="btn" href="?page={{ page_obj.previous_page_number }}">前へ</a>
+            {% endif %}
+
+            <span style="margin: 0 8px;">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+                <a class="btn" href="?page={{ page_obj.next_page_number }}">次へ</a>
+            {% endif %}
+        </div>
+        <div class="actions-top" style="margin-top: 16px;">
+          <a href="{% url 'dashboard:animal_create' %}" class="btn btn-edit">＋ 動物を新規登録する</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

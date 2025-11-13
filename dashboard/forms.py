@@ -210,3 +210,36 @@ class KeeperCreateForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+from django import forms
+from animals.models import Animal, Zoo
+
+class AnimalForm(forms.ModelForm):
+    class Meta:
+        model = Animal
+        fields = [
+            "japanese", "name", "zoo", "sex", "birth", "txt", "pic1",
+            "diet",
+        ]
+        widgets = {
+            "zoo": forms.Select(),
+            "birth": forms.DateInput(attrs={"type": "date"}),
+            "txt": forms.Textarea(attrs={"rows": 5}),
+            "diet": forms.Select(attrs={"placeholder": "主食を選択"}),
+            "is_active": forms.CheckboxInput(),
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        # ★ ここで user を安全に取り出す（渡されてなかったら None）
+        user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+
+        # zoo プルダウンの基本並び
+        self.fields["zoo"].queryset = Zoo.objects.order_by("zoo_name")
+
+        # ★ keeper の場合は、自分の所属動物園を強制・固定
+        if user and getattr(user, "is_keeper", False):
+            if user.zoo_id:
+                self.fields["zoo"].initial = user.zoo
+                self.fields["zoo"].disabled = True   # ← 選択不可にする

@@ -475,33 +475,118 @@ html, body {
   scrollbar-gutter: stable both-edges; /* 対応ブラウザで幅の揺れを防止 */
 }
 
-/* 一般会員一覧専用：列幅調整 */
+/* ===============================
+   一般会員一覧：列幅調整（最適化版）
+================================ */
 .members-page .admin-table th:nth-child(1),
 .members-page .admin-table td:nth-child(1) {
   width: 6%;
   text-align: center;
 }
+
 .members-page .admin-table th:nth-child(2),
 .members-page .admin-table td:nth-child(2) {
-  width: 20%;
+  width: 18%;
 }
+
 .members-page .admin-table th:nth-child(3),
 .members-page .admin-table td:nth-child(3) {
-  width: 28%;
+  width: 26%;
 }
+
 .members-page .admin-table th:nth-child(4),
 .members-page .admin-table td:nth-child(4) {
   width: 20%;
-}
-.members-page .admin-table th:nth-child(5),
-.members-page .admin-table td:nth-child(5) {
-  width: 10%;
   text-align: center;
 }
+
+/* ステータス列 */
+.members-page .admin-table th:nth-child(5),
+.members-page .admin-table td:nth-child(5) {
+  width: 12%;
+  text-align: center;
+}
+
+/* 操作列（ボタン2つを収めるため少し広め） */
 .members-page .admin-table th:nth-child(6),
 .members-page .admin-table td:nth-child(6) {
-  width: auto;
+  width: 18%;
+  text-align: center;
 }
+
+/* ===============================
+   ステータス列：バッジ化
+================================ */
+.members-page .badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  line-height: 1.4;
+  color: #fff;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+.members-page .badge-active {
+  background-color: #10b981; /* 緑 */
+}
+
+.members-page .badge-inactive {
+  background-color: #9ca3af; /* グレー */
+}
+
+/* ===============================
+   操作ボタン：横並びの余白改善
+================================ */
+.members-page .admin-table td.actions .action-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* ← 少し広げてバランス調整 */
+  flex-wrap: nowrap;
+}
+
+.members-page .admin-table td.actions .btn {
+  min-width: 58px; /* ボタンの最小幅 */
+  text-align: center;
+}
+
+
+/* ================================
+   会員一覧（members-page）ステータス列バッジ化
+================================ */
+
+/* ステータス列全体を中央揃え */
+.members-page .admin-table td:nth-child(5),
+.members-page .admin-table th:nth-child(5) {
+  text-align: center;
+  width: 10%;
+}
+
+/* バッジ共通デザイン */
+.members-page .badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  line-height: 1.4;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* 会員（有効） */
+.members-page .badge-active {
+  background-color: #10b981; /* 緑 */
+}
+
+/* 退会済（無効） */
+.members-page .badge-inactive {
+  background-color: #9ca3af; /* グレー */
+}
+
 
 /* ===============================
    テーブル：偶数行を薄いグレーで
@@ -557,4 +642,248 @@ html, body {
 .admin-table td:nth-child(8) {
   width: 12%;
   text-align: center;
+}
+
+
+/* ================================
+   動物登録ページ（animal-create）
+   ================================ */
+
+/* 幅はやや絞る（既存に合わせて） */
+.animal-create .container {
+  max-width: 560px;
+  width: 100%;
+}
+
+/* フォーム全体 */
+.animal-create form {
+  display: grid;
+  gap: 14px;
+  padding: 8px 0;
+}
+
+/* ラベルとフィールドを縦並びに */
+.animal-create label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* 入力類（ページスコープで既存に干渉しない） */
+.animal-create input,
+.animal-create select,
+.animal-create textarea {
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  width: 100%;
+  transition: border-color .15s ease, box-shadow .15s ease;
+  background: #fff;
+}
+
+/* date入力の高さ揃え */
+.animal-create input[type="date"] {
+  line-height: 1.2;
+}
+
+/* フォーカス時のアクセント（淡い青） */
+.animal-create input:focus,
+.animal-create select:focus,
+.animal-create textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+/* 画像入力の見やすさ（ファイル入力の余白を少し確保） */
+.animal-create input[type="file"] {
+  padding: 6px;
+}
+
+/* 説明文は広めに */
+.animal-create textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* 画像プレビュー用（テンプレ側で .thumb を使っている前提） */
+.animal-create .thumb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 6px;
+  margin-bottom: 6px;
+  background: #fafafa;
+}
+
+/* 画像群を横並びにしたい場合（任意） */
+.animal-create .images-block .image-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .animal-create .images-block .image-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 900px) {
+  .animal-create .images-block .image-row {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* フル幅を使いたい要素に（テンプレで class="full" を付与） */
+.animal-create .full {
+  grid-column: 1 / -1;
+}
+
+/* エラーメッセージ（formsの個別エラーに備える） */
+.animal-create .field-error {
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+/* ボタン行 */
+.animal-create .form-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+/* ボタンの最小幅（既存 .btn を軽く補強） */
+.animal-create .btn,
+.animal-create .btn-edit {
+  min-width: 110px;
+  text-align: center;
+  padding: 8px 14px;
+}
+
+/* 注意文 */
+.animal-create .subtle {
+  margin-top: 4px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* モバイル調整 */
+@media (max-width: 600px) {
+  .animal-create .container { max-width: 100%; }
+  .animal-create form { gap: 12px; }
+}
+
+/* 一覧テーブルのセンタリング（共通テーブルに適用したい場合はそのまま） */
+.admin-table th,
+.admin-table td {
+  vertical-align: middle;
+}
+.admin-table td:nth-child(4),
+.admin-table td:nth-child(5),
+.admin-table td:nth-child(6),
+.admin-table td:nth-child(7) {
+  text-align: center;
+  width: 8%;
+}
+
+/* ================================
+   動物一覧ページ（animals-page）
+================================ */
+.animals-page .admin-table {
+  margin: 0;
+  table-layout: fixed; /* 列幅を安定させる */
+}
+
+/* 操作セル：編集＋休止/再開を横並び固定 */
+.animals-page .admin-table td.actions .action-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.animals-page .admin-table td.actions .action-row form {
+  display: inline-flex;
+  margin: 0;
+}
+
+/* 画像サムネを一定サイズに */
+.animals-page .admin-table td:nth-child(4) img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+/* 列幅調整（10列版：ID/動物名/名前/画像/性別/動物園/誕生日/主食/アクティブ/操作） */
+.animals-page .admin-table th:nth-child(1),
+.animals-page .admin-table td:nth-child(1) { width: 6%;  text-align: center; }
+.animals-page .admin-table th:nth-child(2),
+.animals-page .admin-table td:nth-child(2) { width: 14%; }
+.animals-page .admin-table th:nth-child(3),
+.animals-page .admin-table td:nth-child(3) { width: 12%; }
+.animals-page .admin-table th:nth-child(4),
+.animals-page .admin-table td:nth-child(4) { width: 14%; text-align: center; }
+.animals-page .admin-table th:nth-child(5),
+.animals-page .admin-table td:nth-child(5) { width: 7%;  text-align: center; }
+.animals-page .admin-table th:nth-child(6),
+.animals-page .admin-table td:nth-child(6) { width: 18%; }
+.animals-page .admin-table th:nth-child(7),
+.animals-page .admin-table td:nth-child(7) { width: 10%; text-align: center; white-space: nowrap; }
+.animals-page .admin-table th:nth-child(8),
+.animals-page .admin-table td:nth-child(8) { width: 7%;  text-align: center; }
+.animals-page .admin-table th:nth-child(9),
+.animals-page .admin-table td:nth-child(9) { width: 7%;  text-align: center; }
+.animals-page .admin-table th:nth-child(10),
+.animals-page .admin-table td:nth-child(10) { width: 15%; text-align: center; }
+
+/* バッジ（有効/休止） */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: .8rem;
+  border-radius: 9999px;
+  line-height: 1.4;
+}
+.bg-success   { background: #10b981; color: #fff; }  /* 緑 */
+.bg-secondary { background: #9ca3af; color: #fff; }  /* グレー */
+
+/* 休止/再開ボタンの色（テンプレで btn-warning / btn-success を使っている場合） */
+.btn-warning {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+}
+.btn-warning:hover {
+  background-color: #bb2d3b;
+  border-color: #b02a37;
+  color: #fff;
+}
+
+.btn-success {
+  background-color: #22c55e; /* green-500 */
+  border-color: #22c55e;
+  color: #fff;
+}
+.btn-success:hover {
+  background-color: #16a34a; /* green-600 */
+  border-color: #16a34a;
+  color: #fff;
+}
+
+/* モバイル：狭い幅では一部列の幅を緩める */
+@media (max-width: 900px) {
+  .animals-page .admin-table { table-layout: auto; }
+  .animals-page .admin-table th:nth-child(4),
+  .animals-page .admin-table td:nth-child(4) { width: 120px; }
+  .animals-page .admin-table th:nth-child(6),
+  .animals-page .admin-table td:nth-child(6) { width: auto; }
 }

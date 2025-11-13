@@ -7,11 +7,11 @@
 <div class="admin-admins">
   <div class="card">
     <div class="table-wrap">
-    <div class="admin-admins members-page">  {# ← 追加クラス members-page #}
+    <div class="admin-admins members-page">
       <table class="admin-table">
         <thead>
           <tr>
-            <th>ID</th>              {# ← 追加 #}
+            <th>ID</th>
             <th>ユーザー名</th>
             <th>メール</th>
             <th>最終ログイン</th>
@@ -22,15 +22,19 @@
         <tbody>
           {% for u in users %}
           <tr class="{% if not u.is_active %}inactive{% endif %}">
-            <td>{{ u.id }}</td>   {# ← 追加 #}
+            <td>{{ u.id }}</td>
             <td>
               {{ u.username }}{% if u == request.user %} <span class="subtle">(自分)</span>{% endif %}
                 {% if not u.is_active %}<span class="subtle">(退会済)</span>{% endif %}
             </td>
             <td>{{ u.email }}</td>
-            <td>{{ u.last_login|date:"Y/m/d H:i" }}</td>
+            <td style="text-align:center;">{{ u.last_login|date:"Y/m/d H:i" }}</td>
             <td style="text-align:center;">
-              {% if u.is_active %}会員{% else %}退会済{% endif %}
+            {% if u.is_active %}
+                <span class="badge badge-active">会員</span>
+            {% else %}
+                <span class="badge badge-inactive">退会済</span>
+            {% endif %}
             </td>
             <td class="actions">
               <div class="action-row">
@@ -66,6 +70,27 @@
           {% endfor %}
         </tbody>
       </table>
+
+      {% if is_paginated %}
+        <div class="pagination" style="margin-top:16px; display:flex; justify-content:center; gap:8px; align-items:center;">
+
+          {% if page_obj.has_previous %}
+            <a class="btn" href="?page={{ page_obj.previous_page_number }}">前へ</a>
+          {% else %}
+            <button class="btn btn-disabled" type="button" disabled>前へ</button>
+          {% endif %}
+
+          <span class="subtle">
+            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+          </span>
+
+          {% if page_obj.has_next %}
+            <a class="btn" href="?page={{ page_obj.next_page_number }}">次へ</a>
+          {% else %}
+            <button class="btn btn-disabled" type="button" disabled>次へ</button>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
     </div>
   </div>

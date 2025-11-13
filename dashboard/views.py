@@ -17,7 +17,7 @@ from django.views.generic import ListView, FormView, UpdateView
 from django.utils import timezone
 from django.contrib.sessions.models import Session
 
-from .forms import StaffCreateForm, StaffEditForm, KeeperCreateForm, KeeperEditForm
+from .forms import StaffCreateForm, StaffEditForm, KeeperCreateForm, KeeperEditForm, AnimalForm 
 
 User = get_user_model()
 
@@ -85,7 +85,7 @@ class StaffListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = User
     template_name = "dashboard/admins_list.html"
     context_object_name = "users"
-    paginate_by = 20
+    paginate_by = 10
 
     def test_func(self):
         return is_staff_or_keeper(self.request.user)
@@ -101,15 +101,18 @@ class StaffListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         q = (self.request.GET.get("q") or "").strip()
         if q:
             base = base.filter(Q(username__icontains=q) | Q(email__icontains=q))
+
         status = (self.request.GET.get("status") or "all").strip()
         if status == "active":
             base = base.filter(is_active=True)
         elif status == "inactive":
             base = base.filter(is_active=False)
-        order = (self.request.GET.get("order") or "id").strip()
-        allowed = {"id","-id","username","-username","email","-email","last_login","-last_login"}
+
+        order = (self.request.GET.get("order") or "-id").strip()
+        allowed = {"id", "-id", "username", "-username", "email", "-email", "last_login", "-last_login"}
         if order not in allowed:
-            order = "id"
+            order = "-id"
+
         return base.order_by(order)
 
     def get_context_data(self, **kwargs):
@@ -117,7 +120,7 @@ class StaffListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         base_all = self._admin_base_q()
         ctx.update({
             "q": (self.request.GET.get("q") or "").strip(),
-            "order": (self.request.GET.get("order") or "id").strip(),
+            "order": (self.request.GET.get("order") or "-id").strip(),
             "status": (self.request.GET.get("status") or "all").strip(),
             "counts": {
                 "all": base_all.count(),
@@ -126,7 +129,6 @@ class StaffListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
             },
         })
         return ctx
-
 
 # ---------------- 権限トグル＆退会関連（操作系: staff/superuser のみ） ----------------
 
@@ -265,7 +267,7 @@ class StaffCreateView(LoginRequiredMixin, UserPassesTestMixin, FormView):
 @user_passes_test(lambda u: u.is_superuser or u.is_staff)
 def keeper_create(request):
     if request.method == "POST":
-        form = KeeperCreateForm(request.POST)  # ← これがポイント
+        form = KeeperCreateForm(request.POST)
         if form.is_valid():
             user = form.save()
             messages.success(request, f"飼育員ユーザー「{user.username}」を作成しました。")
@@ -299,12 +301,13 @@ class MemberListView(LoginRequiredMixin, ListView):
     model = User
     template_name = "dashboard/members_list.html"
     context_object_name = "users"
+    paginate_by = 10
 
     def get_queryset(self):
         qs = User.objects.filter(is_staff=False, is_superuser=False)
         if hasattr(User, "is_keeper"):
             qs = qs.filter(is_keeper=False)
-        return qs.order_by('id')
+        return qs.order_by("-id")
 
 
 class MemberUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -366,3 +369,111 @@ def reactivate_member(request, pk):
     user.save()
     messages.success(request, f"{user.username} を再開しました。")
     return redirect("dashboard:member_list")
+
+
+from animals.models import Animal, Zoo
+from django.core.paginator import Paginator
+
+@staff_or_keeper_required
+def animals_list(request):
+    user = request.user
+    qs = Animal.objects.select_related("zoo")
+
+    # --- keeper専用スコープ（staff/superuser ではない）---
+    if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
+
+        if getattr(user, "zoo_id", None):
+            qs = qs.filter(zoo_id=user.zoo_id)
+        else:
+            qs = qs.none()
+
+    qs = qs.order_by("-animal_id")
+
+    # --- ページネーション（10件ずつ）---
+    paginator = Paginator(qs, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "dashboard/animals_list.html",
+        {
+            "animals": page_obj,   # そのままループに使える
+            "page_obj": page_obj,
+            "paginator": paginator,
+        }
+    )
+
+# 追加：動物登録
+@staff_or_keeper_required
+def animal_create(request):
+    form = AnimalForm(
+        request.POST or None,
+        request.FILES or None,
+        user=request.user,   # ← 追加
+    )
+    if request.method == "POST" and form.is_valid():
+        animal = form.save(commit=False)
+
+        if getattr(request.user, "is_keeper", False) and request.user.zoo_id:
+            animal.zoo = request.user.zoo
+
+        animal.save()
+        messages.success(request, f"「{animal.japanese}（{animal.name}）」を登録しました。")
+        return redirect("dashboard:animals_list")
+
+    return render(request, "dashboard/animal_create.html", {"form": form, "mode": "create"})
+
+# 追加：動物編集
+@staff_or_keeper_required
+def animal_edit(request, pk: int):
+    animal = get_object_or_404(Animal, pk=pk)
+
+    form = AnimalForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=animal,
+        user=request.user,   # ← ここ追加！
+    )
+
+    if request.method == "POST" and form.is_valid():
+        obj = form.save(commit=False)
+
+        # ★ keeper の場合は zoo を自分の所属動物園に固定
+        if getattr(request.user, "is_keeper", False) and request.user.zoo_id:
+            obj.zoo = request.user.zoo
+
+        obj.save()
+        messages.success(request, "動物情報を更新しました。")
+        return redirect("dashboard:animals_list")
+
+    return render(
+        request,
+        "dashboard/animal_edit.html",
+        {"form": form, "mode": "edit", "animal": animal},
+    )
+
+@require_POST
+@staff_or_keeper_required
+def animal_withdraw(request, pk: int):
+    animal = get_object_or_404(Animal, pk=pk)
+    if not animal.is_active:
+        messages.info(request, f"「{animal.japanese}（{animal.name}）」は既に休止中です。")
+        return redirect("dashboard:animals_list")
+    animal.is_active = False
+    animal.save(update_fields=["is_active"])
+    messages.warning(request, f"「{animal.japanese}（{animal.name}）」を休止にしました。")
+    return redirect("dashboard:animals_list")
+
+@require_POST
+@staff_or_keeper_required
+def animal_reactivate(request, pk: int):
+    animal = get_object_or_404(Animal, pk=pk)
+    if animal.is_active:
+        messages.info(request, f"「{animal.japanese}（{animal.name}）」は既に有効です。")
+        return redirect("dashboard:animals_list")
+    animal.is_active = True
+    animal.save(update_fields=["is_active"])
+    messages.success(request, f"「{animal.japanese}（{animal.name}）」を再開しました。")
+    return redirect("dashboard:animals_list")
+

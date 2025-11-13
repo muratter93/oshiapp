@@ -11,22 +11,22 @@ class PictureInline(admin.TabularInline):
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ("animal_id", "japanese", "name", "sex", "zoo", "total_point")
+    list_display = ("animal_id", "japanese", "name", "sex", "zoo", "total_point", "diet_display", "is_active")
     list_display_links = ("animal_id", "japanese", "name")
-    list_filter = ("sex", "generic", "specific", "zoo")
+
+    list_filter = ("sex", "generic", "specific", "zoo", "diet", "is_active")
+
     search_fields = ("japanese", "scientific", "name", "generic", "specific", "zoo__zoo_name")
     list_per_page = 20
     inlines = [PictureInline]
 
-    # ★ ここがポイント：非編集フィールドを readonly_fields に入れる
     readonly_fields = ("generic", "specific", "scientific")
 
     fieldsets = (
         (None, {
-            "fields": ("japanese", "name", "zoo", "sex", "birth", "txt"),
+            "fields": ("japanese", "name", "zoo", "sex", "birth", "diet", "txt", ),
         }),
         # ("学術情報", {
-        #     # readonly_fields に入れてあれば fields に並べてOK
         #     "fields": ("generic", "specific", "scientific"),
         #     "classes": ("collapse",),
         # }),
@@ -35,9 +35,13 @@ class AnimalAdmin(admin.ModelAdmin):
             # "classes": ("collapse",),
         }),
         ("メタ", {
-            "fields": ("total_point",),
+            "fields": ("total_point", "is_active"),
         }),
     )
+
+    @admin.display(description="主食", ordering="diet")
+    def diet_display(self, obj):
+        return obj.get_diet_display() or "—"
 
 @admin.register(Zoo)
 class ZooAdmin(admin.ModelAdmin):
