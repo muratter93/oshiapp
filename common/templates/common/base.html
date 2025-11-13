@@ -34,9 +34,7 @@
                     <li><a href="{% url 'main:index' %}">トップ</a></li>
                     {% endif %}
 
-                    {% if '/about' not in request.path %}
-                    <li><a href="#about_mainbox">アバウト</a></li>
-                    {% endif %}
+                    <li><a href="{% url 'main:index' %}#about_mainbox">アバウト</a></li>
 
                     {% if '/ranking' not in request.path %}
                     <li><a href="{% url 'ranking:index' %}">アニマルランキング</a></li>
@@ -264,9 +262,7 @@
                         <a class="hamburger_menu_content_a" href="{% url 'main:index' %}">トップ</a>
                         {% endif %}
                         
-                        {% if '/about' not in request.path %}
-                        <a class="hamburger_menu_content_a" href="{% url 'pages:about' %}">アバウト</a>
-                        {% endif %}
+                        <a class="hamburger_menu_content_a" href="{% url 'main:index' %}#about_mainbox">アバウト</a>
 
                         {% if '/ranking' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'ranking:index' %}">アニマルランキング</a>
@@ -352,9 +348,7 @@
                         <li><a href="{% url 'main:index' %}">トップ</a></li>
                         {% endif %}
 
-                        {% if '/about' not in request.path %}
-                        <li><a href="{% url 'pages:about' %}">アバウト</a></li>
-                        {% endif %}
+                        <li><a href="{% url 'main:index' %}#about_mainbox">アバウト</a></li>
 
                         {% if '/ranking' not in request.path %}
                         <li><a href="{% url 'ranking:index' %}">アニマルランキング</a></li>
