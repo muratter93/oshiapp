@@ -30,9 +30,7 @@
 
             <nav id="targetElement">
                 <ul>
-                    {% if not request.path == '/' %}
-                    <li><a href="{% url 'main:index' %}">トップ</a></li>
-                    {% endif %}
+                    <li><a href="{% url 'main:index' %}#">トップ</a></li>
 
                     <li><a href="{% url 'main:index' %}#about_mainbox">アバウト</a></li>
 
@@ -256,9 +254,7 @@
             <div id="hamburger_menu_content_outside">
                 <ul id="hamburger_menu_content">
                     <li id="hamburger_menu_content_01">
-                        {% if not request.path == '/' %}
-                        <a class="hamburger_menu_content_a" href="{% url 'main:index' %}">トップ</a>
-                        {% endif %}
+                        <a class="hamburger_menu_content_a" href="{% url 'main:index' %}#">トップ</a>
                         
                         <a class="hamburger_menu_content_a" href="{% url 'main:index' %}#about_mainbox">アバウト</a>
 
@@ -340,9 +336,7 @@
             <div id="footer_box">
                 <div id="footer_nav">
                     <ul>
-                        {% if not request.path == '/' %}
-                        <li><a href="{% url 'main:index' %}">トップ</a></li>
-                        {% endif %}
+                        <li><a href="{% url 'main:index' %}#">トップ</a></li>
 
                         <li><a href="{% url 'main:index' %}#about_mainbox">アバウト</a></li>
 
