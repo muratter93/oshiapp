@@ -17,10 +17,14 @@
 />
 
 <style>
-  #map { height: 65vh; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); }
+  #map { 
+    height: 65vh; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 16px rgba(0,0,0,.12); 
+  }
   .jump-buttons { 
     display: grid; 
-    grid-template-columns: repeat(4, 1fr); /* ← 全体ボタンも入るので4列に変更 */
+    grid-template-columns: repeat(4, 1fr); /* 全体ボタンも入るので4列 */
     gap: .5rem; 
     margin-top: .75rem; 
   }
@@ -33,16 +37,26 @@
     transition: background .2s;
     font-weight: 600;
   }
-  .jump-buttons button:hover { background: #f3f4f6; }
+  .jump-buttons button:hover { 
+    background: #f3f4f6; 
+  }
 </style>
 
 <div id="map"></div>
 
+<!-- ▼ 地図操作用ボタン -->
 <div class="jump-buttons">
   <button onclick="resetView()">🗺️ 全体マップ表示</button>
   <button onclick="flyToSpot('jyouyama')">🐒 城山動物園</button>
   <button onclick="flyToSpot('chausuyama')">🐘 茶臼山動物園</button>
   <button onclick="flyToSpot('suzaka')">🦘 須坂市動物園</button>
+</div>
+
+<!-- ▼ Googleマップ / ストリートビュー用ボタン -->
+<div class="jump-buttons" style="margin-top:.5rem">
+  <button onclick="openStreetView('jyouyama')">🚶 城山動物園ストリートビュー</button>
+  <button onclick="openStreetView('chausuyama')">🚶 茶臼山動物園ストリートビュー</button>
+  <button onclick="openStreetView('suzaka')">🚶 須坂市動物園ストリートビュー</button>
 </div>
 
 <!-- Leaflet JS -->
@@ -54,35 +68,56 @@
 
 <script>
   // ▼ 各動物園の詳細情報
- const spots = [
+const spots = [
   {
     id: 'jyouyama',
     name: '🐒城山動物園',
-    lat: 36.66490806254121, 
+
+    // ★ Leaflet地図用（今のまま）
+    lat: 36.66490806254121,
     lng: 138.1942988606473,
     zoom: 16,
+
+    // ★ ストリートビュー専用（入口の道の前など）
+    sv_lat: 36.665244588523024, 
+    sv_lng: 138.1935118468303,
+    sv_heading: 130, 
+
     address: '〒380-0802 長野県長野市上松２丁目１−１９',
     tel: '026-233-0586'
   },
   {
     id: 'chausuyama',
     name: '🐘茶臼山動物園',
-    lat: 36.58530392097484, 
-    lng: 138.11518754155875, 
+
+    lat: 36.58530392097484,
+    lng: 138.11518754155875,
     zoom: 16,
+
+    sv_lat: 36.583904, 
+    sv_lng: 138.114083,
+    sv_heading: 0, 
+
     address: '〒388-8016 長野県長野市篠ノ井有旅５７０−１',
     tel: '026-293-5167'
   },
   {
     id: 'suzaka',
     name: '🦘須坂市動物園',
-    lat: 36.6423500355432, 
+
+    lat: 36.6423500355432,
     lng: 138.31111727750795,
     zoom: 16,
+
+    sv_lat: 36.643277, 
+    sv_lng: 138.311711,
+    sv_heading: 180, 
+
     address: '〒382-0028 長野県須坂市臥竜２丁目４−８',
     tel: '026-245-1770'
   }
 ];
+
 
   // 地図作成
   const map = L.map('map');
@@ -111,7 +146,7 @@
   const fullBounds = group.getBounds().pad(0.3);
   map.fitBounds(fullBounds);
 
-  // ボタンで飛ぶ
+  // ▼ ボタンで地図を飛ぶ
   function flyToSpot(id) {
     const s = spots.find(x => x.id === id);
     if (!s) return;
@@ -125,7 +160,25 @@
     map.flyToBounds(fullBounds, { duration: 0.8 });
     map.closePopup(); // ポップアップを閉じる
   }
+
+function openStreetView(id) {
+  const s = spots.find(x => x.id === id);
+  if (!s) return;
+
+  const lat = s.sv_lat ?? s.lat;
+  const lng = s.sv_lng ?? s.lng;
+  const heading = s.sv_heading ?? 0; // 指定なければ北向き
+
+  const url =
+    `https://www.google.com/maps/@?api=1&map_action=pano` +
+    `&viewpoint=${lat},${lng}` +
+    `&heading=${heading}&pitch=0&fov=80`;
+
+  window.open(url, '_blank');
+}
+
 </script>
+
 
 {% comment %} <!-- ユーザー管理 -->
 <section id="users">

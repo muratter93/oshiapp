@@ -1,19 +1,19 @@
 {% extends "dashboard/dashboard_base.html" %}
 {% load static %}
 
-{% block title %}グッズ管理一覧{% endblock %}
-{% block content_title %}グッズ管理一覧{% endblock %}
+{% block title %}グッズ一覧{% endblock %}
+{% block content_title %}グッズ一覧{% endblock %}
 {% block content_meta %}{% endblock %}
 
 {% block content %}
-<div class="admin-admins">  {# ← 他一覧と同じ構造 #}
+<div class="admin-admins"> 
   <div class="card">
     <div class="table-wrap">
       <table class="admin-table">
         <thead>
           <tr>
             <th>ID</th>
-            <th>画像</th>
+            <th>サムネ画像</th>
             <th>名前</th>
             <th>必要スタポ</th>
             <th>在庫</th>
@@ -26,9 +26,9 @@
             <td>{{ item.id }}</td>
             <td>
               {% if item.image %}
-                <img src="{{ item.image.url }}" alt="{{ item.name }}" width="60" style="border-radius: 4px;">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" width="80" style="border-radius: 4px;">
               {% else %}
-                <img src="{% static 'img/no_image.png' %}" alt="no image" width="60" style="border-radius: 4px;">
+                <img src="{% static 'img/no_image.png' %}" alt="no image" width="80" style="border-radius: 4px;">
               {% endif %}
             </td>
             <td>{{ item.name }}</td>

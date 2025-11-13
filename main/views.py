@@ -3,10 +3,11 @@ from django.http import JsonResponse
 from django.db import transaction
 from animals.models import Animal
 from money.models import Wallet
-def index(request):
-    animals = Animal.objects.filter(animal_id__lte=100)
 
-    ranking = Animal.objects.order_by('-total_point')[:10]
+def index(request):
+    animals = Animal.objects.filter(animal_id__lte=100, is_active=True)
+
+    ranking = Animal.objects.filter(is_active=True).order_by('-total_point')[:10]
 
     wallet = None
     if request.user.is_authenticated:

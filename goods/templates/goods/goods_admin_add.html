@@ -1,54 +1,14 @@
 {% extends "dashboard/dashboard_base.html" %}
 {% load static %}
 
-{% block title %}グッズ登録（管理者）{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/goods.css' %}">
-<style>
-.goods-admin-container {
-    width: 70%;
-    margin: 30px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-.goods-admin-container h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-.goods-admin-container form label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-}
-.goods-admin-container form input,
-.goods-admin-container form textarea {
-    width: 100%;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-.goods-admin-container button {
-    margin-top: 20px;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-.goods-admin-container button:hover {
-    background-color: #0056b3;
-}
-</style>
-{% endblock %}
+{% block title %}新しいグッズを登録{% endblock %}
+{% block content_title %}新しいグッズを登録{% endblock %}
 
 {% block content %}
-<div class="goods-admin-container">
-    <h2>グッズ新規登録</h2>
+<div class="card goods-create">
+  <div class="container">
 
+    {# メッセージ #}
     {% if messages %}
       <ul class="messages">
         {% for message in messages %}
@@ -57,20 +17,69 @@
       </ul>
     {% endif %}
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
+    {# フォーム全体 #}
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
 
-        <label for="id_detail_images">詳細画像（複数選択可）</label>
-        <input type="file" name="detail_images" id="id_detail_images" multiple>  <!-- ← ここが重要！ -->
+      <div class="form-grid" style="display:grid; gap:12px; max-width:520px;">
 
-        <button type="submit">登録する</button>
+        <label>
+          グッズ名
+          {{ form.name }}
+          {% if form.name.errors %}
+            <div class="field-error">{{ form.name.errors.0 }}</div>
+          {% endif %}
+        </label>
+
+        <label>
+          必要スタポ
+          {{ form.required_stanning_points }}
+          {% if form.required_stanning_points.errors %}
+            <div class="field-error">{{ form.required_stanning_points.errors.0 }}</div>
+          {% endif %}
+        </label>
+
+        <label>
+          在庫数
+          {{ form.stock }}
+          {% if form.stock.errors %}
+            <div class="field-error">{{ form.stock.errors.0 }}</div>
+          {% endif %}
+        </label>
+
+        <label>
+          サムネ画像
+          {{ form.image }}
+          {% if form.image.errors %}
+            <div class="field-error">{{ form.image.errors.0 }}</div>
+          {% endif %}
+        </label>
+
+        {# 説明がある想定のフィールド名。違うならここだけ変えてね #}
+        {% if form.description %}
+        <label class="full">
+          説明文
+          {{ form.description }}
+          {% if form.description.errors %}
+            <div class="field-error">{{ form.description.errors.0 }}</div>
+          {% endif %}
+        </label>
+        {% endif %}
+
+        {# 詳細画像（複数） #}
+        <label class="full">
+          詳細画像（複数選択可）
+          <input type="file" name="detail_images" id="id_detail_images" multiple>
+        </label>
+
+      </div>
+
+      <div class="form-actions" style="display:flex; gap:8px; margin-top:16px;">
+        <button class="btn btn-edit" type="submit">登録する</button>
+        <a class="btn" href="{% url 'goods:goods_admin_list' %}">一覧に戻る</a>
+      </div>
     </form>
 
-
-
-    <p style="margin-top:20px;">
-        <a href="{% url 'goods:goods_admin_list' %}">← グッズ一覧に戻る</a>
-    </p>
+  </div>
 </div>
 {% endblock %}

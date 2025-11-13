@@ -31,7 +31,7 @@
             <td>{{ a.japanese }}</td>
             <td>{{ a.name }}</td>
             <td>
-                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="120">
+                <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100">
             </td>
             <td>
                 {% if a.sex == "M" %}オス{% elif a.sex == "F" %}メス{% else %}不明{% endif %}
@@ -45,7 +45,7 @@
                 {% if a.is_active %}
                 <span class="badge bg-success">有効</span>
                 {% else %}
-                <span class="badge bg-secondary">休止</span>
+                <span class="badge bg-secondary">退園</span>
                 {% endif %}
             </td>
 

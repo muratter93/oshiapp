@@ -887,3 +887,79 @@ html, body {
   .animals-page .admin-table th:nth-child(6),
   .animals-page .admin-table td:nth-child(6) { width: auto; }
 }
+
+
+/* ----------------------------------------------------
+   Goods Create / Edit 共通デザイン
+   （動物・会員登録フォームと統一）
+---------------------------------------------------- */
+
+.goods-create {
+    margin-top: 10px;
+}
+
+.goods-create .container {
+    max-width: 600px;     /* 左寄せなので広げすぎない */
+    padding: 0;
+}
+
+/* タイトルに余白 */
+.goods-create h2 {
+    margin-bottom: 20px;
+}
+
+/* フォームの基本レイアウト */
+.goods-create .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+/* label の統一 */
+.goods-create label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+/* input / textarea / select の統一 */
+.goods-create input,
+.goods-create textarea,
+.goods-create select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    font-size: 0.95rem;
+}
+
+/* textarea高さ */
+.goods-create textarea {
+    min-height: 120px;
+}
+
+/* エラー表示 */
+.goods-create .field-error {
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: #d9534f;
+}
+
+/* ボタンの並び統一 */
+.goods-create .form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* a の見た目調整 */
+.goods-create a {
+    text-decoration: none;
+}
+
+/* 詳細画像の file input */
+.goods-create input[type="file"] {
+    padding: 4px;
+}
