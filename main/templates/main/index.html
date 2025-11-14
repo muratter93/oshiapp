@@ -10,14 +10,14 @@
 <div class="animal-grid">
   {% for a in animals %}
 <article class="animal-card" data-id="{{ a.animal_id }}">
-  <div class="animal-media carousel
+    <div class="animal-media carousel
     {% if a.animal_id == 1 %}
       rainbow-border
-    {% elif a.animal_id == 2 or a.animal_id == 5 or a.animal_id == 6 or a.animal_id == 11 %}
+    {% elif a.zoo and a.zoo.zoo_id == 1 %}
       red-border
-    {% elif a.animal_id == 3 or a.animal_id == 7 or a.animal_id == 8 or a.animal_id == 12 %}
+    {% elif a.zoo and a.zoo.zoo_id == 2 %}
       blue-border
-    {% elif a.animal_id == 4 or a.animal_id == 9 or a.animal_id == 10 %}
+    {% elif a.zoo and a.zoo.zoo_id == 3 %}
       green-border
     {% endif %}
   ">
