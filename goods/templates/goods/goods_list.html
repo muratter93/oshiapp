@@ -63,9 +63,9 @@
           {% endif %}
 
           {% if user.is_authenticated %}
-            <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">交換</a>
+            <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">カートに追加</a>
           {% else %}
-            <button class="goods_btn exchange_btn" data-goods="{{ goods.id }}">交換</button>
+            <button class="goods_btn exchange_btn" data-goods="{{ goods.id }}">カートに追加</button>
           {% endif %}
         {% endif %}
       </div>
