@@ -1,0 +1,37 @@
+{% load static %}
+
+<div class="donation_info_container">
+  <!-- ヘッダー -->
+  <header class="donation_header">
+    <h2>動物園への寄付について</h2>
+    <p class="subtitle">ふるさと納税のように、寄附金受領証明書が発行されます</p>
+  </header>
+
+  <!-- 寄付の目的・意義 -->
+  <section class="donation_purpose">
+    <h3>寄付の目的・意義</h3>
+    <p>寄付金は動物園の動物たちの飼育や環境整備に使われます。</p>
+    {% comment %} <img src="{% static 'img/zoo_sample.jpg' %}" alt="動物園イメージ" class="donation_image"> {% endcomment %}
+  </section>
+
+  <!-- 寄付の流れ -->
+  <section class="donation_flow">
+    <h3>寄付の流れ</h3>
+    <ol>
+      <li>寄付する動物園と金額を選びます</li>
+      <li>確認ページで内容をチェックします</li>
+      <li>寄付完了 → PDFで「寄附金受領証明書」が発行されます</li>
+    </ol>
+  </section>
+
+  <!-- 寄附金受領証明書について -->
+  <section class="donation_certificate">
+    <h3>寄附金受領証明書について</h3>
+    <p>この証明書は税金控除に利用できます。</p>
+    <p>サンプルPDFを確認する: <a href="{% static 'pdf/tarou.pdf' %}" target="_blank">PDFサンプルを見る</a></p>
+    <img src="{% static 'img/torou.png' %}" 
+       alt="PDFサンプルサムネイル" 
+       class="certificate_thumb"
+       style="max-width: 200px; height: auto; display:block; margin-top:8px;">
+  </section>
+</div>

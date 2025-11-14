@@ -6,7 +6,7 @@ from django.utils import timezone
 # -----------------------------
 # 寄付フォームページ
 # -----------------------------
-@login_required
+
 def donate(request):
     zoos = Zoo.objects.all()
 
@@ -204,3 +204,35 @@ def donation_history(request):
     return render(request, 'donation/donation_history.html', {
         'donations': donations
     })
+
+
+# 寄付履歴削除
+
+
+from django.shortcuts import redirect
+from django.db import connection
+from django.contrib.admin.views.decorators import staff_member_required
+from .models import Donation
+
+@staff_member_required  # 管理者のみ実行可
+def reset_donations(request):
+    """
+    Donation テーブルを空にして donation_id を 1 から振り直す
+    """
+    # 全削除
+    Donation.objects.all().delete()
+
+    table_name = Donation._meta.db_table
+    engine = connection.vendor
+
+    with connection.cursor() as cursor:
+        if engine == "sqlite":
+            # SQLite は sqlite_sequence をリセット
+            cursor.execute(f"DELETE FROM sqlite_sequence WHERE name='{table_name}'")
+        elif engine == "postgresql":
+            cursor.execute(f"ALTER SEQUENCE {table_name}_donation_id_seq RESTART WITH 1")
+        elif engine == "mysql":
+            cursor.execute(f"ALTER TABLE {table_name} AUTO_INCREMENT = 1")
+
+    # 管理画面に戻す
+    return redirect("/admin/")

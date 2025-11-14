@@ -1,14 +1,21 @@
 {% extends "common/base.html" %}
+{% load static %}
 
 {% block title %}寄付する{% endblock %}
 
 {% block content %}
 <h1>動物園に寄付する</h1>
 
-{% if error %}<p style="color:red">{{ error }}</p>{% endif %}
+<!-- 寄付説明を読み込む -->
+{% include "donation/donation_info.html" %}
 
-<form method="post">
+{% if error %}
+  <p style="color:red">{{ error }}</p>
+{% endif %}
+
+<form id="donationForm" method="post">
   {% csrf_token %}
+
   <label>動物園を選択:</label>
   <select name="zoo">
     <option value="">選択してください</option>
@@ -27,7 +34,44 @@
   <br><br>
 
   <button type="submit">次へ</button>
-
   <a href="{% url 'donation:donation_history' %}">寄付履歴を見る</a>
 </form>
+
+<!-- 認証誘導モーダル -->
+<div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
+  <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px;">
+    <h3>会員登録が必要です</h3>
+    <p>チアコインを購入するにはログインまたは新規登録をしてください。</p>
+    <div style="text-align:right;">
+      <button id="authCancelBtn">キャンセル</button>
+      <a href="{% url 'accounts:signup' %}?next={% url 'donation:donate' %}"
+         style="background:#6b7280;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">新規登録</a>
+      <a href="{% url 'accounts:login' %}?next={% url 'donation:donate' %}"
+         style="background:#2563eb;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">ログイン</a>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('donationForm');
+  const authModal = document.getElementById('authModal');
+  const authCancelBtn = document.getElementById('authCancelBtn');
+
+  // Djangoのis_authenticatedをJSに渡す
+  const isAuthenticated = {{ request.user.is_authenticated|yesno:"true,false" }};
+
+  form.addEventListener('submit', (e) => {
+    if (!isAuthenticated) {
+      e.preventDefault(); // フォーム送信停止
+      authModal.style.display = 'block';
+    }
+  });
+
+  authCancelBtn.addEventListener('click', () => {
+    authModal.style.display = 'none';
+  });
+});
+</script>
+
 {% endblock %}

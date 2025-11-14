@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>確認 - {{ animal.japanese }}のプラン</title>
+</head>
+<body>
+<h1>{{ animal.japanese }}を推す！</h1>
+
+<p>プラン: {{ plan.plan_name }}<br>
+金額: {{ plan.amount }}円 / スタポ: {{ plan.st_point }}</p>
+
+<!-- 実際に加入するボタン -->
+<a href="{% url 'subscription:join_plan' plan.id animal.animal_id %}">このプランに加入する</a>
+
+<br><br>
+<a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}">戻る</a>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>{{ animal.japanese }}のサブスクプラン</title>
+</head>
+<body>
+<h1>{{ animal.japanese }}を推す！</h1>
+
+<ul>
+  {% for plan in plans %}
+    <li>
+      <strong>{{ plan.plan_name }}</strong> - {{ plan.amount }}円 / スタポ {{ plan.st_point }}
+      
+      <a href="{% url 'subscription:confirm_plan' plan.id animal.animal_id %}">加入する</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'animals:detail' animal.animal_id %}">戻る</a>
+</body>
+</html>

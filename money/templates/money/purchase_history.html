@@ -20,11 +20,13 @@
 <h2>スタポ履歴</h2>
 {% if stanning_purchases %}
 <table border="1" cellpadding="6">
-  <tr><th>プラン名</th>
+  <tr>
+    <th>プラン名</th>
     <th>動物</th>
     <th>付与スタポ</th>
     <th>加入日</th>
     <th>終了日</th>
+    <th>契約状況</th> <!-- ←追加 -->
   </tr>
   {% for s in stanning_purchases %}
   <tr>
@@ -33,10 +35,26 @@
     <td>{{ s.plan.st_point }} スタポ</td>
     <td>{{ s.sign_up|date:"Y年m月d日" }}</td>
     <td>{{ s.end_day|date:"Y年m月d日" }}</td>
+    <td>
+      {% if s.is_recurring %}
+          {% if s.is_active %}
+              <form action="{% url 'subscription:cancel_subscription' s.sub_member_id %}" method="post" style="display:inline" class="cancel-form">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('本当に解約してよろしいですか？');">解約</button>
+              </form>
+          {% else %}
+              解約済み
+          {% endif %}
+      {% else %}
+          -  {# 解約できないプラン #}
+      {% endif %}
+    </td>
+
   </tr>
   {% endfor %}
 </table>
 {% else %}
 <p>まだスタポ履歴がありません。</p>
 {% endif %}
+
 {% endblock %}

@@ -19,7 +19,7 @@ def goods_list(request):
     total_quantity = 0
     total_stanning = 0
 
-    # 🔽 ログインしている時だけカート情報を取得
+    #  ログインしている時だけカート情報を取得
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(member=request.user)
         total_quantity = sum(item.quantity for item in cart_items)

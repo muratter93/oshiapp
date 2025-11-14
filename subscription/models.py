@@ -37,7 +37,6 @@ def _add_months(d: date, months: int) -> date:
 # ----------------------------
 class SubMember(models.Model):
     sub_member_id = models.AutoField(primary_key=True)
-
     member = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -58,9 +57,10 @@ class SubMember(models.Model):
     )
 
     is_recurring = models.BooleanField("継続", db_column="sub", default=True)
+    is_active    = models.BooleanField("有効プラン", default=True)  # ←追加
     sign_up = models.DateField("加入日", db_column="sing_up", default=date.today)
-    end_day      = models.DateField("終了日", blank=True, null=True)
-    sign_mon     = models.PositiveIntegerField("合計加入月", db_column="sing_mon", default=0)
+    end_day = models.DateField("終了日", blank=True, null=True)
+    sign_mon = models.PositiveIntegerField("合計加入月", db_column="sing_mon", default=0)
 
     class Meta:
         db_table = "sub_member"
@@ -71,6 +71,7 @@ class SubMember(models.Model):
             models.Index(fields=["sign_up"]),
             models.Index(fields=["member", "animal"]),
         ]
+
         # 将来的に 1会員=1サブスク を厳格化したい場合
         # constraints = [
         #     models.UniqueConstraint(fields=["member"], name="uq_one_subscription_per_member"),

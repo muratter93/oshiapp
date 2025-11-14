@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>{{ animal.japanese }}の加入完了</title>
+<script>
+window.onload = function() {
+    {% if error %}
+        alert("{{ error }}");
+    {% else %}
+        alert("{{ animal.japanese }}を推します！\nプラン: {{ plan.plan_name }}");
+    {% endif %}
+    window.location.href = "{% url 'animals:detail' animal.animal_id %}";
+}
+</script>
+</head>
+<body>
+<p>処理中...</p>
+</body>
+</html>
