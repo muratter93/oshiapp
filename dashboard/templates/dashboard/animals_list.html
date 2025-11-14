@@ -19,7 +19,7 @@
             <th>性別</th>
             <th>所属動物園</th>
             <th>誕生日</th>
-            <th>主食</th>
+            <th>推しP</th>
             <th>アクティブ</th>
             <th>操作</th>
             </tr>
@@ -39,7 +39,7 @@
             <td>{% firstof a.zoo.zoo_name "（所属なし）" %}</td>
             <td>{{ a.birth|date:"Y/m/d" }}</td>
 
-            <td>{{ a.get_diet_display|default:"—" }}</td>
+            <td>{{ a.total_point }}</td>
 
             <td>
                 {% if a.is_active %}

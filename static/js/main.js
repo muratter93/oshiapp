@@ -143,143 +143,149 @@ window.addEventListener('DOMContentLoaded', () => {
 
         const id = btn.dataset.id;
         try {
-          const res = await fetch(`/like/${id}/`, {
-            method: 'POST',
-            headers: { 'X-CSRFToken': getCookie('csrftoken') },
-          });
-
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const data = await res.json();
-
-          if (data.total_point !== undefined) {
-            // ① 推しポイント更新
-            const card = btn.closest('.animal-card');
-            const pointElem = card?.querySelector('.point');
-            if (pointElem) {
-              pointElem.textContent = data.total_point;
-              // ピンク点滅（CSSは .index .point.flash 推奨）
-              pointElem.classList.add('flash');
-              setTimeout(() => pointElem.classList.remove('flash'), 350);
-            }
-
-            // バッジをポン
-            const badge = card?.querySelector('.oshii-badge');
-            if (badge) {
-              badge.classList.remove('pop');
-              void badge.offsetWidth;
-              badge.classList.add('pop');
-            }
-
-            // 💫 現在のランキングを取得（HTML置換前に呼ぶ）
-            function getCurrentRankingOrder() {
-            const current = [];
-            document.querySelectorAll('.animal-ranking-sidebar .animal-ranking-list li').forEach(li => {
-                const nameEl = li.querySelector('.rank-japanese');
-                if (nameEl) current.push(nameEl.textContent.trim());
+            const res = await fetch(`/like/${id}/`, {
+              method: 'POST',
+              headers: { 'X-CSRFToken': getCookie('csrftoken') },
             });
-            return current;
+
+            // まず JSON を読む（エラーでも読む）
+            const data = await res.json().catch(() => ({}));
+
+            // ★ HTTP 400系（コイン不足など）の場合
+            if (!res.ok) {
+              alert(data.error || 'エラーが発生しました。');
+              return;
             }
 
-            // 💫 "UP"エフェクトを飛ばす
-            function showUpEffect(targetEl) {
-            const up = document.createElement('span');
-            up.textContent = 'UP↑';
-            up.className = 'rank-up';
-            targetEl.style.position = 'relative';
-            up.style.position = 'absolute';
-            up.style.right = '-40px';
-            up.style.top = '0';
-            up.style.color = '#ff4081';
-            up.style.fontWeight = 'bold';
-            up.style.fontSize = '1.1rem';
-            up.style.animation = 'flyUp 1.2s ease-out forwards';
-            targetEl.appendChild(up);
-            setTimeout(() => up.remove(), 1200);
-            }
+            // ★ 成功（total_point が返ってくる）
+            if (data.total_point !== undefined) {
 
-            // 💫 CSSアニメーションも追加
-            const style = document.createElement('style');
-            style.textContent = `
-            @keyframes flyUp {
-            0%   { transform: translateY(0); opacity: 1; }
-            60%  { transform: translateY(-15px); opacity: 1; }
-            100% { transform: translateY(-35px); opacity: 0; }
-            }
-            .rank-up {
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            }
-            `;
-            document.head.appendChild(style);
+              // ① 推しポイント更新
+              const card = btn.closest('.animal-card');
+              const pointElem = card?.querySelector('.point');
+              if (pointElem) {
+                pointElem.textContent = data.total_point;
+                pointElem.classList.add('flash');
+                setTimeout(() => pointElem.classList.remove('flash'), 350);
+              }
 
+              // バッジ演出
+              const badge = card?.querySelector('.oshii-badge');
+              if (badge) {
+                badge.classList.remove('pop');
+                void badge.offsetWidth;
+                badge.classList.add('pop');
+              }
 
-            // 💖ランキング更新（UPエフェクト付き）
-            if (data.ranking_html) {
-            const sidebar = document.querySelector('.animal-ranking-sidebar');
-            if (sidebar) {
-                // 1️⃣ 現在のランキングを記録
-                const oldRanking = getCurrentRankingOrder();
-
-                // 2️⃣ 一旦差し替え
-                sidebar.outerHTML = data.ranking_html;
-
-                // 3️⃣ 新しいランキングを取得
-                const newRanking = getCurrentRankingOrder();
-
-                // 4️⃣ 順位が上がった動物にUP↑演出
-                newRanking.forEach((name, idx) => {
-                const oldIndex = oldRanking.indexOf(name);
-                if (oldIndex !== -1 && oldIndex > idx) {
-                    // ランクが上がった
-                    const newLi = document.querySelectorAll('.animal-ranking-list li')[idx];
-                    if (newLi) {
-                    const nameEl = newLi.querySelector('.rank-japanese');
-                    if (nameEl) showUpEffect(nameEl);
-                    }
-                }
+              // 💫 現在のランキング順を取得（あなたの元コードのまま）
+              function getCurrentRankingOrder() {
+                const current = [];
+                document.querySelectorAll('.animal-ranking-sidebar .animal-ranking-list li').forEach(li => {
+                  const nameEl = li.querySelector('.rank-japanese');
+                  if (nameEl) current.push(nameEl.textContent.trim());
                 });
-            }
-            }
+                return current;
+              }
 
+              // 💫 UP↑エフェクト
+              function showUpEffect(targetEl) {
+                const up = document.createElement('span');
+                up.textContent = 'UP↑';
+                up.className = 'rank-up';
+                targetEl.style.position = 'relative';
+                up.style.position = 'absolute';
+                up.style.right = '-40px';
+                up.style.top = '0';
+                up.style.color = '#ff4081';
+                up.style.fontWeight = 'bold';
+                up.style.fontSize = '1.1rem';
+                up.style.animation = 'flyUp 1.2s ease-out forwards';
+                targetEl.appendChild(up);
+                setTimeout(() => up.remove(), 1200);
+              }
 
-            // ② ウォレット更新（グローバルID想定）
-            const walletElem = document.querySelector('#wallet-balance');
-            const stapoElem  = document.querySelector('#wallet-stapo');
-            if (walletElem && data.cheer_coin_balance !== undefined) {
-              walletElem.textContent = Number(data.cheer_coin_balance).toLocaleString();
-            }
-            if (stapoElem && data.stanning_point_balance !== undefined) {
-              stapoElem.textContent = Number(data.stanning_point_balance).toLocaleString();
-            }
+              // 💫 CSSアニメーション追加（あなたのまま）
+              const style = document.createElement('style');
+              style.textContent = `
+                @keyframes flyUp {
+                  0%   { transform: translateY(0); opacity: 1; }
+                  60%  { transform: translateY(-15px); opacity: 1; }
+                  100% { transform: translateY(-35px); opacity: 0; }
+                }
+                .rank-up {
+                  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                }
+              `;
+              document.head.appendChild(style);
 
-            // ③ ハート演出
-            spawnHearts(btn, 3);
+              // 💖 ランキング更新（あなたの元コードを維持）
+              if (data.ranking_html) {
+                const sidebar = document.querySelector('.animal-ranking-sidebar');
+                if (sidebar) {
+                  const oldRanking = getCurrentRankingOrder();
+                  sidebar.outerHTML = data.ranking_html;
+                  const newRanking = getCurrentRankingOrder();
 
-            // ④ 画像ズーム揺れ＋ホバー維持
-            const media = card?.querySelector('.animal-media');
-            const img = media?.querySelector('img');
-            if (img && media) {
-              img.classList.add('is-hoverlock');     // 1.06維持（CSSで調整可）
-              media.classList.remove('shake');
-              void media.offsetWidth;
-              media.classList.add('shake');
-              media.addEventListener('animationend', () => {
+                  newRanking.forEach((name, idx) => {
+                    const oldIndex = oldRanking.indexOf(name);
+                    if (oldIndex !== -1 && oldIndex > idx) {
+                      const newLi = document.querySelectorAll('.animal-ranking-list li')[idx];
+                      if (newLi) {
+                        const nameEl = newLi.querySelector('.rank-japanese');
+                        if (nameEl) showUpEffect(nameEl);
+                      }
+                    }
+                  });
+                }
+              }
+
+              // ② ウォレット更新
+              const walletElem = document.querySelector('#wallet-balance');
+              const stapoElem  = document.querySelector('#wallet-stapo');
+              if (walletElem && data.cheer_coin_balance !== undefined) {
+                walletElem.textContent = Number(data.cheer_coin_balance).toLocaleString();
+              }
+              if (stapoElem && data.stanning_point_balance !== undefined) {
+                stapoElem.textContent = Number(data.stanning_point_balance).toLocaleString();
+              }
+
+              // ③ ハート演出
+              spawnHearts(btn, 3);
+
+              // ④ 画像の揺れ演出
+              const media = card?.querySelector('.animal-media');
+              const img = media?.querySelector('img');
+              if (img && media) {
+                img.classList.add('is-hoverlock');
                 media.classList.remove('shake');
-              }, { once: true });
-              media.addEventListener('mouseleave', () => {
-                img.classList.remove('is-hoverlock');
-              }, { once: true });
+                void media.offsetWidth;
+                media.classList.add('shake');
+                media.addEventListener('animationend', () => {
+                  media.classList.remove('shake');
+                }, { once: true });
+                media.addEventListener('mouseleave', () => {
+                  img.classList.remove('is-hoverlock');
+                }, { once: true });
+              }
+
+            // ★ 成功ではないが error が返ってきた場合（保険）
+            } else if (data.error) {
+              alert(data.error);
+
+            // ★ 何も情報がない場合
+            } else {
+              alert('エラーが発生しました。');
             }
-          } else if (data.error) {
-            alert(data.error);
-          } else {
-            alert('エラーが発生しました。');
+
+          } catch (err) {
+            console.error(err);
+            // ★ 本当の通信エラーの場合のみ
+            alert('通信に失敗しました。');
+
+          } finally {
+            btn.disabled = false;
           }
-        } catch (err) {
-          console.error(err);
-          alert('通信に失敗しました。');
-        } finally {
-          btn.disabled = false;
-        }
+
       });
     });
 

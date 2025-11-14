@@ -477,3 +477,70 @@ def animal_reactivate(request, pk: int):
     messages.success(request, f"「{animal.japanese}（{animal.name}）」を再開しました。")
     return redirect("dashboard:animals_list")
 
+# dashboard/views.py
+
+from datetime import date
+from django.shortcuts import redirect
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from subscription.models import SubMember
+
+
+class SubscriptionListView(LoginRequiredMixin, ListView):
+    model = SubMember
+    template_name = "dashboard/subscription_list.html"
+    context_object_name = "subs"
+    paginate_by = 50
+
+    def get_queryset(self):
+        qs = (
+            SubMember.objects
+            .select_related("member", "plan", "animal")
+            .order_by("-sign_up", "-sub_member_id")
+        )
+
+        # キーワード検索（後で拡張可能）
+        q = self.request.GET.get("q") or ""
+        if q:
+            qs = qs.filter(member__username__icontains=q)
+
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["today"] = date.today()
+        ctx["q"] = self.request.GET.get("q") or ""
+        return ctx
+
+# dashboard/views.py
+from django.shortcuts import get_object_or_404, redirect
+from django.utils import timezone
+
+from subscription.models import SubMember   # ★ モデル名はこれ
+
+def sub_cancel(request, sub_member_id):
+    sub = get_object_or_404(SubMember, pk=sub_member_id)
+
+    # POST だけ許可にしたければ、if request.method != "POST": ではじいてもOK
+    today = timezone.localdate()
+    sub.end_day = today
+    sub.is_recurring = False  # 解約したので継続フラグもOFFにしておくと分かりやすい
+    sub.save()                # save() 内で sign_mon も再計算される
+
+    return redirect("dashboard:subscription_list")
+
+def sub_restart(request, sub_member_id):
+    sub = get_object_or_404(SubMember, pk=sub_member_id)
+
+    today = timezone.localdate()
+    sub.sign_up = today        # 再開日を新しい加入日とする
+    sub.end_day = None         # 一旦クリア → save() の中でプランに応じてセットされる
+    sub.is_recurring = True    # 継続プランとして扱いたい場合（BY系はsave内でFalseにされる）
+
+    # save() の中で:
+    # - _auto_fill_by_plan() が plan.code を見て end_day を自動セット
+    # - _calc_total_months() で sign_mon を計算
+    sub.save()
+
+    return redirect("dashboard:subscription_list")

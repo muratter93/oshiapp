@@ -44,6 +44,10 @@ urlpatterns = [
     path("animals/<int:pk>/withdraw/", views.animal_withdraw, name="animal_withdraw"),
     path("animals/<int:pk>/reactivate/", views.animal_reactivate, name="animal_reactivate"),
 
+    path("subscriptions/", views.SubscriptionListView.as_view(), name="subscription_list"),
+    path("subscriptions/<int:sub_member_id>/cancel/", views.sub_cancel, name="sub_cancel",),
+    path("subscriptions/<int:sub_member_id>/restart/", views.sub_restart, name="sub_restart",),
+
     # ダッシュボード本体
     path('', views.admin_dashboard, name='dashboard'),
 ]

@@ -1,0 +1,156 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}サブスク加入状況{% endblock %}
+{% block content_title %}サブスク加入状況{% endblock %}
+{% block content_meta %}{% endblock %}
+
+{% block content %}
+
+<div class="admin-admins">
+  <div class="card">
+    <div class="table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>会員</th>
+            <th>プラン</th>
+            <th>サポート動物</th>
+            <th>所属動物園</th>
+            <th>加入日</th>
+            <th>終了日</th>
+            <th>継続</th>
+            <th>加入月数</th>
+            <th>現在の状況</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for s in subs %}
+          <tr class="{% if s.end_day and s.end_day < today %}inactive{% endif %}">
+            <td>{{ s.sub_member_id }}</td>
+
+            <td>
+              {{ s.member.username }}
+            </td>
+
+            <td>
+              {{ s.plan.plan_name }}
+              <span class="subtle">
+                プラン
+              </span>
+            </td>
+
+            <td>
+              {{ s.animal.japanese }}
+              <span class="subtle">({{ s.animal.name }})</span>
+            </td>
+
+            <td>
+                {% if s.animal.zoo %}
+                    {{ s.animal.zoo.zoo_name }}
+                {% else %}
+                    <span class="subtle">不明</span>
+                {% endif %}
+            </td>
+
+            <td>{{ s.sign_up|date:"Y/m/d" }}</td>
+
+            <td>
+              {% if s.end_day %}
+                {{ s.end_day|date:"Y/m/d" }}
+              {% else %}
+                <span class="subtle">未設定</span>
+              {% endif %}
+            </td>
+
+            <td>
+              {% if s.is_recurring %}
+                継続
+              {% else %}
+                単発
+              {% endif %}
+            </td>
+
+            <td>
+              {{ s.sign_mon }} ヵ月
+            </td>
+
+            <td>
+              {% if s.end_day and s.end_day < today %}
+                <span class="subtle">終了</span>
+              {% else %}
+                <span class="status-badge status-active">有効</span>
+              {% endif %}
+            </td><td class="actions">
+  <div class="action-row">
+
+            {% if request.user.is_keeper %}
+            {# keeper は操作不可 #}
+            <button class="btn btn-disabled" disabled>操作不可</button>
+
+            {% else %}
+            {% if s.end_day and s.end_day <= today %}
+                <form method="post" action="{% url 'dashboard:sub_restart' s.sub_member_id %}">
+                {% csrf_token %}
+                <button class="btn btn-secondary" type="submit">
+                    再開
+                </button>
+                </form>
+            {% else %}
+                <form method="post" action="{% url 'dashboard:sub_cancel' s.sub_member_id %}">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">
+                    解約
+                </button>
+                </form>
+            {% endif %}
+            {% endif %}
+
+        </div>
+        </td>
+
+          </tr>
+
+          {% empty %}
+          <tr>
+            <td colspan="10" class="subtle">該当するサブスク加入情報はありません。</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+
+  {# === ページネーション === #}
+  {% if is_paginated %}
+  <div class="pagination" style="margin-top:16px; display:flex; justify-content:center; gap:8px; align-items:center;">
+
+      {% if page_obj.has_previous %}
+        <a class="btn"
+          href="?page={{ page_obj.previous_page_number }}&q={{ q }}">
+          前へ
+        </a>
+      {% else %}
+        <button class="btn btn-disabled" disabled>前へ</button>
+      {% endif %}
+
+      <span class="subtle">
+        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+        <a class="btn"
+          href="?page={{ page_obj.next_page_number }}&q={{ q }}">
+          次へ
+        </a>
+      {% else %}
+        <button class="btn btn-disabled" disabled>次へ</button>
+      {% endif %}
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

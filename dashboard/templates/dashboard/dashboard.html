@@ -5,9 +5,11 @@
 {% block content_meta %}
 <p class="subtle">{{ user.username }} さん（ログイン: {{ user.last_login|date:"Y年m月d日 H:i" }}）</p>
 {% endblock %}
+
 {% block content %}
 
 <p>地図の練習</p>
+
 <!-- Leaflet CSS -->
 <link
   rel="stylesheet"
@@ -17,16 +19,16 @@
 />
 
 <style>
-  #map { 
-    height: 65vh; 
-    border-radius: 12px; 
-    box-shadow: 0 4px 16px rgba(0,0,0,.12); 
+  #map {
+    height: 65vh;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
   }
-  .jump-buttons { 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); /* 全体ボタンも入るので4列 */
-    gap: .5rem; 
-    margin-top: .75rem; 
+  .jump-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 上3つ / 下3つ のイメージ */
+    gap: .5rem;
+    margin-top: .75rem;
   }
   .jump-buttons button {
     padding: .6rem .8rem;
@@ -37,23 +39,26 @@
     transition: background .2s;
     font-weight: 600;
   }
-  .jump-buttons button:hover { 
-    background: #f3f4f6; 
+  .jump-buttons button:hover {
+    background: #f3f4f6;
   }
 </style>
 
 <div id="map"></div>
 
-<!-- ▼ 地図操作用ボタン -->
+<!-- ▼ 地図操作用ボタン（上3×下3×下3 の3行） -->
 <div class="jump-buttons">
+  <!-- 1行目 -->
   <button onclick="resetView()">🗺️ 全体マップ表示</button>
+  <button onclick="showTriangle()">🔺 三角形を表示</button>
+  <button onclick="toggleTriangleSpin()">⏯ 三角形くるくる</button>
+
+  <!-- 2行目 -->
   <button onclick="flyToSpot('jyouyama')">🐒 城山動物園</button>
   <button onclick="flyToSpot('chausuyama')">🐘 茶臼山動物園</button>
   <button onclick="flyToSpot('suzaka')">🦘 須坂市動物園</button>
-</div>
 
-<!-- ▼ Googleマップ / ストリートビュー用ボタン -->
-<div class="jump-buttons" style="margin-top:.5rem">
+  <!-- 3行目 -->
   <button onclick="openStreetView('jyouyama')">🚶 城山動物園ストリートビュー</button>
   <button onclick="openStreetView('chausuyama')">🚶 茶臼山動物園ストリートビュー</button>
   <button onclick="openStreetView('suzaka')">🚶 須坂市動物園ストリートビュー</button>
@@ -68,58 +73,125 @@
 
 <script>
   // ▼ 各動物園の詳細情報
-const spots = [
-  {
-    id: 'jyouyama',
-    name: '🐒城山動物園',
+  const spots = [
+    {
+      id: 'jyouyama',
+      name: '🐒城山動物園',
+      // Leaflet地図用
+      lat: 36.66490806254121,
+      lng: 138.1942988606473,
+      zoom: 16,
+      // ストリートビュー用
+      sv_lat: 36.665244588523024,
+      sv_lng: 138.1935118468303,
+      sv_heading: 130,
+      address: '〒380-0802 長野県長野市上松２丁目１−１９',
+      tel: '026-233-0586'
+    },
+    {
+      id: 'chausuyama',
+      name: '🐘茶臼山動物園',
+      lat: 36.58530392097484,
+      lng: 138.11518754155875,
+      zoom: 16,
+      sv_lat: 36.583904,
+      sv_lng: 138.114083,
+      sv_heading: 0,
+      address: '〒388-8016 長野県長野市篠ノ井有旅５７０−１',
+      tel: '026-293-5167'
+    },
+    {
+      id: 'suzaka',
+      name: '🦘須坂市動物園',
+      lat: 36.6423500355432,
+      lng: 138.31111727750795,
+      zoom: 16,
+      sv_lat: 36.643277,
+      sv_lng: 138.311711,
+      sv_heading: 180,
+      address: '〒382-0028 長野県須坂市臥竜２丁目４−８',
+      tel: '026-245-1770'
+    }
+  ];
 
-    // ★ Leaflet地図用（今のまま）
-    lat: 36.66490806254121,
-    lng: 138.1942988606473,
-    zoom: 16,
+  // ▼ 三角形（3園を結ぶポリゴン：元の座標）
+  const triangleCoords = spots.map(s => [s.lat, s.lng]);
+  const triangle = L.polygon(triangleCoords, {
+    color: '#2563eb',     // 線の色（青）
+    weight: 3,            // 線の太さ
+    fillColor: '#bfdbfe', // 塗りつぶし色（淡い青）
+    fillOpacity: 0.25     // 塗りつぶしの透明度
+  });
+  // 初期状態では addTo(map) しない（ボタンから表示）
 
-    // ★ ストリートビュー専用（入口の道の前など）
-    sv_lat: 36.665244588523024, 
-    sv_lng: 138.1935118468303,
-    sv_heading: 130, 
+  // ▼ 回転用の変数
+  let rotationAngle = 0;      // 現在の角度（度数）
+  let triangleSpinId = null;  // requestAnimationFrame ID
 
-    address: '〒380-0802 長野県長野市上松２丁目１−１９',
-    tel: '026-233-0586'
-  },
-  {
-    id: 'chausuyama',
-    name: '🐘茶臼山動物園',
+  // 三角形の中心（重心）を事前に計算
+  const triangleCenter = [
+    (triangleCoords[0][0] + triangleCoords[1][0] + triangleCoords[2][0]) / 3,
+    (triangleCoords[0][1] + triangleCoords[1][1] + triangleCoords[2][1]) / 3
+  ];
 
-    lat: 36.58530392097484,
-    lng: 138.11518754155875,
-    zoom: 16,
+  // 1点を回転させる関数
+  function rotatePoint(center, point, angleDeg) {
+    const angle = angleDeg * Math.PI / 180;  // 度 → ラジアン
+    const lat = point[0] - center[0];
+    const lng = point[1] - center[1];
 
-    sv_lat: 36.583904, 
-    sv_lng: 138.114083,
-    sv_heading: 0, 
-
-    address: '〒388-8016 長野県長野市篠ノ井有旅５７０−１',
-    tel: '026-293-5167'
-  },
-  {
-    id: 'suzaka',
-    name: '🦘須坂市動物園',
-
-    lat: 36.6423500355432,
-    lng: 138.31111727750795,
-    zoom: 16,
-
-    sv_lat: 36.643277, 
-    sv_lng: 138.311711,
-    sv_heading: 180, 
-
-    address: '〒382-0028 長野県須坂市臥竜２丁目４−８',
-    tel: '026-245-1770'
+    return [
+      center[0] + (lat * Math.cos(angle) - lng * Math.sin(angle)),
+      center[1] + (lat * Math.sin(angle) + lng * Math.cos(angle))
+    ];
   }
-];
 
+  // 三角形を指定角度に回転させる
+  function setTriangleRotation(angleDeg) {
+    const rotated = triangleCoords.map(p =>
+      rotatePoint(triangleCenter, p, angleDeg)
+    );
+    triangle.setLatLngs(rotated);
+  }
 
-  // 地図作成
+  // 自動回転1ステップ
+  function spinStep() {
+    rotationAngle = (rotationAngle + 100) % 360;  // 回転速度（0.5°ずつ）
+    setTriangleRotation(rotationAngle);
+    triangleSpinId = requestAnimationFrame(spinStep);
+  }
+
+  // 回転スタート
+  function startTriangleSpin() {
+    if (!map.hasLayer(triangle)) {
+      triangle.addTo(map);  // 表示されてなかったら表示
+    }
+    if (triangleSpinId !== null) {
+      return;               // 既に回転中なら何もしない
+    }
+    spinStep();
+  }
+
+  // 回転ストップ
+  function stopTriangleSpin() {
+    if (triangleSpinId !== null) {
+      cancelAnimationFrame(triangleSpinId);
+      triangleSpinId = null;
+    }
+    rotationAngle = 0;
+    triangle.setLatLngs(triangleCoords); // 元の形に戻す
+  }
+
+  // ボタン用トグル
+  function toggleTriangleSpin() {
+    if (triangleSpinId === null) {
+      startTriangleSpin();
+    } else {
+      stopTriangleSpin();
+    }
+  }
+
+  // ▼ 地図作成
   const map = L.map('map');
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
@@ -146,139 +218,62 @@ const spots = [
   const fullBounds = group.getBounds().pad(0.3);
   map.fitBounds(fullBounds);
 
-  // ▼ ボタンで地図を飛ぶ
+  // ▼ 個別の園にジャンプ（このとき回転も三角形も止める）
   function flyToSpot(id) {
     const s = spots.find(x => x.id === id);
     if (!s) return;
+
+    // 回転停止＆三角形非表示
+    stopTriangleSpin();
+    if (map.hasLayer(triangle)) {
+      map.removeLayer(triangle);
+    }
+
     map.flyTo([s.lat, s.lng], s.zoom, { duration: 0.6 });
     const idx = spots.indexOf(s);
     markers[idx].openPopup();
   }
 
-  // 🌏 全体マップに戻る
+  // 🌏 全体マップに戻る（ここでは三角形も回転も止める）
   function resetView() {
     map.flyToBounds(fullBounds, { duration: 0.8 });
-    map.closePopup(); // ポップアップを閉じる
+    map.closePopup();
+
+    // 回転停止＆三角形非表示
+    stopTriangleSpin();
+    if (map.hasLayer(triangle)) {
+      map.removeLayer(triangle);
+    }
   }
 
-function openStreetView(id) {
-  const s = spots.find(x => x.id === id);
-  if (!s) return;
+  // 🔺 三角形を表示（全体マップ＋三角形のみ表示）
+  function showTriangle() {
+    map.flyToBounds(fullBounds, { duration: 0.8 });
+    map.closePopup();
 
-  const lat = s.sv_lat ?? s.lat;
-  const lng = s.sv_lng ?? s.lng;
-  const heading = s.sv_heading ?? 0; // 指定なければ北向き
+    // 回転はさせず、形だけ表示
+    stopTriangleSpin();
+    if (!map.hasLayer(triangle)) {
+      triangle.addTo(map);
+    }
+  }
 
-  const url =
-    `https://www.google.com/maps/@?api=1&map_action=pano` +
-    `&viewpoint=${lat},${lng}` +
-    `&heading=${heading}&pitch=0&fov=80`;
+  // 🚶 ストリートビューを開く
+  function openStreetView(id) {
+    const s = spots.find(x => x.id === id);
+    if (!s) return;
 
-  window.open(url, '_blank');
-}
+    const lat = s.sv_lat ?? s.lat;
+    const lng = s.sv_lng ?? s.lng;
+    const heading = s.sv_heading ?? 0; // 指定なければ北向き
 
+    const url =
+      `https://www.google.com/maps/@?api=1&map_action=pano` +
+      `&viewpoint=${lat},${lng}` +
+      `&heading=${heading}&pitch=0&fov=80`;
+
+    window.open(url, '_blank');
+  }
 </script>
-
-
-{% comment %} <!-- ユーザー管理 -->
-<section id="users">
-  <h2>ユーザー管理</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>会員一覧</h3>
-      <ul>
-        <li>基本情報・コイン・ポイント・最終ログインを表示</li>
-        <li>検索／並び替えを追加してもいい</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>→会員詳細</h3>
-      <ul>
-        <li>編集・退会・PWリセット</li>
-        <li>購入履歴・ポイント増減・サブスク状態確認</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- サブスク管理 -->
-<section id="subs">
-  <h2>サブスク管理</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>加入状況一覧</h3>
-      <ul>
-        <li>プラン・状態・次回更新日で絞り込み</li>
-        <li>手動有効化・解約</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>特典管理</h3>
-      <ul>
-        <li>特典の登録/編集・期間設定</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- グッズ管理 -->
-<section id="goods">
-  <h2>グッズ管理</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>グッズ一覧</h3>
-      <ul>
-        <li>商品・価格・在庫表示</li>
-        <li>編集・人気/売上順表示</li>
-        <li>在庫の増減</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>グッズ登録</h3>
-      <ul>
-        <li>名称・価格・説明・画像を登録</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- 注文管理 -->
-<section id="orders">
-  <h2>注文管理</h2>
-  <div class="card">
-    <h3>注文一覧</h3>
-    <ul>
-      <li>注文日時・注文ID・ユーザーで表示/検索/並び替え/状態変更(発送待/発送済)</li>
-      <li>キャンセル→返金（部分/全額）</li>
-    </ul>
-  </div>
-</section>
-
-<!-- 動物管理 -->
-<section id="animals">
-  <h2>動物管理</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>動物一覧</h3>
-      <ul>
-        <li>名前・種類・公開状態・推し数等を表示/検索/並び替え</li>
-      </ul>
-    </div>
-        <div class="card">
-      <h3>→動物詳細</h3>
-      <ul>
-        <li>編集/削除</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>新規登録</h3>
-      <ul>
-        <li>基本情報・プロフィール文・画像を登録</li>
-        <li>タグ設定・公開/非公開・予約公開</li>
-      </ul>
-    </div>
-  </div>
-</section> {% endcomment %}
-
 
 {% endblock %}

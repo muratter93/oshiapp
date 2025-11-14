@@ -1,6 +1,26 @@
 # animals/admin.py
+from datetime import date
+
+from django import forms
 from django.contrib import admin
+
 from .models import Animal, Zoo, Picture
+
+
+class AnimalAdminForm(forms.ModelForm):
+    """Animal モデル用の admin フォームカスタマイズ"""
+
+    class Meta:
+        model = Animal
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if "birth" in self.fields:
+            widget = self.fields["birth"].widget
+            widget.input_type = "date"                     
+            widget.attrs["max"] = date.today().isoformat()
 
 class PictureInline(admin.TabularInline):
     model = Picture
@@ -9,9 +29,21 @@ class PictureInline(admin.TabularInline):
     ordering = ("display_order",)
     show_change_link = True
 
+
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ("animal_id", "japanese", "name", "sex", "zoo", "total_point", "diet_display", "is_active")
+    form = AnimalAdminForm 
+
+    list_display = (
+        "animal_id",
+        "japanese",
+        "name",
+        "sex",
+        "zoo",
+        "total_point",
+        "diet_display",
+        "is_active",
+    )
     list_display_links = ("animal_id", "japanese", "name")
 
     list_filter = ("sex", "generic", "specific", "zoo", "diet", "is_active")
@@ -24,15 +56,10 @@ class AnimalAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            "fields": ("japanese", "name", "zoo", "sex", "birth", "diet", "txt", ),
+            "fields": ("japanese", "name", "zoo", "sex", "birth", "diet", "txt"),
         }),
-        # ("学術情報", {
-        #     "fields": ("generic", "specific", "scientific"),
-        #     "classes": ("collapse",),
-        # }),
         ("画像", {
             "fields": ("pic1",),
-            # "classes": ("collapse",),
         }),
         ("メタ", {
             "fields": ("total_point", "is_active"),
@@ -43,6 +70,7 @@ class AnimalAdmin(admin.ModelAdmin):
     def diet_display(self, obj):
         return obj.get_diet_display() or "—"
 
+
 @admin.register(Zoo)
 class ZooAdmin(admin.ModelAdmin):
     list_display = ("zoo_id", "zoo_no", "zoo_name", "zoo_postcode", "zoo_address", "zoo_phone", "zoo_created_at")
@@ -50,6 +78,7 @@ class ZooAdmin(admin.ModelAdmin):
     list_per_page = 20
     fields = ("zoo_no", "zoo_name", "zoo_postcode", "zoo_address", "zoo_phone")
     readonly_fields = ("zoo_no",)
+
 
 @admin.register(Picture)
 class PictureAdmin(admin.ModelAdmin):
