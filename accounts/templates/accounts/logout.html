@@ -10,12 +10,23 @@
             margin: 0;
             padding: 0;
             height: 100vh;
+            overflow: hidden; /* ← スクロール禁止 */
+
             display: flex;
             justify-content: center; /* 横中央 */
             align-items: center;    /* 縦中央 */
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
+
+            font-family: 'M PLUS Rounded 1c', Arial, sans-serif;
+
+            background-image: url("/static/img/animal_haikei.png");
+            background-size: 100%;
+            background-repeat: no-repeat; /* 念のため繰り返し防止 */
+            background-position: center;
+            position: relative;
+
+            background-color: #f2f2f2; /* 画像読み込み失敗時の背景 */
         }
+
         .container {
             text-align: center;
         }

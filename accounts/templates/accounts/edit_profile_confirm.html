@@ -1,3 +1,5 @@
+{% extends 'common/base.html' %}
+{% block content %}
 {% load phone_filters %}
 <h2>確認画面</h2>
 <p>名前: {{ data.name }}</p>
@@ -12,3 +14,4 @@
   <button type="submit">保存</button>
 </form>
 <a href="{% url 'accounts:edit_profile' %}">戻る</a>
+{% endblock %}
