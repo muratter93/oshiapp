@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ gift.title }}</h1>
+<p>（{{ gift.zoo.zoo_name }}）</p>
+
+{% if gift.main_image %}
+<img src="{{ gift.main_image.url }}" 
+     style="width: 400px; border-radius: 10px;">
+{% endif %}
+
+<p style="margin-top: 20px; white-space: pre-line;">
+    {{ gift.description }}
+</p>
+
+<h2 style="margin-top: 30px;">追加画像</h2>
+
+<div style="display: flex; flex-wrap: wrap; gap: 15px;">
+    {% for img in images %}
+        <div style="width: 150px; text-align: center;">
+            <img src="{{ img.image.url }}" style="width: 100%; border-radius: 10px;">
+            {% if img.caption %}
+                <p style="font-size: 0.9em;">{{ img.caption }}</p>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>追加画像はありません。</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
