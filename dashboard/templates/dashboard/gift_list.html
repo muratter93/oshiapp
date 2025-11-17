@@ -1,0 +1,96 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}返礼品一覧{% endblock %}
+{% block content_title %}返礼品一覧{% endblock %}
+
+{% block content %}
+<div class="admin-gifts gifts-page">
+  <div class="card">
+    <div class="table-wrap">
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>返礼品</th>
+            <th>画像</th>
+            <th>所属動物園</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for g in gifts %}
+          <tr>
+            <!-- ID -->
+            <td>{{ g.id }}</td>
+
+            <!-- タイトル -->
+            <td>{{ g.title }}</td>
+
+            <!-- メイン画像 -->
+            <td>
+              {% if g.main_image %}
+                <img src="{{ g.main_image.url }}" alt="{{ g.title }}" width="120">
+              {% else %}
+                画像なし
+              {% endif %}
+            </td>
+
+            <!-- 所属動物園 -->
+            <td>
+              {% if g.zoo %}
+                {{ g.zoo.zoo_name }}
+              {% else %}
+                （なし）
+              {% endif %}
+            </td>
+
+            <!-- 操作 -->
+            <td class="actions">
+              <div class="action-row">
+                <a class="btn btn-edit" href="{% url 'dashboard:gift_edit' g.pk %}">編集</a> 
+
+
+                <form method="post"
+                    action="{% url 'dashboard:gift_delete' g.id %}"
+                    onsubmit="return confirm('本当に削除しますか？');"
+                    style="display:inline;">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">削除</button>
+                </form>
+               </div>
+            </td>
+          </tr>
+
+          {% empty %}
+          <tr>
+            <td colspan="5" class="subtle">登録された返礼品はありません。</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- ページネーション（必要なら） -->
+      {% if page_obj %}
+      <div class="pagination" style="margin-top: 20px; text-align:center;">
+        {% if page_obj.has_previous %}
+          <a class="btn" href="?page={{ page_obj.previous_page_number }}">前へ</a>
+        {% endif %}
+
+        <span style="margin: 0 8px;">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+          <a class="btn" href="?page={{ page_obj.next_page_number }}">次へ</a>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div class="actions-top" style="margin-top: 16px;">
+        <a href="{% url 'dashboard:gift_create' %}" class="btn btn-edit">＋ 新しい返礼品を登録する</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

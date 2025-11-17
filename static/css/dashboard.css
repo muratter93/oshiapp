@@ -13,17 +13,20 @@ body {
 .layout { display: flex; min-height: 100vh; }
 .sidebar {
   position: fixed;
-  font-size: 0.95rem; /* 全体を1割小さく */
+  font-size: 0.95rem;  
   top: 0; left: 0;
   height: 100vh;
   width: var(--sidebar-width);
-  padding: 16px;
+  padding: 8px 12px 8px 12px; 
   border-right: 1px solid #e5e7eb;
-  display: flex; flex-direction: column; gap: 8px;
-  background: #fff;           /* 背景を明示して重なり防止 */
-  overflow-y: auto;           /* メニューが長い時にスクロール */
+  display: flex;
+  flex-direction: column;
+  gap: 4px; 
+  background: #fff;
+  overflow-y: auto;
   z-index: 1000;
 }
+
 .sidebar h2 { font-size: 1rem; margin: 0; }
 .nav { list-style: none; margin: 0; padding: 0; }
 .nav li { margin: 0; }
@@ -73,26 +76,55 @@ body {
 /* ===================================================
    共通ボタン基礎
 =================================================== */
-.btn {
+/* 共通ボタンスタイル（高さ・サイズを統一） */
+.btn,
+.btn-logout {
   display: inline-block;
-  padding: 6px 12px;
-  border: 1px solid #e5e7eb;
+  width: auto;
+  padding: 8px 10px;
   border-radius: 6px;
-  background-color: #fff;
-  color: #333;
-  font-weight: 400;
   font-size: 1rem;
   line-height: 1.4;
   text-decoration: none;
   cursor: pointer;
   transition: background-color .15s ease, color .15s ease, border-color .15s ease;
-  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  font-weight: 400;
+}
+
+/* ---- 普通のボタン (.btn) ---- */
+.btn {
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  color: #333;
 }
 
 .btn:hover {
-  background-color: #f9fafb;
+  background-color: #e9ecef;
   color: #111;
 }
+
+/* ---- ログアウトボタン (.btn-logout) ---- */
+.btn-logout {
+  background-color: #ffffff;
+  color: #d9534f;
+  margin-top: 5px;
+}
+
+.btn-logout:hover {
+  background-color: #e9ecef;
+  color: #d9534f;
+}
+
+/* ▼ サイドバーの footer にあるボタンだけ幅固定にする */
+.btn-group-sidebar .btn,
+.btn-group-sidebar .btn-logout {
+  min-width: 160px;  /* お好みで調整可能 */
+  display: inline-block;
+  width: auto;       /* ← 他の btn へ影響させない */
+}
+
 
 /* ===================================================
    状態別バリエーション

@@ -33,6 +33,7 @@
     <li class="menu-section"><span class="menu-icon">▶</span> サブスク管理</li>
     <ul class="menu-items">
       <li><a href="{% url 'dashboard:subscription_list' %}">加入状況一覧</a></li>
+      <li><a href="{% url 'dashboard:gift_list' %}">返礼品一覧</a></li>
     </ul>
 
     <li class="menu-section"><span class="menu-icon">▶</span> グッズ管理</li>
@@ -66,6 +67,7 @@
     <li class="menu-section"><span class="menu-icon">▶</span> サブスク管理</li>
     <ul class="menu-items">
       <li><a href="{% url 'dashboard:subscription_list' %}">加入状況一覧</a></li>
+      <li><a href="{% url 'dashboard:gift_list' %}">返礼品一覧</a></li>
     </ul>
 
     <li class="menu-section"><span class="menu-icon">▶</span> 動物管理</li>
@@ -78,9 +80,10 @@
 </ul>
       </div>
 
-        <div class="sidebar-footer">
+      <div class="sidebar-footer btn-group-sidebar">
         {% block sidebar_footer %}
-        <a href="{% url 'main:index' %}" class="btn">トップページへ戻る</a>
+        <a href="{% url 'main:index' %}" class="btn">メインページへ戻る</a>
+        <a href="{% url 'dashboard:dashboard_logout' %}" class="btn btn-logout">ログアウト</a>
         {% endblock %}
 </div>
     </aside>

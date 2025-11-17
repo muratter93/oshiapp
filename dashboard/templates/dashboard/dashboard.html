@@ -42,6 +42,22 @@
   .jump-buttons button:hover {
     background: #f3f4f6;
   }
+
+  /* ▼ 動物園名ラベル用 */
+
+.zoo-label-text {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #111;
+  white-space: nowrap;
+
+  /* ▼ マーカーの真上に配置（ここが重要） */
+  position: relative;
+  left: 50%;
+transform: translate(calc(-50% + 15px), -28px);
+}
+
+
 </style>
 
 <div id="map"></div>
@@ -76,7 +92,7 @@
   const spots = [
     {
       id: 'jyouyama',
-      name: '🐒城山動物園',
+      name: '城山動物園',
       // Leaflet地図用
       lat: 36.66490806254121,
       lng: 138.1942988606473,
@@ -90,7 +106,7 @@
     },
     {
       id: 'chausuyama',
-      name: '🐘茶臼山動物園',
+      name: '茶臼山動物園',
       lat: 36.58530392097484,
       lng: 138.11518754155875,
       zoom: 16,
@@ -102,7 +118,7 @@
     },
     {
       id: 'suzaka',
-      name: '🦘須坂市動物園',
+      name: '須坂市動物園',
       lat: 36.6423500355432,
       lng: 138.31111727750795,
       zoom: 16,
@@ -196,27 +212,79 @@
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
   }).addTo(map);
+// マーカー追加（＋ラベル管理用の配列）
+const markers = [];
+const labelMarkers = [];
 
-  // マーカー追加
-  const markers = [];
-  spots.forEach((s) => {
-    const popupContent = `
-      <b>${s.name}</b><br>
-      ${s.address}<br>
-      ☎ ${s.tel}
-    `;
-    const marker = L.marker([s.lat, s.lng]).addTo(map).bindPopup(popupContent);
-    marker.on('click', () => {
-      map.flyTo([s.lat, s.lng], s.zoom, { duration: 0.6 });
-      marker.openPopup();
-    });
-    markers.push(marker);
+spots.forEach((s) => {
+  const popupContent = `
+    <b>${s.name}</b><br>
+    ${s.address}<br>
+    ☎ ${s.tel}
+  `;
+
+  // ▼ 通常マーカー
+  const marker = L.marker([s.lat, s.lng]).addTo(map).bindPopup(popupContent);
+  marker.on('click', () => {
+    map.flyTo([s.lat, s.lng], s.zoom, { duration: 0.6 });
+    marker.openPopup();
   });
+  markers.push(marker);
+
+  // ▼ ラベル（文字をクリックでその園にジャンプ）
+  const labelMarker = L.marker([s.lat, s.lng], {
+    icon: L.divIcon({
+      className: 'zoo-label-icon',
+      html: `
+        <div class="zoo-label-text" onclick="flyToSpot('${s.id}')">
+          ${s.name}
+        </div>
+      `,
+      iconSize: [0, 0],
+    }),
+    interactive: true,  // ← これが重要
+  });
+
+  labelMarkers.push(labelMarker);
+});
+
 
   // 全体ビューを計算
   const group = L.featureGroup(markers);
   const fullBounds = group.getBounds().pad(0.3);
-  map.fitBounds(fullBounds);
+
+// 全体表示後
+map.fitBounds(fullBounds);
+
+// 全体表示時のズーム（整数に丸める）
+const baseZoom = Math.round(map.getZoom());
+const minLabelZoom = baseZoom - 2;
+const maxLabelZoom = baseZoom + 2;
+
+function updateLabelsVisibility() {
+  // 実際のズームも丸めて比較
+  const z = Math.round(map.getZoom());
+
+  if (z >= minLabelZoom && z <= maxLabelZoom) {
+    // 範囲内 → ラベル表示
+    labelMarkers.forEach((lm) => {
+      if (!map.hasLayer(lm)) {
+        lm.addTo(map);
+      }
+    });
+  } else {
+    // 範囲外 → ラベル非表示
+    labelMarkers.forEach((lm) => {
+      if (map.hasLayer(lm)) {
+        map.removeLayer(lm);
+      }
+    });
+  }
+}
+
+map.on('zoomend', updateLabelsVisibility);
+updateLabelsVisibility();
+
 
   // ▼ 個別の園にジャンプ（このとき回転も三角形も止める）
   function flyToSpot(id) {

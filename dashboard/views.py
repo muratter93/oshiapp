@@ -2,6 +2,7 @@ from functools import wraps
 from typing import Callable
 
 from django.contrib.auth.views import LoginView
+from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
@@ -17,7 +18,7 @@ from django.views.generic import ListView, FormView, UpdateView
 from django.utils import timezone
 from django.contrib.sessions.models import Session
 
-from .forms import StaffCreateForm, StaffEditForm, KeeperCreateForm, KeeperEditForm, AnimalForm 
+from .forms import StaffCreateForm, StaffEditForm, KeeperCreateForm, KeeperEditForm, AnimalForm, GiftForm
 
 User = get_user_model()
 
@@ -78,6 +79,25 @@ class DashboardLoginView(LoginView):
             return self.get_redirect_url() or reverse("dashboard:dashboard")
         # 権限なしユーザーが来た場合はエラーへ
         return reverse("dashboard:dashboard_error")
+    
+class DashboardLoginView(LoginView):
+    template_name = "dashboard/dashboard_login.html"
+    redirect_authenticated_user = True
+
+    def get_success_url(self) -> str:
+        # staff だけでなく keeper も許可
+        if is_staff_or_keeper(self.request.user):
+            return self.get_redirect_url() or reverse("dashboard:dashboard")
+        # 権限なしユーザーが来た場合はエラーへ
+        return reverse("dashboard:dashboard_error")
+
+@login_required
+def dashboard_logout(request: HttpRequest) -> HttpResponse:
+    """ダッシュボード用ログアウト"""
+    logout(request)
+    messages.info(request, "ログアウトしました。")
+    return redirect("dashboard:dashboard_login")
+
 
 
 # ---------------- 一覧（管理者＋飼育員 閲覧可） ----------------
@@ -544,3 +564,110 @@ def sub_restart(request, sub_member_id):
     sub.save()
 
     return redirect("dashboard:subscription_list")
+
+# dashboard/views.py
+from django.shortcuts import render
+from gift.models import Gift
+
+# --------------------------------
+# 返礼品（Gift） 管理
+# --------------------------------
+
+from django.core.paginator import Paginator
+
+@staff_or_keeper_required
+def gift_list(request: HttpRequest) -> HttpResponse:
+    """返礼品一覧"""
+    user = request.user
+    qs = Gift.objects.select_related("zoo")
+
+    # keeper は自分の動物園だけ
+    if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
+        if getattr(user, "zoo_id", None):
+            qs = qs.filter(zoo_id=user.zoo_id)
+        else:
+            qs = qs.none()
+
+    qs = qs.order_by("-id")  # 新しい順
+
+    paginator = Paginator(qs, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "dashboard/gift_list.html",
+        {
+            "gifts": page_obj,
+            "page_obj": page_obj,
+            "paginator": paginator,
+        },
+    )
+
+
+@staff_or_keeper_required
+def gift_create(request: HttpRequest) -> HttpResponse:
+    """返礼品 新規登録"""
+    form = GiftForm(
+        request.POST or None,
+        request.FILES or None,
+        user=request.user,
+    )
+
+    if request.method == "POST" and form.is_valid():
+        gift = form.save(commit=False)
+
+        # keeper の場合は所属動物園を自分の zoo に固定（保険）
+        if getattr(request.user, "is_keeper", False) and getattr(request.user, "zoo_id", None):
+            gift.zoo = request.user.zoo
+
+        gift.save()
+        messages.success(request, f"返礼品「{gift.title}」を登録しました。")
+        return redirect("dashboard:gift_list")
+
+    return render(
+        request,
+        "dashboard/gift_create.html",
+        {"form": form, "mode": "create"},
+    )
+
+
+@staff_or_keeper_required
+def gift_edit(request: HttpRequest, pk: int) -> HttpResponse:
+    """返礼品 編集"""
+    gift = get_object_or_404(Gift, pk=pk)
+
+    form = GiftForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=gift,
+        user=request.user,
+    )
+
+    if request.method == "POST" and form.is_valid():
+        obj = form.save(commit=False)
+
+        # keeper の場合は zoo を自分に固定
+        if getattr(request.user, "is_keeper", False) and getattr(request.user, "zoo_id", None):
+            obj.zoo = request.user.zoo
+
+        obj.save()
+        messages.success(request, f"返礼品「{obj.title}」の情報を更新しました。")
+        return redirect("dashboard:gift_list")
+
+    return render(
+        request,
+        "dashboard/gift_edit.html",
+        {"form": form, "gift": gift, "mode": "edit"},
+    )
+
+
+@require_POST
+@staff_or_keeper_required
+def gift_delete(request: HttpRequest, pk: int) -> HttpResponse:
+    """返礼品 削除（物理削除）"""
+    gift = get_object_or_404(Gift, pk=pk)
+    title = gift.title
+    gift.delete()
+    messages.error(request, f"返礼品「{title}」を削除しました。")
+    return redirect("dashboard:gift_list")

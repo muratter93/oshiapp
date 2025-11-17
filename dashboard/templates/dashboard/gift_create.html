@@ -1,0 +1,64 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}返礼品登録{% endblock %}
+{% block content_title %}新しい返礼品を登録{% endblock %}
+
+{% block content %}
+<div class="card goods-create">
+  <div class="container">
+
+    {% if form.non_field_errors %}
+      <div class="form-errors">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+
+      <div class="form-grid" style="display:grid; gap:12px; max-width:520px;">
+
+        <label>
+          返礼品タイトル
+          {{ form.title }}
+          {% if form.title.errors %}
+            <div class="field-error">{{ form.title.errors.0 }}</div>
+          {% endif %}
+        </label>
+
+        <label>
+          所属動物園
+          {{ form.zoo }}
+          {% if form.zoo.errors %}
+            <div class="field-error">{{ form.zoo.errors.0 }}</div>
+          {% endif %}
+        </label>
+
+        <label class="full">
+          説明文
+          {{ form.description }}
+          {% if form.description.errors %}
+            <div class="field-error">{{ form.description.errors.0 }}</div>
+          {% endif %}
+        </label>
+
+        <label>
+          メイン画像
+          {{ form.main_image }}
+          {% if form.main_image.errors %}
+            <div class="field-error">{{ form.main_image.errors.0 }}</div>
+          {% endif %}
+        </label>
+
+      </div>
+
+      <div class="form-actions" style="display:flex; gap:8px; margin-top:16px;">
+        <button class="btn btn-edit" type="submit">登録する</button>
+        <a class="btn" href="{% url 'dashboard:gift_list' %}">一覧へ戻る</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

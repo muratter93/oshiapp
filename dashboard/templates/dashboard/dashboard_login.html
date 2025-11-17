@@ -3,19 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <title>管理者ページログイン</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f8fafc;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-box {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .messages {
+      margin-bottom: 15px;
+    }
+
+    .message {
+      padding: 10px 12px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .message.info {
+      background: #e3f2fd;
+      color: #0d47a1;
+      border-left: 4px solid #1976d2;
+    }
+
+    .message.error {
+      background: #fdecea;
+      color: #b71c1c;
+      border-left: 4px solid #d32f2f;
+    }
+
+    .login-form p {
+      margin-bottom: 15px;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #d0d7de;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      background: #0d6efd;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #0b5ed7;
+    }
+  </style>
 </head>
+
 <body>
+
   <h1>管理者ページログイン</h1>
 
-  {% if form.errors %}
-    <p style="color:red;">ユーザー名またはパスワードが違います。</p>
-  {% endif %}
+  <div class="login-box">
 
-  <form method="post">
-    {% csrf_token %}
-    <p>ユーザー名：{{ form.username }}</p>
-    <p>パスワード：{{ form.password }}</p>
-    <button type="submit">ログイン</button>
-  </form>
+    <!-- ▼ Djangoメッセージ表示領域 -->
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="message {{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- ▼ ログインフォーム -->
+    {% if form.errors %}
+      <div class="message error">ユーザー名またはパスワードが違います。</div>
+    {% endif %}
+
+    <form method="post" class="login-form">
+      {% csrf_token %}
+
+      <p>ユーザー名：{{ form.username }}</p>
+      <p>パスワード：{{ form.password }}</p>
+
+      <button type="submit">ログイン</button>
+    </form>
+
+  </div>
+
 </body>
 </html>

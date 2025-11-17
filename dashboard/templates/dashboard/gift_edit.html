@@ -1,0 +1,76 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}返礼品編集{% endblock %}
+{% block content_title %}返礼品編集{% endblock %}
+
+{% block content %}
+<div class="staff-edit">
+  <div class="container">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="form-errors">
+          {% for e in form.non_field_errors %}
+            <p class="error">{{ e }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="form-grid">
+
+        <label>
+          返礼品タイトル
+          {{ form.title }}
+          {% for e in form.title.errors %}
+            <span class="error">{{ e }}</span>
+          {% endfor %}
+        </label>
+
+        <label>
+          所属動物園
+          {{ form.zoo }}
+          {% for e in form.zoo.errors %}
+            <span class="error">{{ e }}</span>
+          {% endfor %}
+        </label>
+
+        <label class="full">
+          説明文
+          {{ form.description }}
+          {% for e in form.description.errors %}
+            <span class="error">{{ e }}</span>
+          {% endfor %}
+        </label>
+
+        <div class="full images-block">
+          <div class="image-row">
+            <label>
+              メイン画像
+              {% if gift and gift.main_image %}
+                <div class="thumb">
+                  <img src="{{ gift.main_image.url }}"
+                       alt="{{ gift.title }}"
+                       style="max-height:100px;">
+                </div>
+              {% endif %}
+
+              <input type="file" name="{{ form.main_image.name }}" accept="image/*">
+
+              {% for e in form.main_image.errors %}
+                <span class="error">{{ e }}</span>
+              {% endfor %}
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-edit">保存</button>
+        <a href="{% url 'dashboard:gift_list' %}" class="btn">戻る</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

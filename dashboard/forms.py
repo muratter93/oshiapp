@@ -243,3 +243,50 @@ class AnimalForm(forms.ModelForm):
             if user.zoo_id:
                 self.fields["zoo"].initial = user.zoo
                 self.fields["zoo"].disabled = True   # ← 選択不可にする
+
+# dashboard/forms.py
+
+from django import forms
+from gift.models import Gift
+from animals.models import Zoo
+
+
+class GiftForm(forms.ModelForm):
+    """
+    返礼品の新規登録・編集用フォーム
+    keeper の場合は選択できる zoo を自分の所属のみに制限
+    """
+
+    class Meta:
+        model = Gift
+        fields = [
+            "title",
+            "description",
+            "zoo",
+            "main_image",
+        ]
+        widgets = {
+            "title": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "返礼品タイトル",
+            }),
+            "description": forms.Textarea(attrs={
+                "class": "form-control",
+                "rows": 4,
+                "placeholder": "返礼品の説明",
+            }),
+            "zoo": forms.Select(attrs={"class": "form-control"}),
+            "main_image": forms.ClearableFileInput(attrs={"class": "form-control"}),
+        }
+
+    def __init__(self, *args, user=None, **kwargs):
+        """
+        keeper: 自分の所属動物園だけを選択肢に残す
+        staff / superuser: 全部選べる
+        """
+        super().__init__(*args, **kwargs)
+
+        if user and getattr(user, "is_keeper", False) and getattr(user, "zoo_id", None):
+            self.fields["zoo"].queryset = Zoo.objects.filter(pk=user.zoo_id)
+        else:
+            self.fields["zoo"].queryset = Zoo.objects.all()

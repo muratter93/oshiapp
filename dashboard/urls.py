@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 from .views import (
     DashboardLoginView, StaffCreateView, StaffUpdateView,
-    MemberListView, MemberUpdateView
+    MemberListView, MemberUpdateView,
 )
 
 app_name = "dashboard"
@@ -13,7 +13,7 @@ urlpatterns = [
     # 認証関連
     path('login/', DashboardLoginView.as_view(), name='dashboard_login'),
     path('dashboard_error/', views.access_denied, name='dashboard_error'),
-    path('logout/', auth_views.LogoutView.as_view(next_page=reverse_lazy('main:index')), name='dashboard_logout'),
+    path('logout/', views.dashboard_logout, name='dashboard_logout'),
 
     # --- 管理者（スタッフ）一覧・作成・編集 ---
     path('admins/', views.StaffListView.as_view(), name='admins_list'),
@@ -47,6 +47,11 @@ urlpatterns = [
     path("subscriptions/", views.SubscriptionListView.as_view(), name="subscription_list"),
     path("subscriptions/<int:sub_member_id>/cancel/", views.sub_cancel, name="sub_cancel",),
     path("subscriptions/<int:sub_member_id>/restart/", views.sub_restart, name="sub_restart",),
+
+    path("gifts/", views.gift_list, name="gift_list"),
+    path("gifts/new/", views.gift_create, name="gift_create"),
+    path("gifts/<int:pk>/edit/", views.gift_edit, name="gift_edit"),
+    path("gifts/<int:pk>/delete/", views.gift_delete, name="gift_delete"),
 
     # ダッシュボード本体
     path('', views.admin_dashboard, name='dashboard'),
