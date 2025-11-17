@@ -127,7 +127,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 4px;
     color: #007bff;
-    min-width: 45px; /* ボタンの幅をある程度揃える */
+    min-width: 45px;
     text-align: center;
 }
 .pagination a:hover {
@@ -143,7 +143,7 @@ body {
 
 .pagination .dots {
     color: #999;
-    border: none; /* ... には枠線不要 */
+    border: none;
     font-weight: normal;
 }
 /* 無効化された「前へ」「次へ」 */
@@ -185,33 +185,6 @@ body {
     color: #004d26;
 }
 
-
-
-
-@media (max-width: 768px) {
-    body {
-        font-size: 1rem;
-    }
-    .rank-card h2, .rank-card h3, .rank-card h4, .rank-card h5 {
-        font-size: 1.4em;
-    }
-    .rank-card p {
-        font-size: 1.2rem;
-    }
-    .rank-11-15, .rank-16-20, .rank-other {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    /* モバイル用にページネーションの余白を少し詰める */
-    .pagination a,
-    .pagination .current,
-    .pagination .dots,
-    .pagination .disabled {
-        margin: 0 3px;
-        padding: 6px 10px;
-        min-width: 35px;
-    }
-}
 
 .rank-card img {
     transition: transform 0.3s ease;
