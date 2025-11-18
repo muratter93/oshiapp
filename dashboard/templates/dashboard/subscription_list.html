@@ -32,7 +32,9 @@
             <td>{{ s.sub_member_id }}</td>
 
             <td>
-              {{ s.member.username }}
+              <a href="{% url 'dashboard:member_detail' s.member.id %}">
+                {{ s.member.username }}
+              </a>
             </td>
 
             <td>

@@ -55,4 +55,6 @@ urlpatterns = [
 
     # ダッシュボード本体
     path('', views.admin_dashboard, name='dashboard'),
+    # 会員情報ページ
+     path("member/<int:pk>/", views.MemberDetailView.as_view(), name="member_detail"),
 ]

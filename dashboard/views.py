@@ -497,7 +497,7 @@ def animal_reactivate(request, pk: int):
     messages.success(request, f"「{animal.japanese}（{animal.name}）」を再開しました。")
     return redirect("dashboard:animals_list")
 
-# dashboard/views.py
+
 
 from datetime import date
 from django.shortcuts import redirect
@@ -533,7 +533,7 @@ class SubscriptionListView(LoginRequiredMixin, ListView):
         ctx["q"] = self.request.GET.get("q") or ""
         return ctx
 
-# dashboard/views.py
+
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 
@@ -565,7 +565,7 @@ def sub_restart(request, sub_member_id):
 
     return redirect("dashboard:subscription_list")
 
-# dashboard/views.py
+
 from django.shortcuts import render
 from gift.models import Gift
 
@@ -671,3 +671,24 @@ def gift_delete(request: HttpRequest, pk: int) -> HttpResponse:
     gift.delete()
     messages.error(request, f"返礼品「{title}」を削除しました。")
     return redirect("dashboard:gift_list")
+
+# サブスク会員詳細ページに
+from django.views.generic import DetailView
+from accounts.models import Member
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class MemberDetailView(LoginRequiredMixin, DetailView):
+    model = Member
+    template_name = "dashboard/subscription_member_detail.html"
+    context_object_name = "member"
+
+    def get_object(self, queryset=None):
+        member = super().get_object(queryset)
+
+        # --- keeper（動物園管理人）の場合は所属で閲覧制限 ---
+        if self.request.user.is_keeper:
+            if member.zoo != self.request.user.zoo:
+                raise PermissionError("この会員情報にはアクセスできません。")
+
+        return member
