@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    overflow-x: hidden; 
+}
+
+.header {
+    padding: 40px 20px;
+    text-align: center;
+    background: #333;
+    color: #fff;
+}
+
+.spacer {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.scroll-section {
+    width: 100%;        
+    padding: 40px 0;
+    margin: 0;
+}
+
+/* ===== 配置（左寄せ・右寄せ）だけ担当 ===== */
+.scroll-item {
+    width: 100%;       
+    box-sizing: border-box;
+    margin: 60px 0;
+    display: flex;
+}
+
+.scroll-item.from-left {
+    justify-content: flex-start; 
+}
+
+.scroll-item.from-right {
+    justify-content: flex-end;   
+}
+
+/* ===== ここからアニメーション本体（画像だけ動かす）===== */
+
+.scroll-item img {
+    width: 30%;
+    max-width: 280px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: none;
+
+    opacity: 1;  
+    transform: translateX(0);
+
+    transition:
+        opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1),
+        transform 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.scroll-item.from-left img {
+    transform: translateX(-120%);
+}
+
+.scroll-item.from-right img {
+    transform: translateX(120%);
+}
+
+.scroll-item.show img {
+    opacity: 1;  
+    transform: translateX(0);
+}

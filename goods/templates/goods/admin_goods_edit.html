@@ -2,94 +2,122 @@
 {% load static %}
 
 {% block title %}グッズ編集{% endblock %}
+{% block content_title %}グッズ編集{% endblock %}
 
 {% block content %}
-<div class="admin-edit-container">
-  <h1>グッズ情報を編集</h1>
+<div class="card goods-create">
+  <div class="container">
 
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <table class="form-table">
-      {{ form.as_table }}
-    </table>
+    {% if form.non_field_errors %}
+      <div class="form-errors">
+        {% for e in form.non_field_errors %}
+          <p class="field-error">{{ e }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
 
-    <h3>現在登録されている詳細画像</h3>
-    <div class="current-images">
-      {% for img in goods.detail_images.all %}
-        <div class="detail-image-item">
-          <img src="{{ img.image.url }}" alt="詳細画像" class="thumb">
-          <form method="post" action="{% url 'goods:delete_detail_image' img.id %}">
-            {% csrf_token %}
-            <button type="submit" class="delete-btn">削除</button>
-          </form>
+    <form method="post" enctype="multipart/form-data" class="form-grid">
+      {% csrf_token %}
+
+      {# グッズ名 #}
+      <div>
+        <label>
+          {{ form.name.label }}
+          {{ form.name }}
+        </label>
+        {% if form.name.errors %}
+          <div class="field-error">{{ form.name.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      {# メイン画像（現在画像＋入力） #}
+      <div class="full">
+        <label>
+          {{ form.image.label }}
+
+          {% if goods.image %}
+            <div class="thumb" style="margin-bottom:6px;">
+              <img src="{{ goods.image.url }}" alt="{{ goods.name }}" style="max-height:120px;">
+            </div>
+          {% endif %}
+
+          {{ form.image }}
+        </label>
+        {% if form.image.errors %}
+          <div class="field-error">{{ form.image.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      {# ★ 必要スターポイント #}
+      <div>
+        <label>
+          {{ form.required_stanning_points.label }}
+          {{ form.required_stanning_points }}
+        </label>
+        {% if form.required_stanning_points.errors %}
+          <div class="field-error">{{ form.required_stanning_points.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      {# ★ 在庫数 #}
+      <div>
+        <label>
+          {{ form.stock.label }}
+          {{ form.stock }}
+        </label>
+        {% if form.stock.errors %}
+          <div class="field-error">{{ form.stock.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      {# 説明 #}
+      <div class="full">
+        <label>
+          {{ form.description.label }}
+          {{ form.description }}
+        </label>
+        {% if form.description.errors %}
+          <div class="field-error">{{ form.description.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      {# 既存の詳細画像一覧 #}
+      <div class="full">
+        <h3 style="margin-top: 12px;">現在登録されている詳細画像</h3>
+
+        <div class="current-images">
+          {% for img in goods.detail_images.all %}
+            <div class="detail-image-item">
+              <img src="{{ img.image.url }}" alt="詳細画像" class="thumb">
+
+              <form method="post"
+                    action="{% url 'goods:delete_detail_image' img.id %}"
+                    style="margin-top:4px;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger" style="font-size:0.85rem; padding:4px 10px;">
+                  削除
+                </button>
+              </form>
+            </div>
+          {% empty %}
+            <p class="subtle">詳細画像はまだ登録されていません。</p>
+          {% endfor %}
         </div>
-      {% empty %}
-        <p>詳細画像はまだ登録されていません。</p>
-      {% endfor %}
-    </div>
+      </div>
 
-    <label for="id_detail_images">新しい詳細画像を追加（複数選択可）</label>
-    <input type="file" name="detail_images" id="id_detail_images" multiple>
+      {# 新しい詳細画像追加 #}
+      <div class="full">
+        <label>
+          新しい詳細画像を追加（複数選択可）
+          <input type="file" name="detail_images" id="id_detail_images" multiple>
+        </label>
+      </div>
 
-    <button type="submit" class="save-btn">保存する</button>
-  </form>
-
-  <br>
-  <a href="{% url 'goods:goods_admin_list' %}">← 一覧に戻る</a>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-edit">保存する</button>
+        <a href="{% url 'goods:goods_admin_list' %}" class="btn">一覧に戻る</a>
+      </div>
+    </form>
+  </div>
 </div>
-
-<style>
-.admin-edit-container {
-  width: 80%;
-  margin: 40px auto;
-}
-.form-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-.form-table td {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
-.save-btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.save-btn:hover {
-  background-color: #45a049;
-}
-.current-images {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 15px;
-}
-.detail-image-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.thumb {
-  max-width: 150px;
-  height: auto;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  margin-bottom: 5px;
-}
-.delete-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.delete-btn:hover {
-  background-color: #c0392b;
-}
-</style>
 {% endblock %}

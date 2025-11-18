@@ -54,3 +54,6 @@ def like(request, pk):
         "stanning_point_balance": wallet.stanning_point_balance,
         "ranking_html": ranking_html,
     })
+
+def demo(request):
+    return render(request, 'main/demo.html')
