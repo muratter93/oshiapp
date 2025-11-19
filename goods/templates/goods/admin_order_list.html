@@ -3,165 +3,106 @@
 {% block content_title %}注文一覧{% endblock %}
 {% block content %}
 
-<table class="admin_order_table">
-  <thead>
-    <tr>
-      <th>会員名</th>
-      <th>注文日</th>
-      <th>グッズ</th>
-      <th>合計スタポ</th>
-      <th>発送状況</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-{% for order in pagenated %}
-    <tr class="{% if order.status == 'cancelled' %}admin_order_cancelled_row{% endif %}">
-      <td>{{ order.member.username }}</td>
-      <td>{{ order.created_at|date:"Y/m/d H:i" }}</td>
-      <td>
-        {% for item in order.items.all %}
-          {{ item.goods.name }} × {{ item.quantity }}<br>
-        {% endfor %}
-      </td>
-      <td>{{ order.total_stanning_points }}</td>
-      <td>
-        {% if order.status == 'shipped' %}
-          <span class="admin_order_badge admin_order_bg_success">発送済み</span>
-        {% elif order.status == 'cancelled' %}
-          <span class="admin_order_badge admin_order_bg_secondary">キャンセル</span>
-        {% else %}
-          <span class="admin_order_badge admin_order_bg_warning">未発送</span>
-        {% endif %}
-      </td>
-      <td>
-        <a href="{% url 'goods:admin_order_detail' order.id %}" class="admin_order_btn admin_order_btn_info">詳細</a>
+<div class="admin-admins">
+  <div class="card">
+    <div class="table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>会員名</th>
+            <th>注文日</th>
+            <th>グッズ</th>
+            <th>スタポ</th>
+            <th>発送状況</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in pagenated %}
+          {# キャンセル行はサブスクと同じ inactive クラスで薄く #}
+          <tr class="{% if order.status == 'cancelled' %}inactive{% endif %}">
+            <td>
+              <a href="{% url 'dashboard:member_detail' order.member.id %}" class="member-link">
+                {{ order.member.username }}
+              </a>
+            </td>
 
-        {% if order.status == 'pending' %}
-          <a href="{% url 'goods:toggle_shipping_status' order.id %}" class="admin_order_btn admin_order_btn_secondary">
-            発送済みにする
-          </a>
-        {% elif order.status == 'shipped' %}
-          <a href="{% url 'goods:toggle_shipping_status' order.id %}" class="admin_order_btn admin_order_btn_secondary">
-            未発送に戻す
-          </a>
-        {% else %}
-          <span class="admin_order_text_muted">-</span>
-        {% endif %}
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-</table>
+            <td>{{ order.created_at|date:"Y/m/d H:i" }}</td>
 
-{% if pagenated.has_other_pages %}
-  <div class="admin_pagination">
-    {% if pagenated.has_previous %}
-      <a href="?page={{ pagenated.previous_page_number }}" class="admin_page_link">前へ</a>
-    {% else %}
-      <span class="admin_page_link admin_page_disabled">前へ</span>
-    {% endif %}
+            <td>
+              {% for item in order.items.all %}
+                {{ item.goods.name }} × {{ item.quantity }}<br>
+              {% endfor %}
+            </td>
 
-    {% for num in pagenated.paginator.page_range %}
-      {% if num == pagenated.number %}
-        <span class="admin_page_link admin_page_current">{{ num }}</span>
-      {% else %}
-        <a href="?page={{ num }}" class="admin_page_link">{{ num }}</a>
-      {% endif %}
-    {% endfor %}
+            <td>{{ order.total_stanning_points }}</td>
 
-    {% if pagenated.has_next %}
-      <a href="?page={{ pagenated.next_page_number }}" class="admin_page_link">次へ</a>
-    {% else %}
-      <span class="admin_page_link admin_page_disabled">次へ</span>
-    {% endif %}
+            <td>
+              {% if order.status == 'shipped' %}
+                <span class="badge badge-active">発送済み</span>
+              {% elif order.status == 'cancelled' %}
+                <span class="badge badge-inactive">キャンセル</span>
+              {% else %}
+                {# 未発送 #}
+                <span class="badge badge-warning">未発送</span>
+              {% endif %}
+            </td>
+
+            <td class="actions">
+              <div class="action-row">
+                <a href="{% url 'goods:admin_order_detail' order.id %}" class="btn btn-secondary">
+                  詳細
+                </a>
+
+                {% if order.status == 'pending' %}
+                  <a href="{% url 'goods:toggle_shipping_status' order.id %}"
+                     class="btn"
+                     onclick="return confirm('この注文を発送済みにしますか？');">
+                    発送済みにする
+                  </a>
+                {% elif order.status == 'shipped' %}
+                  <a href="{% url 'goods:toggle_shipping_status' order.id %}"
+                     class="btn btn-secondary"
+                     onclick="return confirm('この注文を未発送に戻しますか？');">
+                    未発送に戻す
+                  </a>
+                {% else %}
+                  <span class="subtle">-</span>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-{% endif %}
 
-<style>
-.admin_order_table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-.admin_order_table th,
-.admin_order_table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
+  {# === ページネーション（サブスクと同じスタイル） === #}
+  {% if pagenated.has_other_pages %}
+    <div class="pagination" style="margin-top:16px; display:flex; justify-content:center; gap:8px; align-items:center;">
 
-/* ボタン */
-.admin_order_btn {
-  padding: 5px 10px;
-  border-radius: 4px;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 13px;
-  color: #fff;
-}
-.admin_order_btn:hover { opacity: 0.85; }
+      {% if pagenated.has_previous %}
+        <a class="btn" href="?page={{ pagenated.previous_page_number }}">
+          前へ
+        </a>
+      {% else %}
+        <button class="btn btn-disabled" disabled>前へ</button>
+      {% endif %}
 
-.admin_order_btn_info { background-color: #007bff; }
-.admin_order_btn_secondary { background-color: #6c757d; }
+      <span class="subtle">
+        {{ pagenated.number }} / {{ pagenated.paginator.num_pages }}
+      </span>
 
-/* バッジ */
-.admin_order_badge {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: bold;
-  display: inline-block;
-}
-.admin_order_bg_success { background-color: #28a745; color: #fff; }
-.admin_order_bg_warning { background-color: #ffc107; color: #000; }
-.admin_order_bg_secondary { background-color: #6c757d; color: #fff; }
+      {% if pagenated.has_next %}
+        <a class="btn" href="?page={{ pagenated.next_page_number }}">
+          次へ
+        </a>
+      {% else %}
+        <button class="btn btn-disabled" disabled>次へ</button>
+      {% endif %}
+    </div>
+  {% endif %}
 
-/* キャンセル行 */
-.admin_order_cancelled_row {
-  background-color: #f8f9fa;
-  color: #777;
-}
-
-/* テキスト補助 */
-.admin_order_text_muted {
-  color: #999;
-  font-size: 13px;
-}
-
-.admin_pagination {
-  margin-top: 16px;
-  text-align: center;
-}
-
-.admin_page_link {
-  display: inline-block;
-  margin: 0 4px;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 13px;
-  color: #333;
-}
-
-.admin_page_link:hover {
-  background-color: #f0f0f0;
-}
-
-.admin_page_current {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
-}
-
-.admin_page_disabled {
-  color: #bbb;
-  border-color: #ddd;
-  pointer-events: none;
-}
-
-</style>
-
+</div>
 {% endblock %}

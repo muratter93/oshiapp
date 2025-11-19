@@ -24,8 +24,16 @@
           <tr class="{% if not u.is_active %}inactive{% endif %}">
             <td>{{ u.id }}</td>
             <td>
-              {{ u.username }}{% if u == request.user %} <span class="subtle">(自分)</span>{% endif %}
-                {% if not u.is_active %}<span class="subtle">(退会済)</span>{% endif %}
+            <a href="{% url 'dashboard:member_detail' u.id %}" class="member-link">
+                {{ u.username }}
+            </a>
+            {% if u == request.user %}
+                <span class="subtle">(自分)</span>
+            {% endif %}
+
+            {% if not u.is_active %}
+                <span class="subtle">(退会済)</span>
+            {% endif %}
             </td>
             <td>{{ u.email }}</td>
             <td style="text-align:center;">{{ u.last_login|date:"Y/m/d H:i" }}</td>
@@ -91,6 +99,7 @@
           {% endif %}
         </div>
       {% endif %}
+
     </div>
     </div>
   </div>

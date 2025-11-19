@@ -539,29 +539,34 @@ from django.utils import timezone
 
 from subscription.models import SubMember   # ★ モデル名はこれ
 
+
 def sub_cancel(request, sub_member_id):
     sub = get_object_or_404(SubMember, pk=sub_member_id)
 
-    # POST だけ許可にしたければ、if request.method != "POST": ではじいてもOK
-    today = timezone.localdate()
-    sub.end_day = today
-    sub.is_recurring = False  # 解約したので継続フラグもOFFにしておくと分かりやすい
-    sub.save()                # save() 内で sign_mon も再計算される
+    if request.method == "POST":
+        today = timezone.localdate()
+
+        # 解約処理
+        sub.end_day = today
+        sub.is_recurring = False   # 継続フラグOFF
+        sub.is_active = False      # ★ ステータスを「終了」に
+        sub.save()
 
     return redirect("dashboard:subscription_list")
+
 
 def sub_restart(request, sub_member_id):
     sub = get_object_or_404(SubMember, pk=sub_member_id)
 
-    today = timezone.localdate()
-    sub.sign_up = today        # 再開日を新しい加入日とする
-    sub.end_day = None         # 一旦クリア → save() の中でプランに応じてセットされる
-    sub.is_recurring = True    # 継続プランとして扱いたい場合（BY系はsave内でFalseにされる）
+    if request.method == "POST":
+        today = timezone.localdate()
 
-    # save() の中で:
-    # - _auto_fill_by_plan() が plan.code を見て end_day を自動セット
-    # - _calc_total_months() で sign_mon を計算
-    sub.save()
+        # 再開処理
+        sub.sign_up = today        # 再開日を新しい加入日に
+        sub.end_day = None         # 終了日クリア（save内で再計算するならこのまま）
+        sub.is_recurring = True    # 継続ON（不要なら外してOK）
+        sub.is_active = True       # ★ ステータスを「有効」に
+        sub.save()
 
     return redirect("dashboard:subscription_list")
 

@@ -4,14 +4,8 @@
 {% block content_title %}会員詳細{% endblock %}
 {% block content %}
 
-<div class="card" style="padding:20px; margin-top:20px;">
-  <h2 style="margin-bottom:16px;">{{ member.name }} さんの情報</h2>
-
+<div class="card">
   <table class="admin-table" style="width:100%;">
-    <tr>
-      <th>ID</th>
-      <td>{{ member.id }}</td>
-    </tr>
     <tr>
       <th>ユーザー名</th>
       <td>{{ member.username }}</td>
@@ -39,9 +33,9 @@
   </table>
 
   <div style="margin-top:20px;">
-    <a href="{% url 'dashboard:subscription_list' %}" class="btn btn-secondary">
-      戻る
-    </a>
+  <a href="javascript:history.back()" class="btn btn-secondary">
+    戻る
+  </a>
   </div>
 
 </div>

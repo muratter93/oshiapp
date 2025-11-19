@@ -1,7 +1,7 @@
 {% extends "dashboard/dashboard_base.html" %}
 
-{% block title %}サブスク加入状況{% endblock %}
-{% block content_title %}サブスク加入状況{% endblock %}
+{% block title %}サブスク加入状況一覧{% endblock %}
+{% block content_title %}サブスク加入状況一覧{% endblock %}
 {% block content_meta %}{% endblock %}
 
 {% block content %}
@@ -19,42 +19,40 @@
             <th>所属動物園</th>
             <th>加入日</th>
             <th>終了日</th>
-            <th>継続</th>
             <th>加入月数</th>
-            <th>現在の状況</th>
+            <th>ステータス</th>
             <th>操作</th>
           </tr>
         </thead>
 
         <tbody>
           {% for s in subs %}
-          <tr class="{% if s.end_day and s.end_day < today %}inactive{% endif %}">
+          {# 行自体の見た目も is_active で切り替え #}
+          <tr class="{% if not s.is_active %}inactive{% endif %}">
             <td>{{ s.sub_member_id }}</td>
 
             <td>
-              <a href="{% url 'dashboard:member_detail' s.member.id %}">
+              <a href="{% url 'dashboard:member_detail' s.member.id %}" class="member-link">
                 {{ s.member.username }}
               </a>
             </td>
 
             <td>
               {{ s.plan.plan_name }}
-              <span class="subtle">
-                プラン
-              </span>
+              <span class="subtle">プラン</span>
             </td>
 
             <td>
-              {{ s.animal.japanese }}
-              <span class="subtle">({{ s.animal.name }})</span>
+              {{ s.animal.name }}
+              <span class="subtle">({{ s.animal.japanese }})</span>
             </td>
 
             <td>
-                {% if s.animal.zoo %}
-                    {{ s.animal.zoo.zoo_name }}
-                {% else %}
-                    <span class="subtle">不明</span>
-                {% endif %}
+              {% if s.animal.zoo %}
+                {{ s.animal.zoo.zoo_name }}
+              {% else %}
+                <span class="subtle">不明</span>
+              {% endif %}
             </td>
 
             <td>{{ s.sign_up|date:"Y/m/d" }}</td>
@@ -68,50 +66,54 @@
             </td>
 
             <td>
-              {% if s.is_recurring %}
-                継続
-              {% else %}
-                単発
-              {% endif %}
-            </td>
-
-            <td>
               {{ s.sign_mon }} ヵ月
             </td>
 
             <td>
-              {% if s.end_day and s.end_day < today %}
-                <span class="subtle">終了</span>
+              {% if s.is_active %}
+                <span class="badge badge-active">有効</span>
               {% else %}
-                <span class="status-badge status-active">有効</span>
+                <span class="badge badge-inactive">終了</span>
               {% endif %}
-            </td><td class="actions">
-  <div class="action-row">
+            </td>
 
-            {% if request.user.is_keeper %}
-            {# keeper は操作不可 #}
-            <button class="btn btn-disabled" disabled>操作不可</button>
+            <td class="actions">
+              <div class="action-row">
 
-            {% else %}
-            {% if s.end_day and s.end_day <= today %}
-                <form method="post" action="{% url 'dashboard:sub_restart' s.sub_member_id %}">
-                {% csrf_token %}
-                <button class="btn btn-secondary" type="submit">
-                    再開
-                </button>
-                </form>
-            {% else %}
-                <form method="post" action="{% url 'dashboard:sub_cancel' s.sub_member_id %}">
-                {% csrf_token %}
-                <button class="btn btn-danger" type="submit">
-                    解約
-                </button>
-                </form>
-            {% endif %}
-            {% endif %}
+                {% if request.user.is_keeper %}
+                  {# keeper は操作不可 #}
+                  <button class="btn btn-disabled" disabled>操作不可</button>
 
-        </div>
-        </td>
+                {% else %}
+                  {% if s.is_active %}
+                    {# 現在「有効」→ 解約ボタン #}
+                    <form method="post" action="{% url 'dashboard:sub_cancel' s.sub_member_id %}">
+                      {% csrf_token %}
+                      <button
+                        class="btn btn-danger"
+                        type="submit"
+                        onclick="return confirm('このサブスクを解約しますか？');"
+                      >
+                        解約
+                      </button>
+                    </form>
+                  {% else %}
+                    {# 現在「終了」→ 再開ボタン #}
+                    <form method="post" action="{% url 'dashboard:sub_restart' s.sub_member_id %}">
+                      {% csrf_token %}
+                      <button
+                        class="btn btn-secondary"
+                        type="submit"
+                        onclick="return confirm('このサブスクを再開しますか？');"
+                      >
+                        再開
+                      </button>
+                    </form>
+                  {% endif %}
+                {% endif %}
+
+              </div>
+            </td>
 
           </tr>
 
