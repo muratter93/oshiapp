@@ -3,6 +3,22 @@
 {% block content_title %}注文一覧{% endblock %}
 {% block content %}
 
+<div class="filter-bar" style="margin-bottom:16px; display:flex; gap:8px;">
+  <a href="?filter=all" class="btn {% if current_filter == 'all' %}btn-secondary{% endif %}">
+    すべて
+  </a>
+  <a href="?filter=today" class="btn {% if current_filter == 'today' %}btn-secondary{% endif %}">
+    本日注文
+  </a>
+  <a href="?filter=pending" class="btn {% if current_filter == 'pending' %}btn-secondary{% endif %}">
+    未発送
+  </a>
+  <a href="?filter=shipped" class="btn {% if current_filter == 'shipped' %}btn-secondary{% endif %}">
+    発送済
+  </a>
+</div>
+
+
 <div class="admin-admins">
   <div class="card">
     <div class="table-wrap">
@@ -39,7 +55,7 @@
 
             <td>
               {% if order.status == 'shipped' %}
-                <span class="badge badge-active">発送済み</span>
+                <span class="badge badge-active">発送済</span>
               {% elif order.status == 'cancelled' %}
                 <span class="badge badge-inactive">キャンセル</span>
               {% else %}
@@ -54,21 +70,24 @@
                   詳細
                 </a>
 
-                {% if order.status == 'pending' %}
-                  <a href="{% url 'goods:toggle_shipping_status' order.id %}"
-                     class="btn"
-                     onclick="return confirm('この注文を発送済みにしますか？');">
-                    発送済みにする
-                  </a>
-                {% elif order.status == 'shipped' %}
-                  <a href="{% url 'goods:toggle_shipping_status' order.id %}"
-                     class="btn btn-secondary"
-                     onclick="return confirm('この注文を未発送に戻しますか？');">
-                    未発送に戻す
-                  </a>
-                {% else %}
-                  <span class="subtle">-</span>
-                {% endif %}
+              {% if order.status == 'pending' %}
+                <a href="{% url 'goods:toggle_shipping_status' order.id %}"
+                  class="btn order-btn-success"
+                  onclick="return confirm('この注文を発送済みにしますか？');">
+                  発送済にする
+                </a>
+
+              {% elif order.status == 'shipped' %}
+                <a href="{% url 'goods:toggle_shipping_status' order.id %}"
+                  class="btn order-btn-warning"
+                  onclick="return confirm('この注文を未発送に戻しますか？');">
+                  未発送に戻す
+                </a>
+
+              {% else %}
+                <span class="subtle">-</span>
+              {% endif %}
+
               </div>
             </td>
           </tr>

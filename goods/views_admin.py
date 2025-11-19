@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import GoodsForm, GoodsImageForm
 from .models import Goods, GoodsImage
 from django.core.paginator import Paginator
+from django.utils import timezone
 
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import Order
@@ -106,18 +107,40 @@ from .models import Order
 
 @staff_member_required
 def admin_order_list(request):
-    # もともとのクエリ
+    # ベースのクエリ
     order_qs = Order.objects.prefetch_related('items__goods').order_by('-created_at')
 
-    # ▼ ページネーション部分を追加
+    # ▼ ここでフィルターを取得（?filter=xxx）
+    f = request.GET.get("filter", "all")
+
+    # 今日の日付
+    today = timezone.localdate()
+
+    # ▼ フィルタリング
+    if f == "today":
+        # 本日注文のみ
+        order_qs = order_qs.filter(created_at__date=today)
+
+    elif f == "pending":
+        # 未発送のみ
+        order_qs = order_qs.filter(status="pending")
+
+    elif f == "shipped":
+        # 発送済のみ
+        order_qs = order_qs.filter(status="shipped")
+
+    # "all" やその他 → そのまま（全部）
+
+    # ▼ ページネーション
     paginator = Paginator(order_qs, 20)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
     pagenated = paginator.get_page(page_number)
 
-    # pagenated をテンプレートへ渡す
-    return render(request, 'goods/admin_order_list.html', {
-        'pagenated': pagenated,
+    return render(request, "goods/admin_order_list.html", {
+        "pagenated": pagenated,
+        "current_filter": f,   # ★ テンプレ側でどのフィルタか分かるように渡す
     })
+
 
 @staff_member_required
 def admin_order_detail(request, order_id):

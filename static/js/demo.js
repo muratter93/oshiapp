@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.classList.add('show');
                 }
             } else { // ▲ 上にスクロール中
-                const isBelowEdge = rect.top > vh * 0.25;
+                const isBelowEdge = rect.top > vh * 0.5;
                 if (isBelowEdge) {
                     item.classList.remove('show');
                 }

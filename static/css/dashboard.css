@@ -1112,3 +1112,28 @@ html, body {
     background-color: #facc15; /* 明るい黄色 */
     color: #000;               /* 黒文字で見やすく */
 }
+
+/* === 注文一覧ページ専用ボタン === */
+
+.order-btn-success {
+    background-color: #28a745; /* 薄いグリーン（不透明） */
+    color: #fff;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.order-btn-success:hover {
+    background-color: #116b26; /* 濃いグリーン */
+    color: #fff;
+}
+
+
+.order-btn-warning {
+    background-color: #facc15; /* 薄い黄色（不透明） */
+    color: #000;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.order-btn-warning:hover {
+    background-color: #cba200; /* 濃い黄色 */
+    color: #000;
+}
