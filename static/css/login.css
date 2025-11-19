@@ -15,12 +15,14 @@ html, body {
     min-height: 100vh;
 }
 
+/* 左側 */
 .left-side {
     flex: 1;
     position: sticky;
     top: 0;
     height: 100vh;
     overflow: hidden;
+
     background: linear-gradient(
         to bottom,
         #2C8A1E 0%,
@@ -39,9 +41,25 @@ html, body {
     filter: drop-shadow(0 0 2px white) drop-shadow(0 0 4px white);
 }
 
+.left-illustration-top {
+    position: absolute;
+    top: calc(50vh - 140px);
+    right: 5px;
+    width: 180px;
+}
+
+.left-illustration-bottom {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+}
+
+/* 右側 */
 .right-side {
     flex: 1;
-    background-color: #f5f5f5;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,7 +85,6 @@ html, body {
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 14px;
-    box-sizing: border-box;
 }
 
 .input-field:focus {

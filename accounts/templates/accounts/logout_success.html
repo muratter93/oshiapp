@@ -1,76 +1,16 @@
+{% extends "common/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログアウト完了</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            overflow: hidden; /* ← スクロール禁止 */
 
-            display: flex;
-            justify-content: center; /* 横中央 */
-            align-items: center;    /* 縦中央 */
+{% block content %}
+<div class="login-box" style="margin:80px auto;">
+    <h1 style="text-align:center; margin-bottom:20px;">ログアウト完了</h1>
 
-            font-family: 'M PLUS Rounded 1c', Arial, sans-serif;
+    <p style="text-align:center; margin-bottom:30px;">
+        またのご利用をお待ちしています。
+    </p>
 
-            background-image: url("/static/img/animal_haikei.png");
-            background-size: 100%;
-            background-repeat: no-repeat; /* 念のため繰り返し防止 */
-            background-position: center;
-            position: relative;
-            z-index: 0;
-
-            background-color: #f2f2f2; /* 画像読み込み失敗時の背景 */
-        }
-
-        .center-box {
-            text-align: center;
-        }
-        .center-box a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            border-radius: 8px;
-            background-color: #3c8dbc;
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            transition: opacity .2s;
-        }
-        .center-box a:hover {
-            opacity: 0.8;
-        }
-        #bottom-right-image {
-            position: fixed;
-            bottom: 0;
-            right: 10%;
-            z-index: 1;
-            pointer-events: none; /* ← クリック邪魔しない */
-        }
-
-        #bottom-right-image img {
-            width: 150px !important;
-            height: auto !important;
-            object-fit: contain;
-        }
-
-    </style>
-</head>
-<body>
-
-    <div id="bottom-right-image">
-        <h3 id="usagi-text">またね</h3>
-        <img src="{% static 'img/usagi.png' %}" alt="usagi">
-    </div>
-
-    <div class="center-box">
-        <h2>ログアウトしました</h2>
-        <a href="{% url 'main:index' %}">トップページへ戻る</a>
-    </div>
-</body>
-</html>
+    <a href="/" class="login-button" style="text-decoration:none; display:block; text-align:center;">
+        ホームへ戻る
+    </a>
+</div>
+{% endblock %}
