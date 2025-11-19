@@ -141,10 +141,10 @@ def toggle_shipping_status(request, order_id):
     # 状態をトグル（切り替え）
     if order.status == 'pending':
         order.status = 'shipped'
-        messages.success(request, f"注文ID {order.id} を『発送済み』に変更しました。")
+        # messages.success(request, f"注文ID {order.id} を『発送済み』に変更しました。")
     else:
         order.status = 'pending'
-        messages.info(request, f"注文ID {order.id} を『未発送』に戻しました。")
+        # messages.info(request, f"注文ID {order.id} を『未発送』に戻しました。")
 
     order.save()
     return redirect('goods:admin_order_list')
