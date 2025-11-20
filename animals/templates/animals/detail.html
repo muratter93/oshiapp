@@ -35,18 +35,31 @@
         {% endif %}
       </div>
 
-      <!-- 名前とその下に推しP を表示 -->
+      <!-- 名前と推しP -->
       <h1 class="animal-jp">{{ animal.japanese }}</h1>
+
       <div class="animal-sub">
         <span class="animal-en">（{{ animal.name }}）</span>
-        <div class="animal-point">{{ animal.total_point }} 推しP</div>
+
+        <!-- ★ 推しP（IDつき）-->
+        <div class="animal-point" id="point-{{ animal.animal_id }}">
+          {{ animal.total_point }} 推しP
+        </div>
+
+        <!-- ★ 推しボタン -->
+        {% if request.user.is_authenticated %}
+          <button class="push-btn-detail"
+                  data-id="{{ animal.animal_id }}">
+            推し♡
+          </button>
+        {% endif %}
       </div>
 
       {% if animal.scientific %}
         <div class="muted">学名: {{ animal.scientific }}</div>
       {% endif %}
 
-      <!-- 2枚目以降のURL画像 -->
+      <!-- 画像ギャラリー -->
       {% with pics=animal.extra_pictures.all|dictsort:"display_order" %}
         {% if pics %}
           <div class="gallery">
@@ -61,8 +74,10 @@
     </div>
   </div>
 
-  <!-- 推す！ボタン（ダミー） -->
-  <a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}">このコを推す！</a>
+  <!-- プランページへ -->
+  <a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}" class="cta">
+    このコを推す！
+  </a>
 
   <!-- 紹介文 -->
   {% if animal.txt %}
@@ -72,7 +87,7 @@
     </div>
   {% endif %}
 
-  <!-- 返礼品（サンプル） -->
+  <!-- 返礼品 -->
   <div class="section">
     <h2>返礼品（サンプル）</h2>
     <div class="grid">
@@ -97,4 +112,38 @@
   </div>
 
 </div>
+
+<!-- CSRF -->
+<form style="display:none;">{% csrf_token %}</form>
+
+<!-- 推し♡ボタンのJS -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    const btn = document.querySelector(".push-btn-detail");
+
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+        const id = btn.dataset.id;
+
+        fetch(`/animals/${id}/push/`, {
+            method: "POST",
+            headers: { "X-CSRFToken": csrftoken }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                const p = document.getElementById(`point-${id}`);
+                p.textContent = `${data.total_point} 推しP`;
+
+                // アニメーション（軽くポンッと動く）
+                p.style.transform = "scale(1.2)";
+                setTimeout(() => { p.style.transform = "scale(1)"; }, 150);
+            }
+        });
+    });
+});
+</script>
+
 {% endblock %}

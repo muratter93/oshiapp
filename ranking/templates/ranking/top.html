@@ -6,7 +6,7 @@
         <span class="rank-number">{{ forloop.counter }}</span>
 
         <div class="rank-info">
-          <a href="{% url 'animals:detail' a.pk %}" class="rank-link">
+          <a href="/animals/{{ a.animal_id }}/" class="rank-link">
             <span class="rank-japanese">{{ a.japanese }}</span><br>
             <span class="rank-name">{{ a.name }}</span>
           </a>

@@ -29,9 +29,15 @@
         {% if a %}
         <div class="rank-1 rank-card">
             <h2>第1位 {{ a.japanese }}</h2>
+
             <a href="/animals/{{ a.animal_id }}/">
                 <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-                <p><strong>{{ a.name }}</strong></a><br>{{ a.total_point }} 推しP</p>
+            </a>
+
+            <p>
+                <strong>{{ a.name }}</strong><br>
+                <span id="point-{{ a.animal_id }}">{{ a.total_point }} 推しP</span>
+            </p>
         </div>
         {% endif %}
         {% endwith %}
@@ -40,9 +46,15 @@
             {% for a in animals|slice:"1:3" %}
             <div class="rank-card">
                 <h3>第{{ forloop.counter|add:1 }}位 {{ a.japanese }}</h3>
+
                 <a href="/animals/{{ a.animal_id }}/">
                     <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-                    <p><strong>{{ a.name }}</strong></a><br>{{ a.total_point }} 推しP</p>
+                </a>
+
+                <p>
+                    <strong>{{ a.name }}</strong><br>
+                    <span id="point-{{ a.animal_id }}">{{ a.total_point }} 推しP</span>
+                </p>
             </div>
             {% endfor %}
         </div>
@@ -51,9 +63,15 @@
             {% for a in animals|slice:"3:6" %}
             <div class="rank-card">
                 <h4>第{{ forloop.counter|add:3 }}位 {{ a.japanese }}</h4>
+
                 <a href="/animals/{{ a.animal_id }}/">
                     <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-                    <p><strong>{{ a.name }}</strong></a><br>{{ a.total_point }} 推しP</p>
+                </a>
+
+                <p>
+                    <strong>{{ a.name }}</strong><br>
+                    <span id="point-{{ a.animal_id }}">{{ a.total_point }} 推しP</span>
+                </p>
             </div>
             {% endfor %}
         </div>
@@ -62,9 +80,15 @@
             {% for a in animals|slice:"6:10" %}
             <div class="rank-card">
                 <h5>第{{ forloop.counter|add:6 }}位 {{ a.japanese }}</h5>
+
                 <a href="/animals/{{ a.animal_id }}/">
                     <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-                    <p><strong>{{ a.name }}</strong></a><br>{{ a.total_point }} 推しP</p>
+                </a>
+
+                <p>
+                    <strong>{{ a.name }}</strong><br>
+                    <span id="point-{{ a.animal_id }}">{{ a.total_point }} 推しP</span>
+                </p>
             </div>
             {% endfor %}
         </div>
@@ -73,9 +97,15 @@
             {% for a in animals|slice:"10:15" %}
             <div class="rank-card">
                 <h5>第{{ forloop.counter|add:10 }}位 {{ a.japanese }}</h5>
+
                 <a href="/animals/{{ a.animal_id }}/">
                     <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-                    <p><strong>{{ a.name }}</strong></a><br>{{ a.total_point }} 推しP</p>
+                </a>
+
+                <p>
+                    <strong>{{ a.name }}</strong><br>
+                    <span id="point-{{ a.animal_id }}">{{ a.total_point }} 推しP</span>
+                </p>
             </div>
             {% endfor %}
         </div>
@@ -84,9 +114,15 @@
             {% for a in animals|slice:"15:20" %}
             <div class="rank-card">
                 <h5>第{{ forloop.counter|add:15 }}位 {{ a.japanese }}</h5>
+
                 <a href="/animals/{{ a.animal_id }}/">
                     <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-                    <p><strong>{{ a.name }}</strong></a><br>{{ a.total_point }} 推しP</p>
+                </a>
+
+                <p>
+                    <strong>{{ a.name }}</strong><br>
+                    <span id="point-{{ a.animal_id }}">{{ a.total_point }} 推しP</span>
+                </p>
             </div>
             {% endfor %}
         </div>
@@ -96,9 +132,15 @@
             {% for a in page_obj %}
             <div class="rank-card">
                 <h5>第{{ forloop.counter0|add:start_rank }}位 {{ a.japanese }}</h5>
+
                 <a href="/animals/{{ a.animal_id }}/">
                     <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-                    <p><strong>{{ a.name }}</strong></a><br>{{ a.total_point }} 推しP</p>
+                </a>
+
+                <p>
+                    <strong>{{ a.name }}</strong><br>
+                    <span id="point-{{ a.animal_id }}">{{ a.total_point }} 推しP</span>
+                </p>
             </div>
             {% empty %}
             <p>該当するどうぶつがいません。</p>
@@ -135,6 +177,5 @@
     </span>
 </div>
 {% endif %}
-
 
 {% endblock %}
