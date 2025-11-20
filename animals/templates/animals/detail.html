@@ -11,7 +11,7 @@
 <div class="wrap">
 
   <!-- ヘッダー: 大画像 + 基本情報 -->
-  <div class="header">
+  <div class="animal-header">
     <div class="hero">
       {% if animal.pic1 %}
         <img src="{{ animal.pic1.url }}" alt="{{ animal.japanese }}">
@@ -115,16 +115,16 @@
 
 <!-- CSRF -->
 <form style="display:none;">{% csrf_token %}</form>
+
 <!-- 推し♡ボタンのJS -->
 <script>
-/* 数値にカンマを付ける（humanize.intcomma 相当） */
 function addComma(num) {
     return Number(num).toLocaleString();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     const csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
-    if (!csrfInput) return;  // 念のため
+    if (!csrfInput) return;
     const csrftoken = csrfInput.value;
 
     const btn = document.querySelector(".push-btn-detail");
@@ -140,42 +140,32 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(async (res) => {
             const data = await res.json().catch(() => ({}));
 
-            // --- エラー処理（コイン不足など） ---
             if (!res.ok || !data.success) {
                 alert(data.error || "エラーが発生しました。");
                 return;
             }
 
-            // --- 動物の推しP表示を更新 ---
             const p = document.getElementById(`point-${id}`);
             if (p) {
-                // ★ カンマ付きにする
                 p.textContent = `${addComma(data.total_point)} 推しP`;
-
-                // 軽いアニメーション
                 p.style.transform = "scale(1.2)";
                 setTimeout(() => { p.style.transform = "scale(1)"; }, 150);
             }
 
-            // --- コイン残高も即時反映 ---
             const walletEl = document.getElementById("wallet-balance");
             if (walletEl && data.cheer_coin_balance !== undefined) {
-                // ★ カンマ付き
                 walletEl.textContent = addComma(data.cheer_coin_balance);
                 walletEl.classList.add("flash");
                 setTimeout(() => walletEl.classList.remove("flash"), 250);
             }
 
-            // --- スタニングポイント（ユーザー側）も更新 ---
             const stapoEl = document.getElementById("wallet-stapo");
             if (stapoEl && data.stanning_point_balance !== undefined) {
-                // ★ カンマ付き
                 stapoEl.textContent = addComma(data.stanning_point_balance);
                 stapoEl.classList.add("flash");
                 setTimeout(() => stapoEl.classList.remove("flash"), 250);
             }
 
-            // --- 推しボタンもちょっと弾ませる ---
             btn.style.transform = "scale(0.9)";
             setTimeout(() => btn.style.transform = "scale(1)", 120);
         })
@@ -185,6 +175,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
 
 {% endblock %}
