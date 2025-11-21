@@ -23,7 +23,7 @@
       <div id="index_amimal_photobutton_box">
 
         {# 画像要素 #}
-        <div id="index_amimal_photo_box">
+        <div id="index_amimal_photo_box" class="zoo-{{ a.zoo_id }}">
           {% if a.pic1 %}<img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">{% endif %}
           {% if not a.pic1 and not a.pic2 %}<img src="{% static 'img/noimage-4x3.png' %}" alt="画像なし" class="slide active">{% endif %}
         </div>
@@ -62,7 +62,7 @@
           <a id="index_animal_namelang_a" href="/animals/{{ a.animal_id }}/"><span id="index_animal_namelang">{{ a.name|truncatechars:6 }}</span></a>
           <span id="index_animal-namegenderlang">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
         </p>
-        <p id="index_animal_typelang">{{ a.japanese }}
+        <p id="index_animal_typelang">{{ a.japanese|truncatechars:10 }}
           <span id="index_animal-agelang">{% if a.age is not None %}{{ a.age }}歳{% else %}{% endif %}</span>
           <span id="index_animal-genderlang">{% if a.sex == "M" %} ♂{% elif a.sex == "F" %} ♀{% else %}{% endif %}</span>
         </p>

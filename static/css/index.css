@@ -44,9 +44,11 @@
   cursor:pointer;
 }
 
-/* 動物写真枠後ろの色部分 */
-
-#index_amimal_photo_box:after {
+/* 動物写真枠後ろの色部分基本の after 共通設定 */
+#index_amimal_photo_box:after,
+#index_amimal_photo_box.zoo-1:after,
+#index_amimal_photo_box.zoo-2:after,
+#index_amimal_photo_box.zoo-3:after {
   position: absolute;
   top:2px;
   left:-8px;
@@ -57,13 +59,26 @@
   -webkit-transform: rotate(-3deg);
      -moz-transform: rotate(0deg);
      border-radius: 17% 26% 17% 21% / 26% 22% 33% 17%;
-  background:#2ac365;
 }
+ 
+/* zoo_id = 1 の色 */
+#index_amimal_photo_box.zoo-1:after {
+  background: rgb(156, 201, 166); /* 緑 */
+}
+/* zoo_id = 2 の色 */
+#index_amimal_photo_box.zoo-2:after {
+  background: rgb(250, 207, 207); /* 青の例 */
+}
+/* zoo_id = 3 の色 */
+#index_amimal_photo_box.zoo-3:after {
+  background: rgb(255, 240, 174); /* オレンジの例 */
+}
+
 
 /* 動物写真 */
 
 #index_amimal_photo_box img {
-  object-position: center;
+  object-position: 50% 40%;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -253,21 +268,25 @@
 /* ランキングボックス */
 
 #index_ranking_box {
-  /* position: fixed;
-  right: 40px; */
+  position: relative;
   width: 225px;
   padding: 20px 20px 0 20px;
-  /* background-color: #2ac365; */
-  background-image: url("/static/img/rankingu_back.jpg");
-  background-size: cover;
   margin-left: -5px;
+  /* background-color: brown; */
 }
 
 /* 右ランキング内※インクルード物 */
 
-/* #index_animal_ranking_sidebar {
-  background-color: brown;
-} */
+#index_animal_ranking_sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 225px;
+  padding: 20px 20px 20px 20px;
+  background-image: url("/static/img/rankingu_back.jpg");
+  background-size: cover;
+  border-radius: 11% 8% 10% 7% / 11% 13% 6% 17%;
+}
 
 /* ランキング内タイトル文字 */
 #index_ranking_title {
@@ -285,23 +304,20 @@
 
 #index_animal_ranking_list li {
   display: flex;
-  align-items: flex-start;
   padding: 15px 0 0 0;
-  /* border-bottom: 2px solid rgb(231, 223, 208); */
 }
 
-#index_animal_ranking_list li:last-child { 
+/* #index_animal_ranking_list li:last-child { 
   border-bottom: none; 
-}
+} */
 
 /* ランキングナンバー */
-.index_rank_number { 
+.index_rank_number {
   font-weight: 900;
   color: rgb(84, 62, 44); 
-  /* text-align: left;  */
   font-size: 27pt;
   padding: 0;
-  margin: 0 0 -27px 0;
+  margin: -7px 0 -25px 0;
 }
 
 /* ランキングナンバーの横の線 */
@@ -314,18 +330,24 @@
 
 
 
-
+/* ランキング内名前と動物名要素 */
 .index_rank_info {
-  flex: 1; 
-  text-align: left;
-  line-height: 1.4;
+  flex: 1;
+  line-height: 1.0;
+text-align: left;
+  margin-right: 10px;
+  width: 155px;
 }
 
 /* ランキング内動物名前 */
 .index_rank_link_name {
   color: rgb(84, 62, 44);
-  font-size: 17pt;
   text-decoration: none;
+}
+
+/* ランキング内動物名前のみ */
+#index_rank_link_name_name {
+  font-size: 17pt;
   font-weight: 700;
 }
 
@@ -348,7 +370,7 @@
 .index_rank_japanese { 
   color: rgb(84, 62, 44);
   font-size: 10pt;
-  margin: -4px 0 0 0;
+  margin: 2px 0 0 0;
   padding: 0;
   font-weight: 700;
 }
@@ -360,8 +382,6 @@
   width: 60px;
   border-radius: 5px;
   overflow: hidden;
-  /* transform: translateZ(0); */
-  /* backface-visibility: hidden; */
   top: -33px;
   margin-bottom: -23px;
 }

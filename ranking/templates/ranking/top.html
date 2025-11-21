@@ -10,7 +10,8 @@
         <!-- <p class="index_rank_number">{{ forloop.counter }}</p> -->
 
         <div class="index_rank_info">
-          <a class="index_rank_link_name" href="/animals/{{ a.animal_id }}/">{{ a.name|truncatechars:5 }}
+          <a class="index_rank_link_name" href="/animals/{{ a.animal_id }}/">
+            <span id="index_rank_link_name_name">{{ a.name }}</span>
             <span id="index_animal-namegenderlang_ranking">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
           </a>
           <p class="index_rank_japanese">{{ a.japanese }}</p>
