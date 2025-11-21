@@ -283,7 +283,7 @@
                         <a class="hum_name" href="{% url 'accounts:mypage' %}"><h3 class="hamburger_menu_content_h3">{{ user.name|default:user.username }}</a><span> 様</span></h3>
                         <a class="hamburger_menu_content_a" href="{% url 'accounts:mypage' %}">マイページ</a>
                         <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history' %}">チアコ購入履歴</a>
-                        <a class="hamburger_menu_content_a" href="#">サブスク購入履歴</a>
+                        <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history2' %}">サブスク購入履歴</a>
                         <a class="hamburger_menu_content_a" href="{% url 'goods:order_history' %}">グッズ交換履歴</a>
                         <a class="hamburger_menu_content_a" href="{% url 'donation:donation_history' %}">寄付履歴</a>
                         <a class="hamburger_menu_content_a" href="{% url 'accounts:edit_profile' %}">会員情報変更</a>

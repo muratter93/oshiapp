@@ -111,6 +111,10 @@
   opacity: 0.8;
 }
 
+#index_oshii-badge.shine::after {
+  animation: index-shineMove 0.7s ease forwards;
+}
+
 /* 推しハートボタン */
 
 #index_push-btn {
@@ -303,10 +307,9 @@
 /* ランキングナンバーの横の線 */
 #index_ranking_num_underline {
   border: none;
-  margin: 0 0 0 41px;
+  margin: 0 60px 0 41px;
   padding: 0;
-  background-color: rgb(231, 223, 208);
-  height: 1px;
+  border-top: 1.5px solid rgb(84, 62, 44);
 }
 
 
@@ -353,12 +356,14 @@
 /* ランキング内動物写真ボックス */
 .index_rank_img_box {
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   width: 60px;
   border-radius: 5px;
   overflow: hidden;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  /* transform: translateZ(0); */
+  /* backface-visibility: hidden; */
+  top: -33px;
+  margin-bottom: -23px;
 }
 
 /* ランキング内動物写真 */
@@ -366,7 +371,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 45%;
+  object-position: 70% 45%;
   display: block;
   transform: scale(1.4);
   transform-origin: center 20%;
