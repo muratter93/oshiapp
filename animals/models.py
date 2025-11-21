@@ -84,6 +84,33 @@ class Zoo(models.Model):
     zoo_address = models.CharField("住所", max_length=255, blank=True, null=True)
     zoo_phone   = models.CharField("電話番号", max_length=20,  blank=True, null=True)
     zoo_postcode = models.CharField("郵便番号", max_length=10, blank=True, null=True)
+
+    last_paid_point_sum = models.PositiveIntegerField(
+        "最終支援時累計ポイント",
+        default=0,
+    )
+
+    last_paid_at = models.DateTimeField(
+        "最終支援日時",
+        null=True,
+        blank=True,
+    )
+
+    last_paid_sub_total = models.PositiveIntegerField(
+        "サブスク最終支援累計額（円）",
+        default=0,
+    )
+
+    last_paid_sub_at = models.DateTimeField(
+        "サブスク最終支援日時",
+        null=True,
+        blank=True,
+    )
+
+    sub_unpaid_amount = models.PositiveIntegerField(
+        "未支援サブスク累計額（円）",
+        default=0,
+    )
    
     class Meta:
         db_table = "zoos"
@@ -93,6 +120,11 @@ class Zoo(models.Model):
 
     def __str__(self):
         return f"{self.zoo_no or '(未発番)'} / {self.zoo_name}"
+    
+    @property
+    def total_donated_amount(self) -> int:
+        """これまでの累計支援金額（円）"""
+        return self.last_paid_point_sum * 100
 
     def save(self, *args, **kwargs):
         """初回保存時、zoo_no が空なら 'zoo{zoo_id}' を自動採番"""

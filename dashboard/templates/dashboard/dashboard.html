@@ -1,4 +1,5 @@
 {% extends "dashboard/dashboard_base.html" %}
+{% load humanize %}
 
 {% block title %}管理者ダッシュボード{% endblock %}
 {% block content_title %}管理者ダッシュボード{% endblock %}
@@ -7,6 +8,141 @@
 {% endblock %}
 
 {% block content %}
+
+<h2>動物園別 推しポイント支援状況</h2>
+
+<table class="support-table" border="0">
+  <thead>
+    <tr>
+      <th>動物園名</th>
+      <th>累計支援金額（円）</th>
+      <th>支援待ち（円 / pt）</th>
+      <th>最終支援日時</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for zoo in zoo_points %}
+    <tr>
+      <td>{{ zoo.zoo_name }}</td>
+
+      <!-- 累計支援金額 -->
+      <td>{{ zoo.total_donated_amount|intcomma }} 円</td>
+
+      <!-- 支援待ち（円/pt） -->
+      <td>
+        {% if zoo.unpaid_points > 0 %}
+          {{ zoo.unpaid_coins|intcomma }} 円
+          （{{ zoo.unpaid_points|intcomma }} pt）
+        {% else %}
+          <span style="color:#666;">支援待ちなし</span>
+        {% endif %}
+      </td>
+
+      <!-- 最終支援日時 -->
+      <td>
+        {% if zoo.last_paid_at %}
+          {{ zoo.last_paid_at|date:"Y-m-d H:i" }}
+        {% else %}
+          まだ支援なし
+        {% endif %}
+      </td>
+
+      <!-- 操作 -->
+      <td>
+        {% if zoo.unpaid_points > 0 and request.user.is_staff %}
+          <form action="{% url 'dashboard:zoo_payout' zoo.pk %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit"
+                    class="btn-support"
+                    onclick="return confirm('{{ zoo.zoo_name }} に {{ zoo.unpaid_points|intcomma }}pt（{{ zoo.unpaid_coins|intcomma }}円）の支援を確定します。よろしいですか？');">
+              支援を確定
+            </button>
+          </form>
+        {% else %}
+          {% if zoo.unpaid_points > 0 %}
+            支援権限なし
+          {% else %}
+            支援済み
+          {% endif %}
+        {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="5">動物園データがありません。</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>動物園別 サブスク支援状況</h2>
+
+<table class="support-table" border="0">
+  <thead>
+    <tr>
+      <th>動物園名</th>
+      <th>累計サブスク支援額（円）</th>
+      <th>支援待ち（円）</th>
+      <th>最終支援日時</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for zoo in zoo_points %}
+    <tr>
+      <td>{{ zoo.zoo_name }}</td>
+
+      <!-- 累計（確定済みサブスク支援額） -->
+      <td>{{ zoo.sub_paid_total|default:0|intcomma }} 円</td>
+
+      <!-- 支援待ち（円） -->
+      <td>
+        {% if zoo.sub_unpaid_amount > 0 %}
+          {{ zoo.sub_unpaid_amount|intcomma }} 円
+        {% else %}
+          <span style="color:#666;">支援待ちなし</span>
+        {% endif %}
+      </td>
+
+      <!-- 最終支援日時 -->
+      <td>
+        {% if zoo.last_paid_sub_at %}
+          {{ zoo.last_paid_sub_at|date:"Y-m-d H:i" }}
+        {% else %}
+          まだ支援なし
+        {% endif %}
+      </td>
+
+      <!-- 操作 -->
+      <td>
+        {% if zoo.sub_unpaid_amount > 0 and request.user.is_staff %}
+          <form action="{% url 'dashboard:zoo_sub_payout' zoo.pk %}" method="post" style="display:inline;">
+            {% csrf_token %}
+          <button type="submit"
+                  class="btn-support"
+                  onclick="return confirm('{{ zoo.zoo_name }} にサブスク {{ zoo.sub_unpaid_amount|intcomma }}円の支援を確定します。よろしいですか？');">
+            支援を確定
+          </button>
+          </form>
+        {% else %}
+          {% if zoo.sub_unpaid_amount > 0 %}
+            支援権限なし
+          {% else %}
+            支援済み
+          {% endif %}
+        {% endif %}
+      </td>
+
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="5">動物園データがありません。</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 
 <p>地図の練習</p>
 

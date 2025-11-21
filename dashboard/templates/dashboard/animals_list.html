@@ -4,6 +4,48 @@
 {% block content_title %}動物一覧{% endblock %}
 
 {% block content %}
+
+{% with current_zoo=request.GET.zoo current_order=request.GET.order %}
+<div class="filter-area" style="margin-bottom: 16px;">
+
+  <div style="margin-bottom: 8px;">
+    <span style="font-weight:bold; margin-right:8px;">動物園：</span>
+
+    <a href="?{% if current_order %}order={{ current_order }}{% endif %}"
+       class="btn {% if not current_zoo %}btn-active{% endif %}">
+       すべて
+    </a>
+
+    {% for z in zoos %}
+      <a href="?zoo={{ z.pk }}{% if current_order %}&order={{ current_order }}{% endif %}"
+         class="btn {% if current_zoo == z.pk|stringformat:'s' %}btn-active{% endif %}">
+        {{ z.zoo_name }}
+      </a>
+    {% endfor %}
+  </div>
+
+  <div>
+    <span style="font-weight:bold; margin-right:8px;">並び順：</span>
+
+    <a href="?{% if current_zoo %}zoo={{ current_zoo }}{% endif %}"
+    class="btn {% if not current_order %}btn-active{% endif %}">
+    ID降順
+    </a>
+
+    <a href="?order=id_asc{% if current_zoo %}&zoo={{ current_zoo }}{% endif %}"
+    class="btn {% if current_order == 'id_asc' %}btn-active{% endif %}">
+    ID昇順
+    </a>
+
+    <a href="?order=point_desc{% if current_zoo %}&zoo={{ current_zoo }}{% endif %}"
+       class="btn {% if current_order == 'point_desc' %}btn-active{% endif %}">
+       推しP高い順
+    </a>
+  </div>
+
+</div>
+{% endwith %}
+
 <div class="admin-animals">
   <div class="card">
     <div class="table-wrap">
@@ -76,17 +118,28 @@
         </tbody>
         </table>
 
+        {% with current_zoo=request.GET.zoo current_order=request.GET.order %}
         <div class="pagination" style="margin-top: 20px; text-align:center;">
+
             {% if page_obj.has_previous %}
-                <a class="btn" href="?page={{ page_obj.previous_page_number }}">前へ</a>
+                <a class="btn"
+                href="?page={{ page_obj.previous_page_number }}{% if current_zoo %}&zoo={{ current_zoo }}{% endif %}{% if current_order %}&order={{ current_order }}{% endif %}">
+                前へ
+                </a>
             {% endif %}
 
             <span style="margin: 0 8px;">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
 
             {% if page_obj.has_next %}
-                <a class="btn" href="?page={{ page_obj.next_page_number }}">次へ</a>
+                <a class="btn"
+                href="?page={{ page_obj.next_page_number }}{% if current_zoo %}&zoo={{ current_zoo }}{% endif %}{% if current_order %}&order={{ current_order }}{% endif %}">
+                次へ
+                </a>
             {% endif %}
+
         </div>
+        {% endwith %}
+
         <div class="actions-top" style="margin-top: 16px;">
           <a href="{% url 'dashboard:animal_create' %}" class="btn btn-edit">＋ 動物を新規登録する</a>
         </div>

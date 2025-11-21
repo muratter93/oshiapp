@@ -132,7 +132,7 @@ def admin_order_list(request):
     # "all" やその他 → そのまま（全部）
 
     # ▼ ページネーション
-    paginator = Paginator(order_qs, 20)
+    paginator = Paginator(order_qs, 10)
     page_number = request.GET.get("page")
     pagenated = paginator.get_page(page_number)
 

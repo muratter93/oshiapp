@@ -35,7 +35,6 @@
         </thead>
         <tbody>
           {% for order in pagenated %}
-          {# キャンセル行はサブスクと同じ inactive クラスで薄く #}
           <tr class="{% if order.status == 'cancelled' %}inactive{% endif %}">
             <td>
               <a href="{% url 'dashboard:member_detail' order.member.id %}" class="member-link">
@@ -59,7 +58,6 @@
               {% elif order.status == 'cancelled' %}
                 <span class="badge badge-inactive">キャンセル</span>
               {% else %}
-                {# 未発送 #}
                 <span class="badge badge-warning">未発送</span>
               {% endif %}
             </td>
@@ -67,7 +65,7 @@
             <td class="actions">
               <div class="action-row">
                 <a href="{% url 'goods:admin_order_detail' order.id %}" class="btn btn-secondary">
-                  詳細
+                  注文詳細
                 </a>
 
               {% if order.status == 'pending' %}
@@ -97,31 +95,35 @@
     </div>
   </div>
 
-  {# === ページネーション（サブスクと同じスタイル） === #}
-  {% if pagenated.has_other_pages %}
-    <div class="pagination" style="margin-top:16px; display:flex; justify-content:center; gap:8px; align-items:center;">
+{% if pagenated.has_other_pages %}
+  {% with f=current_filter %}
+  <div class="pagination" style="margin-top:16px; display:flex; justify-content:center; gap:8px; align-items:center;">
 
-      {% if pagenated.has_previous %}
-        <a class="btn" href="?page={{ pagenated.previous_page_number }}">
-          前へ
-        </a>
-      {% else %}
-        <button class="btn btn-disabled" disabled>前へ</button>
-      {% endif %}
+    {% if pagenated.has_previous %}
+      <a class="btn"
+         href="?page={{ pagenated.previous_page_number }}{% if f %}&filter={{ f }}{% endif %}">
+        前へ
+      </a>
+    {% else %}
+      <button class="btn btn-disabled" disabled>前へ</button>
+    {% endif %}
 
-      <span class="subtle">
-        {{ pagenated.number }} / {{ pagenated.paginator.num_pages }}
-      </span>
+    <span class="subtle">
+      {{ pagenated.number }} / {{ pagenated.paginator.num_pages }}
+    </span>
 
-      {% if pagenated.has_next %}
-        <a class="btn" href="?page={{ pagenated.next_page_number }}">
-          次へ
-        </a>
-      {% else %}
-        <button class="btn btn-disabled" disabled>次へ</button>
-      {% endif %}
-    </div>
-  {% endif %}
+    {% if pagenated.has_next %}
+      <a class="btn"
+         href="?page={{ pagenated.next_page_number }}{% if f %}&filter={{ f }}{% endif %}">
+        次へ
+      </a>
+    {% else %}
+      <button class="btn btn-disabled" disabled>次へ</button>
+    {% endif %}
+  </div>
+  {% endwith %}
+{% endif %}
+
 
 </div>
 {% endblock %}

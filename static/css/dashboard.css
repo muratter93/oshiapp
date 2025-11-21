@@ -1137,3 +1137,123 @@ html, body {
     background-color: #cba200; /* 濃い黄色 */
     color: #000;
 }
+
+.admin-table td.actions .action-row {
+    display: flex;
+    flex-direction: row;         
+    justify-content: center;      
+    align-items: center;        
+    gap: 6px;
+}
+
+/* ===============================
+   支援状況テーブル（推しポイント & サブスク）
+   共通デザイン
+================================ */
+
+.support-table {
+  width: 80%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #e5e7eb;         /* 全体の薄い枠線 */
+  border-radius: 6px;                /* 角丸でカード感 */
+  overflow: hidden;                  /* 角丸が効くように */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);  /* 浮き上がり */
+}
+
+/* 見出し */
+.support-table thead th {
+  background: #f3f4f6;               /* 明るいグレー（gray-100） */
+  color: #333;
+  padding: 10px 12px;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+/* セル共通 */
+.support-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f1f1; /* 薄い下線で締める */
+  vertical-align: middle;
+}
+
+/* 偶数行ストライプ */
+.support-table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* 「支援待ちなし」 */
+.support-table .no-wait {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* 支援ボタン（青） */
+.support-table .btn-support {
+  background: #436bd8;    /* blue-700 */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+
+.support-table .btn-support:hover {
+  background: #436bd8;    /* blue-800 */
+}
+
+/* 権限なし表示 */
+.support-table .no-permission {
+  color: #999;
+}
+
+/* 縦線を追加（最後の列だけ消す） */
+.support-table th,
+.support-table td {
+  border-right: 1px solid #e5e7eb;
+}
+
+.support-table th:last-child,
+.support-table td:last-child {
+  border-right: none;
+}
+
+/* ========================================
+   支援テーブル 5列の幅統一（CSSのみで実現）
+======================================== */
+
+/* 1列目：動物園名 */
+.support-table td:nth-child(1),
+.support-table th:nth-child(1) {
+    width: 22%;
+    white-space: nowrap;
+}
+
+/* 2列目：累計支援金額（円） */
+.support-table td:nth-child(2),
+.support-table th:nth-child(2) {
+    width: 20%;
+}
+
+/* 3列目：支援待ち（円 / pt） */
+.support-table td:nth-child(3),
+.support-table th:nth-child(3) {
+    width: 22%;
+}
+
+/* 4列目：最終支援日時 */
+.support-table td:nth-child(4),
+.support-table th:nth-child(4) {
+    width: 20%;
+    white-space: nowrap;
+}
+
+/* 5列目：操作 */
+.support-table td:nth-child(5),
+.support-table th:nth-child(5) {
+    width: 14%;
+    text-align: center;
+    white-space: nowrap;
+}

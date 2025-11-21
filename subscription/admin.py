@@ -17,12 +17,20 @@ class SubMemberAdmin(admin.ModelAdmin):
         "animal",
         "plan",
         "is_recurring",  # sub -> is_recurring
-        "sign_up",       # sing_up -> sign_up
+        "is_active", 
+        "sign_up",
         "end_day",
-        "sign_mon",      # sing_mon -> sign_mon
+        "sign_mon",
     )
     list_display_links = ("sub_member_id", "member")
-    list_filter = ("is_recurring", "plan__code", "animal__japanese")  # sub -> is_recurring
+
+    list_filter = (
+        "is_recurring",
+        "is_active",  
+        "plan__code",
+        "animal__japanese",
+    )
+
     search_fields = (
         "member__username",
         "member__name",
@@ -30,10 +38,13 @@ class SubMemberAdmin(admin.ModelAdmin):
         "animal__name",
         "plan__code",
     )
+
     ordering = ("member__username", "sign_up")
+
     readonly_fields = ("sign_mon",)
+
     fieldsets = (
-        (None, {"fields": ("member", "plan", "animal", "is_recurring")}),
+        (None, {"fields": ("member", "plan", "animal", "is_recurring", "is_active")}),  # ★編集可
         ("期間情報", {"fields": ("sign_up", "end_day", "sign_mon")}),
     )
 

@@ -8,12 +8,14 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import Q
+from django.db.models import Q, Sum
+from django.db.models.functions import Coalesce
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, FormView, UpdateView
+from subscription.models import SubMember
 
 from django.utils import timezone
 from django.contrib.sessions.models import Session
@@ -60,13 +62,158 @@ def staff_or_keeper_required(view_func: Callable) -> Callable:
 
 
 # ---------------- 画面 ----------------
+
 @staff_or_keeper_required
 def admin_dashboard(request: HttpRequest) -> HttpResponse:
-    return render(request, "dashboard/dashboard.html")
+    user = request.user
+
+    # ベース：全 Zoo
+    zoo_qs = Zoo.objects.all()
+
+    # keeper は自分の動物園だけ（staff/superuser は全体）
+    if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
+        if getattr(user, "zoo_id", None):
+            zoo_qs = zoo_qs.filter(pk=user.zoo_id)
+        else:
+            zoo_qs = zoo_qs.none()
+
+    # ★ Zoo ごとの「累計動物推しポイント」だけ annotate
+    zoo_qs = zoo_qs.annotate(
+        total_point_sum=Coalesce(Sum("animals__total_point"), 0),
+    ).order_by("zoo_id")
+
+    total_points_all_zoo = 0
+    total_unpaid_points = 0
+    total_unpaid_coins = 0
+
+    total_sub_all_zoo = 0
+    total_unpaid_sub_all = 0
+
+    for zoo in zoo_qs:
+        # --- ポイント系 ---
+        total_points_all_zoo += zoo.total_point_sum
+
+        base_pt = zoo.last_paid_point_sum or 0
+        unpaid_pt = max(zoo.total_point_sum - base_pt, 0)
+        coins = unpaid_pt * 100
+
+        zoo.unpaid_points = unpaid_pt
+        zoo.unpaid_coins = coins
+
+        total_unpaid_points += unpaid_pt
+        total_unpaid_coins += coins
+
+        # --- サブスク系：ここだけ SubMember から素直に集計する ---
+        sub_agg = SubMember.objects.filter(
+            animal__zoo=zoo,
+            is_active=True,   # 今有効なサブスクだけカウント
+        ).aggregate(total=Coalesce(Sum("plan__amount"), 0))
+
+        sub_total = sub_agg["total"] or 0
+        zoo.sub_total_sum = sub_total  # 累計サブスク金額（v1）
+
+        base_sub = zoo.last_paid_sub_total or 0
+        unpaid_sub = max(sub_total - base_sub, 0)
+
+        zoo.unpaid_sub_amount = unpaid_sub  # 今回サブスク支援額（円）
+
+        zoo.sub_paid_total = zoo.last_paid_sub_total
+
+        total_sub_all_zoo += sub_total
+        total_unpaid_sub_all += unpaid_sub
+
+    context = {
+        "zoo_points": zoo_qs,
+
+        # ポイント系サマリ
+        "total_points_all_zoo": total_points_all_zoo,
+        "total_unpaid_points": total_unpaid_points,
+        "total_unpaid_coins": total_unpaid_coins,
+
+        # サブスク系サマリ
+        "total_sub_all_zoo": total_sub_all_zoo,
+        "total_unpaid_sub_all": total_unpaid_sub_all,
+    }
+    return render(request, "dashboard/dashboard.html", context)
+
 
 
 def access_denied(request: HttpRequest) -> HttpResponse:
     return render(request, "dashboard/dashboard_error.html")
+
+@require_POST
+@staff_required
+def zoo_payout(request: HttpRequest, pk: int) -> HttpResponse:
+    """
+    Zoo ごとの「未支援ポイント」を支援確定する。
+    差分ポイントを支援済みとして扱い、last_paid_point_sum / last_paid_at を更新。
+    """
+    zoo = get_object_or_404(Zoo, pk=pk)
+
+    # 現時点の累計ポイントを再集計（念のためその場で計算）
+    agg = zoo.animals.aggregate(
+        total_point_sum=Coalesce(Sum("total_point"), 0)
+    )
+    total_point_sum = agg["total_point_sum"] or 0
+
+    base = zoo.last_paid_point_sum or 0
+    unpaid_points = max(total_point_sum - base, 0)
+
+    if unpaid_points <= 0:
+        messages.info(request, f"{zoo.zoo_name} には未支援ポイントがありません。")
+        return redirect("dashboard:dashboard")
+
+    coins = unpaid_points * 100
+
+    # ここで本当は「支援履歴テーブル」にもレコードを切るのがベストだが、
+    # v1 では Zoo 側の基準値だけ更新する。
+    zoo.last_paid_point_sum = total_point_sum
+    zoo.last_paid_at = timezone.now()
+    zoo.save(update_fields=["last_paid_point_sum", "last_paid_at"])
+
+    messages.success(
+        request,
+        f"{zoo.zoo_name} に {unpaid_points:,}pt（{coins:,}コイン）分の支援を確定しました。",
+    )
+    return redirect("dashboard:dashboard")
+
+
+@require_POST
+@staff_required
+def zoo_sub_payout(request: HttpRequest, pk: int) -> HttpResponse:
+    """
+    動物園の未支援サブスク金額を支援確定する。
+    - sub_unpaid_amount → last_paid_sub_total に加算
+    - sub_unpaid_amount を 0 にリセット
+    """
+    zoo = get_object_or_404(Zoo, pk=pk)
+
+    unpaid = zoo.sub_unpaid_amount
+
+    if unpaid <= 0:
+        messages.info(request, f"{zoo.zoo_name} に未支援サブスクはありません。")
+        return redirect("dashboard:dashboard")
+
+    # ★ 累計に加算（last_paid_sub_total は累計版として再利用）
+    zoo.last_paid_sub_total += unpaid
+
+    # ★ 今回分をゼロにする（リセット）
+    zoo.sub_unpaid_amount = 0
+
+    # ★ 支援日時を更新
+    zoo.last_paid_sub_at = timezone.now()
+
+    zoo.save(update_fields=[
+        "last_paid_sub_total",
+        "sub_unpaid_amount",
+        "last_paid_sub_at"
+    ])
+
+    messages.success(
+        request,
+        f"{zoo.zoo_name} にサブスク {unpaid:,} 円の支援を確定しました！"
+    )
+    return redirect("dashboard:dashboard")
 
 
 class DashboardLoginView(LoginView):
@@ -393,6 +540,7 @@ def reactivate_member(request, pk):
 
 from animals.models import Animal, Zoo
 from django.core.paginator import Paginator
+from django.shortcuts import render
 
 @staff_or_keeper_required
 def animals_list(request):
@@ -401,13 +549,26 @@ def animals_list(request):
 
     # --- keeper専用スコープ（staff/superuser ではない）---
     if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
-
         if getattr(user, "zoo_id", None):
             qs = qs.filter(zoo_id=user.zoo_id)
         else:
             qs = qs.none()
 
-    qs = qs.order_by("-animal_id")
+    # --- フィルタ条件 ---
+    zoo_id = request.GET.get("zoo")      # ?zoo=3 みたいなやつ
+    order  = request.GET.get("order")    # ?order=point_desc など
+
+    # 動物園フィルタ
+    if zoo_id:
+        qs = qs.filter(zoo_id=zoo_id)
+
+    # 並び順
+    if order == "point_desc":
+        qs = qs.order_by("-total_point", "-animal_id")
+    elif order == "id_asc":
+        qs = qs.order_by("animal_id")                 # ← 昇順
+    else:
+        qs = qs.order_by("-animal_id")                # ← 降順（デフォルト）
 
     # --- ページネーション（10件ずつ）---
     paginator = Paginator(qs, 10)
@@ -418,11 +579,13 @@ def animals_list(request):
         request,
         "dashboard/animals_list.html",
         {
-            "animals": page_obj,   # そのままループに使える
+            "animals": page_obj,
             "page_obj": page_obj,
             "paginator": paginator,
+            "zoos": Zoo.objects.all().order_by("zoo_name"),  # ボタン用
         }
     )
+
 
 # 追加：動物登録
 @staff_or_keeper_required
