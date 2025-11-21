@@ -1,5 +1,6 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
 {{ animal.japanese }} | {{ animal.name }} | アニマルマニア
@@ -91,20 +92,29 @@
   <div class="section">
     <h2>返礼品（サンプル）</h2>
     <div class="grid">
+
+      {% for gift in gifts %}
       <div class="card">
-        <strong>1,000円/月</strong>
-        <p class="muted">プロマイド写真1枚 …など</p>
+        {% if gift.main_image %}
+          <img src="{{ gift.main_image.url }}" alt="{{ gift.title }}" class="gift-img">
+        {% endif %}
+
+        <strong>{{ gift.price|intcomma }}円 / プラン</strong>
+
+        <p class="muted">{{ gift.title }}</p>
+
+        {% if gift.description %}
+          <p>{{ gift.description }}</p>
+        {% endif %}
       </div>
-      <div class="card">
-        <strong>3,000円/月</strong>
-        <p class="muted">プロマイド写真5枚 …など</p>
-      </div>
-      <div class="card">
-        <strong>買い切り（3ヶ月）</strong>
-        <p class="muted">写真3枚お届け …など</p>
-      </div>
+      {% empty %}
+      <p class="muted">この動物園の返礼品はまだ登録されていません。</p>
+      {% endfor %}
+
     </div>
   </div>
+
+
 
   <!-- 戻るボタン -->
   <div class="back-section">
@@ -177,3 +187,12 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 {% endblock %}
+
+
+.gift-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
