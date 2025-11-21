@@ -58,21 +58,24 @@ def buy_coins(request, coins: int):
     charge_url = reverse("money:charge")
     return redirect(f"{charge_url}?done=1&coins={plan['coins']}&price={plan['price']}")
 
-# チアコ/スタポ購入履歴
+# チアコ購入履歴用
 @login_required
 def purchase_history(request):
-    # チアコ履歴
     cheer_purchases = CheerCoinPurchase.objects.filter(member=request.user).order_by('-purchased_at')
+    return render(request, 'money/purchase_history.html', {  # ←ここを purchase_history.html に
+        'cheer_purchases': cheer_purchases,
+    })
 
-    # スタポ履歴（サブスク加入履歴を新しい順で取得）
+
+# サブスク購入履歴用
+@login_required
+def purchase_history2(request):
     stanning_purchases = (
         SubMember.objects
         .filter(member=request.user)
         .select_related('plan')
         .order_by('-sign_up')
     )
-
-    return render(request, 'money/purchase_history.html', {
-        'cheer_purchases': cheer_purchases,
+    return render(request, 'money/purchase_history2.html', {
         'stanning_purchases': stanning_purchases,
     })
