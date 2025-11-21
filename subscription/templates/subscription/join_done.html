@@ -10,7 +10,7 @@ window.onload = function() {
     {% else %}
         alert("{{ animal.japanese }}を推します！\nプラン: {{ plan.plan_name }}");
     {% endif %}
-    window.location.href = "{% url 'animals:detail' animal.animal_id %}";
+    window.location.href = "{% url 'animals:animal_detail' animal.animal_id %}";
 }
 </script>
 </head>
