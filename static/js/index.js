@@ -14,34 +14,14 @@ function getCookie(name){
   return cookieValue;
 }
 
-// /* ❤️ ハートを飛ばす（.index 内に追加、position:fixed想定） */
-// function spawnHearts(button, count = 3) {
-//   const wrapper = button.closest('.index') || document.body;
-//   const rect = button.getBoundingClientRect();
-//   for (let i = 0; i < count; i++) {
-//     const el = document.createElement('span');
-//     el.className = 'heart';               // CSSは .index .heart を定義しておく
-//     el.textContent = '❤️';
-//     const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 40;
-//     const y = rect.top  + rect.height / 2;
-//     el.style.left = `${x}px`;
-//     el.style.top  = `${y}px`;
-//     wrapper.appendChild(el);
-//     setTimeout(() => el.remove(), 1000);
-//   }
-//   // キラッ
-//   button.classList.add('shine');
-//   setTimeout(() => button.classList.remove('shine'), 700);
-// }
-
 /* ❤️ ハートを飛ばす（.index 内に追加、position:fixed想定） */
 function spawnHearts(button, count = 1) {
-  const wrapper = button.closest('.index') || document.body;
+  const wrapper = button.closest('#index_mainbox_large') || document.body;
   const rect = button.getBoundingClientRect();
 
   for (let i = 0; i < count; i++) {
     const el = document.createElement('img');
-    el.className = 'heart'; // CSSは .index .heart で定義
+    el.className = 'index_heart'; // CSSは .index_heart で定義
     el.src = 'static/img/heart-cl9.png';
     el.alt = 'heart';
     
@@ -50,8 +30,8 @@ function spawnHearts(button, count = 1) {
     el.style.left = `${x}px`;
     el.style.top = `${y}px`;
 
-    // ここでサイズ指定（例：幅30px）
-    el.style.width = `${20 + Math.random() * 25}px`; // 20〜35pxくらいでランダム
+    // ここで飛ばす画像サイズ指定（例：幅30px）
+    el.style.width = `50px`;
     el.style.position = 'fixed';
     el.style.pointerEvents = 'none'; // クリックを無視
 
@@ -61,9 +41,11 @@ function spawnHearts(button, count = 1) {
   }
 
   // キラッ✨
-  button.classList.add('shine');
-  setTimeout(() => button.classList.remove('shine'), 700);
+  // button.classList.add('shine');
+  // setTimeout(() => button.classList.remove('shine'), 700);
 }
+
+
 
 
 /* カードを順番に出す（コンテナ単位） */
@@ -127,16 +109,16 @@ function setupCarousel(carousel) {
   carousel.addEventListener('mouseleave', () => { isHovering = false; stopAuto(); });
 }
 
-/* ========= 初期化（.index コンテナごとに実行） ========= */
+/* ========= 初期化（#index_mainbox_large コンテナごとに実行） ========= */
 window.addEventListener('DOMContentLoaded', () => {
-  const containers = document.querySelectorAll('.index');
+  const containers = document.querySelectorAll('#index_mainbox_large');
   if (!containers.length) return;
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   containers.forEach(container => {
     // 1) ボタン：push（いいね）
-    container.querySelectorAll('.push-btn').forEach(btn => {
+    container.querySelectorAll('#index_push-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         if (btn.disabled) return;                // 連打防止
         btn.disabled = true;
@@ -161,8 +143,8 @@ window.addEventListener('DOMContentLoaded', () => {
             if (data.total_point !== undefined) {
 
               // ① 推しポイント更新
-              const card = btn.closest('.animal-card');
-              const pointElem = card?.querySelector('.point');
+              const card = btn.closest('#index_animal_box');
+              const pointElem = card?.querySelector('#index_point');
               if (pointElem) {
                 pointElem.textContent = data.total_point;
                 pointElem.classList.add('flash');
@@ -170,7 +152,7 @@ window.addEventListener('DOMContentLoaded', () => {
               }
 
               // バッジ演出
-              const badge = card?.querySelector('.oshii-badge');
+              const badge = card?.querySelector('#index_oshii-badge');
               if (badge) {
                 badge.classList.remove('pop');
                 void badge.offsetWidth;
@@ -180,8 +162,8 @@ window.addEventListener('DOMContentLoaded', () => {
               // 💫 現在のランキング順を取得（あなたの元コードのまま）
               function getCurrentRankingOrder() {
                 const current = [];
-                document.querySelectorAll('.animal-ranking-sidebar .animal-ranking-list li').forEach(li => {
-                  const nameEl = li.querySelector('.rank-japanese');
+                document.querySelectorAll('#index_animal_ranking_sidebar #index_animal_ranking_list li').forEach(li => {
+                  const nameEl = li.querySelector('.index_rank_japanese');
                   if (nameEl) current.push(nameEl.textContent.trim());
                 });
                 return current;
@@ -220,7 +202,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
               // 💖 ランキング更新（あなたの元コードを維持）
               if (data.ranking_html) {
-                const sidebar = document.querySelector('.animal-ranking-sidebar');
+                const sidebar = document.querySelector('#index_animal_ranking_sidebar');
                 if (sidebar) {
                   const oldRanking = getCurrentRankingOrder();
                   sidebar.outerHTML = data.ranking_html;
@@ -229,9 +211,9 @@ window.addEventListener('DOMContentLoaded', () => {
                   newRanking.forEach((name, idx) => {
                     const oldIndex = oldRanking.indexOf(name);
                     if (oldIndex !== -1 && oldIndex > idx) {
-                      const newLi = document.querySelectorAll('.animal-ranking-list li')[idx];
+                      const newLi = document.querySelectorAll('#index_animal_ranking_list li')[idx];
                       if (newLi) {
-                        const nameEl = newLi.querySelector('.rank-japanese');
+                        const nameEl = newLi.querySelector('.index_rank_japanese');
                         if (nameEl) showUpEffect(nameEl);
                       }
                     }
@@ -250,10 +232,10 @@ window.addEventListener('DOMContentLoaded', () => {
               }
 
               // ③ ハート演出
-              spawnHearts(btn, 3);
+              spawnHearts(btn, 1);
 
               // ④ 画像の揺れ演出
-              const media = card?.querySelector('.animal-media');
+              const media = card?.querySelector('#index_animal_box');
               const img = media?.querySelector('img');
               if (img && media) {
                 img.classList.add('is-hoverlock');
@@ -302,7 +284,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4) 初期シャッフル（コンテナ内の全グリッド）
-    container.querySelectorAll('.animal-grid').forEach(grid => shuffleChildren(grid));
+    container.querySelectorAll('#index_mainbox').forEach(grid => shuffleChildren(grid));
 
     // 5) カルーセル初期化（コンテナ内）
     container.querySelectorAll('.carousel').forEach(setupCarousel);

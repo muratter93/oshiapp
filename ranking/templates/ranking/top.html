@@ -1,18 +1,23 @@
-<aside class="animal-ranking-sidebar">
-  <h3 class="ranking-title">HOT10</h3>
-  <ol class="animal-ranking-list">
-    {% for a in ranking %}
-      <li>
-        <span class="rank-number">{{ forloop.counter }}</span>
 
-        <div class="rank-info">
-          <a href="/animals/{{ a.animal_id }}/" class="rank-link">
-            <span class="rank-japanese">{{ a.japanese }}</span><br>
-            <span class="rank-name">{{ a.name }}</span>
+
+<aside id="index_animal_ranking_sidebar">
+  <h3 id="index_ranking_title">アニマルトップ１０</h3>
+  <ol id="index_animal_ranking_list">
+    {% for a in ranking %}
+    <p class="index_rank_number">{{ forloop.counter }}</p>
+    <hr id="index_ranking_num_underline">
+      <li>
+        <!-- <p class="index_rank_number">{{ forloop.counter }}</p> -->
+
+        <div class="index_rank_info">
+          <a class="index_rank_link_name" href="/animals/{{ a.animal_id }}/">{{ a.name|truncatechars:5 }}
+            <span id="index_animal-namegenderlang_ranking">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
           </a>
+          <p class="index_rank_japanese">{{ a.japanese }}</p>
         </div>
 
-        <div class="rank-img">
+        <div class="index_rank_img_box">
+          <a class="index_rank_link_img" href="/animals/{{ a.animal_id }}/">
             <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
           </a>
         </div>

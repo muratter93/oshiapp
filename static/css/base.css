@@ -8,6 +8,7 @@ html {
   overflow-x: hidden;
 	scroll-behavior: smooth;
   position: relative;
+  width: 100%;
 }
 
 body {
@@ -24,7 +25,7 @@ body {
 #main_body {
   margin: 0 auto;
   display:flex;
-  width: 100%;
+  /* width: 100%; */
   color: rgb(84, 62, 44);
 }
 
@@ -163,8 +164,8 @@ nav ul li a {
 /* 中央部分 */
 
 #main_center {
-  margin-left: 200px;
-  padding: 100px 40px 0px 10px;
+  margin: 0 40px 0 200px;
+  padding: 110px 0px 0px 10px;
   /* background-color: rgb(168, 168, 234); */
 }
 

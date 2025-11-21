@@ -35,18 +35,18 @@
 .yellow:after {
   position: absolute;
   top:2px;
-  left:-4px;
+  left:-15px;
   content:"";
   height:100%;
   width:100%;
   z-index:-999;
   -webkit-transform: rotate(-4deg);
      -moz-transform: rotate(0deg);
-     border-radius: 12% 42% 17% 21% / 45% 9% 33% 17%;
+     border-radius: 17% 26% 17% 21% / 26% 22% 33% 17%;
 }
 
 .yellow:after { background:#29c665; }
 
 .yellow_photo {
-    border-radius: 12% 42% 17% 21% / 45% 25% 33% 17%;
+    border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
 }

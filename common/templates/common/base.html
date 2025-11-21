@@ -59,9 +59,7 @@
             </nav>
 
             <div id="main_center">
-                <main>
-                    {% block content %}{% endblock %}
-                </main>
+                {% block content %}{% endblock %}
                 あきたあきたあきたあきたあきたあきたあきたあきたあきた
                 あきたあきたあきたあきたあきたあきたあきたあきたあきた
                                 あきたあきたあきたあきたあきたあきたあきたあきたあきた
@@ -287,7 +285,7 @@
                         <a class="hamburger_menu_content_a" href="{% url 'money:purchase_history' %}">チアコ·スタポ購入履歴</a>
                         <a class="hamburger_menu_content_a" href="{% url 'goods:order_history' %}">グッズ交換履歴</a>
                         <a class="hamburger_menu_content_a" href="{% url 'donation:donation_history' %}">寄付履歴</a>
-                        <a class="hamburger_menu_content_a" href="#">会員情報変更</a>
+                        <a class="hamburger_menu_content_a" href="{% url 'accounts:edit_profile' %}">会員情報変更</a>
                         <a class="hamburger_menu_content_a" href="{% url 'accounts:logout' %}">ログアウト</a>
                         {% else %}
                         <a class="hamburger_menu_content_a" href="{% url 'accounts:login' %}">ログイン</a>

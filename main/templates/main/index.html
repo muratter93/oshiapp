@@ -2,65 +2,90 @@
 {% load humanize %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<script src="{% static 'js/index.js' %}"></script>
 
-<div class="index">
-  <div class="index-main">
-<div class="animal-grid">
-  {% for a in animals %}
-<article class="animal-card" data-id="{{ a.animal_id }}">
-    <div class="animal-media carousel
-    {% if a.animal_id == 1 %}
-      rainbow-border
-    {% elif a.zoo and a.zoo.zoo_id == 1 %}
-      red-border
-    {% elif a.zoo and a.zoo.zoo_id == 2 %}
-      blue-border
-    {% elif a.zoo and a.zoo.zoo_id == 3 %}
-      green-border
-    {% endif %}
-  ">
-    {# 画像 #}
-    {% if a.pic1 %}<img src="{{ a.pic1.url }}" alt="{{ a.japanese }}" class="slide active">{% endif %}
-    {% if a.pic2 %}<img src="{{ a.pic2.url }}" alt="{{ a.japanese }}" class="slide">{% endif %}
-    {% if not a.pic1 and not a.pic2 %}<img src="{% static 'img/noimage-4x3.png' %}" alt="画像なし" class="slide active">{% endif %}
+{# 画像とボタン要素と文字要素の外枠&ランキング #}
+<div id="index_mainbox_large">
 
-    {# ボタン類は画像の上のまま #}
-    <span class="oshii-badge">推しP：<span class="point">{{ a.total_point }}</span></span>
-    <a class="intro-btn" href="/animals/{{ a.animal_id }}/">紹介</a>
-    {% if request.user.is_authenticated %}
-      <button class="push-btn" data-id="{{ a.animal_id }}">推し❤</button>
-    {% endif %}
+  {# 画像とボタン要素&文字要素の外枠 #}
+  <div id="index_mainbox">
 
-    {% if a.animal_id == 1 %}<span class="oshi-label">💖担当💖</span>{% endif %}
-    {% if a.pic2 %}<div class="dots"></div>{% endif %}
+    {# 画像とボタン要素&文字要素 #}
+    {% for a in animals %}
+    <div id="index_animal_box" data-id="{{ a.animal_id }}">
+
+      {# 画像とボタン要素 #}
+      <div id="index_amimal_photobutton_box">
+
+        {# 画像要素 #}
+        <div id="index_amimal_photo_box">
+          {% if a.pic1 %}<img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">{% endif %}
+          {% if not a.pic1 and not a.pic2 %}<img src="{% static 'img/noimage-4x3.png' %}" alt="画像なし" class="slide active">{% endif %}
+        </div>
+
+        {# ボタン類要素 #}
+        <div id="index_button_box">
+          <div id="index_oshii-badge">
+            <p id="index_oshii-badge_lang">❤</p>
+            <p id="index_point">{{ a.total_point }}</p>
+          </div>
+          {% if request.user.is_authenticated %}
+          <button id="index_push-btn" data-id="{{ a.animal_id }}">
+            <img src="{% static 'img/oshi_button.png' %}" alt="押しボタン" width="98px">
+          </button>
+          {% endif %}
+
+          <div id="index_intro-btn_box">
+            <a id="index_intro-btn" href="/animals/{{ a.animal_id }}/"><img src="{% static 'img/animal_detail_button.png' %}" alt="詳細ボタン" width="145px"></a>
+          </div>
+
+          {% if a.animal_id == 1 %}<img id="index_oshi-label" src="{% static 'img/tantou_button.png' %}" alt="担当ボタン" width="120px">
+          {% else %}<img id="index_oshi-label_hidden" src="{% static 'img/tantou_button.png' %}" alt="担当ボタン" width="120px">
+          {% endif %}
+          
+          {% if a.pic2 %}<div class="dots"></div>{% endif %}
+        </div>
+
+      </div>
+
+
+
+      {# 文字要素 #}
+      <div id="index_amnimal_datalang">
+        <p id="index_animal_nameagegenlang">
+          <!-- <span id="index_animal_namelang">{{ a.name|truncatechars:6 }}</span> -->
+          <a id="index_animal_namelang_a" href="/animals/{{ a.animal_id }}/"><span id="index_animal_namelang">{{ a.name|truncatechars:6 }}</span></a>
+          <span id="index_animal-namegenderlang">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+        </p>
+        <p id="index_animal_typelang">{{ a.japanese }}
+          <span id="index_animal-agelang">{% if a.age is not None %}{{ a.age }}歳{% else %}{% endif %}</span>
+          <span id="index_animal-genderlang">{% if a.sex == "M" %} ♂{% elif a.sex == "F" %} ♀{% else %}{% endif %}</span>
+        </p>
+      </div>
+
+    </div>
+    {% endfor %}
+
   </div>
 
-  {# 文字は下 #}
-  <div class="animal-body">
-    <p class="animal-title">{{ a.japanese }}</p>
-    <p class="animal-sub">
-      {{ a.name }}
-      <span class="animal-age">
-        {% if a.age %}{{ a.age }}歳{% else %}（年齢不明）{% endif %}
-        {% if a.sex == "M" %} ♂{% elif a.sex == "F" %} ♀{% else %} 不明{% endif %}
-      </span>
-    </p>
-  </div>
-</article>
-
-  {% endfor %}
-</div>
 
 
+  {# ランキング要素 #}
+  <div id="index_ranking_box">
     {% include "ranking/top.html" %}
   </div>
 
-  {% include "pages/about.html" %}
-  {% include "pages/structure.html" %}
 </div>
 
-<script src="{% static 'js/main.js' %}"></script>
+
+{% include "pages/about.html" %}
+{% include "pages/structure.html" %}
+
+
 
 {% endblock %}
