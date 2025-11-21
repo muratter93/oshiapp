@@ -12,6 +12,8 @@ class Gift(models.Model):
     title = models.CharField("返礼品タイトル", max_length=200)
     description = models.TextField("返礼品説明", blank=True)
 
+    price = models.IntegerField("プラン金額", default=0)
+
     main_image = models.ImageField(
         "メイン画像",
         upload_to="gift_images/main/",

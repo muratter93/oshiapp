@@ -16,7 +16,7 @@ class GiftImageInline(admin.TabularInline):
 # ------------------------
 @admin.register(Gift)
 class GiftAdmin(admin.ModelAdmin):
-    list_display = ("title", "zoo", "created_at")
+    list_display = ("title", "zoo", "price", "created_at")
     list_filter = ("zoo",)
     search_fields = ("title", "description")
     
@@ -24,7 +24,7 @@ class GiftAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("基本情報", {
-            "fields": ("zoo", "title", "description")
+            "fields": ("zoo", "title", "description", "price")
         }),
         ("メイン画像", {
             "fields": ("main_image",)

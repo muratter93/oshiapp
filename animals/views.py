@@ -3,10 +3,20 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import Animal
 
+from gift.models import Gift
+
 # ---- 詳細ページ ----
 def detail(request, animal_id):
     animal = get_object_or_404(Animal, animal_id=animal_id)
-    return render(request, "animals/detail.html", {"animal": animal})
+
+    gifts = Gift.objects.filter(
+        zoo=animal.zoo
+    ).order_by("price")
+
+    return render(request, "animals/detail.html", {
+        "animal": animal,
+        "gifts": gifts,
+    })
 
 
 # ---- ランキングページ ----
