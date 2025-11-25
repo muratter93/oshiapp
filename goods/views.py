@@ -179,8 +179,8 @@ def confirm_exchange(request):
 
 # ===============================
 # 詳細・履歴
-# ===============================
-@login_required
+# # ===============================
+# @login_required
 def goods_detail(request, goods_id):
     goods = get_object_or_404(Goods, pk=goods_id)
     return render(request, 'goods/goods_detail.html', {'goods': goods})
