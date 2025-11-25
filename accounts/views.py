@@ -1,15 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, get_user_model, logout as auth_logout
-from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
-from .forms import MemberUpdateForm
 from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q  # ← 追加
 from datetime import date
 from django.http import JsonResponse
 import requests
 
+from .forms import MemberUpdateForm
+from subscription.models import SubMember
 
 def login_view(request):
     if request.method == "POST":
@@ -83,6 +85,24 @@ def logout_success_view(request):
 
 class MyPageView(LoginRequiredMixin, TemplateView):
     template_name = 'accounts/mypage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        today = date.today()
+
+        # 現在加入中のサブスクを取得
+        current_subs = SubMember.objects.filter(
+            member=self.request.user,
+            is_active=True
+        ).select_related("plan", "animal")
+        
+        # 終了日が今日以降または未設定のもののみ
+        current_subs = current_subs.filter(
+            Q(end_day__gte=today) | Q(end_day__isnull=True)
+        )
+
+        context['current_subs'] = current_subs
+        return context
 
 class MemberEditView(View):
     def get(self, request):
