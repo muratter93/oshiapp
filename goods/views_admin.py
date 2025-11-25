@@ -29,7 +29,7 @@ def goods_admin_add(request):
             for img in images:
                 GoodsImage.objects.create(goods=goods, image=img)
             
-            messages.success(request, "新しいグッズを登録しました！")
+            # messages.success(request, "新しいグッズを登録しました！")
             return redirect('goods:goods_admin_add')
         else:
             messages.error(request, "入力内容にエラーがあります。")
@@ -74,7 +74,7 @@ def goods_admin_edit(request, goods_id):
             for img in images:
                 GoodsImage.objects.create(goods=goods, image=img)
 
-            messages.success(request, "グッズ情報を更新しました！")
+            # messages.success(request, "グッズ情報を更新しました！")
             return redirect('goods:goods_admin_list')
         else:
             messages.error(request, "入力内容にエラーがあります。")
