@@ -7,13 +7,13 @@
 <div class="order-history-container">
   <h2>グッズ交換履歴</h2>
 
-  {% if messages %}
+  {% comment %} {% if messages %}
     <ul class="messages">
       {% for message in messages %}
         <li class="{{ message.tags }}">{{ message }}</li>
       {% endfor %}
     </ul>
-  {% endif %}
+  {% endif %} {% endcomment %}
 
   {% if orders %}
   <table class="order-table">
