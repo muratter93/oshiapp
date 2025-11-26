@@ -1,40 +1,129 @@
-body {
-    font-size: 1.2rem;
+
+
+
+#ranking_title_box {
+    margin: 0;
+    padding: 0;
 }
-.ranking-container {
+
+
+/* ランキング外枠大箱 */
+
+#rankig_box_big_all {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #004d26;
+}
+
+/* ランキング1-3大箱 */
+#rankig_box_large_1to3 {
+  display: flex;
+  flex-wrap: nowrap;
+  background-color: #7969ac;
+  height: 400px;
+}
+
+/* ランキング1-3中箱 */
+.rank_box_middle_1to3 {
+  flex: 1;
+  background-color: #c037ab;
+  position: relative;
+  height: 400px;
+  
+}
+
+
+/* ランキング1内写真箱 */
+
+#rank_img_large_box_1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.rank_img_box_1 {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #ff0505;
+}
+
+#rank_img_1 {
+  object-position: 50% 30%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+/* ランキング1内写真以外の箱 */
+
+#rank_1_num {
+    position: absolute;
+}
+
+
+/* ランキング1-3中箱の中の2-3の小箱 */
+#rank_box_middle_2to3 {
+  display: flex;
+  flex-direction: column;
+  background-color: #dda31c;
+  height: 400px;
+}
+
+#rank_box_small_2to3 {
+    flex: 1;
+}
+
+
+/* ランキング4-6中箱 */
+#rank_box_middle_4to6 {
+  display: flex;
+}
+
+/* ランキング4-6中箱の中の小箱 */
+#rank_box_small_4to6 {
+  flex: 1;
+  background-color: #007bff;
+}
+
+/* ランキング7-10中箱 */
+#rank_box_middle_7to10 {
+  display: flex;
+}
+
+#rank_box_small_7to10 {
+    flex: 1;
+    background-color: chartreuse;
+}
+
+/* ランキング11-15と16-20中箱の中の小箱 */
+#rank_box_middle_11to15, #rank_box_middle_16to20 {
+  display: flex;
+}
+
+#rank_box_small_11to15, #rank_box_small_16to20 {
+    flex: 1;
+    background-color: yellow;
+}
+
+
+
+
+#rank_box_middle_21to {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-    margin-bottom: 50px;
 }
 
-.rank-card {
-    text-align: center;
-    font-size: 1.3rem;
-}
-.rank-card p {
-    margin: 10px 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.5em;
-}
 
-.rank-1 img {
-    width: 40vw;
-    max-width: 450px;
-    min-width: 280px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.rank-1 h2 {
-    font-size: 2.3em;
-    margin-top: 12px;
-    font-weight: bold;
-}
 
-.rank-2-3 {
+
+
+
+/* .rank-2-3 {
     display: flex;
     justify-content: center;
     gap: 40px;
@@ -47,13 +136,13 @@ body {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 10px;
-}
-.rank-2-3 h3 {
-    font-size: 1.8em;
-    margin-bottom: 8px;
-}
+} */
 
-.rank-4-6 {
+
+
+
+
+/* .rank-4-6 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -105,10 +194,10 @@ body {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 8px;
-}
+} */
 
 .pagination {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     list-style: none;
     padding: 0;

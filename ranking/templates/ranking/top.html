@@ -1,13 +1,16 @@
-
+{% load static %}
 
 <aside id="index_animal_ranking_sidebar">
-  <h3 id="index_ranking_title">アニマルトップ１０</h3>
+  <img id="index_animal_top10" src="{% static 'img/animal_top10.png' %}" alt="アニマルトップ10タイトル画像" width="224px">
   <ol id="index_animal_ranking_list">
     {% for a in ranking %}
     <p class="index_rank_number">{{ forloop.counter }}</p>
+    {% if forloop.counter == 10 %}
+    <hr id="index_ranking_num_underline_02">
+    {% else %}
     <hr id="index_ranking_num_underline">
+    {% endif %}
       <li>
-        <!-- <p class="index_rank_number">{{ forloop.counter }}</p> -->
 
         <div class="index_rank_info">
           <a class="index_rank_link_name" href="/animals/{{ a.animal_id }}/">
@@ -22,6 +25,7 @@
             <img src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
           </a>
         </div>
+        
       </li>
     {% empty %}
       <li>ランキングデータがありません。</li>

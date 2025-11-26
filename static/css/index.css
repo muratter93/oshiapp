@@ -1,4 +1,7 @@
 
+/* ーーーーーー */
+/* 動物ボックス */
+/* ーーーーーー */
 
 /* 動物ボックスランキング部分も入っている外の大枠 */
 
@@ -158,8 +161,6 @@
   left: 0;
   top: 0;
   transform: translate(-50%, -50%);
-  /* color: #ff4d6d; */
-  /* font-size: 30px; */
   animation: heart-float 3s ease-out forwards;
   pointer-events: none;
   z-index: 5;
@@ -198,12 +199,6 @@
   right: -3%;
 }
 
-
-
-
-
-
-
 /* 動物の名前等各種文字 */
 
 #index_amnimal_datalang {
@@ -216,6 +211,7 @@
   padding: 0;
 }
 
+/* 動物名 */
 #index_animal_namelang {
   font-size: 16pt;
   font-weight: 800;
@@ -241,6 +237,7 @@
   color: #b78033;
 }
 
+/* 動物名の後のさん付け */
 #index_animal-namegenderlang {
   font-size: 13pt;
   font-weight: 600;
@@ -248,6 +245,7 @@
   padding: 0;
 }
 
+/* 動物の種別名 */
 #index_animal_typelang {
   margin: -3px 0 10px 0;
   padding: 0;
@@ -255,37 +253,38 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
+/* ーーーーーーーーー */
 /* ランキングボックス */
+/* ーーーーーーーーー */
+
+/* ランキングボックス大枠 */
 
 #index_ranking_box {
   position: relative;
-  width: 225px;
-  padding: 20px 20px 0 20px;
-  margin-left: -5px;
+  width: 265px;
+  padding: 0;
   /* background-color: brown; */
+}
+
+#index_animal_top10 {
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
 
 /* 右ランキング内※インクルード物 */
 
+/* ランキングボックス内側 */
 #index_animal_ranking_sidebar {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   width: 225px;
   padding: 20px 20px 20px 20px;
   background-image: url("/static/img/rankingu_back.jpg");
   background-size: cover;
-  border-radius: 11% 8% 10% 7% / 11% 13% 6% 17%;
+  border-radius: 18% 13% 10% 7% / 3% 6% 6% 17%;
+  /* 追従 */
+  position: sticky;
 }
 
 /* ランキング内タイトル文字 */
@@ -307,10 +306,6 @@
   padding: 15px 0 0 0;
 }
 
-/* #index_animal_ranking_list li:last-child { 
-  border-bottom: none; 
-} */
-
 /* ランキングナンバー */
 .index_rank_number {
   font-weight: 900;
@@ -323,12 +318,17 @@
 /* ランキングナンバーの横の線 */
 #index_ranking_num_underline {
   border: none;
-  margin: 0 60px 0 41px;
+  margin: 0 60px 0 32px;
   padding: 0;
   border-top: 1.5px solid rgb(84, 62, 44);
 }
 
-
+#index_ranking_num_underline_02 {
+  border: none;
+  margin: 0 60px 0 55px;
+  padding: 0;
+  border-top: 1.5px solid rgb(84, 62, 44);
+}
 
 /* ランキング内名前と動物名要素 */
 .index_rank_info {
