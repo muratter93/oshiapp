@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     };
 
+    
     // Intersection Observer のインスタンスを作成
     const observer = new IntersectionObserver(observerCallback, options);
 
