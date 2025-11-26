@@ -16,7 +16,7 @@
     <tr>
       <th>動物園名</th>
       <th>累計支援金額（円）</th>
-      <th>支援待ち（円 / pt）</th>
+      <th>支援待ち（円 / 推しpt）</th>
       <th>最終支援日時</th>
       <th>操作</th>
     </tr>
@@ -24,7 +24,7 @@
   <tbody>
     {% for zoo in zoo_points %}
     <tr>
-      <td>{{ zoo.zoo_name }}</td>
+      <td class="zoo-name"><span class="zoo-mark">{{ zoo.zoo_name }}</span></td>
 
       <!-- 累計支援金額 -->
       <td>{{ zoo.total_donated_amount|intcomma }} 円</td>
@@ -91,7 +91,7 @@
   <tbody>
     {% for zoo in zoo_points %}
     <tr>
-      <td>{{ zoo.zoo_name }}</td>
+      <td class="zoo-name"><span class="zoo-mark">{{ zoo.zoo_name }}</span></td>
 
       <!-- 累計（確定済みサブスク支援額） -->
       <td>{{ zoo.sub_paid_total|default:0|intcomma }} 円</td>

@@ -95,7 +95,7 @@ def admin_dashboard(request: HttpRequest) -> HttpResponse:
 
         base_pt = zoo.last_paid_point_sum or 0
         unpaid_pt = max(zoo.total_point_sum - base_pt, 0)
-        coins = unpaid_pt * 100
+        coins = unpaid_pt * 80
 
         zoo.unpaid_points = unpaid_pt
         zoo.unpaid_coins = coins

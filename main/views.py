@@ -4,21 +4,33 @@ from django.db import transaction
 from animals.models import Animal
 from money.models import Wallet
 
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.db import transaction
+from animals.models import Animal
+from money.models import Wallet
+
 def index(request):
     animals = Animal.objects.filter(animal_id__lte=100, is_active=True)
-
     ranking = Animal.objects.filter(is_active=True).order_by('-total_point')[:10]
 
     wallet = None
+    subscribed_animal_ids = set()
     if request.user.is_authenticated:
         wallet = Wallet.objects.filter(member=request.user).first()
+
+        subscribed_animal_ids = set(
+            request.user.subscription
+                .filter(is_active=True)
+                .values_list("animal_id", flat=True)
+        )
 
     return render(request, "main/index.html", {
         "animals": animals,
         "ranking": ranking,
         "wallet": wallet,
+        "subscribed_animal_ids": subscribed_animal_ids,
     })
-
 
 @transaction.atomic
 def like(request, pk):

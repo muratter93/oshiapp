@@ -44,8 +44,8 @@
             <a id="index_intro-btn" href="/animals/{{ a.animal_id }}/"><img src="{% static 'img/animal_detail_button.png' %}" alt="詳細ボタン" width="145px"></a>
           </div>
 
-          {% if a.animal_id == 1 %}<img id="index_oshi-label" src="{% static 'img/tantou_button.png' %}" alt="担当ボタン" width="120px">
-          {% else %}<img id="index_oshi-label_hidden" src="{% static 'img/tantou_button.png' %}" alt="担当ボタン" width="120px">
+          {% if a.animal_id in subscribed_animal_ids %}
+            <img id="index_oshi-label" src="{% static 'img/tantou_button.png' %}" alt="担当ボタン" width="120px">
           {% endif %}
           
           <!-- {% if a.pic2 %}<div class="dots"></div>{% endif %} -->

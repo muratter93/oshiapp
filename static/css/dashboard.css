@@ -1201,7 +1201,7 @@ html, body {
 }
 
 .support-table .btn-support:hover {
-  background: #436bd8;    /* blue-800 */
+  background: #1745c3;    /* blue-800 */
 }
 
 /* 権限なし表示 */
@@ -1256,4 +1256,29 @@ html, body {
     width: 14%;
     text-align: center;
     white-space: nowrap;
+}
+
+/* ===============================
+   動物園名：蛍光ペン風ライン（赤・青・緑）
+================================ */
+
+/* 蛍光ライン（テキストに直接背景） */
+.support-table td.zoo-name .zoo-mark {
+  padding: 0 2px;    
+  border-radius: 2px;   
+}
+
+/* 1：赤 */
+.support-table tbody tr:nth-child(3n+1) td.zoo-name .zoo-mark {
+  background: linear-gradient(transparent 60%, #c6ffd2 60%);
+}
+
+/* 2：青 */
+.support-table tbody tr:nth-child(3n+2) td.zoo-name .zoo-mark {
+  background: linear-gradient(transparent 60%, #ffaeae 60%);
+}
+
+/* 3：緑 */
+.support-table tbody tr:nth-child(3n+3) td.zoo-name .zoo-mark {
+  background: linear-gradient(transparent 60%, #fefeac 60%);
 }
