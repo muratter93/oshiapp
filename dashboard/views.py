@@ -171,10 +171,10 @@ def zoo_payout(request: HttpRequest, pk: int) -> HttpResponse:
     zoo.last_paid_at = timezone.now()
     zoo.save(update_fields=["last_paid_point_sum", "last_paid_at"])
 
-    messages.success(
-        request,
-        f"{zoo.zoo_name} に {unpaid_points:,}pt（{coins:,}コイン）分の支援を確定しました。",
-    )
+    # messages.success(
+    #     request,
+    #     f"{zoo.zoo_name} に {unpaid_points:,}pt（{coins:,}コイン）分の支援を確定しました。",
+    # )
     return redirect("dashboard:dashboard")
 
 
@@ -209,10 +209,10 @@ def zoo_sub_payout(request: HttpRequest, pk: int) -> HttpResponse:
         "last_paid_sub_at"
     ])
 
-    messages.success(
-        request,
-        f"{zoo.zoo_name} にサブスク {unpaid:,} 円の支援を確定しました！"
-    )
+    # messages.success(
+    #     request,
+    #     f"{zoo.zoo_name} にサブスク {unpaid:,} 円の支援を確定しました！"
+    # )
     return redirect("dashboard:dashboard")
 
 
@@ -437,7 +437,7 @@ def keeper_create(request):
         form = KeeperCreateForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, f"飼育員ユーザー「{user.username}」を作成しました。")
+            # messages.success(request, f"飼育員ユーザー「{user.username}」を作成しました。")
             return redirect("dashboard:admins_list")
     else:
         form = KeeperCreateForm()
@@ -460,7 +460,7 @@ class StaffUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         resp = super().form_valid(form)
-        messages.success(self.request, f"「{self.object.username}」の情報を更新しました。")
+        # messages.success(self.request, f"「{self.object.username}」の情報を更新しました。")
         return resp
 
 
@@ -511,7 +511,7 @@ class KeeperUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return u.is_superuser or u.is_staff
 
     def form_valid(self, form):
-        messages.success(self.request, f"飼育員「{self.object.username}」の情報を更新しました。")
+        # messages.success(self.request, f"飼育員「{self.object.username}」の情報を更新しました。")
         return super().form_valid(form)
 
 
@@ -523,7 +523,7 @@ def withdraw_member(request, pk):
     user = get_object_or_404(User, pk=pk)
     user.is_active = False
     user.save()
-    messages.warning(request, f"{user.username} を退会処理しました。")
+    # messages.warning(request, f"{user.username} を退会処理しました。")
     return redirect("dashboard:member_list")
 
 
@@ -534,7 +534,7 @@ def reactivate_member(request, pk):
     user = get_object_or_404(User, pk=pk)
     user.is_active = True
     user.save()
-    messages.success(request, f"{user.username} を再開しました。")
+    # messages.success(request, f"{user.username} を再開しました。")
     return redirect("dashboard:member_list")
 
 
@@ -602,7 +602,7 @@ def animal_create(request):
             animal.zoo = request.user.zoo
 
         animal.save()
-        messages.success(request, f"「{animal.japanese}（{animal.name}）」を登録しました。")
+        # messages.success(request, f"「{animal.japanese}（{animal.name}）」を登録しました。")
         return redirect("dashboard:animals_list")
 
     return render(request, "dashboard/animal_create.html", {"form": form, "mode": "create"})
@@ -627,7 +627,7 @@ def animal_edit(request, pk: int):
             obj.zoo = request.user.zoo
 
         obj.save()
-        messages.success(request, "動物情報を更新しました。")
+        # messages.success(request, "動物情報を更新しました。")
         return redirect("dashboard:animals_list")
 
     return render(
@@ -641,11 +641,11 @@ def animal_edit(request, pk: int):
 def animal_withdraw(request, pk: int):
     animal = get_object_or_404(Animal, pk=pk)
     if not animal.is_active:
-        messages.info(request, f"「{animal.japanese}（{animal.name}）」は既に休止中です。")
+        # messages.info(request, f"「{animal.japanese}（{animal.name}）」は既に休止中です。")
         return redirect("dashboard:animals_list")
     animal.is_active = False
     animal.save(update_fields=["is_active"])
-    messages.warning(request, f"「{animal.japanese}（{animal.name}）」を休止にしました。")
+    # messages.warning(request, f"「{animal.japanese}（{animal.name}）」を休止にしました。")
     return redirect("dashboard:animals_list")
 
 @require_POST
@@ -653,11 +653,11 @@ def animal_withdraw(request, pk: int):
 def animal_reactivate(request, pk: int):
     animal = get_object_or_404(Animal, pk=pk)
     if animal.is_active:
-        messages.info(request, f"「{animal.japanese}（{animal.name}）」は既に有効です。")
+        # messages.info(request, f"「{animal.japanese}（{animal.name}）」は既に有効です。")
         return redirect("dashboard:animals_list")
     animal.is_active = True
     animal.save(update_fields=["is_active"])
-    messages.success(request, f"「{animal.japanese}（{animal.name}）」を再開しました。")
+    # messages.success(request, f"「{animal.japanese}（{animal.name}）」を再開しました。")
     return redirect("dashboard:animals_list")
 
 
@@ -790,7 +790,7 @@ def gift_create(request: HttpRequest) -> HttpResponse:
             gift.zoo = request.user.zoo
 
         gift.save()
-        messages.success(request, f"返礼品「{gift.title}」を登録しました。")
+        # messages.success(request, f"返礼品「{gift.title}」を登録しました。")
         return redirect("dashboard:gift_list")
 
     return render(
@@ -820,7 +820,7 @@ def gift_edit(request: HttpRequest, pk: int) -> HttpResponse:
             obj.zoo = request.user.zoo
 
         obj.save()
-        messages.success(request, f"返礼品「{obj.title}」の情報を更新しました。")
+        # messages.success(request, f"返礼品「{obj.title}」の情報を更新しました。")
         return redirect("dashboard:gift_list")
 
     return render(
@@ -837,7 +837,7 @@ def gift_delete(request: HttpRequest, pk: int) -> HttpResponse:
     gift = get_object_or_404(Gift, pk=pk)
     title = gift.title
     gift.delete()
-    messages.error(request, f"返礼品「{title}」を削除しました。")
+    # messages.error(request, f"返礼品「{title}」を削除しました。")
     return redirect("dashboard:gift_list")
 
 # サブスク会員詳細ページに
