@@ -39,7 +39,7 @@
                     {% endif %}
 
                     {% if '/animals' not in request.path %}
-                    <li><a href="#"><span class="nav_ul_li_a_01">動物たちの様子を見る</span></a></li>
+                    <li><a href="{% url 'pages:look' %}">動物たちの様子を見る</a></li>
                     {% endif %}
 
                     <li><a href="{% url 'main:index' %}#structure_mainbox">チアコとスタポのしくみ</a></li>

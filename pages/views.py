@@ -5,3 +5,6 @@ def about_in(request):
 
 def structure(request):
     return render(request, "pages/structure.html")
+
+def look(request):
+    return render(request, "pages/look.html")
