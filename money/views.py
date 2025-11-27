@@ -62,7 +62,7 @@ def buy_coins(request, coins: int):
 @login_required
 def purchase_history(request):
     cheer_purchases = CheerCoinPurchase.objects.filter(member=request.user).order_by('-purchased_at')
-    return render(request, 'money/purchase_history.html', {  # ←ここを purchase_history.html に
+    return render(request, 'money/purchase_history.html', {  
         'cheer_purchases': cheer_purchases,
     })
 

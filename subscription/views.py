@@ -152,10 +152,10 @@ def cancel_subscription(request, sub_member_id):
         sub.is_active = False
         sub.save(update_fields=["is_active"])
         # 完了画面ではなく履歴ページに戻す
-        return redirect("money:purchase_history")
+        return redirect("money:purchase_history2")
 
     # GETで来た場合は、とりあえず履歴に戻す
-    return redirect("money:purchase_history")
+    return redirect("money:purchase_history2")
 
 
 @login_required

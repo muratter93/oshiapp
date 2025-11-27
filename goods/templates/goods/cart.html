@@ -5,52 +5,12 @@
 
 {% block extra_head %}
 <style>
-/* 中央部分の余白 */
-#main_center {
-    padding-top: 100px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
+/* カートテーブル等のCSSは省略（今のままでOK） */
 
-/* カートテーブル */
-.cart-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.cart-table th, .cart-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-/* 操作リンク */
-.cart-table a {
-    margin: 0 5px;
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-}
-
-.cart-table a:hover {
-    text-decoration: underline;
-}
-
-/* 交換手続きボタン */
-.checkout-link {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-}
-
-.checkout-link:hover {
-    background-color: #0056b3;
-}
+.checkout-link { ... }
+/* 認証モーダル */
+#authModal { ... }
+#authModal .modal_content { ... }
 </style>
 {% endblock %}
 
@@ -73,18 +33,31 @@
         <th>必要スタポ</th>
         <th>操作</th>
     </tr>
-    {% for item in cart_items %}
-    <tr>
-        <td>{{ item.goods.name }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.get_required_stanning_points }}</td>
-        <td>
-            <a href="{% url 'goods:cart_item_increase' item.id %}">＋</a>
-            <a href="{% url 'goods:cart_item_decrease' item.id %}">－</a>
-            <a href="{% url 'goods:cart_item_remove' item.id %}">削除</a>
-        </td>
-    </tr>
-    {% endfor %}
+    {% if user.is_authenticated %}
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.goods.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.get_required_stanning_points }}</td>
+            <td>
+                <a href="{% url 'goods:cart_item_increase' item.id %}">＋</a>
+                <a href="{% url 'goods:cart_item_decrease' item.id %}">－</a>
+                <a href="{% url 'goods:cart_item_remove' item.id %}">削除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        {% for goods_id, data in cart_items.items %}
+        <tr>
+            <td>{{ data.goods.name }}</td>
+            <td>{{ data.quantity }}</td>
+            <td>{{ data.get_required_stanning_points }}</td>
+            <td><a href="{% url 'goods:cart_item_increase' goods_id %}">＋</a>
+        <a href="{% url 'goods:cart_item_decrease' goods_id %}">－</a>
+        <a href="{% url 'goods:cart_item_remove' goods_id %}">削除</a></td>
+        </tr>
+        {% endfor %}
+    {% endif %}
     <tr>
         <td colspan="2"><strong>合計スタポ</strong></td>
         <td>{{ total_stanning }}</td>
@@ -94,9 +67,54 @@
 
 <a href="{% url 'goods:checkout' %}" class="checkout-link">交換手続きへ</a>
 <a href="{% url 'goods:goods_list' %}" class="btn">グッズページへ戻る</a>
-
 {% else %}
 <p>買い物かごは空です。</p>
 <a href="{% url 'goods:goods_list' %}" class="btn">グッズページへ戻る</a>
 {% endif %}
+
+<!-- 認証誘導モーダル -->
+<div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
+  <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px; text-align:center;">
+    <h3>ログインが必要です</h3>
+    <p>交換手続きを行うにはログインしてください。</p>
+    <div style="text-align:right;">
+      <button id="authCancelBtn">キャンセル</button>
+      <a href="{% url 'accounts:signup' %}?next={% url 'goods:cart_view' %}"
+         style="background:#6b7280;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">新規登録</a>
+      <a href="{% url 'accounts:login' %}?next={% url 'goods:cart_view' %}"
+         style="background:#2563eb;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">ログイン</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const checkoutBtn = document.querySelector(".checkout-link");
+  const authModal = document.getElementById("authModal");
+  const cancelBtn = document.getElementById("authCancelBtn");
+  const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", (e) => {
+      if (!isAuthenticated) {
+        e.preventDefault();
+        authModal.style.display = "block";
+      }
+    });
+  }
+
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", () => {
+      authModal.style.display = "none";
+    });
+  }
+
+  window.addEventListener("click", (e) => {
+    if (e.target === authModal) authModal.style.display = "none";
+  });
+});
+</script>
+
+
 {% endblock %}

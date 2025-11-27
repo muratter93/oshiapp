@@ -1,4 +1,3 @@
-# goods/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -8,83 +7,138 @@ from django.core.paginator import Paginator
 from .models import Goods, CartItem, Order, OrderItem
 from money.models import Wallet
 
-# ===============================
+# ===================================
 # グッズ一覧ページ
-# ===============================
-
+# ===================================
 def goods_list(request):
     goods_list = Goods.objects.all()
-
     cart_items = []
-    total_quantity = 0
     total_stanning = 0
 
-    #  ログインしている時だけカート情報を取得
     if request.user.is_authenticated:
         cart_items = CartItem.objects.filter(member=request.user)
-        total_quantity = sum(item.quantity for item in cart_items)
         total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
+    else:
+        session_cart = request.session.get("cart", {})
+        goods_dict = Goods.objects.filter(id__in=session_cart.keys())
+        cart_items_dict = {}
+        cart_items_list = []
+
+        for g in goods_dict:
+            qty = session_cart.get(str(g.id), 0)
+            cart_items_dict[str(g.id)] = {
+                "name": g.name,
+                "required_stanning_points": g.required_stanning_points,
+                "quantity": qty
+            }
+            total_stanning += g.required_stanning_points * qty
+
+        cart_items = cart_items_dict
 
     return render(request, 'goods/goods_list.html', {
-        'goods_list': goods_list,
-        'cart_items': cart_items,
-        'total_quantity': total_quantity,
-        'total_stanning': total_stanning,
+        "goods_list": goods_list,
+        "cart_items": cart_items,
+        "total_stanning": total_stanning
     })
 
 
-
-# ===============================
-# カート関連
-# ===============================
-@login_required
+# ===================================
+# カート追加
+# ===================================
 def add_to_cart(request, goods_id):
     goods = get_object_or_404(Goods, id=goods_id)
-    cart_item, created = CartItem.objects.get_or_create(
-        member=request.user,
-        goods=goods,
-        defaults={'quantity': 1}
-    )
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
+    if request.user.is_authenticated:
+        cart_item, created = CartItem.objects.get_or_create(
+            member=request.user,
+            goods=goods,
+            defaults={'quantity': 1}
+        )
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+    else:
+        cart = request.session.get("cart", {})
+        cart[str(goods.id)] = cart.get(str(goods.id), 0) + 1
+        request.session["cart"] = cart
+        request.session.modified = True
     return redirect('goods:goods_list')
 
 
-@login_required
+# ===================================
+# カート操作
+# ===================================
 def cart_item_increase(request, item_id):
-    item = get_object_or_404(CartItem, id=item_id, member=request.user)
-    item.quantity += 1
-    item.save()
-    return redirect('goods:cart_view')
-
-
-@login_required
-def cart_item_decrease(request, item_id):
-    item = get_object_or_404(CartItem, id=item_id, member=request.user)
-    if item.quantity > 1:
-        item.quantity -= 1
+    if request.user.is_authenticated:
+        item = get_object_or_404(CartItem, id=item_id, member=request.user)
+        item.quantity += 1
         item.save()
     else:
-        item.delete()
+        cart = request.session.get("cart", {})
+        cart[str(item_id)] = cart.get(str(item_id), 0) + 1
+        request.session["cart"] = cart
+        request.session.modified = True
     return redirect('goods:cart_view')
 
 
-@login_required
+def cart_item_decrease(request, item_id):
+    if request.user.is_authenticated:
+        item = get_object_or_404(CartItem, id=item_id, member=request.user)
+        if item.quantity > 1:
+            item.quantity -= 1
+            item.save()
+        else:
+            item.delete()
+    else:
+        cart = request.session.get("cart", {})
+        if str(item_id) in cart:
+            if cart[str(item_id)] > 1:
+                cart[str(item_id)] -= 1
+            else:
+                del cart[str(item_id)]
+            request.session["cart"] = cart
+            request.session.modified = True
+    return redirect('goods:cart_view')
+
+
 def cart_item_remove(request, item_id):
-    item = get_object_or_404(CartItem, id=item_id, member=request.user)
-    item.delete()
+    if request.user.is_authenticated:
+        item = get_object_or_404(CartItem, id=item_id, member=request.user)
+        item.delete()
+    else:
+        cart = request.session.get("cart", {})
+        cart.pop(str(item_id), None)
+        request.session["cart"] = cart
+        request.session.modified = True
     return redirect('goods:cart_view')
 
 
-@login_required
+# ===================================
+# カート表示
+# ===================================
 def cart_view(request):
-    cart_items = CartItem.objects.filter(member=request.user)
-    total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
-    return render(request, 'goods/cart.html', {
-        'cart_items': cart_items,
-        'total_stanning': total_stanning
+    if request.user.is_authenticated:
+        cart_items = CartItem.objects.filter(member=request.user)
+        total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
+    else:
+        session_cart = request.session.get("cart", {})
+        goods_dict = Goods.objects.filter(id__in=session_cart.keys())
+        cart_items = {}
+        total_stanning = 0
+        for g in goods_dict:
+            qty = session_cart.get(str(g.id), 0)
+            cart_items[str(g.id)] = {
+                "goods": g,
+                "quantity": qty,
+                "get_required_stanning_points": g.required_stanning_points * qty
+            }
+            total_stanning += g.required_stanning_points * qty
+
+    return render(request, "goods/cart.html", {
+        "cart_items": cart_items,
+        "total_stanning": total_stanning
     })
+
+
 
 
 # ===============================
