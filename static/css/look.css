@@ -1,0 +1,15 @@
+.live-box {
+    margin-bottom: 40px;
+}
+
+.yt-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: #006633;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.yt-link:hover {
+    text-decoration: underline;
+}
