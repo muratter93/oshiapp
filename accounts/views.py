@@ -1,17 +1,29 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login, get_user_model, logout as auth_logout
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
-from django.views import View
-from django.contrib.auth.decorators import login_required
-from django.db.models import Q  # ← 追加
+# Django標準
 from datetime import date
-from django.http import JsonResponse
 import requests
 
-from .forms import MemberUpdateForm
+# HTTP関連
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+
+# URL・ビュー関連
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import TemplateView, FormView
+
+# 認証関連
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout, get_user_model, update_session_auth_hash
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordResetView, PasswordChangeView
+
+# モデル・ORM関連
+from django.db.models import Q
 from subscription.models import SubMember
+
+# 自作フォーム
+from .forms import MemberUpdateForm
+
 
 def login_view(request):
     if request.method == "POST":
@@ -23,7 +35,7 @@ def login_view(request):
             auth_login(request, user)
             return redirect("accounts:login_success")  # ← ここを変更！
         else:
-            messages.error(request, "メールアドレス／IDまたはパスワードが間違っています。")
+            messages.error(request, "IDまたはパスワードが間違っています。")
     return render(request, "accounts/login.html")
 
 
@@ -167,3 +179,25 @@ def ajax_get_address(request):
             return JsonResponse({'address': ''})
     except Exception:
         return JsonResponse({'address': ''})
+
+Member = get_user_model()
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'accounts/password_reset_form.html'
+    email_template_name = 'accounts/password_reset_email.html'
+    subject_template_name = 'accounts/password_reset_subject.txt'
+    success_url = reverse_lazy('accounts:password_reset_done')
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+
+        # ✅ メールアドレス存在チェック（formエラーとして追加）
+        if not Member.objects.filter(email=email).exists():
+            form.add_error("email", "このメールアドレスは登録されていません。")
+            return self.form_invalid(form)   # ✅ 画面遷移しない
+
+        return super().form_valid(form)
+
+class MemberPasswordChangeView(PasswordChangeView):
+    template_name = 'accounts/password_change.html'  # 作ったHTML
+    success_url = reverse_lazy('accounts:password_change_done')  # 完了画面のURL

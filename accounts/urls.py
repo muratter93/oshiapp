@@ -1,7 +1,9 @@
 from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from . import views
-from .forms import CustomSetPasswordForm
+from .views import CustomPasswordResetView, MemberPasswordChangeView
+from django.views.generic import TemplateView
+
 
 app_name = "accounts"
 
@@ -15,13 +17,10 @@ urlpatterns = [
     # パスワードリセット
     path(
         'member_password_reset/',
-        auth_views.PasswordResetView.as_view(
-            template_name='accounts/password_reset_form.html',
-            email_template_name='accounts/password_reset_email.html',
-            success_url=reverse_lazy('accounts:password_reset_done')
-        ),
+        CustomPasswordResetView.as_view(),
         name='password_reset'
     ),
+
 
     # メール送信完了ページ
     path(
@@ -38,22 +37,21 @@ urlpatterns = [
         auth_views.PasswordResetConfirmView.as_view(
             template_name='accounts/password_reset_confirm.html',
             success_url=reverse_lazy('accounts:password_reset_complete'),
-            form_class=CustomSetPasswordForm  # ← ここでカスタムフォームを指定
         ),
         name='password_reset_confirm'
     ),
 
     # パスワード再設定完了ページ
-    path(
-        'member_reset/complete/',
-        auth_views.PasswordResetCompleteView.as_view(
-            template_name='accounts/password_reset_complete.html'
-        ),
-        name='password_reset_complete'
-    ),
-
+    path('member_reset/complete/',auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'),name='password_reset_complete'),
     path('mypage/', views.MyPageView.as_view(), name='mypage'),
     path('edit/', views.MemberEditView.as_view(), name='edit_profile'),
     path('edit/confirm/', views.MemberEditConfirmView.as_view(), name='edit_profile_confirm'),
     path('ajax/get_address/', views.ajax_get_address, name='ajax_get_address'),
+    path('password_change/', MemberPasswordChangeView.as_view(), name='password_change'),
+    
+    # 完了画面
+    path('password_change/done/', TemplateView.as_view(
+        template_name='accounts/password_change_done.html'
+    ), name='password_change_done'),
+
 ]

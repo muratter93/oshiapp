@@ -135,3 +135,12 @@ html, body {
 .signup-button:hover {
     background-color: #2db3d8;
 }
+
+/* Djangoフォームのエラーメッセージを赤くする */
+.errorlist {
+    color: red;
+    margin: 5px 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px;
+}
