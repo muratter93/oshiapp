@@ -34,3 +34,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // フッターを監視対象として設定
     observer.observe(siteFooter);
 });
+
+

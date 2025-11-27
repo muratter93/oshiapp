@@ -12,34 +12,30 @@
 
 {% block content %}
 
-<div id="ranking_title_box">
-    <img id="ranking_title_image" src="{% static 'img/ranking_title.png' %}" alt="動物ランキングタイトル画像" width="300px">
-
-    {% if not is_page_1 %}
-        <h2 style="font-size: 1.5em; margin-bottom: 20px;">
-            {{ actual_page_num }}ページ目 ({{ start_rank }}位 〜)
-        </h2>
-    {% endif %}
-
-</div>
-
 <div id="rankig_box_big_all">
 
 {% if is_page_1 %}
 
     <div id="rankig_box_large_1to3">
-        <div class="rank_box_middle_1to3">
+        <div id="rank_box_middle_1to3_01">
             {# ======= 第1位 ======= #}
             {% with a=animals.0 %}
             {% if a %}
-            <h2 id="rank_1_num">第1位</h1>
 
-            <div class="rank_img_large_box_1">
-                <div class="rank_img_box_1">
+            <div id="rank_title_box">
+                <img id="rank_title" src="{% static 'img/rank_title.jpg' %}" alt="rank_title">
+            </div>
+
+            <div id="rank_img_large_box_1">
+                <div id="rank_img_box_1">
                     <a href="/animals/{{ a.animal_id }}/">
-                        <img id="rank_img_1" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
+                        <img id="rank_img_1" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
                     </a>
                 </div>
+            </div>
+
+            <div id="rank_1_num">
+                <img id="rank_1_num_img" src="{% static 'img/rank_1_white.jpg' %}" alt="rank_1_num_img">
             </div>
 
             <p id="rank_1_animalname">{{ a.name }}</p>
@@ -51,25 +47,64 @@
         </div>
 
 
-        <div class="rank_box_middle_1to3">
+        <div id="rank_box_middle_1to3_02">
 
             <div id="rank_box_middle_2to3">
-                {# ======= 第2～3位 ======= #}
-                {% for a in animals|slice:"1:3" %}
-                <div class="rank_box_small_2to3">
+                {# ======= 第2位 ======= #}
+                {% with a=animals.1 %}
+                {% if a %}
+                <div id="rank_box_small_2">
 
-                    <h2 id="rank_2to3_num">第{{ forloop.counter|add:1 }}位</h2>
+                    <div id="rank_img_large_box_2">
+                        <div id="rank_img_box_2">
+                            <a href="/animals/{{ a.animal_id }}/">
+                                <img id="rank_img_2" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                            </a>
+                        </div>
+                    </div>
 
-                    <a href="/animals/{{ a.animal_id }}/">
-                        <img id="rank_img_2to3" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
-                    </a>
+                    {% if a.zoo_id == zoo1 %}
+                    <div id="rank_2_num">
+                        <img id="rank_2_num_img" src="{% static 'img/rank_2_white.jpg' %}" alt="rank_2_num_img">
+                    </div>
+                    {% elif a.zoo_id == zoo2 %}
+                    {% elif a.zoo_id == zoo3 %}
+                    {% endif %}
 
-                    <p id="rank_2to3_animalname">{{ a.name }}</p>
-                    <p id="rank_2to3_animaltype">{{ a.japanese }}</p>
-                    <p id="rank_2to3_pointlang">推しP{{ a.total_point }}</p>
+
+
+                    <p id="rank_2_animalname">{{ a.name }}</p>
+                    <p id="rank_2_animaltype">{{ a.japanese }}</p>
+                    <p id="rank_2_pointlang">推しP{{ a.total_point }}</p>
 
                 </div>
-                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                {# ======= 第3位 ======= #}
+                {% with a=animals.2 %}
+                {% if a %}
+                <div id="rank_box_small_3">
+
+                    <div id="rank_img_large_box_3">
+                        <div id="rank_img_box_3">
+                            <a href="/animals/{{ a.animal_id }}/">
+                                <img id="rank_img_3" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="rank_3_num">
+                        <img id="rank_3_num_img" src="{% static 'img/rank_3_white.jpg' %}" alt="rank_3_num_img">
+                    </div>
+
+                    <p id="rank_3_animalname">{{ a.name }}</p>
+                    <p id="rank_3_animaltype">{{ a.japanese }}</p>
+                    <p id="rank_3_pointlang">推しP{{ a.total_point }}</p>
+
+                </div>
+                {% endif %}
+                {% endwith %}
             </div>
 
         </div>
