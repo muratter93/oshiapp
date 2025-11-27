@@ -269,7 +269,7 @@
                         {% endif %}
 
                         {% if '/animals' not in request.path %}
-                        <a class="hamburger_menu_content_a" href="#">動物たちの様子を見る</a>
+                        <a class="hamburger_menu_content_a" href="{% url 'pages:look' %}">動物たちの様子を見る</a>
                         {% endif %}
 
                         <a class="hamburger_menu_content_a" href="{% url 'main:index' %}#structure_mainbox"><span>チアコとスタポのしくみ</span></a>
@@ -352,7 +352,7 @@
                         {% endif %}
 
                         {% if '/animals' not in request.path %}
-                        <li><a href="#">動物たちの様子を見る</a></li>
+                        <li><a href="{% url 'pages:look' %}">動物たちの様子を見る</a></li>
                         {% endif %}
                     </ul>
                     <ul>
