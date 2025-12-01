@@ -1,0 +1,257 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block title %}アクセス{% endblock %}
+
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+
+<h1>アクセス</h1>
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<style>
+  #map {
+    height: 65vh;
+    width: 100%; 
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.12);
+    z-index: -1;
+    position: relative; 
+    }
+
+  .jump-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .5rem;
+    margin-top: .75rem;
+  }
+  .jump-buttons button {
+    padding: .6rem .8rem;
+    border-radius: .75rem;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    transition: background .2s;
+    font-weight: 600;
+  }
+  .jump-buttons button:hover {
+    background: #f3f4f6;
+  }
+
+  .zoo-label-text {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #111;
+    white-space: nowrap;
+    position: relative;
+    left: 50%;
+    transform: translate(calc(-50% + 15px), -28px);
+  }
+
+  .jump-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+  margin-top: .75rem;
+}
+
+.jump-buttons button {
+  padding: .6rem .8rem;
+  border-radius: .75rem;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  cursor: pointer;
+  transition: background .2s;
+  font-weight: 600;
+}
+
+.jump-buttons button:hover {
+  background: #f3f4f6;
+}
+
+/* ★ 1列目だけフル幅にする用 */
+.jump-buttons .full-width {
+  grid-column: 1 / -1;  /* 1列目〜3列目を全部またぐ */
+}
+
+</style>
+
+<div id="map"></div>
+
+<div class="jump-buttons">
+  <!-- 1行目：フル幅 -->
+  <button class="full-width" onclick="resetView()">🗺️ 全体マップ表示</button>
+
+  <!-- 2行目：3つ -->
+  <button onclick="flyToSpot('jyouyama')">🐒 城山動物園</button>
+  <button onclick="flyToSpot('chausuyama')">🐘 茶臼山動物園</button>
+  <button onclick="flyToSpot('suzaka')">🦘 須坂市動物園</button>
+
+  <!-- 3行目：3つ -->
+  <button onclick="openStreetView('jyouyama')">🚶 城山動物園ストリートビュー</button>
+  <button onclick="openStreetView('chausuyama')">🚶 茶臼山動物園ストリートビュー</button>
+  <button onclick="openStreetView('suzaka')">🚶 須坂市動物園ストリートビュー</button>
+</div>
+
+<!-- Leaflet JS -->
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""
+></script>
+
+<script>
+  // ▼ 各動物園の詳細情報
+  const spots = [
+    {
+      id: 'jyouyama',
+      name: '城山動物園',
+      lat: 36.66490806254121,
+      lng: 138.1942988606473,
+      zoom: 16,
+      sv_lat: 36.665244588523024,
+      sv_lng: 138.1935118468303,
+      sv_heading: 130,
+      address: '〒380-0802 長野県長野市上松２丁目１−１９',
+      tel: '026-233-0586'
+    },
+    {
+      id: 'chausuyama',
+      name: '茶臼山動物園',
+      lat: 36.58530392097484,
+      lng: 138.11518754155875,
+      zoom: 16,
+      sv_lat: 36.583904,
+      sv_lng: 138.114083,
+      sv_heading: 0,
+      address: '〒388-8016 長野県長野市篠ノ井有旅５７０−１',
+      tel: '026-293-5167'
+    },
+    {
+      id: 'suzaka',
+      name: '須坂市動物園',
+      lat: 36.6423500355432,
+      lng: 138.31111727750795,
+      zoom: 16,
+      sv_lat: 36.643277,
+      sv_lng: 138.311711,
+      sv_heading: 180,
+      address: '〒382-0028 長野県須坂市臥竜２丁目４−８',
+      tel: '026-245-1770'
+    }
+  ];
+
+  // ▼ 地図作成（初期 center はダミー）
+  const map = L.map('map', {
+    center: [0, 0],
+    zoom: 2,
+    zoomAnimation: false
+  });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // ▼ マーカーとラベル
+  const markers = [];
+  const labelMarkers = [];
+
+  spots.forEach((s) => {
+    const popupContent = `
+      <b>${s.name}</b><br>
+      ${s.address}<br>
+      ☎ ${s.tel}
+    `;
+
+    const marker = L.marker([s.lat, s.lng]).addTo(map).bindPopup(popupContent);
+    marker.on('click', () => {
+      map.flyTo([s.lat, s.lng], s.zoom, { duration: 0.6 });
+      marker.openPopup();
+    });
+    markers.push(marker);
+
+    const labelMarker = L.marker([s.lat, s.lng], {
+      icon: L.divIcon({
+        className: 'zoo-label-icon',
+        html: `<div class="zoo-label-text" onclick="flyToSpot('${s.id}')">${s.name}</div>`,
+        iconSize: [0, 0],
+      }),
+      interactive: true,
+    });
+    labelMarkers.push(labelMarker);
+  });
+
+  // ▼ 全体ビュー
+  const group = L.featureGroup(markers);
+  const fullBounds = group.getBounds().pad(0.3);
+
+  function applyFullView({ animate }) {
+    map.fitBounds(fullBounds, {
+      padding: [20, 20],
+      animate
+    });
+    map.setZoom(map.getZoom() + 1);
+  }
+
+  // ラベル表示制御
+  let baseZoom, minLabelZoom, maxLabelZoom;
+
+  function updateLabelsVisibility() {
+    if (baseZoom == null) return;
+    const z = Math.round(map.getZoom());
+    if (z >= minLabelZoom && z <= maxLabelZoom) {
+      labelMarkers.forEach(lm => !map.hasLayer(lm) && lm.addTo(map));
+    } else {
+      labelMarkers.forEach(lm => map.hasLayer(lm) && map.removeLayer(lm));
+    }
+  }
+
+  map.on('zoomend', updateLabelsVisibility);
+
+  // 初期表示
+  window.addEventListener('load', () => {
+    map.invalidateSize();
+    applyFullView({ animate: false });
+
+    baseZoom = Math.round(map.getZoom());
+    minLabelZoom = baseZoom - 2;
+    maxLabelZoom = baseZoom + 2;
+    updateLabelsVisibility();
+  });
+
+  function flyToSpot(id) {
+    const s = spots.find(x => x.id === id);
+    if (!s) return;
+    map.flyTo([s.lat, s.lng], s.zoom, { duration: 0.6 });
+    markers[spots.indexOf(s)].openPopup();
+  }
+
+  function resetView() {
+    applyFullView({ animate: true });
+    map.closePopup();
+  }
+
+  function openStreetView(id) {
+    const s = spots.find(x => x.id === id);
+    if (!s) return;
+    const lat = s.sv_lat ?? s.lat;
+    const lng = s.sv_lng ?? s.lng;
+    const heading = s.sv_heading ?? 0;
+    window.open(
+      `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lng}&heading=${heading}&pitch=0&fov=80`,
+      '_blank'
+    );
+  }
+</script>
+
+
+
+{% endblock %}

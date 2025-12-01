@@ -8,3 +8,6 @@ def structure(request):
 
 def look(request):
     return render(request, "pages/look.html")
+
+def access(request):
+    return render(request, "pages/access.html")
