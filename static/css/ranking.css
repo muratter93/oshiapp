@@ -17,84 +17,78 @@
 
 /* ランキング1-3大箱 */
 #rankig_box_large_1to3 {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
   background-color: #7969ac;
   height: 500px;
+  width: 100%;
 }
 
 /* ランキング1-3中箱 ※1が入 */
 #rank_box_middle_1to3_01 {
-  flex-grow: 3;
   background-color: #c037ab;
-  position: relative;
   height: 500px;
-  display: flex;
-  flex-direction: column;
-  
 }
 
+
+/* ランキング1内箱写真とタイトル入 */
+
+/* 大箱 */
+#rank_imgtitle_large_box_1 {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+
+}
+
+/* タイトル入 */
 #rank_title_box {
-  position: absolute;
-  background-color: #16a062;
-  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
-  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
-  /* display: flex; */
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 #rank_title {
   width: 100%;
 }
 
-/* ランキング1内写真箱 */
-
-#rank_img_large_box_1 {
-  flex: 1;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
-  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
-}
-
+/* 写真 */
 #rank_img_box_1 {
-  position: relative;
+  background-color: #27bc2c;
+  overflow: hidden;
+  height: 100%;
   width: 100%;
-  background: none;
-  text-transform: uppercase;
-  cursor: pointer;
-  background-color: #ff0505;
-  /* height: 200px; */
+  position: relative;
+
 }
 
 #rank_img_1 {
+  position: absolute;
   object-position: 50% 30%;
+  object-fit: cover;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  position: absolute;
 }
+
 
 /* ランキング1内写真以外の箱 */
 
 /* 順位1位の画像箱 */
 #rank_1_num {
-    position: absolute;
-    bottom: 15px;
-    z-index: 1;
+    position: relative;
+    bottom: 120px;
+    width: 130px;
+    background-color: #ff3300;
 }
 
 #rank_1_num_img {
-    width: 60%;
+    width: 100%;
 }
-
 
 
 /* ランキング1-3中箱 ※2-3が入 */
 #rank_box_middle_1to3_02 {
-    flex-grow: 2;
+    /* flex-grow: 2; */
   background-color: #c037ab;
   position: relative;
   height: 500px;

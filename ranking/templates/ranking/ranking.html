@@ -22,11 +22,10 @@
             {% with a=animals.0 %}
             {% if a %}
 
-            <div id="rank_title_box">
-                <img id="rank_title" src="{% static 'img/rank_title.jpg' %}" alt="rank_title">
-            </div>
-
-            <div id="rank_img_large_box_1">
+            <div id="rank_imgtitle_large_box_1">
+                <div id="rank_title_box">
+                    <img id="rank_title" src="{% static 'img/rank_title.jpg' %}" alt="rank_title">
+                </div>
                 <div id="rank_img_box_1">
                     <a href="/animals/{{ a.animal_id }}/">
                         <img id="rank_img_1" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
@@ -34,9 +33,23 @@
                 </div>
             </div>
 
+            {% if a.zoo_id == 1 %}
+            <div id="rank_1_num">
+                <img id="rank_1_num_img" src="{% static 'img/rank_1_blue.jpg' %}" alt="rank_1_num_img">
+            </div>
+            {% elif a.zoo_id == 2 %}
+            <div id="rank_1_num">
+                <img id="rank_2_num_img" src="{% static 'img/rank_1_red.jpg' %}" alt="rank_1_num_img">
+            </div>
+            {% elif a.zoo_id == 3 %}
+            <div id="rank_1_num">
+                <img id="rank_1_num_img" src="{% static 'img/rank_1_yellow.jpg' %}" alt="rank_1_num_img">
+            </div>
+            {% else %}
             <div id="rank_1_num">
                 <img id="rank_1_num_img" src="{% static 'img/rank_1_white.jpg' %}" alt="rank_1_num_img">
             </div>
+            {% endif %}
 
             <p id="rank_1_animalname">{{ a.name }}</p>
             <p id="rank_1_animaltype">{{ a.japanese }}</p>
@@ -63,15 +76,23 @@
                         </div>
                     </div>
 
-                    {% if a.zoo_id == zoo1 %}
+                    {% if a.zoo_id == 1 %}
+                    <div id="rank_2_num">
+                        <img id="rank_2_num_img" src="{% static 'img/rank_2_blue.jpg' %}" alt="rank_2_num_img">
+                    </div>
+                    {% elif a.zoo_id == 2 %}
+                    <div id="rank_2_num">
+                        <img id="rank_2_num_img" src="{% static 'img/rank_2_red.jpg' %}" alt="rank_2_num_img">
+                    </div>
+                    {% elif a.zoo_id == 3 %}
+                    <div id="rank_2_num">
+                        <img id="rank_2_num_img" src="{% static 'img/rank_2_yellow.jpg' %}" alt="rank_2_num_img">
+                    </div>
+                    {% else %}
                     <div id="rank_2_num">
                         <img id="rank_2_num_img" src="{% static 'img/rank_2_white.jpg' %}" alt="rank_2_num_img">
                     </div>
-                    {% elif a.zoo_id == zoo2 %}
-                    {% elif a.zoo_id == zoo3 %}
                     {% endif %}
-
-
 
                     <p id="rank_2_animalname">{{ a.name }}</p>
                     <p id="rank_2_animaltype">{{ a.japanese }}</p>
@@ -94,9 +115,23 @@
                         </div>
                     </div>
 
+                    {% if a.zoo_id == 1 %}
+                    <div id="rank_3_num">
+                        <img id="rank_3_num_img" src="{% static 'img/rank_3_blue.jpg' %}" alt="rank_3_num_img">
+                    </div>
+                    {% elif a.zoo_id == 2 %}
+                    <div id="rank_3_num">
+                        <img id="rank_3_num_img" src="{% static 'img/rank_3_red.jpg' %}" alt="rank_3_num_img">
+                    </div>
+                    {% elif a.zoo_id == 3 %}
+                    <div id="rank_3_num">
+                        <img id="rank_3_num_img" src="{% static 'img/rank_3_yellow.jpg' %}" alt="rank_3_num_img">
+                    </div>
+                    {% else %}
                     <div id="rank_3_num">
                         <img id="rank_3_num_img" src="{% static 'img/rank_3_white.jpg' %}" alt="rank_3_num_img">
                     </div>
+                    {% endif %}
 
                     <p id="rank_3_animalname">{{ a.name }}</p>
                     <p id="rank_3_animaltype">{{ a.japanese }}</p>
@@ -116,11 +151,14 @@
     <div id="rank_box_middle_4to6">
         {% for a in animals|slice:"3:6" %}
         <div id="rank_box_small_4to6">
-            <h2 id="rank_4to6_num">第{{ forloop.counter|add:3 }}位</h2>
 
             <a href="/animals/{{ a.animal_id }}/">
                 <img id="rank_img_4to6" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
             </a>
+
+            <div id="rank_num_box_4to6">
+                <h2 id="rank_4to6_num">{{ forloop.counter|add:3 }}位</h2>
+            </div>
 
             <p id="rank_4to6_animalname">{{ a.name }}</p>
             <p id="rank_4to6_animaltype">{{ a.japanese }}</p>

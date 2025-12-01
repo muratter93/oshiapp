@@ -55,6 +55,10 @@
                     {% if '/donation/donate' not in request.path %}
                     <li><a href="{% url 'donation:donate' %}">寄付する</a></li>
                     {% endif %}
+
+                    {% if '/pages/access' not in request.path %}
+                    <li><a href="{% url 'pages:access' %}">アクセス</a></li>
+                    {% endif %}
                 </ul>
             </nav>
 
@@ -281,8 +285,13 @@
                         {% if '/goods/goods_list' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'goods:goods_list' %}">グッズ交換する</a>
                         {% endif %}
+
                         {% if '/donation/donate' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'donation:donate' %}">寄付する</a>
+                        {% endif %}
+
+                        {% if '/pages/access' not in request.path %}
+                        <a class="hamburger_menu_content_a" href="{% url 'pages:access' %}">アクセス</a>
                         {% endif %}
                     </li>
                     <li id="hamburger_menu_content_02"></li>
@@ -368,6 +377,10 @@
 
                         {% if '/donation/donate' not in request.path %}
                         <li><a href="{% url 'donation:donate' %}">寄付する</a></li>
+                        {% endif %}
+
+                        {% if '/pages/access' not in request.path %}
+                        <li><a href="{% url 'pages:access' %}">アクセス</a></li>
                         {% endif %}
                     </ul>
                 </div>
