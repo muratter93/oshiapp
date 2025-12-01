@@ -23,9 +23,12 @@
 
     <div class="meta">
       <div>
-        {% if animal.zoo_fk %}
-          <span class="badge">{{ animal.zoo_fk.zoo_name }}</span>
+
+        <!-- 所属動物園（修正済み：zoo_fk → zoo） -->
+        {% if animal.zoo %}
+          <span class="badge">{{ animal.zoo.zoo_name }}</span>
         {% endif %}
+
         {% if animal.sex %}
           <span class="badge">
             {% if animal.sex == "M" %}オス{% elif animal.sex == "F" %}メス{% else %}不明{% endif %}
@@ -42,7 +45,7 @@
       <div class="animal-sub">
         <span class="animal-en">（{{ animal.name }}）</span>
 
-        <!-- ★ 推しP（IDつき）-->
+        <!-- ★ 推しP（IDつき） -->
         <div class="animal-point" id="point-{{ animal.animal_id }}">
           {{ animal.total_point }} 推しP
         </div>
