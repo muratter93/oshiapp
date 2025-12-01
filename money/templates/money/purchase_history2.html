@@ -1,7 +1,7 @@
 
 {% extends "common/base.html" %}
 {% block content %}
-<h2>スタポ履歴</h2>
+<h2>サブスク加入履歴</h2>
 {% if stanning_purchases %}
 <table border="1" cellpadding="6">
   <tr>
@@ -38,7 +38,7 @@
   {% endfor %}
 </table>
 {% else %}
-<p>まだスタポ履歴がありません。</p>
+<p>まだ加入履歴がありません。</p>
 {% endif %}
 
 {% endblock %}
