@@ -213,8 +213,9 @@
 
 /* 動物名 */
 #index_animal_namelang {
-  font-size: 16pt;
-  font-weight: 800;
+  font-family: 'Zen Kurenaido';
+  font-size: 18pt;
+  font-weight: 900;
   display: inline-block; /* インライン要素に幅を指定できるようにする */
 
   /* 要素の最大幅を指定する */
@@ -239,8 +240,9 @@
 
 /* 動物名の後のさん付け */
 #index_animal-namegenderlang {
-  font-size: 13pt;
-  font-weight: 600;
+  font-family: 'Zen Kurenaido';
+  font-size: 12pt;
+  font-weight: 900;
   margin: 0;
   padding: 0;
 }
@@ -249,6 +251,7 @@
 #index_animal_typelang {
   margin: -3px 0 10px 0;
   padding: 0;
+  font-size: 11pt;
 }
 
 

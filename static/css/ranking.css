@@ -1,4 +1,15 @@
 
+@font-face {
+  font-family: 'JikiTourai'; /* 好きな名前（英数字） */
+  src: url('../fonts/JikiTourai.ttf') format('ttf'); /* フォントファイルのパス */
+  /* 別の形式も指定可能 */
+       /* url('../fonts/MyCustomFont-Regular.woff') format('woff');  */
+       
+  font-weight: normal; /* フォントの太さ */
+  font-style: normal;  /* フォントのスタイル */
+  font-display: swap;  /* フォント読み込み時の表示制御（オプション） */
+}
+
 
 #ranking_title_box {
   margin: 0;
@@ -10,56 +21,33 @@
 
 #rankig_box_big_all {
   margin: 0;
-  padding: 0;
-  width: 100%;
-  background-color: #004d26;
+  padding-right: 110px;
 }
 
 /* ランキング1-3大箱 */
 #rankig_box_large_1to3 {
   display: grid;
   grid-template-columns: 3fr 2fr;
-  background-color: #7969ac;
-  height: 500px;
+  height: 600px;
   width: 100%;
 }
 
 /* ランキング1-3中箱 ※1が入 */
 #rank_box_middle_1to3_01 {
-  background-color: #c037ab;
-  height: 500px;
+  height: 600px;
+  position: relative;
 }
 
 
-/* ランキング1内箱写真とタイトル入 */
-
-/* 大箱 */
-#rank_imgtitle_large_box_1 {
-  display: flex;
-  flex-direction: column;
-  height: 500px;
-
-}
-
-/* タイトル入 */
-#rank_title_box {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-#rank_title {
-  width: 100%;
-}
-
+/* ランキング1内箱写真入 */
 /* 写真 */
 #rank_img_box_1 {
-  background-color: #27bc2c;
   overflow: hidden;
   height: 100%;
   width: 100%;
   position: relative;
-
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
 
 #rank_img_1 {
@@ -68,40 +56,96 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
 
 
 /* ランキング1内写真以外の箱 */
 
-/* 順位1位の画像箱 */
-#rank_1_num {
-    position: relative;
-    bottom: 120px;
-    width: 130px;
-    background-color: #ff3300;
+/* 順位1位の文字箱 */
+#rank_num_box_1 {
+  position: absolute;
+  top: 360px;
+  left: 0px;
+  background-color: #000000;
+  width: 120px;
+  height: 18%;
 }
 
-#rank_1_num_img {
-    width: 100%;
+
+#rank_1_num {
+  text-align: center;
+  top: 78%;
+  transform: translate(0, -78%); /* 要素自身の半分の位置を上にずらす */
+  font-family: 'Rubik';
+  font-weight: 700;
+  font-size: 83pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+#rank_1_num_rank {
+  font-family: 'M PLUS Rounded 1c';
+  font-weight: 900;
+  font-size: 35pt;
+}
+
+/* 名前文字 */
+#rank_1_animalname {
+  position: absolute;
+  font-weight: 900;
+  font-size: 35pt;
+  bottom: 15px;
+  left: 15px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_animal-namegenderlang_1 {
+  font-size: 20pt;
+}
+
+/* 種別文字 */
+#rank_1_animaltype {
+  position: absolute;
+  font-weight: 900;
+  font-size: 20pt;
+  bottom: 3px;
+  left: 15px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 推しポイント文字 */
+#rank_1_pointlang {
+  position: absolute;
+  font-size: 30pt;
+  top: 0px;
+  left: 15px;
+  color: #ffffff;
 }
 
 
 /* ランキング1-3中箱 ※2-3が入 */
 #rank_box_middle_1to3_02 {
-    /* flex-grow: 2; */
-  background-color: #c037ab;
   position: relative;
-  height: 500px;
-  
+  height: 600px;
 }
-
 
 /* ランキング1-3中箱の中の2-3が入っている中の小箱 */
 #rank_box_middle_2to3 {
   display: flex;
   flex-direction: column;
-  background-color: #dda31c;
-  height: 500px;
+  height: 600px;
 }
 
 #rank_box_small_2, #rank_box_small_3 {
@@ -109,16 +153,14 @@
 }
 
 
-/* ランキング2-3内写真箱 */
+/* 2-3が入っている中の小箱内写真箱 */
 
 #rank_img_large_box_2 {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 250px;
-  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
-  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+  height: 300px;
 }
 
 #rank_img_large_box_3 {
@@ -126,19 +168,18 @@
   top: 250;
   left: 0;
   width: 100%;
-  height: 250px;
-  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
-  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+  height: 300px;
 }
 
 #rank_img_box_2, #rank_img_box_3 {
   position: relative;
   width: 100%;
-  height: 250px;
+  height: 100%;
   background: none;
   text-transform: uppercase;
   cursor: pointer;
-  background-color: #ff0505;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
 
 #rank_img_2, #rank_img_3 {
@@ -147,76 +188,516 @@
   height: 100%;
   object-fit: cover;
   position: absolute;
-
-
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
 
-/* ランキング2-3内写真以外の箱 */
 
-/* 順位2位の画像箱 */
+/* 2-3が入っている中の小箱内写真以外の箱 */
+
+/* 順位2位の文字箱 */
+#rank_num_box_2 {
+  position: absolute;
+  top: 125px;
+  left: 0px;
+  background-color: #000000;
+  width: 100px;
+  height: 13%;
+}
+
 #rank_2_num {
-    position: absolute;
-    bottom: 263px;
+  text-align: center;
+  top: 80%;
+  transform: translate(0, -80%); /* 要素自身の半分の位置を上にずらす */
+  font-family: 'Rubik';
+  font-weight: 700;
+  font-size: 61pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
 }
 
-#rank_2_num_img {
-    width: 55%;
+#rank_2_num_rank {
+  font-family: 'M PLUS Rounded 1c';
+  font-weight: 900;
+  font-size: 23pt;
 }
 
-/* 順位3位の画像箱 */
+/* 順位2位の名前・種類・ポイント */
+#rank_2_animalname {
+  position: absolute;
+  font-weight: 900;
+  font-size: 23pt;
+  bottom: 315px;
+  left: 15px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_animal-namegenderlang_2 {
+  font-size: 13pt;
+}
+
+#rank_2_animaltype {
+  position: absolute;
+  font-weight: 900;
+  font-size: 15pt;
+  bottom: 304px;
+  left: 15px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_2_pointlang {
+  position: absolute;
+  left: 20px;
+  top: 5px;
+}
+
+/* 順位3位の文字箱 */
+
+#rank_num_box_3 {
+  position: absolute;
+  top: 425px;
+  left: 0px;
+  background-color: #000000;
+  width: 100px;
+  height: 13%;
+}
+
 #rank_3_num {
-    position: absolute;
-    bottom: 10px;
+  text-align: center;
+  top: 80%;
+  transform: translate(0, -80%); /* 要素自身の半分の位置を上にずらす */
+  font-family: 'Rubik';
+  font-weight: 700;
+  font-size: 61pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
 }
 
-#rank_3_num_img {
-    width: 55%;
+#rank_3_num_rank {
+  font-family: 'M PLUS Rounded 1c';
+  font-weight: 900;
+  font-size: 23pt;
 }
 
 
+/* 順位3位の名前・種類・ポイント */
+#rank_3_animalname {
+  position: absolute;
+  font-weight: 900;
+  font-size: 23pt;
+  bottom: 15px;
+  left: 15px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_animal-namegenderlang_3 {
+  font-size: 13pt;
+}
+
+#rank_3_animaltype {
+  position: absolute;
+  font-weight: 900;
+  font-size: 15pt;
+  bottom: 4px;
+  left: 15px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_3_pointlang {
+  position: absolute;
+  left: 20px;
+  top: 305px;
+}
 
 
-
-
-
-
-
-/* ランキング4-6中箱 */
+/* ランキング4-6大箱 */
 #rank_box_middle_4to6 {
   display: flex;
+  height: 300px;
 }
 
-/* ランキング4-6中箱の中の小箱 */
+/* ランキング4-6小箱 */
 #rank_box_small_4to6 {
   flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+}
+
+/* ランキング4-6画像 */
+#rank_img_4to6 {
+  object-position: 50% 30%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+}
+
+/* ランキング4-6中箱の中の順位・名前・種類・ポイント */
+#rank_num_box_4to6 {
+  position: absolute;
+  top: 143px;
+  left: 0px;
+  background-color: #000000;
+  width: 90px;
+  height: 23%;
+}
+
+#rank_4to6_num {
+  text-align: center;
+  top: 77%;
+  transform: translate(0, -77%); /* 要素自身の半分の位置を上にずらす */
+  font-family: 'Rubik';
+  font-weight: 700;
+  font-size: 52pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+#rank_4to6_num_rank {
+  font-family: 'M PLUS Rounded 1c';
+  font-weight: 900;
+  font-size: 17pt;
+}
+
+#rank_4to6_animalname {
+  position: absolute;
+  font-weight: 900;
+  font-size: 18pt;
+  left: 15px;
+  bottom: 23px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_animal-namegenderlang_4to6 {
+  font-size: 13pt;
+}
+
+#rank_4to6_animaltype {
+  position: absolute;
+  font-weight: 900;
+  font-size: 16px;
+  left: 15px;
+  bottom: 13px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_4to6_pointlang {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  color: #c037ab;
+}
+
+
+
+
+/* ランキング7-10大箱 */
+#rank_box_middle_7to10 {
+  display: flex;
+  height: 300px;
+}
+
+/* ランキング7-10小箱 */
+#rank_box_small_7to10 {
+  flex: 1;
+  /* background-color: #007bff; */
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+}
+
+/* ランキング7-10画像 */
+#rank_img_7to10 {
+  object-position: 50% 30%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+}
+
+/* ランキング7-10中箱の中の順位・名前・種類・ポイント */
+#rank_num_box_7to10 {
+  position: absolute;
+  top: 165px;
+  left: 0px;
+  background-color: #000000;
+  width: 90px;
+  height: 18%;
+}
+
+#rank_7to10_num {
+  text-align: center;
+  top: 77%;
+  transform: translate(0, -77%); /* 要素自身の半分の位置を上にずらす */
+  font-family: 'Rubik';
+  font-weight: 700;
+  font-size: 40pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+#rank_7to10_num_rank {
+  font-family: 'M PLUS Rounded 1c';
+  font-weight: 900;
+  font-size: 14pt;
+}
+
+#rank_7to10_animalname {
+  position: absolute;
+  font-weight: 900;
+  font-size: 15pt;
+  left: 15px;
+  bottom: 25px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_animal-namegenderlang_7to10 {
+  font-size: 10pt;
+}
+
+#rank_7to10_animaltype {
+  position: absolute;
+  font-weight: 900;
+  font-size: 15px;
+  left: 15px;
+  bottom: 11px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_7to10_pointlang {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  color: #c037ab;
+}
+
+
+/* ランキング11-15と16-20の大箱 */
+#rank_box_middle_11to15, #rank_box_middle_16to20 {
+  display: flex;
+  height: 250px;
+}
+
+/* ランキング11-15と16-20の小箱 */
+#rank_box_small_11to15, #rank_box_small_16to20 {
+  flex: 1;
+  /* background-color: #007bff; */
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+}
+
+/* ランキング11-15と16-20の画像 */
+#rank_img_11to15, #rank_img_16to20 {
+  object-position: 50% 30%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+}
+
+/* ランキング11-15と16-20の順位・名前・種類・ポイント */
+
+#rank_num_box_11to15, #rank_num_box_16to20 {
+  position: absolute;
+  top: 140px;
+  left: 0px;
+  background-color: #000000;
+  width: 79px;
+  height: 18%;
+}
+
+#rank_11to15_num, #rank_16to20_num {
+  text-align: center;
+  top: 75.3%;
+  transform: translate(0, -75.3%); /* 要素自身の半分の位置を上にずらす */
+  font-family: 'Rubik';
+  font-weight: 700;
+  font-size: 32pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+
+#rank_11to15_num_rank, #rank_16to20_num_rank {
+  font-family: 'M PLUS Rounded 1c';
+  font-weight: 900;
+  font-size: 10pt;
+}
+
+#rank_11to15_animalname, #rank_16to20_animalname {
+  position: absolute;
+  font-weight: 900;
+  font-size: 13pt;
+  left: 15px;
+  bottom: 20px;
+  color: #ffffff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rank_animal-namegenderlang_11to15, #rank_animal-namegenderlang_16to20 {
+  font-size: 9pt;
+}
+
+#rank_11to15_animaltype {
+  position: absolute;
+  font-weight: 900;
+  font-size: 13px;
+  left: 15px;
+  bottom: 9px;
+  color: #ffffff;
+}
+
+#rank_11to15_pointlang, #rank_16to20_pointlang {
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  color: #c037ab;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ランキング21-大箱 */
+#rank_box_middle_21to {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding-right: 120px;
+}
+
+/* ランキング21-小箱 */
+#rank_box_small_21to {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+}
+
+/* ランキング21-画像 */
+#rank_img_21to {
+  object-position: 50% 30%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
+  outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
+}
+
+/* ランキング21-中箱の中の順位・名前・種類・ポイント */
+#rank_num_box_21to {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 50%;
+  height: 27%;
   background-color: #007bff;
 }
 
-/* ランキング7-10中箱 */
-#rank_box_middle_7to10 {
-  display: flex;
+#rank_21to_num {
+  font-family: 'JikiTourai';
 }
 
-#rank_box_small_7to10 {
-    flex: 1;
-    background-color: chartreuse;
+#rank_21to_animalname {
+  position: absolute;
+  top: 50;
+  left: 20px;
 }
 
-/* ランキング11-15と16-20中箱の中の小箱 */
-#rank_box_middle_11to15, #rank_box_middle_16to20 {
-  display: flex;
+#rank_21to_animaltype {
+  position: absolute;
+  top: 300;
+  left: 20px;
+  color: #7969ac;
 }
 
-#rank_box_small_11to15, #rank_box_small_16to20 {
-    flex: 1;
-    background-color: yellow;
-}
-
-
-
-
-#rank_box_middle_21to {
-    display: flex;
+#rank_21to_pointlang {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  color: #c037ab;
 }
 
 
@@ -224,84 +705,14 @@
 
 
 
-/* .rank-2-3 {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-}
-.rank-2-3 img {
-    width: 28vw;
-    max-width: 430px;
-    min-width: 260px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 10px;
-} */
 
 
 
-
-
-/* .rank-4-6 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    width: 90%;
-    margin: 50px auto;
-}
-.rank-4-6 img {
-    width: 80%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 10px;
-}
-.rank-4-6 h4 {
-    font-size: 1.8em;
-    margin-bottom: 6px;
-}
-
-.rank-7-10 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    width: 95%;
-    margin: 0 auto;
-}
-.rank-7-10 img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 8px;
-}
-.rank-7-10 h5 {
-    font-size: 1.5em;
-    margin-bottom: 6px;
-}
-
-.rank-11-15,
-.rank-16-20,
-.rank-other {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    width: 95%;
-    margin: 40px auto;
-}
-.rank-11-15 img,
-.rank-16-20 img,
-.rank-other img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 8px;
-} */
 
 .pagination {
-    /* display: flex; */
-    justify-content: center;
+    text-align: center;
     list-style: none;
-    padding: 0;
+    padding-right: 110px;
     margin: 50px 0;
     font-size: 1.2rem;
 }
@@ -314,7 +725,7 @@
     margin: 0 5px;
     text-decoration: none;
     font-weight: bold;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 4px;
     color: #007bff;
     min-width: 45px;
@@ -342,46 +753,3 @@
     border-color: #eee;
 }
 
-/* ====== リンク色の統一 ====== */
-.rank-card a,
-.rank-card a:visited {
-    color: #006633;           /* 常に同じ緑系カラー */
-    text-decoration: none;    /* 下線消す */
-}
-
-/* hoverしても白っぽくならないように */
-.rank-card a:hover {
-    color: #004d26;           /* 少し濃い緑 */
-    opacity: 1;               /* 明るさ変化なし */
-    text-decoration: none;
-}
-
-/* ====== 画像ホバー時のアニメーション ====== */
-.rank-card img {
-    transition: transform 0.3s ease;
-    filter: none;             /* 明るさ補正なし */
-    opacity: 1;               /* 完全不透明 */
-}
-
-.rank-card img:hover {
-    transform: scale(1.05);   /* 拡大だけ */
-    cursor: pointer;
-    filter: none;             /* 白くならないように */
-    opacity: 1;               /* 不透明維持 */
-}
-
-/* クリック中（active）の色 */
-.rank-card a:active {
-    color: #004d26;
-}
-
-
-.rank-card img {
-    transition: transform 0.3s ease;
-    opacity: 0;
-    animation: fadeIn 0.4s ease forwards;
-}
-
-@keyframes fadeIn {
-    to { opacity: 1; }
-}

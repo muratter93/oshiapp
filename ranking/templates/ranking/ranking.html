@@ -7,14 +7,17 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/ranking.css' %}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 {% endblock %}
 
 
 {% block content %}
 
-<div id="rankig_box_big_all">
-
 {% if is_page_1 %}
+<div id="rankig_box_big_all">
 
     <div id="rankig_box_large_1to3">
         <div id="rank_box_middle_1to3_01">
@@ -22,36 +25,19 @@
             {% with a=animals.0 %}
             {% if a %}
 
-            <div id="rank_imgtitle_large_box_1">
-                <div id="rank_title_box">
-                    <img id="rank_title" src="{% static 'img/rank_title.jpg' %}" alt="rank_title">
-                </div>
-                <div id="rank_img_box_1">
-                    <a href="/animals/{{ a.animal_id }}/">
-                        <img id="rank_img_1" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
-                    </a>
-                </div>
+            <div id="rank_img_box_1">
+                <a href="/animals/{{ a.animal_id }}/">
+                    <img id="rank_img_1" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
+                </a>
             </div>
 
-            {% if a.zoo_id == 1 %}
-            <div id="rank_1_num">
-                <img id="rank_1_num_img" src="{% static 'img/rank_1_blue.jpg' %}" alt="rank_1_num_img">
+            <div id="rank_num_box_1">
+                <h2 id="rank_1_num">1<span id="rank_1_num_rank">位</span></h2>
             </div>
-            {% elif a.zoo_id == 2 %}
-            <div id="rank_1_num">
-                <img id="rank_2_num_img" src="{% static 'img/rank_1_red.jpg' %}" alt="rank_1_num_img">
-            </div>
-            {% elif a.zoo_id == 3 %}
-            <div id="rank_1_num">
-                <img id="rank_1_num_img" src="{% static 'img/rank_1_yellow.jpg' %}" alt="rank_1_num_img">
-            </div>
-            {% else %}
-            <div id="rank_1_num">
-                <img id="rank_1_num_img" src="{% static 'img/rank_1_white.jpg' %}" alt="rank_1_num_img">
-            </div>
-            {% endif %}
 
-            <p id="rank_1_animalname">{{ a.name }}</p>
+            <p id="rank_1_animalname">{{ a.name }}
+                <span id="rank_animal-namegenderlang_1">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+            </p>
             <p id="rank_1_animaltype">{{ a.japanese }}</p>
             <p id="rank_1_pointlang">推しP{{ a.total_point }}</p>
 
@@ -76,25 +62,13 @@
                         </div>
                     </div>
 
-                    {% if a.zoo_id == 1 %}
-                    <div id="rank_2_num">
-                        <img id="rank_2_num_img" src="{% static 'img/rank_2_blue.jpg' %}" alt="rank_2_num_img">
+                    <div id="rank_num_box_2">
+                        <h2 id="rank_2_num">2<span id="rank_2_num_rank">位</span></h2>
                     </div>
-                    {% elif a.zoo_id == 2 %}
-                    <div id="rank_2_num">
-                        <img id="rank_2_num_img" src="{% static 'img/rank_2_red.jpg' %}" alt="rank_2_num_img">
-                    </div>
-                    {% elif a.zoo_id == 3 %}
-                    <div id="rank_2_num">
-                        <img id="rank_2_num_img" src="{% static 'img/rank_2_yellow.jpg' %}" alt="rank_2_num_img">
-                    </div>
-                    {% else %}
-                    <div id="rank_2_num">
-                        <img id="rank_2_num_img" src="{% static 'img/rank_2_white.jpg' %}" alt="rank_2_num_img">
-                    </div>
-                    {% endif %}
-
-                    <p id="rank_2_animalname">{{ a.name }}</p>
+                    
+                    <p id="rank_2_animalname">{{ a.name }}
+                        <span id="rank_animal-namegenderlang_2">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+                    </p>
                     <p id="rank_2_animaltype">{{ a.japanese }}</p>
                     <p id="rank_2_pointlang">推しP{{ a.total_point }}</p>
 
@@ -115,25 +89,13 @@
                         </div>
                     </div>
 
-                    {% if a.zoo_id == 1 %}
-                    <div id="rank_3_num">
-                        <img id="rank_3_num_img" src="{% static 'img/rank_3_blue.jpg' %}" alt="rank_3_num_img">
+                    <div id="rank_num_box_3">
+                        <h2 id="rank_3_num">3<span id="rank_3_num_rank">位</span></h2>
                     </div>
-                    {% elif a.zoo_id == 2 %}
-                    <div id="rank_3_num">
-                        <img id="rank_3_num_img" src="{% static 'img/rank_3_red.jpg' %}" alt="rank_3_num_img">
-                    </div>
-                    {% elif a.zoo_id == 3 %}
-                    <div id="rank_3_num">
-                        <img id="rank_3_num_img" src="{% static 'img/rank_3_yellow.jpg' %}" alt="rank_3_num_img">
-                    </div>
-                    {% else %}
-                    <div id="rank_3_num">
-                        <img id="rank_3_num_img" src="{% static 'img/rank_3_white.jpg' %}" alt="rank_3_num_img">
-                    </div>
-                    {% endif %}
 
-                    <p id="rank_3_animalname">{{ a.name }}</p>
+                    <p id="rank_3_animalname">{{ a.name }}
+                        <span id="rank_animal-namegenderlang_3">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+                    </p>
                     <p id="rank_3_animaltype">{{ a.japanese }}</p>
                     <p id="rank_3_pointlang">推しP{{ a.total_point }}</p>
 
@@ -153,14 +115,16 @@
         <div id="rank_box_small_4to6">
 
             <a href="/animals/{{ a.animal_id }}/">
-                <img id="rank_img_4to6" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
+                <img id="rank_img_4to6" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
             </a>
 
             <div id="rank_num_box_4to6">
-                <h2 id="rank_4to6_num">{{ forloop.counter|add:3 }}位</h2>
+                <h2 id="rank_4to6_num">{{ forloop.counter|add:3 }}<span id="rank_4to6_num_rank">位</span></h2>
             </div>
 
-            <p id="rank_4to6_animalname">{{ a.name }}</p>
+            <p id="rank_4to6_animalname">{{ a.name }}
+                <span id="rank_animal-namegenderlang_4to6">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+            </p>
             <p id="rank_4to6_animaltype">{{ a.japanese }}</p>
             <p id="rank_4to6_pointlang">推しP{{ a.total_point }}</p>
 
@@ -172,13 +136,18 @@
     <div id="rank_box_middle_7to10">
         {% for a in animals|slice:"6:10" %}
         <div id="rank_box_small_7to10">
-            <h2 id="rank_7to10_num">第{{ forloop.counter|add:6 }}位</h2>
 
             <a href="/animals/{{ a.animal_id }}/">
                 <img id="rank_img_7to10" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
             </a>
 
-            <p id="rank_7to10_animalname">{{ a.name }}</p>
+            <div id="rank_num_box_7to10">
+                <h2 id="rank_7to10_num">{{ forloop.counter|add:6 }}<span id="rank_7to10_num_rank">位</span></h2>
+            </div>
+
+            <p id="rank_7to10_animalname">{{ a.name }}
+                <span id="rank_animal-namegenderlang_7to10">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+            </p>
             <p id="rank_7to10_animaltype">{{ a.japanese }}</p>
             <p id="rank_7to10_pointlang">推しP{{ a.total_point }}</p>
 
@@ -190,13 +159,18 @@
     <div id="rank_box_middle_11to15">
         {% for a in animals|slice:"10:15" %}
         <div id="rank_box_small_11to15">
-            <h2 id="rank_11to15_num">第{{ forloop.counter|add:10 }}位</h2>
 
             <a href="/animals/{{ a.animal_id }}/">
-                <img id="rank_img_11to15" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
+                <img id="rank_img_11to15" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
             </a>
 
-            <p id="rank_11to15_animalname">{{ a.name }}</p>
+            <div id="rank_num_box_11to15">
+                <h2 id="rank_11to15_num">{{ forloop.counter|add:10 }}<span id="rank_11to15_num_rank">位</span></h2>
+            </div>
+
+            <p id="rank_11to15_animalname">{{ a.name }}
+                <span id="rank_animal-namegenderlang_11to15">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+            </p>
             <p id="rank_11to15_animaltype">{{ a.japanese }}</p>
             <p id="rank_11to15_pointlang">推しP{{ a.total_point }}</p>
 
@@ -209,48 +183,57 @@
     <div id="rank_box_middle_16to20">
         {% for a in animals|slice:"15:20" %}
         <div id="rank_box_small_16to20">
-            <h2 id="rank_16to20_num">第{{ forloop.counter|add:15 }}位</h2>
 
             <a href="/animals/{{ a.animal_id }}/">
-                <img id="rank_img_16to20" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
+                <img id="rank_img_16to20" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
             </a>
 
-            <p id="rank_16to20_animalname">{{ a.name }}</p>
+            <div id="rank_num_box_16to20">
+                <h2 id="rank_16to20_num">{{ forloop.counter|add:15 }}<span id="rank_16to20_num_rank">位</span></h2>
+            </div>
+
+            <p id="rank_16to20_animalname">{{ a.name }}
+                <span id="rank_animal-namegenderlang_16to20">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+            </p>
             <p id="rank_16to20_animaltype">{{ a.japanese }}</p>
             <p id="rank_16to20_pointlang">推しP{{ a.total_point }}</p>
 
         </div>
         {% endfor %}
     </div>
-    
+</div>
   
 {% else %}
 
+{# ======= 2ページ目以降 ======= #}
+<div id="rank_box_middle_21to">
+    {% for a in page_obj %}
+    <div id="rank_box_small_21to">
 
-    {# ======= 2ページ目以降 ======= #}
-    <div id="rank_box_middle_21to">
-        {% for a in page_obj %}
-        <div id="rank_box_small_21to">
-            <h2 id="rank_21to_num">第{{ forloop.counter0|add:start_rank }}位</h2>
+        <a href="/animals/{{ a.animal_id }}/">
+            <img id="rank_img_21to" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
+        </a>
 
-            <a href="/animals/{{ a.animal_id }}/">
-                <img id="rank_img_21to" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
-            </a>
-
-            <p id="rank_21to_animalname">{{ a.name }}</p>
-            <p id="rank_21to_animaltype">{{ a.japanese }}</p>
-            <p id="rank_21to_pointlang">推しP{{ a.total_point }}</p>
-
+        <div id="rank_num_box_21to">
+            <h2 id="rank_21to_num">{{ forloop.counter|add:start_rank }}位</h2>
         </div>
 
-        {% empty %}
-        <p>該当するどうぶつがいません。</p>
-        {% endfor %}
+        <p id="rank_21to_animalname">{{ a.name }}
+            <span id="rank_animal-namegenderlang_21to">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+        </p>
+        <p id="rank_21to_animaltype">{{ a.japanese }}</p>
+        <p id="rank_21to_pointlang">推しP{{ a.total_point }}</p>
+
     </div>
+
+    {% empty %}
+    <p>該当するどうぶつがいません。</p>
+    {% endfor %}
+</div>
 
 
 {% endif %}
-</div>
+
 
 
 
