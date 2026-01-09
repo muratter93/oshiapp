@@ -12,7 +12,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>ユーザー名</th>
+            <th>ユーザ名</th>
             <th>メール</th>
             <th>最終ログイン</th>
             <th>ステータス</th>
@@ -50,13 +50,13 @@
                   <a class="btn btn-edit" href="{% url 'dashboard:member_edit' u.pk %}">編集</a>
                   {% if u.is_active %}
                     <form method="post" action="{% url 'dashboard:withdraw_member' u.pk %}"
-                          onsubmit="return confirm('このユーザーを退会処理します。よろしいですか？');">
+                          onsubmit="return confirm('このユーザを退会処理します。よろしいですか？');">
                       {% csrf_token %}
                       <button class="btn btn-danger" type="submit">退会</button>
                     </form>
                   {% else %}
                     <form method="post" action="{% url 'dashboard:reactivate_member' u.pk %}"
-                          onsubmit="return confirm('このユーザーを再開します。よろしいですか？');">
+                          onsubmit="return confirm('このユーザを再開します。よろしいですか？');">
                       {% csrf_token %}
                       <button class="btn btn-restart" type="submit">再開</button>
                     </form>
@@ -74,7 +74,7 @@
             </td>
           </tr>
           {% empty %}
-          <tr><td colspan="6" class="subtle">該当するユーザーはいません。</td></tr>
+          <tr><td colspan="6" class="subtle">該当するユーザはいません。</td></tr>
           {% endfor %}
         </tbody>
       </table>

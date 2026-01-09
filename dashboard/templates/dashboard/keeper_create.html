@@ -20,7 +20,7 @@
 
       <div class="form-grid" style="display:grid; gap:12px; max-width:520px;">
         <label>
-          ユーザー名
+          ユーザ名
           {{ form.username }}
           {% if form.username.errors %}<div class="field-error">{{ form.username.errors.0 }}</div>{% endif %}
         </label>
@@ -82,7 +82,7 @@
         </div>
       </details>
 
-        <p class="subtle">※ このユーザーは「飼育員（is_keeper）」として登録されます（機能が制限されます）。</p>
+        <p class="subtle">※ このユーザは「飼育員（is_keeper）」として登録されます（機能が制限されます）。</p>
 
         <div class="form-actions" style="display:flex; gap:8px;">
           <button class="btn btn-edit" type="submit">飼育員を登録する</button>

@@ -1,7 +1,7 @@
 {% extends "dashboard/dashboard_base.html" %}
 
-{% block title %}新しい管理者を登録{% endblock %}
-{% block content_title %}新しい管理者を登録{% endblock %}
+{% block title %}新しい管理人を登録{% endblock %}
+{% block content_title %}新しい管理人を登録{% endblock %}
 
 {% block content %}
 <div class="card staff-create">
@@ -20,7 +20,7 @@
 
       <div class="form-grid" style="display:grid; gap:12px; max-width:520px;">
         <label>
-          ユーザー名
+          ユーザ名
           {{ form.username }}
           {% if form.username.errors %}<div class="field-error">{{ form.username.errors.0 }}</div>{% endif %}
         </label>
@@ -79,10 +79,10 @@
         </div>
       </details>
 
-        <p class="subtle">※ このユーザーは「管理者（is_staff）」として作成されます（最高管理者にはなりません）。</p>
+        <p class="subtle">※ このユーザは「管理人（is_staff）」として作成されます（最高管理人にはなりません）。</p>
 
         <div class="form-actions" style="display:flex; gap:8px;">
-          <button class="btn btn-edit" type="submit">管理者を登録する</button>
+          <button class="btn btn-edit" type="submit">管理人を登録する</button>
           <a class="btn" href="{% url 'dashboard:admins_list' %}">一覧へ戻る</a>
         </div>
       </div>

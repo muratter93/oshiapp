@@ -1259,26 +1259,26 @@ html, body {
 }
 
 /* ===============================
-   動物園名：蛍光ペン風ライン（赤・青・緑）
+   動物園名：蛍光ペン風ライン
 ================================ */
 
 /* 蛍光ライン（テキストに直接背景） */
 .support-table td.zoo-name .zoo-mark {
-  padding: 0 2px;    
-  border-radius: 2px;   
+  padding: 0 3px;
+  border-radius: 2px;
 }
 
-/* 1：赤 */
+/* 1：緑（蛍光グリーン） */
 .support-table tbody tr:nth-child(3n+1) td.zoo-name .zoo-mark {
-  background: linear-gradient(transparent 60%, #c6ffd2 60%);
+  background: linear-gradient(transparent 60%, #b6ff9e 60%);
 }
 
-/* 2：青 */
+/* 2：赤（蛍光レッド） */
 .support-table tbody tr:nth-child(3n+2) td.zoo-name .zoo-mark {
-  background: linear-gradient(transparent 60%, #ffaeae 60%);
+  background: linear-gradient(transparent 60%, #ff9aa2 60%);
 }
 
-/* 3：緑 */
+/* 3：黄（蛍光イエロー） */
 .support-table tbody tr:nth-child(3n+3) td.zoo-name .zoo-mark {
-  background: linear-gradient(transparent 60%, #fefeac 60%);
+  background: linear-gradient(transparent 60%, #fff59d 60%);
 }

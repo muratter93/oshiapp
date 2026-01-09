@@ -1,17 +1,23 @@
 {% extends "dashboard/dashboard_base.html" %}
 {% block title %}会員編集{% endblock %}
+{% block content_title %}会員編集{% endblock %}
 
 {% block content %}
-<div class="staff-edit">  {# ← 管理者編集と同じCSSを使えるように #}
+<div class="staff-edit">
   <div class="container">
     <form method="post">
       {% csrf_token %}
       <div class="form-grid">
 
         <label>
-          ユーザー名
-          <input type="text" name="username" value="{{ member.username }}">
+          ユーザ名
+          <input type="text" name="username" value="{{ member.username }}"
+           required>
         </label>
+
+        {% if form.username.errors %}
+          <div class="message error">ユーザ名が重複しています。</div>
+        {% endif %}
 
         <label>
           名前

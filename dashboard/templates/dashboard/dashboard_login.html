@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>管理者ページログイン</title>
+  <title>管理ページログイン</title>
 
   <style>
     body {
@@ -79,30 +79,20 @@
 
 <body>
 
-  <h1>管理者ページログイン</h1>
+  <h1>管理ページログイン</h1>
 
   <div class="login-box">
 
-    <!-- ▼ Djangoメッセージ表示領域 -->
-    {% if messages %}
-      <div class="messages">
-        {% for message in messages %}
-          <div class="message {{ message.tags }}">
-            {{ message }}
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
 
     <!-- ▼ ログインフォーム -->
     {% if form.errors %}
-      <div class="message error">ユーザー名またはパスワードが違います。</div>
+      <div class="message error">ユーザ名またはパスワードが違います。</div>
     {% endif %}
 
     <form method="post" class="login-form">
       {% csrf_token %}
 
-      <p>ユーザー名：{{ form.username }}</p>
+      <p>ユーザ名：{{ form.username }}</p>
       <p>パスワード：{{ form.password }}</p>
 
       <button type="submit">ログイン</button>

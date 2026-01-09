@@ -95,7 +95,7 @@ def admin_dashboard(request: HttpRequest) -> HttpResponse:
 
         base_pt = zoo.last_paid_point_sum or 0
         unpaid_pt = max(zoo.total_point_sum - base_pt, 0)
-        coins = unpaid_pt * 80
+        coins = unpaid_pt * 100
 
         zoo.unpaid_points = unpaid_pt
         zoo.unpaid_coins = coins
@@ -224,7 +224,7 @@ class DashboardLoginView(LoginView):
         # staff だけでなく keeper も許可
         if is_staff_or_keeper(self.request.user):
             return self.get_redirect_url() or reverse("dashboard:dashboard")
-        # 権限なしユーザーが来た場合はエラーへ
+        # 権限なしユーザが来た場合はエラーへ
         return reverse("dashboard:dashboard_error")
     
 class DashboardLoginView(LoginView):
@@ -235,7 +235,7 @@ class DashboardLoginView(LoginView):
         # staff だけでなく keeper も許可
         if is_staff_or_keeper(self.request.user):
             return self.get_redirect_url() or reverse("dashboard:dashboard")
-        # 権限なしユーザーが来た場合はエラーへ
+        # 権限なしユーザが来た場合はエラーへ
         return reverse("dashboard:dashboard_error")
 
 @login_required
@@ -317,7 +317,7 @@ def toggle_staff(request: HttpRequest, pk: int) -> HttpResponse:
         return _redirect_admins()
     target = get_object_or_404(User, pk=pk)
     if not target.is_active:
-        messages.warning(request, "退会済みユーザーは操作できません。")
+        messages.warning(request, "退会済みユーザは操作できません。")
         return _redirect_admins()
     if target == request.user:
         messages.warning(request, "自分自身の is_staff は変更できません。")
@@ -338,13 +338,13 @@ def toggle_keeper(request: HttpRequest, pk: int) -> HttpResponse:
         return _redirect_admins()
     target = get_object_or_404(User, pk=pk)
     if not target.is_active:
-        messages.warning(request, "退会済みユーザーは操作できません。")
+        messages.warning(request, "退会済みユーザは操作できません。")
         return _redirect_admins()
     if target == request.user:
         messages.warning(request, "自分自身の is_keeper は変更できません。")
         return _redirect_admins()
     if not hasattr(target, "is_keeper"):
-        messages.error(request, "このユーザーには is_keeper フィールドがありません。")
+        messages.error(request, "このユーザには is_keeper フィールドがありません。")
         return _redirect_admins()
     target.is_keeper = not target.is_keeper
     target.save(update_fields=["is_keeper"])
@@ -359,7 +359,7 @@ def toggle_superuser(request: HttpRequest, pk: int) -> HttpResponse:
         return _redirect_admins()
     target = get_object_or_404(User, pk=pk)
     if not target.is_active:
-        messages.warning(request, "退会済みユーザーは操作できません。")
+        messages.warning(request, "退会済みユーザは操作できません。")
         return _redirect_admins()
     if target == request.user:
         messages.warning(request, "自分自身の superuser はここでは変更できません。")
@@ -426,7 +426,7 @@ class StaffCreateView(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
     def form_valid(self, form):
         new_user = form.save()
-        messages.success(self.request, f"管理者ユーザー「{new_user.username}」を作成しました。")
+        messages.success(self.request, f"管理者ユーザ「{new_user.username}」を作成しました。")
         return super().form_valid(form)
 
 
@@ -437,7 +437,7 @@ def keeper_create(request):
         form = KeeperCreateForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # messages.success(request, f"飼育員ユーザー「{user.username}」を作成しました。")
+            # messages.success(request, f"飼育員ユーザ「{user.username}」を作成しました。")
             return redirect("dashboard:admins_list")
     else:
         form = KeeperCreateForm()
@@ -489,12 +489,23 @@ class MemberUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         obj = self.get_object()
         return u.is_superuser or u.is_staff or (u == obj)
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        username = (request.POST.get("username") or "").strip()
+        if not username:
+            form.add_error("username", "ユーザ名は必須です。")
+            return self.form_invalid(form)
+
+        return super().post(request, *args, **kwargs)
+
     def form_valid(self, form):
-        messages.success(self.request, "会員情報を更新しました。")
+        # messages.success(self.request, "会員情報を更新しました。")
         return super().form_valid(form)
 
     def handle_no_permission(self):
-        messages.error(self.request, "権限がありません。")
+        # messages.error(self.request, "権限がありません。")
         return redirect("dashboard:member_list")
 
 
@@ -593,7 +604,7 @@ def animal_create(request):
     form = AnimalForm(
         request.POST or None,
         request.FILES or None,
-        user=request.user,   # ← 追加
+        user=request.user,
     )
     if request.method == "POST" and form.is_valid():
         animal = form.save(commit=False)
@@ -674,21 +685,42 @@ class SubscriptionListView(LoginRequiredMixin, ListView):
     model = SubMember
     template_name = "dashboard/subscription_list.html"
     context_object_name = "subs"
-    paginate_by = 50
+    paginate_by = 30
 
     def get_queryset(self):
         qs = (
             SubMember.objects
-            .select_related("member", "plan", "animal")
-            .order_by("-sign_up", "-sub_member_id")
+            .select_related("member", "plan", "animal", "animal__zoo")
+            .order_by("-sub_member_id")
         )
 
-        # キーワード検索（後で拡張可能）
-        q = self.request.GET.get("q") or ""
+        user = self.request.user
+        # keeper は自分の動物園だけ（staff/superuser は全体）
+        if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
+            if getattr(user, "zoo_id", None):
+                qs = qs.filter(animal__zoo_id=user.zoo_id)
+            else:
+                qs = qs.none()
+
+        q = (self.request.GET.get("q") or "").strip()
         if q:
             qs = qs.filter(member__username__icontains=q)
 
+        status = (self.request.GET.get("status") or "all").strip()
+        if status == "active":
+            qs = qs.filter(is_active=True)
+        elif status == "inactive":
+            qs = qs.filter(is_active=False)
+
         return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["q"] = (self.request.GET.get("q") or "").strip()
+        ctx["status"] = (self.request.GET.get("status") or "all").strip()
+        return ctx
+
+
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -700,7 +732,7 @@ class SubscriptionListView(LoginRequiredMixin, ListView):
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 
-from subscription.models import SubMember   # ★ モデル名はこれ
+from subscription.models import SubMember  
 
 
 def sub_cancel(request, sub_member_id):
@@ -711,8 +743,8 @@ def sub_cancel(request, sub_member_id):
 
         # 解約処理
         sub.end_day = today
-        sub.is_recurring = False   # 継続フラグOFF
-        sub.is_active = False      # ★ ステータスを「終了」に
+        sub.is_recurring = False   
+        sub.is_active = False      
         sub.save()
 
     return redirect("dashboard:subscription_list")
@@ -725,10 +757,10 @@ def sub_restart(request, sub_member_id):
         today = timezone.localdate()
 
         # 再開処理
-        sub.sign_up = today        # 再開日を新しい加入日に
-        sub.end_day = None         # 終了日クリア（save内で再計算するならこのまま）
-        sub.is_recurring = True    # 継続ON（不要なら外してOK）
-        sub.is_active = True       # ★ ステータスを「有効」に
+        sub.sign_up = today        
+        sub.end_day = None        
+        sub.is_recurring = True    
+        sub.is_active = True       
         sub.save()
 
     return redirect("dashboard:subscription_list")
@@ -785,7 +817,7 @@ def gift_create(request: HttpRequest) -> HttpResponse:
     if request.method == "POST" and form.is_valid():
         gift = form.save(commit=False)
 
-        # keeper の場合は所属動物園を自分の zoo に固定（保険）
+        # keeper の場合は所属動物園を自分の zoo に固定
         if getattr(request.user, "is_keeper", False) and getattr(request.user, "zoo_id", None):
             gift.zoo = request.user.zoo
 
@@ -845,18 +877,26 @@ from django.views.generic import DetailView
 from accounts.models import Member
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from accounts.models import Member
 
 class MemberDetailView(LoginRequiredMixin, DetailView):
     model = Member
     template_name = "dashboard/subscription_member_detail.html"
     context_object_name = "member"
 
-    def get_object(self, queryset=None):
-        member = super().get_object(queryset)
+    def dispatch(self, request, *args, **kwargs):
+        """
+        権限チェックを最初に行い、
+        NGなら 403 を出さずに dashboard_error へ飛ばす
+        """
+        member = self.get_object()
 
-        # --- keeper（動物園管理人）の場合は所属で閲覧制限 ---
-        if self.request.user.is_keeper:
-            if member.zoo != self.request.user.zoo:
-                raise PermissionError("この会員情報にはアクセスできません。")
+        # keeper は自分の動物園の会員のみ可
+        if getattr(request.user, "is_keeper", False):
+            if member.zoo_id != getattr(request.user, "zoo_id", None):
+                return redirect("dashboard:dashboard_error")
 
-        return member
+        return super().dispatch(request, *args, **kwargs)

@@ -25,14 +25,14 @@
 <ul class="nav">
 {% block sidebar %}
   {% if request.user.is_superuser or request.user.is_staff %}
-    <li class="menu-section"><span class="menu-icon">▶</span> ユーザー管理</li>
+    <li class="menu-section"><span class="menu-icon">▶</span> ユーザ管理</li>
     <ul class="menu-items">
       <li><a href="{% url 'dashboard:member_list' %}">会員一覧</a></li>
     </ul>
 
     <li class="menu-section"><span class="menu-icon">▶</span> サブスク管理</li>
     <ul class="menu-items">
-      <li><a href="{% url 'dashboard:subscription_list' %}">加入状況一覧</a></li>
+      <li><a href="{% url 'dashboard:subscription_list' %}">サブスク加入状況一覧</a></li>
       <li><a href="{% url 'dashboard:gift_list' %}">返礼品一覧</a></li>
     </ul>
 
@@ -53,11 +53,11 @@
       <li><a href="{% url 'dashboard:animal_create' %}">新しい動物を登録</a></li>
     </ul>
 
-    <li class="menu-section"><span class="menu-icon">▶</span> 管理者管理</li>
+    <li class="menu-section"><span class="menu-icon">▶</span> 管理人管理</li>
     <ul class="menu-items">
-      <li><a href="{% url 'dashboard:admins_list' %}">管理者一覧</a></li>
+      <li><a href="{% url 'dashboard:admins_list' %}">管理人一覧</a></li>
       {% if request.user.is_superuser %}
-        <li><a href="{% url 'dashboard:staff_create' %}">新しい管理者を登録</a></li>
+        <li><a href="{% url 'dashboard:staff_create' %}">新しい管理人を登録</a></li>
       {% endif %}
       <li><a href="{% url 'dashboard:keeper_create' %}">新しい飼育員を登録</a></li>
     </ul>
