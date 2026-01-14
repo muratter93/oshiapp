@@ -210,41 +210,55 @@ class KeeperCreateForm(UserCreationForm):
         if commit:
             user.save()
         return user
-
 from django import forms
+from django.forms import RadioSelect
 from animals.models import Animal, Zoo
 
 class AnimalForm(forms.ModelForm):
+    # Booleanをラジオで選ばせる（安定版）
+    is_active = forms.TypedChoiceField(
+        label="公開設定",
+        choices=(("True", "すぐ公開"), ("False", "非公開")),
+        coerce=lambda v: v == "True",   # 文字列 "True"/"False" → bool
+        widget=RadioSelect,
+        required=True,
+    )
+
     class Meta:
         model = Animal
         fields = [
             "japanese", "name", "zoo", "sex", "birth", "txt", "pic1",
             "diet",
+            "is_active",
         ]
         widgets = {
             "zoo": forms.Select(),
             "birth": forms.DateInput(attrs={"type": "date"}),
             "txt": forms.Textarea(attrs={"rows": 5}),
             "diet": forms.Select(attrs={"placeholder": "主食を選択"}),
-            "is_active": forms.CheckboxInput(),
         }
 
-
     def __init__(self, *args, **kwargs):
-        # ★ ここで user を安全に取り出す（渡されてなかったら None）
         user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
 
-        # zoo プルダウンの基本並び
+        # zoo プルダウン
         self.fields["zoo"].queryset = Zoo.objects.order_by("zoo_name")
 
-        # ★ keeper の場合は、自分の所属動物園を強制・固定
-        if user and getattr(user, "is_keeper", False):
-            if user.zoo_id:
-                self.fields["zoo"].initial = user.zoo
-                self.fields["zoo"].disabled = True   # ← 選択不可にする
+        # ★ 編集時：DBの値に合わせて初期値をセット
+        if self.instance and self.instance.pk:
+            self.fields["is_active"].initial = "True" if self.instance.is_active else "False"
+        else:
+            # ★ 新規登録時のデフォルト（すぐ公開）
+            self.fields["is_active"].initial = "True"
 
-# dashboard/forms.py
+        # keeper の場合 zoo 固定
+        if user and getattr(user, "is_keeper", False) and getattr(user, "zoo_id", None):
+            self.fields["zoo"].initial = user.zoo
+            self.fields["zoo"].disabled = True
+
+
+
 
 from django import forms
 from gift.models import Gift

@@ -8,6 +8,18 @@
   <div class="card">
     <div class="table-wrap">
     <div class="admin-admins members-page">
+
+      <div class="filter-buttons" style="margin-bottom:8px;">
+        <a class="btn {% if status == 'all' %}btn-active{% endif %}"
+          href="?status=all">すべて</a>
+
+        <a class="btn {% if status == 'active' %}btn-active{% endif %}"
+          href="?status=active">会員</a>
+
+        <a class="btn {% if status == 'inactive' %}btn-active{% endif %}"
+          href="?status=inactive">退会済</a>
+      </div>
+
       <table class="admin-table">
         <thead>
           <tr>

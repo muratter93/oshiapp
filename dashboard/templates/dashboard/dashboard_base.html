@@ -53,9 +53,9 @@
       <li><a href="{% url 'dashboard:animal_create' %}">新しい動物を登録</a></li>
     </ul>
 
-    <li class="menu-section"><span class="menu-icon">▶</span> 管理人管理</li>
+    <li class="menu-section"><span class="menu-icon">▶</span> 管理ユーザ管理</li>
     <ul class="menu-items">
-      <li><a href="{% url 'dashboard:admins_list' %}">管理人一覧</a></li>
+      <li><a href="{% url 'dashboard:admins_list' %}">管理ユーザ一覧</a></li>
       {% if request.user.is_superuser %}
         <li><a href="{% url 'dashboard:staff_create' %}">新しい管理人を登録</a></li>
       {% endif %}

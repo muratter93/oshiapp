@@ -63,12 +63,29 @@
         </label>
 
         <label>
-          画像1
+          動物画像
           {{ form.pic1 }}
           {% if form.pic1.errors %}<div class="field-error">{{ form.pic1.errors.0 }}</div>{% endif %}
         </label>
 
       </div>
+
+        <div class="radio-block">
+          <div class="radio-title">公開設定</div>
+
+          <div class="radio-options">
+            {% for r in form.is_active %}
+              <label class="radio-option">
+                {{ r.tag }}
+                <span>{{ r.choice_label }}</span>
+              </label>
+            {% endfor %}
+          </div>
+
+          {% if form.is_active.errors %}
+            <div class="field-error">{{ form.is_active.errors.0 }}</div>
+          {% endif %}
+        </div>
 
       <div class="form-actions" style="display:flex; gap:8px; margin-top:16px;">
         <button class="btn btn-edit" type="submit">登録する</button>

@@ -85,7 +85,7 @@
 
             <td>
                 {% if a.is_active %}
-                <span class="badge bg-success">有効</span>
+                <span class="badge bg-success">在園</span>
                 {% else %}
                 <span class="badge bg-secondary">退園</span>
                 {% endif %}
@@ -103,9 +103,9 @@
                     </form>
                 {% else %}
                     <form method="post" action="{% url 'dashboard:animal_reactivate' a.pk %}" style="display:inline;"
-                        onsubmit="return confirm('この動物を再開（在園）状態に戻します。よろしいですか？');">
+                        onsubmit="return confirm('この動物を公開（在園）状態にします。よろしいですか？');">
                         {% csrf_token %}
-                        <button class="btn btn-restart" type="submit">再開</button>
+                        <button class="btn btn-restart" type="submit">公開</button>
                     </form>
                 {% endif %}
 

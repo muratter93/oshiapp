@@ -824,6 +824,51 @@ html, body {
   width: 8%;
 }
 
+.animal-create .radio-block,
+.staff-edit .radio-block { 
+  display: grid; 
+  gap: 6px; 
+}
+
+.animal-create .radio-title,
+.staff-edit .radio-title { 
+  font-weight: 500; 
+  color:#333; 
+  font-size: 0.95rem; 
+}
+
+.animal-create .radio-options,
+.staff-edit .radio-options{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.animal-create .radio-option,
+.staff-edit .radio-option{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  cursor:pointer;
+}
+
+.animal-create .radio-option input[type="radio"],
+.staff-edit .radio-option input[type="radio"]{
+  margin:0;
+}
+
+.animal-create input[type="radio"]:focus,
+.animal-create input[type="radio"]:focus-visible,
+.staff-edit input[type="radio"]:focus,
+.staff-edit input[type="radio"]:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+
+
+
 /* ================================
    動物一覧ページ（animals-page）
 ================================ */

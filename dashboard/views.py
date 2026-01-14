@@ -150,7 +150,6 @@ def zoo_payout(request: HttpRequest, pk: int) -> HttpResponse:
     """
     zoo = get_object_or_404(Zoo, pk=pk)
 
-    # 現時点の累計ポイントを再集計（念のためその場で計算）
     agg = zoo.animals.aggregate(
         total_point_sum=Coalesce(Sum("total_point"), 0)
     )
@@ -165,8 +164,6 @@ def zoo_payout(request: HttpRequest, pk: int) -> HttpResponse:
 
     coins = unpaid_points * 100
 
-    # ここで本当は「支援履歴テーブル」にもレコードを切るのがベストだが、
-    # v1 では Zoo 側の基準値だけ更新する。
     zoo.last_paid_point_sum = total_point_sum
     zoo.last_paid_at = timezone.now()
     zoo.save(update_fields=["last_paid_point_sum", "last_paid_at"])
@@ -474,8 +471,19 @@ class MemberListView(LoginRequiredMixin, ListView):
         qs = User.objects.filter(is_staff=False, is_superuser=False)
         if hasattr(User, "is_keeper"):
             qs = qs.filter(is_keeper=False)
+
+        status = (self.request.GET.get("status") or "all").strip()
+        if status == "active":
+            qs = qs.filter(is_active=True)
+        elif status == "inactive":
+            qs = qs.filter(is_active=False)
+
         return qs.order_by("-id")
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["status"] = (self.request.GET.get("status") or "all").strip()
+        return ctx
 
 class MemberUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = User
@@ -598,7 +606,6 @@ def animals_list(request):
     )
 
 
-# 追加：動物登録
 @staff_or_keeper_required
 def animal_create(request):
     form = AnimalForm(
@@ -618,7 +625,6 @@ def animal_create(request):
 
     return render(request, "dashboard/animal_create.html", {"form": form, "mode": "create"})
 
-# 追加：動物編集
 @staff_or_keeper_required
 def animal_edit(request, pk: int):
     animal = get_object_or_404(Animal, pk=pk)
@@ -627,13 +633,12 @@ def animal_edit(request, pk: int):
         request.POST or None,
         request.FILES or None,
         instance=animal,
-        user=request.user,   # ← ここ追加！
+        user=request.user,  
     )
 
     if request.method == "POST" and form.is_valid():
         obj = form.save(commit=False)
 
-        # ★ keeper の場合は zoo を自分の所属動物園に固定
         if getattr(request.user, "is_keeper", False) and request.user.zoo_id:
             obj.zoo = request.user.zoo
 
