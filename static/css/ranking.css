@@ -11,17 +11,14 @@
 }
 
 
-#ranking_title_box {
-  margin: 0;
-  padding: 0;
-}
 
 
 /* ランキング外枠大箱 */
 
 #rankig_box_big_all {
-  margin: 0;
-  padding-right: 110px;
+  margin: 0 140px 0 0;
+  padding: 0;
+  /* width: 100%; */
 }
 
 /* ランキング1-3大箱 */

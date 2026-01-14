@@ -67,9 +67,11 @@
   </select>
   <br><br>
 
-  <button type="submit">次へ</button>
+  <button type="submit">上記の内容で寄付する</button>
   {% comment %} <a href="{% url 'donation:donation_history' %}">寄付履歴を見る</a> {% endcomment %}
 </form>
+
+<div id="donation_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 
 <!-- 認証誘導モーダル -->
 <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">

@@ -5,10 +5,15 @@
   text-align: center;
 }
 
+#animal_entrance {
+  padding-top: 50px;
+  width: 65%;
+}
+
 #about_sentence {
   font-family: 'Zen Kurenaido';
   color: rgb(84, 62, 44);
-  font-size: 23px;
+  font-size: 2vw;
 }
 
 #about_sentence_en {

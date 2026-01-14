@@ -80,7 +80,18 @@
 
   <!-- プランページへ -->
   <a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}" class="cta" id="subscribeBtn">
-    このコを推す！
+
+    {{ animal.name }}
+
+
+        {% if animal.sex %}
+            {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
+        {% endif %}
+        のサブスクプランをみる
+
+
+
+
   </a>
 
   <!-- 紹介文 -->
@@ -118,9 +129,7 @@
   </div>
 
   <!-- 戻るボタン -->
-  <div class="back-section">
-    <a href="javascript:history.back()" class="back-btn">← 前のページに戻る</a>
-  </div>
+  <div id="detail_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 
 </div>
 

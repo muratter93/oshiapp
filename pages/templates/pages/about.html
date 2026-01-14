@@ -8,7 +8,7 @@
 
 
 <div id="about_mainbox">
-  <img id="animal_entrance" src="{% static 'img/atari_01.jpg' %}" alt="動物集合イラスト" width="85%">
+  <img id="animal_entrance" src="{% static 'img/about_animal.png' %}" alt="動物集合イラスト">
   <h3 id="about_sentence">
     ここは「みんなの推し」が集まる小さな動物広場。<br>
     <br>
@@ -26,8 +26,8 @@
     support your favorite<br>
     support our zoo<br>
   </h4>
-  <div id="about_registration_button"><a href="#">▶新規会員登録する</a></div>
-  <div id="about_login_button"><a href="#">▶ログインする</a></div>
   <img id="people_photo" src="#" alt="人がPCを閲覧しているイラスト">
+  <div id="about_registration_button"><a href="{% url 'accounts:signup' %}">▶新規会員登録する</a></div>
+  <div id="about_login_button"><a href="{% url 'accounts:login' %}">▶ログインする</a></div>
   <br><br>
 </div>

@@ -1,11 +1,44 @@
 
 #structure_mainbox {
-  margin: 0;
-  padding: 0;
+  margin: 0 0 0 -100px;
+  padding: 100px 0 150px 0;
+  text-align: center;
 }
 
-#structure_mainbox_02 {
-    padding-top: 100px;
-    text-align: center;
-    margin: 0 0 0 -100px;
+#structure_sentence_01_headline {
+  font-weight: 800;
+  font-size: 38pt;
+}
+
+#structure_sentence_02_headline,
+#structure_sentence_03_headline {
+  width: 340px;
+}
+
+#structure_sentence_01_main, #structure_sentence_02_main,
+#structure_sentence_03_main {
+  font-size: 16pt;
+}
+
+#structure_sentence_01_pic_01 {
+  padding: 0;
+  margin: 50px 0 0 0;
+}
+
+#structure_sentence_01_pic_02 {
+  margin: 14px 0 10px 0;
+}
+
+#structure_sentence_01_pic_03 {
+  margin-left: -20px;
+  margin-bottom: 110px;
+}
+
+#structure_sentence_02_pic {
+  margin-bottom: 80px;
+}
+
+#structure_sentence_02_headline, 
+#structure_sentence_03_headline {
+  margin-bottom: 20px;
 }
