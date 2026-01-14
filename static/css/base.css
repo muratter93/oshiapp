@@ -19,7 +19,7 @@ body {
   background-size: 100%;
   position: relative;
   /* background-color: rgb(255, 255, 255); */
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
 }
 
 #main_body {

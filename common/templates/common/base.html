@@ -38,21 +38,21 @@
                     <li><a href="{% url 'ranking:index' %}">アニマルランキング</a></li>
                     {% endif %}
 
-                    {% if '/animals' not in request.path %}
+                    {% if '/pages/look' not in request.path %}
                     <li><a href="{% url 'pages:look' %}">動物たちの様子を見る</a></li>
                     {% endif %}
 
                     <li><a href="{% url 'main:index' %}#structure_mainbox">アニマルマニアのしくみ</a></li>
 
-                    {% if '/charge' not in request.path %}
+                    {% if '/money/charge' not in request.path %}
                     <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                     {% endif %}
 
-                    {% if '/goods/goods_list' not in request.path %}
+                    {% if '/goods' not in request.path %}
                     <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                     {% endif %}
 
-                    {% if '/donation/donate' not in request.path %}
+                    {% if '/donation' not in request.path %}
                     <li><a href="{% url 'donation:donate' %}">寄付する</a></li>
                     {% endif %}
 
@@ -132,21 +132,21 @@
                         <a class="hamburger_menu_content_a" href="{% url 'ranking:index' %}">アニマルランキング</a>
                         {% endif %}
 
-                        {% if '/animals' not in request.path %}
+                        {% if '/pages/look' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'pages:look' %}">動物たちの様子を見る</a>
                         {% endif %}
 
                         <a class="hamburger_menu_content_a" href="{% url 'main:index' %}#structure_mainbox"><span>アニマルマニアのしくみ</span></a>
 
-                        {% if '/charge' not in request.path %}
+                        {% if '/money/charge' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'money:charge' %}">チアコを買う</a>
                         {% endif %}
 
-                        {% if '/goods/goods_list' not in request.path %}
+                        {% if '/goods' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'goods:goods_list' %}">グッズ交換する</a>
                         {% endif %}
 
-                        {% if '/donation/donate' not in request.path %}
+                        {% if '/donation' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'donation:donate' %}">寄付する</a>
                         {% endif %}
 
@@ -220,22 +220,22 @@
                         <li><a href="{% url 'ranking:index' %}">アニマルランキング</a></li>
                         {% endif %}
 
-                        {% if '/animals' not in request.path %}
+                        {% if '/pages/look' not in request.path %}
                         <li><a href="{% url 'pages:look' %}">動物たちの様子を見る</a></li>
                         {% endif %}
                     </ul>
                     <ul>
                         <li><a href="{% url 'main:index' %}#structure_mainbox">アニマルマニアのしくみ</a></li>
 
-                        {% if '/charge' not in request.path %}
+                        {% if '/money/charge' not in request.path %}
                         <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                         {% endif %}
 
-                        {% if '/goods/goods_list' not in request.path %}
+                        {% if '/goods' not in request.path %}
                         <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                         {% endif %}
 
-                        {% if '/donation/donate' not in request.path %}
+                        {% if '/donation' not in request.path %}
                         <li><a href="{% url 'donation:donate' %}">寄付する</a></li>
                         {% endif %}
 
