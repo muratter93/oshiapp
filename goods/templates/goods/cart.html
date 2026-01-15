@@ -1,7 +1,7 @@
 {% extends "common/base.html" %}
 {% load static %}
 
-{% block title %}買い物かご{% endblock %}
+{% block title %}カート{% endblock %}
 
 {% block extra_head %}
 <style>
@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-<h2>買い物かご</h2>
+<h2>カート</h2>
 
 {% if messages %}
 <script>
@@ -69,7 +69,7 @@
 <a href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
 <div id="cart_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 {% else %}
-<p>買い物かごは空です。</p>
+<p>カートは空です。</p>
 <a href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
 <div id="cart_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 {% endif %}

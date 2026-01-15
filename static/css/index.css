@@ -270,8 +270,9 @@
 }
 
 #index_animal_top10 {
-  margin-top: 7px;
-  margin-bottom: 7px;
+  margin-left: -15px;
+  padding: 0;
+  text-align: center;
 }
 
 /* 右ランキング内※インクルード物 */

@@ -478,34 +478,6 @@ footer {
 
 /* フッターグッズスクロール部分 */
 
-/* .goods-scroller {
-  position: relative;
-  z-index: -1;
-  display: flex;
-  width: max-content;
-  animation: scroll-left 30s linear infinite;
-  width: 100%;
-  height: 120px;
-}
-
-.goods-item {
-  flex: 0 0 auto;
-  height: 120px;
-}
-
-.goods-item img {
-  height: 120px;
-}
-
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-} */
-
 .goods-scroller {
   position: relative;
   z-index: -1;
