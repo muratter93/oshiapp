@@ -34,11 +34,12 @@
 {% endif %}
 
 
-<a href="{% url 'money:purchase_history2' %}">サブスクの解約はこちら</a><br>
-<a href="{% url 'goods:order_history' %}">交換履歴を見る</a><br>
-<br>
-<a href="{% url 'accounts:password_change' %}">パスワード変更はこちら</a><br>
-<a href="{% url 'accounts:edit_profile' %}">会員情報の変更はこちら</a><br>
+<a href="{% url 'money:purchase_history' %}">チアコ交換履歴</a><br>
+<a href="{% url 'goods:order_history' %}">グッズ交換履歴</a><br>
+<a href="{% url 'accounts:edit_profile' %}">会員情報の変更</a><br>
+<a href="{% url 'accounts:password_change' %}">パスワード変更</a><br>
+<a href="{% url 'money:purchase_history2' %}">サブスク加入履歴・解約</a><br>
+<div id="mypage_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 <a href="{% url 'accounts:logout' %}">ログアウト</a><br>
 
 {% endblock %}

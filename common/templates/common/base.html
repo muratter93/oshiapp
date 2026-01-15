@@ -42,7 +42,7 @@
                     <li><a href="{% url 'pages:look' %}">動物たちの様子を見る</a></li>
                     {% endif %}
 
-                    <li><a href="{% url 'main:index' %}#structure_mainbox">アニマルマニアのしくみ</a></li>
+                    <li><a id="nav_amimal" href="{% url 'main:index' %}#structure_mainbox">アニマルマニアのしくみ</a></li>
 
                     {% if '/money/charge' not in request.path %}
                     <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
@@ -182,16 +182,6 @@
         
 
         <footer id="siteFooter">
-          
-            <!-- <div class="goods-scroller">
-                {% for i in "123456" %}
-                    {% for good in goods_list %}
-                    <div class="goods-item">
-                        <img src="{{ good.image.url }}" alt="{{ good.name }}">
-                    </div>
-                    {% endfor %}
-                {% endfor %}
-            </div> -->
 
             <div class="goods-scroller">
                 <div class="goods-track">

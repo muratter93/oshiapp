@@ -264,8 +264,8 @@
 
 #index_ranking_box {
   position: relative;
-  width: 265px;
-  padding: 0;
+  width: 230px;
+  padding: 0 100px 0 0;
   /* background-color: brown; */
 }
 
@@ -281,13 +281,13 @@
   /* position: absolute; */
   top: 0;
   left: 0;
-  width: 225px;
-  padding: 20px 20px 20px 20px;
-  background-image: url("/static/img/rankingu_back.jpg");
+  width: 190px;
+  padding: 20px 20px 15px 20px;
+  background-image: url("/static/img/ranking_background.png");
   background-size: cover;
-  border-radius: 18% 13% 10% 12% / 3% 6% 6% 10%;
+  /* border-radius: 18% 13% 10% 12% / 3% 6% 6% 10%; */
   /* 追従 */
-  position: sticky;
+  /* position: sticky; */
   bottom: 0;
 }
 
@@ -322,7 +322,7 @@
 /* ランキングナンバーの横の線 */
 #index_ranking_num_underline {
   border: none;
-  margin: 0 60px 0 32px;
+  margin: 0 55px 0 32px;
   padding: 0;
   border-top: 1.5px solid rgb(84, 62, 44);
 }
@@ -338,7 +338,7 @@
 .index_rank_info {
   flex: 1;
   line-height: 1.0;
-text-align: left;
+  text-align: left;
   margin-right: 10px;
   width: 155px;
 }
@@ -351,7 +351,7 @@ text-align: left;
 
 /* ランキング内動物名前のみ */
 #index_rank_link_name_name {
-  font-size: 17pt;
+  font-size: 12pt;
   font-weight: 700;
 }
 
@@ -365,7 +365,7 @@ text-align: left;
 
 /* ランキング内動物名前さん付け */
 #index_animal-namegenderlang_ranking {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
   margin-left: -3px;
 }
@@ -373,7 +373,7 @@ text-align: left;
 /* ランキング内動物種類 */
 .index_rank_japanese { 
   color: rgb(84, 62, 44);
-  font-size: 10pt;
+  font-size: 9pt;
   margin: 2px 0 0 0;
   padding: 0;
   font-weight: 700;
@@ -382,8 +382,8 @@ text-align: left;
 /* ランキング内動物写真ボックス */
 .index_rank_img_box {
   position: relative;
-  aspect-ratio: 4 / 5;
-  width: 60px;
+  aspect-ratio: 4 / 4.5;
+  width: 55px;
   border-radius: 5px;
   overflow: hidden;
   top: -33px;

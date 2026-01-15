@@ -65,11 +65,13 @@
     </tr>
 </table>
 
-<a href="{% url 'goods:checkout' %}" class="checkout-link">交換手続きへ</a>
-<a href="{% url 'goods:goods_list' %}" class="btn">グッズページへ戻る</a>
+<a href="{% url 'goods:checkout' %}" class="checkout-link">▶交換手続きへ</a>
+<a href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
+<div id="cart_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 {% else %}
 <p>買い物かごは空です。</p>
-<a href="{% url 'goods:goods_list' %}" class="btn">グッズページへ戻る</a>
+<a href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
+<div id="cart_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 {% endif %}
 
 <!-- 認証誘導モーダル -->
@@ -118,3 +120,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 {% endblock %}
+

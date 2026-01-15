@@ -146,6 +146,10 @@ nav {
   transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
 }
 
+#nav_amimal {
+  letter-spacing: -0.2em;
+}
+
 nav.hidden {
   opacity: 0;
   visibility: hidden; /* 要素のスペースを保持しつつ見えなくする */
@@ -185,8 +189,8 @@ nav ul li a {
 #cart {
   pointer-events: auto;
   position: fixed;
-  top: 23px;
-  right: 197px;
+  top: 25.5px;
+  right: 130px;
 }
 
 #cart_num {
@@ -212,7 +216,7 @@ nav ul li a {
   pointer-events: auto;
   position: fixed;
   top: -3.5px;
-  right: 280px;
+  right: 215px;
   border: 3.5px solid #ffffff;
   border-radius: 0px 0px 10px 10px;
   background-color: rgb(22, 137, 56);
@@ -226,7 +230,7 @@ nav ul li a {
   pointer-events: auto;
   position: fixed;
   top: -3.5px;
-  right: 280px;
+  right: 215px;
   border-radius: 0px 0px 10px 10px;
   border: 3.5px solid #ffffff;
   background-color: rgb(22, 137, 56);
