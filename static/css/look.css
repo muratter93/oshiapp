@@ -1,3 +1,10 @@
+
+#look_large_box {
+    margin: 0 130px 0 0;
+    text-align: center;
+}
+
+
 .live-box {
     margin-bottom: 40px;
 }
@@ -10,6 +17,9 @@
     text-decoration: none;
 }
 
-.yt-link:hover {
-    text-decoration: underline;
+
+
+#look_returntop_button a {
+  text-decoration: none;
+  font-size: 14pt;
 }

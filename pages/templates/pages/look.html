@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="{% static 'css/look.css' %}">
 
-<div class="wrap">
+<div id="look_large_box">
 
     <h1>須坂市動物園</h1>
     <div class="live-box">
@@ -34,7 +34,7 @@
     <div class="live-box">
         <iframe width="315" height="576" src="https://www.youtube.com/embed/hIBcCIVcKdo" title="ケープハイラックスのおやきちゃんのあくび。［城山動物園］ #おやき #ケープハイラックス #城山動物園" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         <div>
-            <a href="https://www.youtube.com/shorts/g-wnRzlv0Og" target="_blank" rel="noopener">
+            <a class="yt-link" href="https://www.youtube.com/shorts/g-wnRzlv0Og" target="_blank" rel="noopener">
                 → YouTubeで見る
             </a>
         </div>
@@ -69,7 +69,9 @@
         </div>
     </div>
 
+    <br>
     <div id="look_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
+    <br><br><br>
 
 </div>
 

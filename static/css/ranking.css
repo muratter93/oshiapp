@@ -704,12 +704,12 @@
 
 
 
-
+/* ページネーション */
 
 .pagination {
     text-align: center;
     list-style: none;
-    padding-right: 110px;
+    padding-right: 140px;
     margin: 50px 0;
     font-size: 1.2rem;
 }
@@ -728,6 +728,7 @@
     min-width: 45px;
     text-align: center;
 }
+
 .pagination a:hover {
     text-decoration: none;
     background-color: #f4f4f4;
@@ -750,3 +751,16 @@
     border-color: #eee;
 }
 
+
+
+/* トップページへ戻る項目 */
+
+#ranking_returntop_button {
+  margin: 0 140px 0 0;
+  text-align: center;
+}
+
+#ranking_returntop_button a {
+  text-decoration: none;
+  font-size: 14pt;
+}

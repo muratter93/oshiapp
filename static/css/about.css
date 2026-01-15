@@ -26,3 +26,8 @@
   margin: -10px 0 30px 0;
 }
 
+#about_registration_button a, #about_login_button a {
+  text-decoration: none;
+  font-size: 14pt;
+}
+

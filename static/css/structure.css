@@ -46,3 +46,8 @@
 #structure_sentence_03_pic_01 {
   margin-bottom: 40px;
 }
+
+#structure_chiaco_button a, #structure_returntop_button a {
+  text-decoration: none;
+  font-size: 14pt;
+}
