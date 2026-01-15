@@ -1,7 +1,7 @@
 
 #structure_mainbox {
   margin: 0 0 0 -100px;
-  padding: 100px 0 150px 0;
+  padding: 100px 0 50px 0;
   text-align: center;
 }
 
@@ -41,4 +41,8 @@
 #structure_sentence_02_headline, 
 #structure_sentence_03_headline {
   margin-bottom: 20px;
+}
+
+#structure_sentence_03_pic_01 {
+  margin-bottom: 40px;
 }
