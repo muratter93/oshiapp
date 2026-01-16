@@ -46,97 +46,79 @@ def goods_list(request):
 # カート追加
 # ===================================
 def add_to_cart(request, goods_id):
-    goods = get_object_or_404(Goods, id=goods_id)
-    if request.user.is_authenticated:
-        cart_item, created = CartItem.objects.get_or_create(
-            member=request.user,
-            goods=goods,
-            defaults={'quantity': 1}
-        )
-        if not created:
-            cart_item.quantity += 1
-            cart_item.save()
-    else:
-        cart = request.session.get("cart", {})
-        cart[str(goods.id)] = cart.get(str(goods.id), 0) + 1
-        request.session["cart"] = cart
-        request.session.modified = True
-    return redirect('goods:goods_list')
+    cart = request.session.get('cart', {})
+
+    # 数量を1追加（既にある場合は加算）
+    cart[str(goods_id)] = cart.get(str(goods_id), 0) + 1
+
+    request.session['cart'] = cart  # セッションに保存
+    request.session.modified = True
+
+    return redirect(request.META.get('HTTP_REFERER', 'goods:goods_list'))
+
 
 
 # ===================================
 # カート操作
 # ===================================
-def cart_item_increase(request, item_id):
-    if request.user.is_authenticated:
-        item = get_object_or_404(CartItem, id=item_id, member=request.user)
-        item.quantity += 1
-        item.save()
-    else:
-        cart = request.session.get("cart", {})
-        cart[str(item_id)] = cart.get(str(item_id), 0) + 1
-        request.session["cart"] = cart
-        request.session.modified = True
+def cart_item_increase(request, goods_id):
+    cart = request.session.get("cart", {})
+    cart[str(goods_id)] = cart.get(str(goods_id), 0) + 1
+    request.session["cart"] = cart
+    request.session.modified = True
     return redirect('goods:cart_view')
 
 
-def cart_item_decrease(request, item_id):
-    if request.user.is_authenticated:
-        item = get_object_or_404(CartItem, id=item_id, member=request.user)
-        if item.quantity > 1:
-            item.quantity -= 1
-            item.save()
+
+def cart_item_decrease(request, goods_id):
+    cart = request.session.get("cart", {})
+    if str(goods_id) in cart:
+        if cart[str(goods_id)] > 1:
+            cart[str(goods_id)] -= 1
         else:
-            item.delete()
-    else:
-        cart = request.session.get("cart", {})
-        if str(item_id) in cart:
-            if cart[str(item_id)] > 1:
-                cart[str(item_id)] -= 1
-            else:
-                del cart[str(item_id)]
-            request.session["cart"] = cart
-            request.session.modified = True
-    return redirect('goods:cart_view')
-
-
-def cart_item_remove(request, item_id):
-    if request.user.is_authenticated:
-        item = get_object_or_404(CartItem, id=item_id, member=request.user)
-        item.delete()
-    else:
-        cart = request.session.get("cart", {})
-        cart.pop(str(item_id), None)
+            del cart[str(goods_id)]
         request.session["cart"] = cart
         request.session.modified = True
     return redirect('goods:cart_view')
+
+
+
+def cart_item_remove(request, goods_id):
+    cart = request.session.get("cart", {})
+    cart.pop(str(goods_id), None)
+    request.session["cart"] = cart
+    request.session.modified = True
+    return redirect('goods:cart_view')
+
 
 
 # ===================================
 # カート表示
 # ===================================
 def cart_view(request):
-    if request.user.is_authenticated:
-        cart_items = CartItem.objects.filter(member=request.user)
-        total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
-    else:
-        session_cart = request.session.get("cart", {})
-        goods_dict = Goods.objects.filter(id__in=session_cart.keys())
-        cart_items = {}
-        total_stanning = 0
-        for g in goods_dict:
-            qty = session_cart.get(str(g.id), 0)
-            cart_items[str(g.id)] = {
-                "goods": g,
-                "quantity": qty,
-                "get_required_stanning_points": g.required_stanning_points * qty
-            }
-            total_stanning += g.required_stanning_points * qty
+    # セッションのカートを取得
+    cart = request.session.get('cart', {})
+
+    items = {}
+    total_stanning = 0
+
+    for goods_id, quantity in cart.items():
+        goods = Goods.objects.get(id=goods_id)
+        subtotal = goods.required_stanning_points * quantity
+        items[goods_id] = {
+            "goods": goods,
+            "quantity": quantity,
+            "subtotal": subtotal
+        }
+        total_stanning += subtotal
 
     return render(request, "goods/cart.html", {
-        "cart_items": cart_items,
-        "total_stanning": total_stanning
+        "cart_items": items,
+        "total_stanning": total_stanning,
     })
+
+
+
 
 
 
@@ -145,23 +127,34 @@ def cart_view(request):
 # 注文処理
 # ===============================
 @login_required
-def checkout(request):  # ← 修正版（重複削除済み）
-    member = request.user
-    cart_items = CartItem.objects.filter(member=member)
-    total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
-    wallet = Wallet.objects.get(member=member)
+def checkout(request):
+    cart = request.session.get("cart", {})
+    goods_dict = Goods.objects.filter(id__in=cart.keys())
 
-    # スタポ不足チェック
+    cart_items = []
+    total_stanning = 0
+
+    for g in goods_dict:
+        qty = cart.get(str(g.id), 0)
+        cart_items.append({
+            "goods": g,
+            "quantity": qty,
+            "subtotal": g.required_stanning_points * qty
+        })
+        total_stanning += g.required_stanning_points * qty
+
+    wallet = request.user.wallet
+
     if total_stanning > wallet.stanning_point_balance:
         messages.error(request, "スタポが足りません！")
         return redirect('goods:cart_view')
 
     return render(request, 'goods/checkout.html', {
-        'member': member,
-        'cart_items': cart_items,
-        'total_stanning': total_stanning,
-        'wallet': wallet,
+        "cart_items": cart_items,
+        "total_stanning": total_stanning,
+        "wallet": wallet
     })
+
 
 
 @login_required
@@ -169,29 +162,40 @@ def confirm_exchange(request):
     if request.method != 'POST':
         return redirect('goods:checkout')
 
+    cart = request.session.get("cart", {})
+    goods_dict = Goods.objects.filter(id__in=cart.keys())
+
+    # 名前、住所などの取得
     member = request.user
-    cart_items = CartItem.objects.filter(member=member)
-    total_stanning = sum(item.get_required_stanning_points() for item in cart_items)
     wallet = member.wallet
 
-    # スタポ不足
+    total_stanning = 0
+    items_for_order = []
+
+    for g in goods_dict:
+        qty = cart.get(str(g.id), 0)
+        if qty > 0:
+            required = g.required_stanning_points * qty
+            items_for_order.append((g, qty, required))
+            total_stanning += required
+
+    # ポイント足りないとき
     if wallet.stanning_point_balance < total_stanning:
         messages.error(request, "スタポが足りません！")
         return redirect('goods:cart_view')
 
     # 在庫チェック
-    for item in cart_items:
-        if item.goods.stock < item.quantity:
-            messages.error(request, f"{item.goods.name}の在庫が足りません")
+    for g, qty, _ in items_for_order:
+        if g.stock < qty:
+            messages.error(request, f"{g.name} の在庫が足りません")
             return redirect('goods:cart_view')
 
     # ウォレット更新
     wallet.stanning_point_balance -= total_stanning
     wallet.save()
 
-    # 住所情報取得
-    address_option = request.POST.get('address_option')
-    if address_option == "registered":
+    # 宛先情報
+    if request.POST.get('address_option') == "registered":
         recipient_name = member.name
         postal_code = member.postal_code
         address = member.address
@@ -212,23 +216,21 @@ def confirm_exchange(request):
         phone_number=phone_number
     )
 
-    # 注文アイテム登録 & 在庫減少
-    for item in cart_items:
-        OrderItem.objects.create(
-            order=order,
-            goods=item.goods,
-            quantity=item.quantity
-        )
-        item.goods.stock -= item.quantity
-        item.goods.save()
+    # 注文アイテム
+    for g, qty, required in items_for_order:
+        OrderItem.objects.create(order=order, goods=g, quantity=qty)
+        g.stock -= qty
+        g.save()
 
-    # カート空にする
-    cart_items.delete()
+    # セッションカート初期化
+    request.session["cart"] = {}
+    request.session.modified = True
 
     return render(request, 'goods/exchange_complete.html', {
-        'total_stanning': total_stanning,
-        'order': order
+        'order': order,
+        'total_stanning': total_stanning
     })
+
 
 
 # ===============================
@@ -238,18 +240,14 @@ def confirm_exchange(request):
 def goods_detail(request, goods_id):
     goods = get_object_or_404(Goods, pk=goods_id)
     return render(request, 'goods/goods_detail.html', {'goods': goods})
-
-
+ 
+ 
+@login_required
 @login_required
 def order_history(request):
     """ユーザー自身のグッズ交換履歴ページ"""
     orders = Order.objects.filter(member=request.user).order_by('-created_at')
-    order_items = OrderItem.objects.filter(order__in=orders).select_related('goods', 'order').order_by('-order__created_at')
-
-    paginator = Paginator(order_items, 20)  # 1ページ20件
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
 
     return render(request, 'goods/order_history.html', {
-        'page_obj': page_obj,
+        "orders": orders
     })

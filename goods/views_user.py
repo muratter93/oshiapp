@@ -27,12 +27,12 @@ def cancel_order(request, order_id):
     order = get_object_or_404(Order, id=order_id, member=request.user)
 
     if order.status == 'pending':
-        # 1️⃣ 在庫を元に戻す
+        # 1️ 在庫を元に戻す
         for item in order.items.all():
             item.goods.stock += item.quantity
             item.goods.save()
 
-        # 2️⃣ スターポイントを返却（Wallet 経由）
+        # 2️ スターポイントを返却（Wallet 経由）
         wallet = getattr(request.user, "wallet", None)
         if wallet:
             wallet.stanning_point_balance += order.total_stanning_points
@@ -40,11 +40,11 @@ def cancel_order(request, order_id):
         else:
             messages.error(request, "ウォレット情報が見つかりませんでした。ポイントの返却に失敗しました。")
 
-        # 3️⃣ 注文ステータスをキャンセルに変更
+        # 3️ 注文ステータスをキャンセルに変更
         order.status = 'cancelled'
         order.save()
 
-        messages.success(request, "注文をキャンセルしました。スターポイントを返却しました。")
+        messages.success(request, "注文をキャンセルしました。スタポを返却しました。")
 
     else:
         messages.warning(request, "発送済みまたはキャンセル済みの注文はキャンセルできません。")

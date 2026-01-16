@@ -4,16 +4,20 @@
 {% block title %}グッズ交換履歴{% endblock %}
 
 {% block content %}
+
 <div class="order-history-container">
   <h2>グッズ交換履歴</h2>
 
-  {% comment %} {% if messages %}
-    <ul class="messages">
+  {# ---- メッセージ表示部分ここに固定 ---- #}
+  {% if messages %}
+    <div class="page-messages">
       {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
       {% endfor %}
-    </ul>
-  {% endif %} {% endcomment %}
+    </div>
+  {% endif %}
 
   {% if orders %}
   <table class="order-table">
@@ -49,20 +53,23 @@
           {% endif %}
         </td>
         <td><a href="{% url 'goods:order_detail' order.id %}" class="detail-link">詳細を見る</a></td>
+
         <td>
           {% if order.status == 'pending' %}
-            <form action="{% url 'goods:cancel_order' order.id %}" method="post" onsubmit="return confirmCancel();">
+            <form action="{% url 'goods:cancel_order' order.id %}" method="post" class="cancel-form">
               {% csrf_token %}
-              <button type="submit" class="cancel-btn">キャンセル</button>
+              <button type="button" class="cancel-btn" onclick="confirmCancel(this.form);">キャンセル</button>
             </form>
           {% else %}
             -
           {% endif %}
         </td>
+
       </tr>
       {% endfor %}
     </tbody>
   </table>
+
   {% else %}
     <p>注文履歴はありません。</p>
   {% endif %}
@@ -72,8 +79,10 @@
 <div id="order_history_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 
 <script>
-  function confirmCancel() {
-    return confirm("この注文をキャンセルしてもよろしいですか？");
+  function confirmCancel(form) {
+    if (confirm("この注文をキャンセルします。よろしいですか？")) {
+      form.submit();
+    }
   }
 </script>
 
@@ -112,6 +121,15 @@
   text-decoration: none;
 }
 .detail-link:hover { text-decoration: underline; }
+
+.alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+.alert-success { background: #d4edda; color: #155724; }
+.alert-warning { background: #fff3cd; color: #856404; }
+.alert-error { background: #f8d7da; color: #721c24; }
 </style>
 
 {% endblock %}
