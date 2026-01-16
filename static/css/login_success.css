@@ -1,0 +1,38 @@
+
+
+/* ログイン大箱 */
+#login_success_box {
+  margin: 0;
+  padding: 0 130px 60px 0;
+  text-align: center;
+}
+
+/* ログイン完了文字 */
+#login_success_complete {
+  font-size: 3vw;
+  font-weight: 800;
+}
+
+/* 付属文 */
+#login_success_lang_01 {
+  font-weight: 700;
+  font-size: 1.8vw;
+}
+
+#login_success_lang_02 {
+  font-weight: 400;
+  font-size: 1.2vw;
+}
+
+/* 付属絵 */
+#login_success_pic {
+  width: 30%;
+}
+
+/* トップページ戻る */
+#login_success_link {
+  text-decoration: none;
+  font-size: 1.2vw;
+}
+
+

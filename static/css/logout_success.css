@@ -1,0 +1,33 @@
+
+
+/* ログアウト大箱 */
+#logout_success_box {
+  margin: 0;
+  padding: 0 130px 60px 0;
+  text-align: center;
+}
+
+/* ログアウト完了文字 */
+#logout_success_complete {
+  font-size: 3vw;
+  font-weight: 800;
+}
+
+/* 付属文 */
+#logout_success_lang {
+  font-weight: 700;
+  font-size: 1.8vw;
+}
+
+/* 付属絵 */
+#logout_success_pic {
+  width: 15%;
+}
+
+/* トップページ戻る */
+#logout_success_link {
+  text-decoration: none;
+  font-size: 1.2vw;
+}
+
+

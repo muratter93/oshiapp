@@ -1,45 +1,58 @@
 {% extends 'common/base.html' %}
 {% load phone_filters %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>マイページ</h2>
 
-<p>ユーザー名: {{ user.username }}</p>
-<p>名前: {{ user.name }}</p>
-<p>生年月日: {{ user.birth }}</p>
-<p>郵便番号: {{ user.postal_code|postal_format }}</p>
-<p>住所: {{ user.address }}</p>
-<p>電話番号:  {{ user.phone|phone_format }}</p>
-<p>メール: {{ user.email }}</p>
+<div id="mypage_large_box">
 
-{% if user.wallet %}
-    <p><strong>チアコ:</strong> {{ user.wallet.cheer_coin_balance }}</p>
-    <p><strong>スタポ:</strong> {{ user.wallet.stanning_point_balance }}</p>
-{% endif %}
+    <h2>マイページ</h2>
 
-<h3>現在加入中のサブスク</h3>
+    <p>　ユーザーネーム　{{ user.username }}</p>
+    <p>　　お　名　前　　{{ user.name }}</p>
+    <p>　生　年　月　日　{{ user.birth }}</p>
+    <p>　郵　便　番　号　{{ user.postal_code|postal_format }}</p>
+    <p>　　　住　所　　　{{ user.address }}</p>
+    <p>　電　話　番　号　{{ user.phone|phone_format }}</p>
+    <p>　メールアドレス　{{ user.email }}</p>
 
-{% if current_subs %}
-    <ul>
-        {% for sub in current_subs %}
-        <li>
-            動物: {{ sub.animal.name }} ({{ sub.animal.japanese }})<br>
-            プラン: {{ sub.plan.plan_name }}<br>
-            加入日: {{ sub.sign_up }}<br>
-            金額: {{ sub.plan.amount }} 円<br>
-        </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>現在加入中のサブスクはありません。</p>
-{% endif %}
+    {% if user.wallet %}
+        <p>今あるチアコインとスタンニングポイントの数</p>
+        <p><strong>チアコ:</strong> {{ user.wallet.cheer_coin_balance }}</p>
+        <p><strong>スタポ:</strong> {{ user.wallet.stanning_point_balance }}</p>
+    {% endif %}
 
 
-<a href="{% url 'money:purchase_history' %}">チアコ交換履歴</a><br>
-<a href="{% url 'goods:order_history' %}">グッズ交換履歴</a><br>
-<a href="{% url 'accounts:edit_profile' %}">会員情報の変更</a><br>
-<a href="{% url 'accounts:password_change' %}">パスワード変更</a><br>
-<a href="{% url 'money:purchase_history2' %}">サブスク加入履歴・解約</a><br>
-<div id="mypage_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
-<a href="{% url 'accounts:logout' %}">ログアウト</a><br>
+    <h3>現在加入中のサブスク</h3>
+
+    {% if current_subs %}
+        <ul>
+            {% for sub in current_subs %}
+            <li>
+                動物: {{ sub.animal.name }} ({{ sub.animal.japanese }})<br>
+                プラン: {{ sub.plan.plan_name }}<br>
+                加入日: {{ sub.sign_up }}<br>
+                金額: {{ sub.plan.amount }} 円<br>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>現在加入中のサブスクはありません。</p>
+    {% endif %}
+
+
+    <a href="{% url 'money:purchase_history' %}">チアコ交換履歴</a><br>
+    <a href="{% url 'goods:order_history' %}">グッズ交換履歴</a><br>
+    <a href="{% url 'accounts:edit_profile' %}">会員情報の変更</a><br>
+    <a href="{% url 'accounts:password_change' %}">パスワード変更</a><br>
+    <a href="{% url 'money:purchase_history2' %}">サブスク加入履歴・解約</a><br>
+    <div id="mypage_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
+    <a href="{% url 'accounts:logout' %}">ログアウト</a><br>
+
+</div>
 
 {% endblock %}

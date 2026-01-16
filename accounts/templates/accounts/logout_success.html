@@ -1,16 +1,19 @@
 {% extends "common/base.html" %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/logout_success.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="login-box" style="margin:80px auto;">
-    <h1 style="text-align:center; margin-bottom:20px;">ログアウト完了</h1>
+<div id="logout_success_box">
+    <h1 id="logout_success_complete">ログアウト完了</h1>
 
-    <p style="text-align:center; margin-bottom:30px;">
-        またきてね！
-    </p>
+    <p id="logout_success_lang">またきてね！</p>
 
-    <a href="/" class="login-button" style="text-decoration:none; display:block; text-align:center;">
-        ▶トップページへ
-    </a>
+    <img id="logout_success_pic" src="{% static 'img/logout_success_pic.png' %}" alt="猿の絵">
+    <br><br><br>
+
+    <a id="logout_success_link" href="/">▶トップページへ</a>
 </div>
 {% endblock %}

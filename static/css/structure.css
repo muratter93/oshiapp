@@ -1,51 +1,71 @@
 
+
+/* アニマルマニアのしくみ外箱部分 */
+
 #structure_mainbox {
-  margin: 0 0 0 -100px;
+  margin: 0 130px 0 0;
   padding: 100px 0 50px 0;
   text-align: center;
 }
 
+/* アニマルマニアのしくみ・チアコ・スタポタイトル部分 */
+
 #structure_sentence_01_headline {
   font-weight: 800;
-  font-size: 38pt;
+  font-size: 3.6vw;
 }
 
 #structure_sentence_02_headline,
 #structure_sentence_03_headline {
-  width: 340px;
-}
-
-#structure_sentence_01_main, #structure_sentence_02_main,
-#structure_sentence_03_main {
-  font-size: 16pt;
-}
-
-#structure_sentence_01_pic_01 {
-  padding: 0;
-  margin: 50px 0 0 0;
-}
-
-#structure_sentence_01_pic_02 {
-  margin: 14px 0 10px 0;
-}
-
-#structure_sentence_01_pic_03 {
-  margin-left: -20px;
-  margin-bottom: 110px;
-}
-
-#structure_sentence_02_pic {
-  margin-bottom: 60px;
-}
-
-#structure_sentence_02_headline, 
-#structure_sentence_03_headline {
+  width: 32%;
   margin-bottom: 20px;
 }
 
+/* アニマルマニアのしくみ・チアコ・スタポ文章部分 */
+
+#structure_sentence_01_main, #structure_sentence_02_main,
+#structure_sentence_03_main {
+  font-size: 1.6vw;
+}
+
+/* アニマルマニアのしくみ画像 */
+
+/* 推しボタン画像 */
+#structure_sentence_01_pic_01 {
+  padding: 0;
+  margin: 50px 0 0 0;
+  width: 11%;
+}
+
+/* ポイント上昇画像 */
+#structure_sentence_01_pic_02 {
+  margin: 14px 0 10px 0;
+  width: 20%;
+}
+
+/* アシカと飼育員画像 */
+#structure_sentence_01_pic_03 {
+  margin-left: -20px;
+  margin-bottom: 110px;
+  width: 27%;
+}
+
+/* チアコとは？の中のチアコ説明画像 */
+#structure_sentence_02_pic {
+  margin-bottom: 60px;
+  width: 68%;
+}
+
+
+/* スタポとは？のスタポ説明画像 */
 #structure_sentence_03_pic_01 {
   margin-bottom: 40px;
+  width: 68%;
 }
+
+
+
+/* ▶チアコを買う・▶トップページへ戻る */
 
 #structure_chiaco_button a, #structure_returntop_button a {
   text-decoration: none;

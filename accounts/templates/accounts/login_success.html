@@ -1,16 +1,26 @@
 {% extends "common/base.html" %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/login_success.css' %}">
+{% endblock %}
+
+
 {% block content %}
-<div class="login-box" style="margin:80px auto;">
-    <h1 style="text-align:center; margin-bottom:20px;">ログイン完了</h1>
-    <p style="text-align:center; margin-bottom:30px;">
+<div id="login_success_box">
+    <h1 id="login_success_complete">ログイン完了</h1>
+
+    <p id="login_success_lang_01">
         ようこそ、{{ user.username }}さん！<br>
-        ログインしました。
     </p>
 
-    <a href="/" class="login-button" style="text-decoration:none; display:block; text-align:center;">
-        ▶トップページへ
-    </a>
+    <img id="login_success_pic" src="{% static 'img/login_success_pic.png' %}" alt="オランウータンとカメレオンの絵">
+    <br>
+
+    <p id="login_success_lang_02">
+        ログインしました。<br>
+    </p>
+
+    <a id="login_success_link" href="/">▶トップページへ</a>
 </div>
 {% endblock %}
