@@ -32,7 +32,7 @@ def goods_admin_add(request):
             # messages.success(request, "新しいグッズを登録しました！")
             return redirect('goods:goods_admin_add')
         else:
-            messages.error(request, "入力内容にエラーがあります。")
+            messages.error(request, "")
     else:
         form = GoodsForm()
 
