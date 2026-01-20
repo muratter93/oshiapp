@@ -10,13 +10,13 @@
       <div class="form-grid">
 
         <label>
-          ユーザ名
+          ID
           <input type="text" name="username" value="{{ member.username }}"
            required>
         </label>
 
         {% if form.username.errors %}
-          <div class="message error">ユーザ名が重複しています。</div>
+          <div class="message error">ID名が重複しています。</div>
         {% endif %}
 
         <label>

@@ -12,8 +12,8 @@
       <table class="admin-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>ユーザ名</th>
+            <th>NO</th>
+            <th>会員名</th>
             <th>メール</th>
             <th>最終ログイン</th>
             <th>最高管理人</th>
@@ -28,7 +28,7 @@
           <tr class="{% if not u.is_active %}inactive{% endif %}">
             <td>{{ u.id }}</td>
             <td>
-              {{ u.username }}{% if u == request.user %} <span class="subtle">(自分)</span>{% endif %}
+              {{ u.name }}{% if u == request.user %} <span class="subtle">(自分)</span>{% endif %}
               {% if not u.is_active %} <span class="subtle">(退会済)</span>{% endif %}
             </td>
             <td>{{ u.email }}</td>

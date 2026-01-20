@@ -30,7 +30,7 @@
 
                 <form method="post" action="{% url 'accounts:signup' %}">
                     {% csrf_token %}
-                    <input type="text" name="username" class="input-field" placeholder="ユーザーID" required>
+                    <input type="text" name="username" class="input-field" placeholder="ID" required>
                     <input type="email" name="email" class="input-field" placeholder="メールアドレス" required>
                     <input type="password" name="password" class="input-field" placeholder="パスワード" required pattern="(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}" title="英字・数字・記号を含む8文字以上で入力してください">
                     <!-- パスワードの例　Test@1234 -->

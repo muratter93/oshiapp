@@ -29,12 +29,12 @@
 
     <a href="?{% if current_zoo %}zoo={{ current_zoo }}{% endif %}"
     class="btn {% if not current_order %}btn-active{% endif %}">
-    ID降順
+    NO降順
     </a>
 
     <a href="?order=id_asc{% if current_zoo %}&zoo={{ current_zoo }}{% endif %}"
     class="btn {% if current_order == 'id_asc' %}btn-active{% endif %}">
-    ID昇順
+    NO昇順
     </a>
 
     <a href="?order=point_desc{% if current_zoo %}&zoo={{ current_zoo }}{% endif %}"
@@ -54,7 +54,7 @@
         <table class="admin-table">
         <thead>
             <tr>
-            <th>ID</th>
+            <th>NO</th>
             <th>動物名</th>
             <th>名前</th>
             <th>画像</th>

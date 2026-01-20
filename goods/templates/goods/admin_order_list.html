@@ -38,7 +38,7 @@
           <tr class="{% if order.status == 'cancelled' %}inactive{% endif %}">
             <td>
               <a href="{% url 'dashboard:member_detail' order.member.id %}" class="member-link">
-                {{ order.member.username }}
+                {{ order.member.name }}
               </a>
             </td>
 

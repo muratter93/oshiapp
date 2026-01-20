@@ -20,13 +20,19 @@
 
       <div class="form-grid" style="display:grid; gap:12px; max-width:520px;">
         <label>
-          ユーザ名
+          ID
           {{ form.username }}
           {% if form.username.errors %}<div class="field-error">{{ form.username.errors.0 }}</div>{% endif %}
         </label>
 
         <label>
-          メール
+            名前
+            {{ form.name }}
+            {% if form.name.errors %}<div class="field-error">{{ form.name.errors.0 }}</div>{% endif %}
+        </label>
+
+        <label>
+          メールアドレス
           {{ form.email }}
           {% if form.email.errors %}<div class="field-error">{{ form.email.errors.0 }}</div>{% endif %}
         </label>
@@ -47,11 +53,6 @@
         <summary class="optional-summary">追加のプロフィール情報（任意）</summary>
 
         <div class="optional-grid" style="display:grid; gap:12px; margin-top:10px;">
-          <label>
-            氏名（任意）
-            {{ form.name }}
-            {% if form.name.errors %}<div class="field-error">{{ form.name.errors.0 }}</div>{% endif %}
-          </label>
 
           <label>
             生年月日（任意）

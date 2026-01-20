@@ -24,8 +24,8 @@
       <table class="admin-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>会員</th>
+            <th>NO</th>
+            <th>会員名</th>
             <th>プラン</th>
             <th>サポート動物</th>
             <th>所属動物園</th>
@@ -45,7 +45,7 @@
 
             <td>
               <a href="{% url 'dashboard:member_detail' s.member.id %}" class="member-link">
-                {{ s.member.username }}
+                {{ s.member.name }}
               </a>
             </td>
 

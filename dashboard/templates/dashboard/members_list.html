@@ -23,8 +23,9 @@
       <table class="admin-table">
         <thead>
           <tr>
+            <th>NO</th>
             <th>ID</th>
-            <th>ユーザ名</th>
+            <th>会員名</th>
             <th>メール</th>
             <th>最終ログイン</th>
             <th>ステータス</th>
@@ -47,6 +48,7 @@
                 <span class="subtle">(退会済)</span>
             {% endif %}
             </td>
+            <td>{{ u.name }}</td>
             <td>{{ u.email }}</td>
             <td style="text-align:center;">{{ u.last_login|date:"Y/m/d H:i" }}</td>
             <td style="text-align:center;">

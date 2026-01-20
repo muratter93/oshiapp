@@ -21,9 +21,11 @@
       <div class="form-grid">
 
         <label>
-          ユーザ名（変更不可）
+          ID（変更不可）
           <div class="readonly-box">{{ target_user.username }}</div>
         </label>
+
+        <label>名前 {{ form.name }}</label>
 
         <label>
           メール
@@ -35,7 +37,6 @@
           <summary class="optional-summary">追加のプロフィール情報</summary>
 
           <div class="optional-grid" style="display:grid; gap:12px; margin-top:10px;">
-            <label>氏名 {{ form.name }}</label>
             <label>郵便番号 {{ form.postal_code }}</label>
             <label>住所 {{ form.address }}</label>
             <label>電話番号 {{ form.phone }}</label>
