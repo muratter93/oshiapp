@@ -12,13 +12,49 @@
 <div id="look_large_box">
 
     <h1>須坂市動物園</h1>
+
     <div class="live-box">
-        <iframe width="656" height="369" src="https://www.youtube.com/embed/Ni-YkkvH6DQ" title="Live High-Definition Views from the International Space Station (Official NASA Stream)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <div>
-            <a class="yt-link" href="https://www.youtube.com/@NASA" target="_blank" rel="noopener">
-                → YouTubeチャンネルを見る
-            </a>
-        </div>
+    <img
+        class="gif-toggle"
+        src="{% static 'img/gif2.png' %}"
+        data-gif="{% static 'img/gif2.gif' %}"
+        data-still="{% static 'img/gif2.png' %}"
+        alt="フンボルトペンギン"
+    >
+    <div class="live-name">フンボルトペンギン</div>
+    </div>
+
+    <div class="live-box">
+    <img
+        class="gif-toggle"
+        src="{% static 'img/gif1.png' %}"
+        data-gif="{% static 'img/gif1.gif' %}"
+        data-still="{% static 'img/gif1.png' %}"
+        alt="ラマ"
+    >
+    <div class="live-name">ラマ</div>
+    </div>
+
+    <div class="live-box">
+    <img
+        class="gif-toggle"
+        src="{% static 'img/gif3.png' %}"
+        data-gif="{% static 'img/gif3.gif' %}"
+        data-still="{% static 'img/gif3.png' %}"
+        alt="カピバラ"
+    >
+    <div class="live-name">カピバラ</div>
+    </div>
+
+    <div class="live-box">
+    <img
+        class="gif-toggle"
+        src="{% static 'img/gif4.png' %}"
+        data-gif="{% static 'img/gif4.gif' %}"
+        data-still="{% static 'img/gif4.png' %}"
+        alt="ホオジロカンムリヅル"
+    >
+    <div class="live-name">ホオジロカンムリヅル</div>
     </div>
 
     <div class="live-box">
@@ -74,5 +110,28 @@
     <br><br><br>
 
 </div>
+
+<script>
+    document.querySelectorAll(".gif-toggle").forEach(img => {
+        img.addEventListener("click", () => {
+            document.querySelectorAll(".gif-toggle").forEach(other => {
+                if (other !== img) {
+                    other.src = other.dataset.still;
+                    other.dataset.playing = "false";
+                }
+            });
+
+            const isPlaying = img.dataset.playing === "true";
+
+            if (isPlaying) {
+                img.src = img.dataset.still;
+                img.dataset.playing = "false";
+            } else {
+                img.src = img.dataset.gif + "?t=" + Date.now();
+                img.dataset.playing = "true";
+            }
+        });
+    });
+</script>
 
 {% endblock %}
