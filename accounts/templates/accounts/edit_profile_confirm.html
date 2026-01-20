@@ -1,17 +1,59 @@
 {% extends 'common/base.html' %}
-{% block content %}
 {% load phone_filters %}
-<h2>確認画面</h2>
-<p>名前: {{ data.name }}</p>
-<p>生年月日: {{ data.birth }}</p>
-<p>郵便番号: {{ data.postal_code|postal_format }}</p>
-<p>住所: {{ data.address }}</p>
-<p>電話番号: {{ data.phone|phone_format }}</p>
-<p>メール: {{ data.email }}</p>
+{% load static %}
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">保存</button>
-</form>
-<a href="{% url 'accounts:edit_profile' %}">戻る</a>
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/edit_profile_confirm.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div id="edit_profile_confirm_large_box">
+
+    <h1 id="edit_profile_confirm_lang">変更内容の確認</h1>
+
+    <div id="edit_profile_confirm_small_box">
+
+        <div id="edit_profile_confirm_small_box_paper">
+
+            <div id="edit_profile_confirm_small_box_lang">
+
+                <div id="edit_profile_confirm_small_box_lang_p">
+                    <p><span class="edit_profile_confirm_text">　　　名　前　　　　</span><span class="edit_profile_confirm_textcontents_01">{{ data.name }}</span><span id="edit_profile_confirm_mrs">　さま</span></p>
+                    <p><span class="edit_profile_confirm_text">　生　年　月　日　　</span><span class="edit_profile_confirm_textcontents_01">{{ data.birth }}</span></p>
+                    <p><span class="edit_profile_confirm_text">　郵　便　番　号　　</span><span class="edit_profile_confirm_textcontents_01">{{ data.postal_code|postal_format }}</span></p>
+                    <p><span class="edit_profile_confirm_text">　　　住　所　　　　</span><span class="edit_profile_confirm_textcontents_01">{{ data.address }}</span></p>
+                    <p><span class="edit_profile_confirm_text">　電　話　番　号　　</span><span class="edit_profile_confirm_textcontents_01">{{ data.phone|phone_format }}</span></p>
+                    <p><span class="edit_profile_confirm_text">　メールアドレス　　</span><span class="edit_profile_confirm_textcontents_02">{{ data.email }}</span></p>
+                </div>
+                    
+                    <br>
+
+                    <p id="edit_profile_confirm_check">上記の内容に変更してもよろしいですか？</p>
+
+                    <br>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <button id="edit_profile_change_set_button" type="submit">上記の内容に変更する</button>
+                    </form>
+
+                    <br>
+                    
+                    <a id="edit_profile_return_button" href="{% url 'accounts:edit_profile' %}">◀ 入力画面へ戻る</a>
+
+            </div>
+
+        </div>
+    </div>
+
+    <a id="edit_profile_confirm_mypage_button" href="{% url 'accounts:mypage' %}">▶ マイページへ</a>
+
+    <br><br>
+
+    <a id="edit_profile_confirm_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
 {% endblock %}

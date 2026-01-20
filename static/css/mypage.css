@@ -255,7 +255,7 @@
 /* サブスク加入履歴・解約ボタン０１ */
 #mypage_sbsc_button_01 {
   width: 15vw;
-  height: 2.2vw;
+  height: 2.5vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);
   background-color: #b09876;

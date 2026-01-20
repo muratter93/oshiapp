@@ -9,7 +9,7 @@
 
 
 /* 会員情報変更大箱 */
-#edit_profile_mypage_lang {
+#edit_profile_lang {
   text-align: center;
   font-weight: 900;
   font-size: 3.5vw;
@@ -44,13 +44,22 @@
   font-weight: 800;
   font-size: 1.3vw;
   margin: 0 auto;
-  padding: 3vw 4vw 7vw 4vw;
+  padding: 3vw 4vw 7vw 4.5vw;
   /* background-color: rgb(105, 103, 42); */
 }
 
-/* ログアウトボタン */
+/* 入力案内文 */
+#edit_profile_info {
+  font-size: 1.4vw;
+  text-align: center;
+  color: #b78033;
+  width: 50vw; /* または固定値 (例: 300px) */
+  margin: 0 auto; /* 上下は0、左右は自動計算 */
+}
+
+/* 確認画面へボタン */
 #edit_profile_changebutton {
-  width: 16vw;
+  width: 10vw;
   height: 3vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);

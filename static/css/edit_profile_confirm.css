@@ -1,0 +1,150 @@
+
+/* 会員情報確認大箱 */
+#edit_profile_confirm_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+}
+
+
+/* 会員情報確認大箱 */
+#edit_profile_confirm_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* 会員情報確認小箱 */
+#edit_profile_confirm_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* 会員情報変更確認の中の小箱 */
+#edit_profile_confirm_small_box_paper {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  background-image: url("/static/img/mypage_back.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+#edit_profile_confirm_small_box_lang {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.3vw;
+  padding: 3vw 4vw 5vw 4vw;
+  /* background-color: rgb(105, 103, 42); */
+}
+
+/* 項目ボックス */
+#edit_profile_confirm_small_box_lang_p {
+  text-align: left;
+  width: 40vw;
+}
+
+/* 各種項目テキスト */
+.edit_profile_confirm_text {
+  font-weight: 800;
+  font-size: 1.3vw;
+  font-size: 1.1vw;
+  width: 20vw;
+}
+
+/* 各種項目入力内容 */
+.edit_profile_confirm_textcontents_01 {
+  font-size: 1.5vw;
+  font-weight: 500;
+}
+
+.edit_profile_confirm_textcontents_02 {
+  font-size: 1.3vw;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+/* 各種項目入力内容のさま */
+#edit_profile_confirm_mrs {
+  font-size: 1vw;
+}
+
+/* 変更確認文 */
+#edit_profile_confirm_check {
+  color: #b78033;
+}
+
+
+/* 変更決定ボタン */
+#edit_profile_change_set_button {
+  width: 16vw;
+  height: 3vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  color: rgb(255, 255, 255);
+  background-color: #b09876;
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.3vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+  margin: 0 auto;
+  outline: none;
+  border: none;
+}
+
+#edit_profile_change_set_button:visited {
+  color: rgb(255, 255, 255);
+}
+
+#edit_profile_change_set_button:hover {
+  color: rgb(255, 255, 255);
+}
+
+#edit_profile_change_set_button:hover {
+  background-color: #b78033;
+}
+
+
+/* 入力画面へ戻るボタン */
+#edit_profile_return_button {
+  font-weight: 500;
+  text-decoration: none;
+  color: #b09876;
+}
+
+#edit_profile_return_button:visited {
+  color: #b09876;
+}
+
+#edit_profile_return_button:hover {
+  color: #b09876;
+}
+
+#edit_profile_return_button:hover {
+  color: #b78033;
+}
+
+
+/* マイページへ */
+#edit_profile_confirm_mypage_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#edit_profile_confirm_returntop_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+
