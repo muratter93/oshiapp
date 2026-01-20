@@ -18,7 +18,7 @@
 
             <div id="mypage_small_box_lang">
 
-                <p>ユーザーネーム　　<span class="mypage_small_lang">{{ user.username }}</span></p>
+                <p>　　　ID　　　　　<span class="mypage_small_lang">{{ user.username }}</span></p>
                 <p>　お　名　前　　　<span class="mypage_small_lang">{{ user.name }}<span id="mypage_lang_mr"> さま</span></p>
                 <p>生　年　月　日　　<span class="mypage_small_lang">{{ user.birth }}</span></p>
                 <p>郵　便　番　号　　<span class="mypage_small_lang">{{ user.postal_code|postal_format }}</span></p>
@@ -48,7 +48,9 @@
 
                 <br>
 
-                <img id="mypage_image_02" src="{% static 'img/mypage_bird.png' %}" alt="鳥画像">
+                <img id="mypage_image_02" src="{% static 'img/mypage_bird.png' %}" alt="鳥画像1">
+                <br>
+                <img id="mypage_image_03" src="{% static 'img/myspace_bird_02.png' %}" alt="鳥画像2">
 
                 <div id="mypage_sbsc_title">現在加入中のサブスクプラン</div>
 
@@ -87,7 +89,7 @@
 
                 <br><br><br>
 
-                <img id="mypage_image_03" src="{% static 'img/mypage_lion.png' %}" alt="ライオン画像">
+                <img id="mypage_image_04" src="{% static 'img/mypage_lion.png' %}" alt="ライオン画像">
 
                 <div id="mypage_logout_button_01"><a href="{% url 'accounts:logout' %}">ログアウト</a></div>
 

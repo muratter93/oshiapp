@@ -1,13 +1,44 @@
 {% extends 'common/base.html' %}
 {% block content %}
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">上記の内容に変更する</button>
-</form>
+{% load static %}
 
-<div id="edit_profile_mypage_button"><a href="{% url 'accounts:mypage' %}">▶マイページへ</a></div>
-<div id="edit_profile_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+{% endblock %}
+
+
+<div id="edit_profile_large_box">
+
+    <h1 id="edit_profile_mypage_lang">会員情報変更</h1>
+
+    <div id="edit_profile_small_box">
+
+        <div id="edit_profile_small_box_paper">
+
+            <div id="edit_profile_small_box_lang">
+
+                <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <button id="edit_profile_changebutton" type="submit">上記の内容に変更する</button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <a id="edit_profile_mypage_button" href="{% url 'accounts:mypage' %}">▶ マイページへ</a>
+
+    <br><br>
+
+    <a id="edit_profile_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script>
