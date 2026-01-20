@@ -10,48 +10,96 @@
 
 <div id="mypage_large_box">
 
-    <h2>マイページ</h2>
+    <h1 id="mypage_mypage_lang">マイページ</h1>
 
-    <p>　ユーザーネーム　{{ user.username }}</p>
-    <p>　　お　名　前　　{{ user.name }}</p>
-    <p>　生　年　月　日　{{ user.birth }}</p>
-    <p>　郵　便　番　号　{{ user.postal_code|postal_format }}</p>
-    <p>　　　住　所　　　{{ user.address }}</p>
-    <p>　電　話　番　号　{{ user.phone|phone_format }}</p>
-    <p>　メールアドレス　{{ user.email }}</p>
+    <div id="mypage_small_box">
 
-    {% if user.wallet %}
-        <p>今あるチアコインとスタンニングポイントの数</p>
-        <p><strong>チアコ:</strong> {{ user.wallet.cheer_coin_balance }}</p>
-        <p><strong>スタポ:</strong> {{ user.wallet.stanning_point_balance }}</p>
-    {% endif %}
+        <div id="mypage_small_box_paper">
+
+            <div id="mypage_small_box_lang">
+
+                <p>ユーザーネーム　　<span class="mypage_small_lang">{{ user.username }}</span></p>
+                <p>　お　名　前　　　<span class="mypage_small_lang">{{ user.name }}<span id="mypage_lang_mr"> さま</span></p>
+                <p>生　年　月　日　　<span class="mypage_small_lang">{{ user.birth }}</span></p>
+                <p>郵　便　番　号　　<span class="mypage_small_lang">{{ user.postal_code|postal_format }}</span></p>
+                <p>　　住　所　　　　<span class="mypage_small_lang">{{ user.address }}</span></p>
+                <p>電　話　番　号　　<span class="mypage_small_lang">{{ user.phone|phone_format }}</span></p>
+                <p>メールアドレス　　<span class="mypage_small_lang">{{ user.email }}</span></p>
+                <img id="mypage_image_01" src="{% static 'img/mypage_risu.png' %}" alt="リス画像">
+                <div id="mypage_pass_button_01"><a href="{% url 'accounts:password_change' %}">▶ パスワード変更</a></div>
+                <div id="mypage_account_button_01"><a href="{% url 'accounts:edit_profile' %}">▶ 会員情報変更</a></div>
+
+                <br><br><br>
+
+                <div id="mypage_point_box_01">
+                    {% if user.wallet %}
+                    <div class="mypage_point_unit_01">保有チアコ</div>
+                    <div class="mypage_point_num">{{ user.wallet.cheer_coin_balance }}<span class="mypage_point_unit_02">チアコ</span></div>
+                    <div id="mypage_chiaco_button_01"><a href="{% url 'money:purchase_history' %}">▶ チアコ交換履歴</a></div>
+                    {% endif %}
+                </div>
+                <div id="mypage_point_box_02">
+                    {% if user.wallet %}
+                    <div class="mypage_point_unit_01">保有スタポ</div>
+                    <div class="mypage_point_num">{{ user.wallet.stanning_point_balance }}<span class="mypage_point_unit_02">スタポ</span></div>
+                    <div id="mypage_goods_button_01"><a href="{% url 'goods:order_history' %}">▶ グッズ交換履歴</a></div>
+                    {% endif %}
+                </div>
+
+                <br>
+
+                <img id="mypage_image_02" src="{% static 'img/mypage_bird.png' %}" alt="鳥画像">
+
+                <div id="mypage_sbsc_title">現在加入中のサブスクプラン</div>
+
+                <ul id="mypage_sbsc_ul">
+                {% if current_subs %}
+                {% for sub in current_subs %}
+                    <li>
+                        
+                        <div id="mypage_sbsc_name_box">
+                            <span id="mypage_sbsc_type">{{ sub.animal.japanese }}</span><br>
+                            <span id="mypage_sbsc_name">{{ sub.animal.name }}</span>
+                            <span id="mypage_animal-namegenderlang">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
+                        </div>
+
+                        <div id="mypage_sbsc_box">
+                            <div id="mypage_subsc_box_01">
+                                <div class="mypage_subsc_category_01">プラン</div>
+                                <div class="mypage_subsc_category_02">{{ sub.plan.plan_name }}</div>
+                            </div>
+                            <div id="mypage_subsc_box_02">
+                                <div class="mypage_subsc_category_01">加入日</div>
+                                <div class="mypage_subsc_category_02">{{ sub.sign_up }}</div>
+                            </div>
+                        </div>
+
+                    </li>
+                {% endfor %}
+
+                {% else %}
+                    <p>現在加入中のサブスクはありません。</p>
+                {% endif %}
+
+                </ul>
+
+                <div id="mypage_sbsc_button_01"><a href="{% url 'money:purchase_history2' %}">▶ サブスク加入履歴・解約</a></div>
+
+                <br><br><br>
+
+                <img id="mypage_image_03" src="{% static 'img/mypage_lion.png' %}" alt="ライオン画像">
+
+                <div id="mypage_logout_button_01"><a href="{% url 'accounts:logout' %}">ログアウト</a></div>
+
+            </div>
+
+        </div>
+    </div>
 
 
-    <h3>現在加入中のサブスク</h3>
-
-    {% if current_subs %}
-        <ul>
-            {% for sub in current_subs %}
-            <li>
-                動物: {{ sub.animal.name }} ({{ sub.animal.japanese }})<br>
-                プラン: {{ sub.plan.plan_name }}<br>
-                加入日: {{ sub.sign_up }}<br>
-                金額: {{ sub.plan.amount }} 円<br>
-            </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>現在加入中のサブスクはありません。</p>
-    {% endif %}
 
 
-    <a href="{% url 'money:purchase_history' %}">チアコ交換履歴</a><br>
-    <a href="{% url 'goods:order_history' %}">グッズ交換履歴</a><br>
-    <a href="{% url 'accounts:edit_profile' %}">会員情報の変更</a><br>
-    <a href="{% url 'accounts:password_change' %}">パスワード変更</a><br>
-    <a href="{% url 'money:purchase_history2' %}">サブスク加入履歴・解約</a><br>
-    <div id="mypage_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
-    <a href="{% url 'accounts:logout' %}">ログアウト</a><br>
+    <a id="mypage_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
 
 </div>
 

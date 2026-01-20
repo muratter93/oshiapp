@@ -1,8 +1,407 @@
 
+/* マイページ大箱 */
+#mypage_mypage_lang {
+  font-weight: 900;
+  font-size: 3.5vw;
+}
 
 /* マイページ大箱 */
-
 #mypage_large_box {
   margin: 0;
-  padding: 0 130px 60px 0;
+  padding: 0 100px 60px 0;
+  text-align: center;
+}
+
+/* マイページ小箱 */
+#mypage_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* マイページ小箱の中の小箱 */
+#mypage_small_box_paper {
+  /* width:700px; */
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  background-image: url("/static/img/mypage_back.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+#mypage_small_box_lang {
+  text-align: left;
+  font-weight: 800;
+  font-size: 1.3vw;
+  margin: 0 auto;
+  padding: 5vw 7vw 7vw 7vw;
+  /* background-color: rgb(105, 103, 42); */
+}
+
+.mypage_small_lang {
+  font-weight: 500;
+  font-size: 1.5vw;
+}
+
+/* 小箱の中の各種項目（さま） */
+#mypage_lang_mr {
+  font-size: 1.3vw;
+  font-weight: 500;
+}
+
+/* 会員情報変更ボタン０１ */
+#mypage_account_button_01 {
+  width: 9vw;
+  height: 2.2vw;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  background-color: #b09876;
+  font-size: 1vw;
+  font-weight: 500;
+  float: right;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+}
+
+#mypage_account_button_01 a {
+  text-decoration: none;
+}
+
+#mypage_account_button_01 a:visited {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_account_button_01 a:hover {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_account_button_01:hover {
+  background-color: #b78033;
+}
+
+/* パスワード変更ボタン０１ */
+#mypage_pass_button_01 {
+  width: 10vw;
+  height: 2.2vw;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  background-color: #b09876;
+  font-size: 1vw;
+  font-weight: 500;
+  float: right;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+  margin-left: 1vw;
+}
+
+#mypage_pass_button_01 a {
+  text-decoration: none;
+}
+
+#mypage_pass_button_01 a:visited {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_pass_button_01 a:hover {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_pass_button_01:hover {
+  background-color: #b78033;
+}
+
+/* 小箱の中の各種項目（ポイント） */
+#mypage_point_box_01, #mypage_point_box_02 {
+  display:flex
+}
+
+#mypage_point_box_02 {
+  margin-top: 1vw;
+}
+
+.mypage_point_unit_01 {
+  width: 8vw;
+  height: 2.5vw;
+  border-radius: 10px;
+  background: rgb(84, 62, 44);/*背景色*/
+  color: rgb(255, 255, 255);
+  display: flex;
+  font-size: 1.1vw;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+}
+
+.mypage_point_num {
+  width: 11vw;
+  height: 2.5vw;
+  border-radius: 10px;
+  color: rgb(84, 62, 44);
+  display: flex;
+  font-size: 2.2vw;
+  font-weight: 900;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+  margin-left: 2vw;
+}
+
+.mypage_point_unit_02 {
+  width: 8vw;
+  height: 2.5vw;
+  border-radius: 10px;
+  color: rgb(84, 62, 44);
+  display: flex;
+  font-size: 1.1vw;
+  justify-content: left; /* 左右中央揃え */
+  align-items: flex-end;     /* 上下中央揃え */
+  text-align: center;
+  margin-left: 0.3vw;
+  margin-bottom: 0.2vw;
+}
+
+/* チアコ購入履歴ボタン０１ */
+#mypage_chiaco_button_01 {
+  width: 10vw;
+  height: 2.2vw;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  background-color: #b09876;
+  font-size: 1vw;
+  font-weight: 500;
+  margin-left: auto;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+}
+
+#mypage_chiaco_button_01 a {
+  text-decoration: none;
+}
+
+#mypage_chiaco_button_01 a:visited {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_chiaco_button_01 a:hover {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_chiaco_button_01:hover {
+  background-color: #b78033;
+}
+
+/* グッズ購入履歴ボタン０１ */
+#mypage_goods_button_01 {
+  width: 10vw;
+  height: 2.2vw;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  background-color: #b09876;
+  font-size: 1vw;
+  font-weight: 500;
+  margin-left: auto;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+}
+
+#mypage_goods_button_01 a {
+  text-decoration: none;
+}
+
+#mypage_goods_button_01 a:visited {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_goods_button_01 a:hover {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_goods_button_01:hover {
+  background-color: #b78033;
+}
+
+/* 小箱の中の各種項目（サブスク） */
+#mypage_sbsc_title {
+  width: 17vw;
+  height: 2.8vw;
+  border-radius: 20% 32% 10% 10% / 39% 64% 28% 45% ;
+  background: rgb(84, 62, 44);/*背景色*/
+  color: rgb(255, 255, 255);
+  display: flex;
+  font-size: 1.1vw;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;/* 小箱の中の各種項目（加入中のサブスク） */
+  margin-top: 2.5vw;
+  margin-bottom: 2vw;
+}
+
+/* サブスク加入履歴・解約ボタン０１ */
+#mypage_sbsc_button_01 {
+  width: 14vw;
+  height: 2.2vw;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  background-color: #b09876;
+  font-size: 1vw;
+  font-weight: 500;
+  float: right;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+}
+
+#mypage_sbsc_button_01 a {
+  text-decoration: none;
+}
+
+#mypage_sbsc_button_01 a:visited {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_sbsc_button_01 a:hover {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_sbsc_button_01:hover {
+  background-color: #b78033;
+}
+
+
+#mypage_sbsc_type {
+  font-size: 1.1vw;
+}
+#mypage_sbsc_name {
+  font-size: 1.5vw;
+  font-weight: 900;
+}
+#mypage_animal-namegenderlang {
+  font-size: 0.8vw;
+}
+
+#mypage_sbsc_name_box {
+  line-height: 1.4vw;
+}
+
+#mypage_sbsc_ul {
+  margin: 0 0 3vw 10vw;
+  padding: 0;
+}
+
+#mypage_sbsc_box, #mypage_subsc_box_01, #mypage_subsc_box_02 {
+  display:flex
+}
+
+#mypage_sbsc_box {
+  margin: 0.2vw 0 0 0.2vw;
+}
+
+#mypage_subsc_box_02 {
+  margin-left: -1vw;
+}
+
+.mypage_subsc_category_01 {
+  width: 5vw;
+  height: 1.8vw;
+  border-radius: 10px;
+  /* border: 2px solid rgb(84, 62, 44); */
+  background-color: rgb(220, 200, 184);
+  color: rgb(84, 62, 44);
+  display: flex;
+  font-size: 1.1vw;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+}
+
+.mypage_subsc_category_02 {
+  width: 9vw;
+  height: 1.8vw;
+  color: rgb(84, 62, 44);
+  display: flex;
+  font-size: 1.1vw;
+  justify-content: left; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+  margin-left: 0.5vw;
+}
+
+/* ログアウトボタン */
+#mypage_logout_button_01 {
+  width: 10vw;
+  height: 3vw;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  background-color: #b09876;
+  font-size: 1.3vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+  margin: 0 auto;
+}
+
+#mypage_logout_button_01 a {
+  text-decoration: none;
+}
+
+#mypage_logout_button_01 a:visited {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_logout_button_01 a:hover {
+  color: rgb(255, 255, 255);
+}
+
+#mypage_logout_button_01:hover {
+  background-color: #b78033;
+}
+
+
+/* トップページへもどる */
+#mypage_returntop_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+
+/* リス画像 */
+#mypage_image_01 {
+  width: 20%;
+  float: right;
+  margin-top: -18vw;
+  opacity: 0.2;
+}
+
+/* 鳥画像 */
+#mypage_image_02 {
+  width: 20%;
+  margin: -10vw 0 -5vw 23vw;
+  opacity: 0.2;
+}
+
+/* ライオン画像 */
+#mypage_image_03 {
+  width: 40%;
+  margin: -17vw 0 0 -2vw;
+  opacity: 0.2;
 }
