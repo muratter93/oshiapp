@@ -44,7 +44,7 @@
   font-weight: 800;
   font-size: 1.3vw;
   margin: 0 auto;
-  padding: 3vw 8vw 4vw 8vw;
+  padding: 3vw 4vw 7vw 4vw;
   /* background-color: rgb(105, 103, 42); */
 }
 
@@ -94,4 +94,80 @@
 #edit_profile_returntop_button {
   text-decoration: none;
   font-size: 14pt;
+}
+
+
+/* form内体裁 */
+
+#edit_profile_form {
+  padding-top: 1vw;
+}
+
+#edit_profile_form_name input, #edit_profile_form_birth input, 
+#edit_profile_form_postalcode input, #edit_profile_form_address input, 
+#edit_profile_form_phone input, #edit_profile_form_email input {
+  font-family: 'M PLUS Rounded 1c';
+  color: rgb(84, 62, 44);
+  font-size: 1.2vw;
+  height: 3vw;
+  padding-left: 1.8vw;
+  margin-top: -1vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  outline: none;
+  border: none;
+  /* background-color: blue; */
+}
+
+
+/* 名前入力form長さ */
+#edit_profile_form_name input {
+  width: 17vw;
+}
+/* 生年月日入力form長さ */
+#edit_profile_form_birth input {
+  width: 10vw;
+  padding-right: 1.8vw;
+}
+/* 郵便番号入力form長さ */
+#edit_profile_form_postalcode input {
+  width: 7vw;
+}
+/* 住所入力form長さ */
+#edit_profile_form_address input {
+  width: 40vw;
+}
+/* メールアドレス入力form長さ */
+#edit_profile_form_email input {
+  width: 30vw;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.edit_profile_form_text {
+  margin-top: 2vw;
+  display:flex;
+}
+
+#edit_profile_form label {
+  font-size: 1.6vw;
+  width: 15vw;
+}
+
+#edit_profile_form_name_p {
+  padding: 0 0 0 1vw;
+  margin: 0 0 0.05vw 0;
+  font-size: 1.3vw;
+  margin-top: auto;
 }

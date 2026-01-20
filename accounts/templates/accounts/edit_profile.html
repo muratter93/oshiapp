@@ -17,11 +17,62 @@
 
             <div id="edit_profile_small_box_lang">
 
-                <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <br>
-                <button id="edit_profile_changebutton" type="submit">上記の内容に変更する</button>
+                <form id="edit_profile_form" method="post">
+
+                    {% csrf_token %}
+                    
+                        <div class="edit_profile_form_text">
+                            <label>　　　名　前　　　</label>
+                            <div id="edit_profile_form_name">
+                                {{ form.name }}
+                                {{ form.name.errors }}
+                            </div>
+                            <p id="edit_profile_form_name_p">さま</p>
+                        </div>
+                    
+                        <div class="edit_profile_form_text">
+                            <label>　生　年　月　日　</label>
+                            <div id="edit_profile_form_birth">
+                                {{ form.birth }}
+                                {{ form.birth.errors }}
+                            </div>
+                        </div>
+                    
+                        <div class="edit_profile_form_text">
+                            <label>　郵　便　番　号　</label>
+                            <div id="edit_profile_form_postalcode">
+                                {{ form.postal_code }}
+                                {{ form.postal_code.errors }}
+                            </div>
+                        </div>
+                    
+                        <div class="edit_profile_form_text">
+                            <label>　　　住　所　　　</label>
+                            <div id="edit_profile_form_address">
+                                {{ form.address }}
+                                {{ form.address.errors }}
+                            </div>
+                        </div>
+                    
+                        <div class="edit_profile_form_text">
+                            <label>　電　話　番　号　</label>
+                            <div id="edit_profile_form_phone">
+                                {{ form.phone }}
+                                {{ form.phone.errors }}
+                            </div>
+                        </div>
+                    
+                        <div class="edit_profile_form_text">
+                            <label>　メールアドレス　</label>
+                            <div id="edit_profile_form_email">
+                                {{ form.email }}
+                                {{ form.email.errors }}
+                            </div>
+                        </div>
+
+                    <br><br><br>
+                    <button id="edit_profile_changebutton" type="submit">上記の内容に変更する</button>
+
                 </form>
 
             </div>
