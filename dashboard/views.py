@@ -239,7 +239,7 @@ class DashboardLoginView(LoginView):
 def dashboard_logout(request: HttpRequest) -> HttpResponse:
     """ダッシュボード用ログアウト"""
     logout(request)
-    messages.info(request, "ログアウトしました。")
+    messages.info(request, "")
     return redirect("dashboard:dashboard_login")
 
 
