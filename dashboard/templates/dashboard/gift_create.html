@@ -36,6 +36,14 @@
           {% endif %}
         </label>
 
+        <label>
+          プラン金額（円）
+          {{ form.price }}
+          {% for e in form.price.errors %}
+            <span class="error">{{ e }}</span>
+          {% endfor %}
+        </label>
+
         <label class="full">
           説明文
           {{ form.description }}

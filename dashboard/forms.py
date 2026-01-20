@@ -276,6 +276,7 @@ class GiftForm(forms.ModelForm):
         fields = [
             "title",
             "description",
+            "price",
             "zoo",
             "main_image",
         ]
@@ -288,6 +289,11 @@ class GiftForm(forms.ModelForm):
                 "class": "form-control",
                 "rows": 4,
                 "placeholder": "返礼品の説明",
+            }),
+            "price": forms.NumberInput(attrs={   # ← ★ 追加
+                "class": "form-control",
+                "min": 0,
+                "placeholder": "例：3000",
             }),
             "zoo": forms.Select(attrs={"class": "form-control"}),
             "main_image": forms.ClearableFileInput(attrs={"class": "form-control"}),
