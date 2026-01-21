@@ -1,22 +1,61 @@
 {% extends "common/base.html" %}
-{% block content %}
-<h2>チアコイン購入履歴</h2>
-{% if cheer_purchases %}
-<table border="1" cellpadding="6">
-  <tr><th>チアコ数</th><th>金額</th><th>購入日時</th></tr>
-  {% for p in cheer_purchases %}
-  <tr>
-    <td>{{ p.coins }} コイン</td>
-    <td>{{ p.price }} 円</td>
-    <td>{{ p.purchased_at|date:"Y年m月d日 H:i" }}</td>
-  </tr>
-  {% endfor %}
-</table>
-{% else %}
-<p>まだチアコ購入履歴がありません。</p>
-{% endif %}
+{% load static %}
 
-<div id="purchase_history_mypage_button"><a href="{% url 'accounts:mypage' %}">▶マイページへ</a></div>
-<div id="purchase_history_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/purchase_history.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div id="purchase_history_large_box">
+
+    <h1 id="purchase_history_lang">チアコイン購入履歴</h1>
+
+    <br>
+
+    <div id="purchase_history_small_box">
+
+      <div id="purchase_history_small_box_lang">
+
+        {% if cheer_purchases %}
+
+        <table id="purchase_history_table">
+
+          <tr>
+            <th class="purchase_history_table_text">購入単位</th>
+            <th class="purchase_history_table_text">購入金額</th>
+            <th class="purchase_history_table_text">購入日時</th>
+          </tr>
+
+          {% for p in cheer_purchases %}
+          <tr>
+            <td class="purchase_history_table_num">{{ p.coins }} <span class="purchase_history_table_unit">チアコ</span></td>
+            <td class="purchase_history_table_num">{{ p.price }} <span class="purchase_history_table_unit">円</span></td>
+            <td class="purchase_history_table_num"><span id="purchase_history_table_day">{{ p.purchased_at|date:"Y年m月d日 H:i" }}</span></td>
+          </tr>
+          {% endfor %}
+
+        </table>
+
+        {% else %}
+        <p>まだチアコ購入履歴がありません。</p>
+
+        {% endif %}
+
+      </div>
+
+
+    </div>
+
+    <a id="purchase_history_mypage_button" href="{% url 'accounts:mypage' %}">▶ マイページへ</a>
+
+    <br><br>
+
+    <a id="purchase_history_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
 
 {% endblock %}

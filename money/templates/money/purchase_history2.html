@@ -1,47 +1,78 @@
-
 {% extends "common/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/purchase_history2.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>サブスク加入履歴</h2>
-{% if stanning_purchases %}
-<table border="1" cellpadding="6">
-  <tr>
-    <th>プラン名</th>
-    <th>動物</th>
-    <th>付与スタポ</th>
-    <th>加入日</th>
-    <th>終了日</th>
-    <th>契約状況</th> <!-- ←追加 -->
-  </tr>
-  {% for s in stanning_purchases %}
-  <tr>
-    <td>{{ s.plan.plan_name }}</td>
-    <td>{{ s.animal.japanese }}</td>  
-    <td>{{ s.plan.st_point }} スタポ</td>
-    <td>{{ s.sign_up|date:"Y年m月d日" }}</td>
-    <td>{{ s.end_day|date:"Y年m月d日" }}</td>
-    <td>
-      {% if s.is_recurring %}
-          {% if s.is_active %}
-              <form action="{% url 'subscription:cancel_subscription' s.sub_member_id %}" method="post" style="display:inline" class="cancel-form">
-                {% csrf_token %}
-                <button type="submit" onclick="return confirm('本当に解約してよろしいですか？');">解約</button>
-              </form>
-          {% else %}
-              解約済み
-          {% endif %}
-      {% else %}
-          -  {# 解約できないプラン #}
-      {% endif %}
-    </td>
 
-  </tr>
-  {% endfor %}
-</table>
-{% else %}
-<p>まだ加入履歴がありません。</p>
-{% endif %}
+<div id="purchase_history2_large_box">
 
-<div id="purchase_history2_mypage_button"><a href="{% url 'accounts:mypage' %}">▶マイページへ</a></div>
-<div id="purchase_history2_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
+    <h1 id="purchase_history2_lang">サブスク加入履歴</h1>
+
+    <br>
+
+    <div id="purchase_history2_small_box">
+
+      <div id="purchase_history2_small_box_lang">
+
+        {% if stanning_purchases %}
+
+        <table id="purchase_history2_table">
+
+          <tr>
+            <th class="purchase_history2_table_text">プラン</th>
+            <th class="purchase_history2_table_text">動物</th>
+            <th class="purchase_history2_table_text">月間付与スタポ</th>
+            <th class="purchase_history2_table_text">加入日</th>
+            <th class="purchase_history2_table_text">終了日</th>
+            <th class="purchase_history2_table_text">契約状況</th>
+          </tr>
+
+          {% for s in stanning_purchases %}
+          <tr>
+            <td class="purchase_history2_table_num">{{ s.plan.plan_name }}</td>
+            <td class="purchase_history2_table_num">{{ s.animal.japanese }}</td>  
+            <td class="purchase_history2_table_num">{{ s.plan.st_point }} <span class="purchase_history2_table_unit">スタポ</span></td>
+            <td class="purchase_history2_table_num"><span class="purchase_history2_table_day">{{ s.sign_up|date:"Y年m月d日" }}</span></td>
+            <td class="purchase_history2_table_num"><span class="purchase_history2_table_day">{{ s.end_day|date:"Y年m月d日" }}</span></td>
+            <td class="purchase_history2_table_num">
+              {% if s.is_recurring %}
+                  {% if s.is_active %}
+                      <form action="{% url 'subscription:cancel_subscription' s.sub_member_id %}" method="post" style="display:inline" class="cancel-form">
+                        {% csrf_token %}
+                        <button type="submit" onclick="return confirm('本当に解約してよろしいですか？');">解約する</button>
+                      </form>
+                  {% else %}
+                      <p id="purchase_history2_table_canceled">解約済</p>
+                  {% endif %}
+              {% else %}
+                  -  {# 解約できないプラン #}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+
+        </table>
+
+        {% else %}
+        <p>まだ加入履歴がありません。</p>
+        {% endif %}
+
+      </div>
+
+
+    </div>
+
+    <a id="purchase_history2_mypage_button" href="{% url 'accounts:mypage' %}">▶ マイページへ</a>
+
+    <br><br>
+
+    <a id="purchase_history2_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
 
 {% endblock %}

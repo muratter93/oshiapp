@@ -1,0 +1,102 @@
+
+/* サブスク加入履歴大箱 */
+#purchase_history2_large_box {
+  margin: 0;
+  padding: 0 140px 0 0;
+  text-align: center;
+}
+
+
+/* サブスク加入履歴大箱 */
+#purchase_history2_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* サブスク加入履歴小箱 */
+#purchase_history2_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* ーーーー */
+/* 小箱の中 */
+/* ーーーー */
+
+#purchase_history2_small_box_lang {
+  text-align: left;
+  margin: 0 auto;
+  padding: 0;
+  /* background-color: rgb(105, 103, 42); */
+}
+
+/* ーーーーーーーーーーー */
+/* サブスク加入履歴テーブル */
+/* ーーーーーーーーーーー */
+
+/* テーブル外周り */
+#purchase_history2_table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.purchase_history2_table_text {
+  padding: 0.2vw;
+  border-bottom: solid 3px rgb(182, 170, 161);
+  color: rgb(182, 170, 161);
+}
+.purchase_history2_table_num {
+  padding: 1px 1px;
+  border-bottom: solid 1px rgb(182, 170, 161);
+}
+
+
+
+/* 項目の文字 */
+.purchase_history2_table_text {
+  font-weight: 700;
+  font-size: 1.2vw;
+  padding-left: 2vw;
+}
+
+/* 各数字 */
+.purchase_history2_table_num {
+  font-weight: 500;
+  font-size: 1.3vw;
+  padding-left: 2vw;
+}
+.purchase_history2_table_day {
+  font-size: 1.2vw;
+  padding-left: 0.1vw;
+}
+
+/* 解約済の文字 */
+#purchase_history2_table_canceled {
+  font-size: 1.3vw;
+}
+
+/* 各単位 */
+.purchase_history2_table_unit {
+  font-weight: 400;
+  font-size: 1vw;
+}
+
+
+
+
+
+/* マイページへ */
+#purchase_history2_mypage_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#purchase_history2_returntop_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
