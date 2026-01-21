@@ -42,6 +42,11 @@
     confirmModal.style.display = "none";
   });
 
+  document.getElementById("authCancelBtn")?.addEventListener("click", () => {
+  document.getElementById("authModal").style.display = "none";
+});
+
+
   /* ========= 完了モーダル ========= */
 const params = new URLSearchParams(window.location.search);
 if (params.get('done') === '1') {

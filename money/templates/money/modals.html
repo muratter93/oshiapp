@@ -36,7 +36,7 @@
     <h3>会員登録が必要です</h3>
     <p>チアコインを購入するにはログインまたは新規登録をしてください。</p>
     <div style="text-align:right;">
-      <button id="authCancelBtn">キャンセル</button>
+      <button type="button" id="authCancelBtn">キャンセル</button>
       <a href="{% url 'accounts:signup' %}?next={% url 'money:charge' %}"
          style="background:#6b7280;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">新規登録</a>
       <a href="{% url 'accounts:login' %}?next={% url 'money:charge' %}"
