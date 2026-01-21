@@ -41,7 +41,6 @@
 <script>
   window.IS_AUTH = {{ user.is_authenticated|yesno:"true,false" }};
 </script>
-<script src="{% static 'js/money.js' %}" defer></script>
 
 {% comment %} <p style="margin-top: 1rem;">
   <a href="{% url 'money:purchase_history' %}">購入履歴を見る</a>
@@ -49,6 +48,13 @@
 
 <div id="charge_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 <br><br><br><br><br><br><br><br><br><br><br>
+
+{% comment %} 決済 {% endcomment %}
+<script src="https://js.pay.jp/v2/pay.js"></script>
+<script>
+  const PAYJP_PUBLIC_KEY = "{{ PAYJP_PUBLIC_KEY }}";
+</script>
+<script src="{% static 'js/money.js' %}" ></script>
 
 
 {% endblock %}

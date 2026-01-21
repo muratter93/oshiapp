@@ -29,6 +29,7 @@ def charge(request):
         "plans": COIN_PLANS,
         "can_purchase": request.user.is_authenticated,
         "login_url": f"{reverse('accounts:login')}?next={request.get_full_path()}",
+        "PAYJP_PUBLIC_KEY": settings.PAYJP_PUBLIC_KEY,  # ← 追加
     })
 
 @login_required
@@ -79,3 +80,52 @@ def purchase_history2(request):
     return render(request, 'money/purchase_history2.html', {
         'stanning_purchases': stanning_purchases,
     })
+
+# 決済
+import payjp
+from django.conf import settings
+
+@login_required
+@transaction.atomic
+def pay_execute(request):
+    if request.method != "POST":
+        return redirect("money:charge")
+
+    token = request.POST.get("payjp-token")
+    coins = int(request.POST.get("coins", 0))
+
+    plan = _find_plan_by_coins(coins)
+    if not token or not plan:
+        messages.error(request, "不正な決済リクエストです。")
+        return redirect("money:charge")
+
+    # 金額は必ずサーバー側で決定
+    amount = plan["price"]
+
+    payjp.api_key = settings.PAYJP_SECRET_KEY
+
+    try:
+        charge = payjp.Charge.create(
+            amount=amount,
+            currency="jpy",
+            card=token,
+        )
+    except payjp.error.PayjpError:
+        messages.error(request, "決済に失敗しました。")
+        return redirect("money:charge")
+
+    # 決済成功 → コイン付与
+    wallet, _ = Wallet.objects.select_for_update().get_or_create(member=request.user)
+    wallet.cheer_coin_balance += plan["coins"]
+    wallet.save(update_fields=["cheer_coin_balance"])
+
+    CheerCoinPurchase.objects.create(
+        member=request.user,
+        coins=plan["coins"],
+        price=amount,
+        # payjp_charge_id=charge.id,
+    )
+
+    return redirect(
+        f"{reverse('money:charge')}?done=1&coins={plan['coins']}&price={amount}"
+    )

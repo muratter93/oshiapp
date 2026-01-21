@@ -169,3 +169,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mit45283@gmail.com'   # 送信元メールアドレス
 EMAIL_HOST_PASSWORD = 'squs ytgh couk xbpi'       # Gmailのアプリパスワード
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# 決済方法
+
+
+

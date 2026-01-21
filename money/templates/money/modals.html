@@ -20,7 +20,11 @@
     </p>
     <p id="donePointText" style="margin-top:8px; color:#16a34a; font-weight:bold;"></p>
     <div style="text-align:right;">
-      <button id="doneOkBtn" style="background:#16a34a;color:#fff;">OK</button>
+      <button type="button" id="doneOkBtn"
+        style="background:#16a34a;color:#fff;">
+          OK
+      </button>
+
     </div>
   </div>
 </div>
@@ -40,3 +44,44 @@
     </div>
   </div>
 </div>
+
+
+<!-- Pay.jp 決済モーダル -->
+<div id="payModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
+  <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px;">
+    <h3>カード情報入力</h3>
+
+    <form id="payForm" method="post" action="{% url 'money:pay_execute' %}">
+      {% csrf_token %}
+      <input type="hidden" name="coins" id="payCoins">
+      <input type="hidden" name="payjp-token" id="payjpToken">
+
+      <!-- 👇 Pay.jp がここにカードUIを自動生成する -->
+      <label>カード番号</label>
+    <div
+      id="card-number"
+      style="
+        border:1px solid #ccc;
+        padding:12px;
+        border-radius:6px;
+        min-height:44px;
+        background:#fff;
+      ">
+    </div>
+
+      <br>
+      <div style="text-align:right;">
+        <!-- 👈 追加：戻る -->
+        <button type="button" id="payBackBtn"
+                style="margin-right:8px;">
+          戻る
+        </button>
+
+      <button type="button" id="paySubmitBtn"
+              style="background:#2563eb;color:#fff;padding:8px 16px;border-radius:6px;">
+        支払う
+      </button>
+    </form>
+  </div>
+</div>
+

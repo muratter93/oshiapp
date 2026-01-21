@@ -8,5 +8,7 @@ urlpatterns = [
     path("charge/buy/<int:coins>/", views.buy_coins, name="buy"),
     path('purchase-history/', views.purchase_history, name='purchase_history'),
     path('purchase-history2/', views.purchase_history2, name='purchase_history2'),
-    
+    path("buy/<int:coins>/", views.buy_coins, name="buy"),  # 決済後専用にする
+    path("pay/execute/", views.pay_execute, name="pay_execute"),
 ]
+
