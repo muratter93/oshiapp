@@ -23,7 +23,7 @@
 
           <tr>
             <th class="purchase_history2_table_text">プラン</th>
-            <th class="purchase_history2_table_text">動物</th>
+            <th class="purchase_history2_table_text">動物の名前</th>
             <th class="purchase_history2_table_text">月間付与スタポ</th>
             <th class="purchase_history2_table_text">加入日</th>
             <th class="purchase_history2_table_text">終了日</th>
@@ -33,19 +33,21 @@
           {% for s in stanning_purchases %}
           <tr>
             <td class="purchase_history2_table_num">{{ s.plan.plan_name }}</td>
-            <td class="purchase_history2_table_num">{{ s.animal.japanese }}</td>  
+            <td class="purchase_history2_table_num">{{ s.animal.japanese }}
+              <span class="purchase_history2_table_unit">{% if a.sex == "M" %} くん{% elif a.sex == "F" %} ちゃん{% else %} さん{% endif %}</span>
+            </td>  
             <td class="purchase_history2_table_num">{{ s.plan.st_point }} <span class="purchase_history2_table_unit">スタポ</span></td>
             <td class="purchase_history2_table_num"><span class="purchase_history2_table_day">{{ s.sign_up|date:"Y年m月d日" }}</span></td>
             <td class="purchase_history2_table_num"><span class="purchase_history2_table_day">{{ s.end_day|date:"Y年m月d日" }}</span></td>
-            <td class="purchase_history2_table_num">
+            <td id="purchase_history2_table_num_02">
               {% if s.is_recurring %}
                   {% if s.is_active %}
                       <form action="{% url 'subscription:cancel_subscription' s.sub_member_id %}" method="post" style="display:inline" class="cancel-form">
                         {% csrf_token %}
-                        <button type="submit" onclick="return confirm('本当に解約してよろしいですか？');">解約する</button>
+                        <button id="purchase_history2_table_button" type="submit" onclick="return confirm('本当に解約してよろしいですか？');">解約する</button>
                       </form>
                   {% else %}
-                      <p id="purchase_history2_table_canceled">解約済</p>
+                      <span id="purchase_history2_table_canceled">解約済</span>
                   {% endif %}
               {% else %}
                   -  {# 解約できないプラン #}

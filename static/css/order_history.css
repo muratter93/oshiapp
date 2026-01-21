@@ -1,21 +1,22 @@
 
-/* サブスク加入履歴大箱 */
-#purchase_history2_large_box {
+
+/* グッズ交換履歴大箱 */
+#order_history_large_box {
   margin: 0;
   padding: 0 140px 0 0;
   text-align: center;
 }
 
 
-/* サブスク加入履歴大箱 */
-#purchase_history2_lang {
+/* グッズ交換履歴大箱 */
+#order_history_lang {
   text-align: center;
   font-weight: 900;
   font-size: 3.5vw;
 }
 
-/* サブスク加入履歴小箱 */
-#purchase_history2_small_box {
+/* グッズ交換履歴小箱 */
+#order_history_small_box {
   margin: 0;
   padding: 0 0 50px 0;
   display: flex;
@@ -27,7 +28,7 @@
 /* 小箱の中 */
 /* ーーーー */
 
-#purchase_history2_small_box_lang {
+#order_history_small_box_lang {
   text-align: left;
   margin: 0 auto;
   padding: 0;
@@ -35,71 +36,89 @@
 }
 
 /* ーーーーーーーーーーー */
-/* サブスク加入履歴テーブル */
+/* グッズ交換履歴テーブル */
 /* ーーーーーーーーーーー */
 
 /* テーブル外周り */
-#purchase_history2_table {
+#order_history_table {
   width: 70vw;
   border-collapse: collapse;
   border-spacing: 0;
 }
-.purchase_history2_table_text {
+.order_history_table_text {
   padding: 0.6vw;
   border-bottom: solid 3px rgb(182, 170, 161);
   color: rgb(182, 170, 161);
 }
-.purchase_history2_table_num {
+.order_history_table_num {
   padding: 0.7vw;
   border-bottom: solid 1px rgb(182, 170, 161);
 }
-#purchase_history2_table_num_02 {
+#order_history_table_text_day {
   padding: 0.7vw;
   border-bottom: solid 1px rgb(182, 170, 161);
-  padding-right: 2vw;
 }
 
 
 
 /* 項目の文字 */
-.purchase_history2_table_text {
+.order_history_table_text {
   font-weight: 700;
   font-size: 1.2vw;
   padding-left: 2vw;
 }
 
-/* 各数字 */
-.purchase_history2_table_num {
+/* 各数字など内容 */
+.order_history_table_num {
   font-weight: 500;
-  font-size: 1.3vw;
+  font-size: 1.2vw;
   padding-left: 2vw;
 }
-#purchase_history2_table_num_02 {
+#order_history_table_text_day {
   font-weight: 500;
-  font-size: 1.3vw;
+  font-size: 1vw;
   padding-left: 2vw;
 }
-.purchase_history2_table_day {
+/* 詳細をみるリンク */
+.order_history_table_num a {
+  text-decoration: none;
   font-size: 1.1vw;
-  padding-left: 0.1vw;
+  color: #b09876;
+}
+.order_history_table_num a:link {
+  color: #b09876;
+}
+.order_history_table_num a:visited {
+  color: #b09876;
+}
+.order_history_table_num a:hover {
+  color: #b78033;
 }
 
-/* 解約済の文字 */
-#purchase_history2_table_canceled {
-  font-size: 1.3vw;
-  padding-right: 2vw;
+/* 未発送・発送済・キャンセル */
+#order_history_table_notyet, #order_history_table_done, 
+#order_history_table_cancell {
+  font-size: 1vw;
+}
+#order_history_table_notyet {
+    color: #c0392b;
 }
 
 /* 各単位 */
-.purchase_history2_table_unit {
+.order_history_table_unit {
   font-weight: 400;
   font-size: 1vw;
 }
 
-/* 解約するボタン */
-#purchase_history2_table_button {
+
+
+
+
+/* キャンセルするボタン */
+#order_history_cancell_button {
   width: 6.5vw;
   height: 2.2vw;
+  font-family: 'M PLUS Rounded 1c';
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);
   background-color: #c0392b;
@@ -114,29 +133,28 @@
   border: none;
 }
 
-#purchase_history2_table_button:visited {
+#order_history_cancell_button:visited {
   color: rgb(255, 255, 255);
 }
 
-#purchase_history2_table_button:hover {
+#order_history_cancell_button:hover {
   color: rgb(255, 255, 255);
 }
 
-#purchase_history2_table_button:hover {
+#order_history_cancell_button:hover {
   background-color: #ff4d39;
 }
 
 
 
-
 /* マイページへ */
-#purchase_history2_mypage_button {
+#order_history_mypage_button {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#purchase_history2_returntop_button {
+#order_history_returntop_button {
   text-decoration: none;
   font-size: 14pt;
 }

@@ -38,16 +38,16 @@ def cancel_order(request, order_id):
             wallet.stanning_point_balance += order.total_stanning_points
             wallet.save()
         else:
-            messages.error(request, "ウォレット情報が見つかりませんでした。ポイントの返却に失敗しました。")
+            messages.error(request, "　ウォレット情報が見つかりませんでした。ポイントの返却に失敗しました。")
 
         # 3️ 注文ステータスをキャンセルに変更
         order.status = 'cancelled'
         order.save()
 
-        messages.success(request, "注文をキャンセルしました。スタポを返却しました。")
+        messages.success(request, "　注文をキャンセルしました。スタポを返却しました。")
 
     else:
-        messages.warning(request, "発送済みまたはキャンセル済みの注文はキャンセルできません。")
+        messages.warning(request, "　発送済みまたはキャンセル済みの注文はキャンセルできません。")
 
     return redirect('goods:order_history')
 

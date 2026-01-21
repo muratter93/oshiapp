@@ -44,34 +44,32 @@
 
 /* テーブル外周り */
 #purchase_history_table {
-  width: 40vw;
+  width: 45vw;
   border-collapse: collapse;
   border-spacing: 0;
 }
 .purchase_history_table_text {
-  padding: 5px;
+  padding: 0.5vw;
   border-bottom: solid 3px rgb(182, 170, 161);
   color: rgb(182, 170, 161);
 }
 .purchase_history_table_num {
-  padding: 8px;
+  padding: 0.6vw;
   border-bottom: solid 1px rgb(182, 170, 161);
 }
-
-
 
 /* 項目の文字 */
 .purchase_history_table_text {
   font-weight: 700;
   font-size: 1.5vw;
-  padding-left: 2vw;
+  padding-left: 3.3vw;
 }
 
 /* 各数字 */
 .purchase_history_table_num {
   font-weight: 500;
   font-size: 1.6vw;
-  padding-left: 2vw;
+  padding-left: 3.3vw;
 }
 #purchase_history_table_day {
   font-size: 1.2vw;
@@ -83,8 +81,6 @@
   font-weight: 400;
   font-size: 1.2vw;
 }
-
-
 
 
 

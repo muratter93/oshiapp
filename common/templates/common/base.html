@@ -48,7 +48,7 @@
                     <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                     {% endif %}
 
-                    {% if '/goods' not in request.path %}
+                    {% if '/goods/goods_list/' not in request.path %}
                     <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                     {% endif %}
 
@@ -142,7 +142,7 @@
                         <a class="hamburger_menu_content_a" href="{% url 'money:charge' %}">チアコを買う</a>
                         {% endif %}
 
-                        {% if '/goods' not in request.path %}
+                        {% if '/goods/goods_list/' not in request.path %}
                         <a class="hamburger_menu_content_a" href="{% url 'goods:goods_list' %}">グッズ交換する</a>
                         {% endif %}
 
@@ -221,7 +221,7 @@
                         <li><a href="{% url 'money:charge' %}">チアコを買う</a></li>
                         {% endif %}
 
-                        {% if '/goods' not in request.path %}
+                        {% if '/goods/goods_list/' not in request.path %}
                         <li><a href="{% url 'goods:goods_list' %}">グッズ交換する</a></li>
                         {% endif %}
 

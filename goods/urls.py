@@ -9,7 +9,7 @@ app_name = 'goods'
 urlpatterns = [
 
     # ====== 一般ユーザー向け ======
-    path('', views.goods_list, name='goods_list'),
+    path('goods_list/', views.goods_list, name='goods_list'),
 
     # カート
     path('cart/', views.cart_view, name='cart_view'),
