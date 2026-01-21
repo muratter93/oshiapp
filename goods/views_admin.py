@@ -107,29 +107,26 @@ from .models import Order
 
 @staff_member_required
 def admin_order_list(request):
-    # ベースのクエリ
-    order_qs = Order.objects.prefetch_related('items__goods').order_by('-created_at')
+    # ベースのクエリ（ここでは order_by しない）
+    order_qs = Order.objects.prefetch_related('items__goods')
 
-    # ▼ ここでフィルターを取得（?filter=xxx）
+    # ▼ フィルター（?filter=xxx）
     f = request.GET.get("filter", "all")
-
-    # 今日の日付
     today = timezone.localdate()
 
-    # ▼ フィルタリング
     if f == "today":
-        # 本日注文のみ
         order_qs = order_qs.filter(created_at__date=today)
-
     elif f == "pending":
-        # 未発送のみ
         order_qs = order_qs.filter(status="pending")
-
     elif f == "shipped":
-        # 発送済のみ
         order_qs = order_qs.filter(status="shipped")
 
-    # "all" やその他 → そのまま（全部）
+    # ▼ ★ 新旧（?order=date_asc）
+    order = (request.GET.get("order") or "").strip()
+    if order == "date_asc":
+        order_qs = order_qs.order_by("created_at")      # 旧 → 新
+    else:
+        order_qs = order_qs.order_by("-created_at")     # 新 → 旧（デフォルト）
 
     # ▼ ページネーション
     paginator = Paginator(order_qs, 10)
@@ -138,7 +135,8 @@ def admin_order_list(request):
 
     return render(request, "goods/admin_order_list.html", {
         "pagenated": pagenated,
-        "current_filter": f,   # ★ テンプレ側でどのフィルタか分かるように渡す
+        "current_filter": f,
+        "order": order,   # ★ テンプレで新旧表示に使う
     })
 
 

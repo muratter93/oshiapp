@@ -9,6 +9,15 @@
     <div class="table-wrap">
     <div class="admin-admins members-page">
 
+      <form method="get" class="filter-area" style="margin-bottom:8px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <input type="text" name="q" value="{{ q }}" placeholder="ID / 会員名で検索" style="padding:.55rem .7rem; border:1px solid #e5e7eb; border-radius:.6rem; min-width:260px;">
+
+        <input type="hidden" name="status" value="{{ status }}">
+        {% if order %}<input type="hidden" name="order" value="{{ order }}">{% endif %}
+
+        <button class="btn btn-edit" type="submit">検索</button>
+    </form>
+
       <div class="filter-buttons" style="margin-bottom:8px;">
         <a class="btn {% if status == 'all' %}btn-active{% endif %}"
           href="?status=all">すべて</a>
@@ -23,7 +32,13 @@
       <table class="admin-table">
         <thead>
           <tr>
-            <th>NO</th>
+          <th>
+            {% with s=status qv=q o=order %}
+              <a class="th-sort" href="?status={{ s }}{% if qv %}&q={{ qv|urlencode }}{% endif %}{% if o == 'id_asc' %}{% else %}&order=id_asc{% endif %}">
+                {% if o == 'id_asc' %}旧⇅新<span class="sort-icons">▲</span>{% else %}新⇅旧<span class="sort-icons">▼</span>{% endif %}
+              </a>
+            {% endwith %}
+          </th>
             <th>ID</th>
             <th>会員名</th>
             <th>メール</th>
@@ -35,7 +50,7 @@
         <tbody>
           {% for u in users %}
           <tr class="{% if not u.is_active %}inactive{% endif %}">
-            <td>{{ u.id }}</td>
+            <td>{% if is_paginated %}{{ page_obj.start_index|add:forloop.counter0 }}{% else %}{{ forloop.counter }}{% endif %}</td>
             <td>
             <a href="{% url 'dashboard:member_detail' u.id %}" class="member-link">
                 {{ u.username }}

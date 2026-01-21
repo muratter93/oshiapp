@@ -23,7 +23,13 @@
           {% for g in gifts %}
           <tr>
             <!-- ID -->
-            <td>{{ g.id }}</td>
+          <td>
+            {% if page_obj %}
+              {{ page_obj.start_index|add:forloop.counter0 }}
+            {% else %}
+              {{ forloop.counter }}
+            {% endif %}
+          </td>
 
             <!-- タイトル -->
             <td>{{ g.title }}</td>

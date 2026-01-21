@@ -9,8 +9,6 @@
 <div class="filter-area" style="margin-bottom: 16px;">
 
   <div style="margin-bottom: 8px;">
-    <span style="font-weight:bold; margin-right:8px;">動物園：</span>
-
     <a href="?{% if current_order %}order={{ current_order }}{% endif %}"
        class="btn {% if not current_zoo %}btn-active{% endif %}">
        すべて
@@ -24,25 +22,6 @@
     {% endfor %}
   </div>
 
-  <div>
-    <span style="font-weight:bold; margin-right:8px;">並び順：</span>
-
-    <a href="?{% if current_zoo %}zoo={{ current_zoo }}{% endif %}"
-    class="btn {% if not current_order %}btn-active{% endif %}">
-    NO降順
-    </a>
-
-    <a href="?order=id_asc{% if current_zoo %}&zoo={{ current_zoo }}{% endif %}"
-    class="btn {% if current_order == 'id_asc' %}btn-active{% endif %}">
-    NO昇順
-    </a>
-
-    <a href="?order=point_desc{% if current_zoo %}&zoo={{ current_zoo }}{% endif %}"
-       class="btn {% if current_order == 'point_desc' %}btn-active{% endif %}">
-       推しP高い順
-    </a>
-  </div>
-
 </div>
 {% endwith %}
 
@@ -54,14 +33,31 @@
         <table class="admin-table">
         <thead>
             <tr>
-            <th>NO</th>
+            <th>
+              {% with cz=request.GET.zoo co=request.GET.order %}
+                <a class="th-sort"
+                  href="?{% if cz %}zoo={{ cz }}&{% endif %}{% if co == 'id_asc' %}{% else %}order=id_asc{% endif %}">
+                  {% if co == 'id_asc' %}
+                    旧⇅新<span class="sort-icons">▲</span>
+                  {% else %}
+                    新⇅旧<span class="sort-icons">▼</span>
+                  {% endif %}
+                </a>
+              {% endwith %}
+            </th>
             <th>動物名</th>
             <th>名前</th>
             <th>画像</th>
             <th>性別</th>
             <th>所属動物園</th>
             <th>誕生日</th>
-            <th>推しP</th>
+            <th>
+              {% with cz=request.GET.zoo co=request.GET.order %}
+                <a class="th-sort" href="?{% if cz %}zoo={{ cz }}&{% endif %}{% if co == 'point_asc' %}order=point_desc{% else %}order=point_asc{% endif %}">
+                  推しP <span class="sort-icons">{% if co == 'point_asc' %}▲{% elif co == 'point_desc' %}▼{% else %}▼{% endif %}</span>
+                </a>
+              {% endwith %}
+            </th>
             <th>ステータス</th>
             <th>操作</th>
             </tr>
@@ -69,7 +65,7 @@
         <tbody>
             {% for a in animals %}
             <tr>
-            <td>{{ a.animal_id }}</td>
+            <td>{{ page_obj.start_index|add:forloop.counter0 }}</td>
             <td>{{ a.japanese }}</td>
             <td>{{ a.name }}</td>
             <td>

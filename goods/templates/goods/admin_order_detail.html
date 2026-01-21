@@ -3,25 +3,105 @@
 {% block content_title %}注文詳細{% endblock %}
 {% block content %}
 
-<h3>注文者情報</h3>
-<p>名前：{{ order.recipient_name }}</p>
-<p>住所：{{ order.postal_code }} {{ order.address }}</p>
-<p>電話番号：{{ order.phone_number }}</p>
+<div class="order-detail">
 
-<h3>注文内容</h3>
-<ul>
-  {% for item in order.items.all %}
-  <li>{{ item.goods.name }} × {{ item.quantity }}</li>
-  {% endfor %}
-</ul>
+  <!-- 上：サマリー -->
+  <div class="order-summary card">
+    <div class="order-summary__left">
+      <div class="subtle">注文ID</div>
+      <div class="order-id">#{{ order.id }}</div>
 
-<p><strong>合計スタポ：</strong>{{ order.total_stanning_points }}</p>
-<p><strong>発送状況：</strong>{{ order.get_status_display }}</p>
+      <div class="subtle" style="margin-top:10px;">注文日</div>
+      <div class="order-date">{{ order.created_at|date:"Y/m/d H:i" }}</div>
+    </div>
 
-{% if order.status == 'pending' %}
-<a href="{% url 'goods:admin_order_ship' order.id %}" class="btn btn-ship">発送にする</a>
-{% endif %}
+    <div class="order-summary__right">
+      <div class="subtle">発送状況</div>
+      <div>
+        {% if order.status == 'shipped' %}
+          <span class="badge badge-active">発送済</span>
+        {% elif order.status == 'cancelled' %}
+          <span class="badge badge-inactive">キャンセル</span>
+        {% else %}
+          <span class="badge badge-warning">未発送</span>
+        {% endif %}
+      </div>
 
-<a href="{% url 'goods:admin_order_list' %}" class="btn">一覧に戻る</a>
+      <div class="subtle" style="margin-top:10px;">合計スタポ</div>
+      <div class="order-total">{{ order.total_stanning_points }} pt</div>
+    </div>
+  </div>
+
+  <!-- 中：2カラム（注文者情報 / 注文内容） -->
+  <div class="order-grid">
+
+    <!-- 注文者情報 -->
+    <div class="card">
+      <div class="card-head">
+        <h3 class="card-title">注文者情報</h3>
+      </div>
+
+      <dl class="kv">
+        <div class="kv-row">
+          <dt>名前</dt>
+          <dd>{{ order.recipient_name }}</dd>
+        </div>
+
+        <div class="kv-row">
+          <dt>郵便番号</dt>
+          <dd>〒{{ order.postal_code }}</dd>
+        </div>
+
+        <div class="kv-row">
+          <dt>住所</dt>
+          <dd>{{ order.address }}</dd>
+        </div>
+
+        <div class="kv-row">
+          <dt>電話番号</dt>
+          <dd>{{ order.phone_number }}</dd>
+        </div>
+      </dl>
+    </div>  {# ← ★ これが抜けてた！ #}
+
+    <!-- 注文内容 -->
+    <div class="card">
+      <div class="card-head">
+        <h3 class="card-title">注文内容</h3>
+      </div>
+
+      <div class="table-wrap">
+        <table class="admin-table compact">
+          <thead>
+            <tr>
+              <th>グッズ</th>
+              <th style="width:100px; text-align:center;">数量</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in order.items.all %}
+              <tr>
+                <td>{{ item.goods.name }}</td>
+                <td style="text-align:center;">× {{ item.quantity }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="order-foot">
+        <div class="order-foot__label">合計</div>
+        <div class="order-foot__value">{{ order.total_stanning_points }} pt</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 下：操作ボタン（戻るだけ） -->
+  <div class="order-actions">
+    <a href="{% url 'goods:admin_order_list' %}" class="btn">一覧に戻る</a>
+  </div>
+
+</div>
 
 {% endblock %}

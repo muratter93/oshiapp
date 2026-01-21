@@ -12,7 +12,7 @@
       <table class="admin-table">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>NO</th>
             <th>サムネ画像</th>
             <th>名前</th>
             <th>必要スタポ</th>
@@ -23,7 +23,13 @@
         <tbody>
           {% for item in goods_list %}
           <tr>
-            <td>{{ item.id }}</td>
+          <td>
+            {% if page_obj %}
+              {{ page_obj.start_index|add:forloop.counter0 }}
+            {% else %}
+              {{ forloop.counter }}
+            {% endif %}
+          </td>
             <td>
               {% if item.image %}
                 <img src="{{ item.image.url }}" alt="{{ item.name }}" width="80" style="border-radius: 4px;">

@@ -6,17 +6,26 @@
 
 {% block content %}
 
-<div class="filter-buttons" style="margin-bottom:10px;">
-  <a class="btn {% if status == 'all' %}btn-active{% endif %}"
-     href="?status=all&q={{ q|urlencode }}">すべて</a>
+<form method="get" class="filter-area" style="margin-bottom:8px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+  <input type="text" name="q" value="{{ q }}" placeholder="会員名 / サポート動物で検索">
 
-  <a class="btn {% if status == 'active' %}btn-active{% endif %}"
-     href="?status=active&q={{ q|urlencode }}">有効中</a>
+  <input type="hidden" name="status" value="{{ status }}">
+  {% if order %}<input type="hidden" name="order" value="{{ order }}">{% endif %}
 
-  <a class="btn {% if status == 'inactive' %}btn-active{% endif %}"
-     href="?status=inactive&q={{ q|urlencode }}">終了済</a>
-</div>
+  <button class="btn btn-edit" type="submit">検索</button>
+</form>
 
+  <div class="filter-buttons" style="margin-bottom:8px;">
+
+    <a class="btn {% if status == 'all' %}btn-active{% endif %}"
+      href="?status=all{% if q %}&q={{ q|urlencode }}{% endif %}{% if order %}&order={{ order }}{% endif %}">すべて</a>
+
+    <a class="btn {% if status == 'active' %}btn-active{% endif %}"
+      href="?status=active{% if q %}&q={{ q|urlencode }}{% endif %}{% if order %}&order={{ order }}{% endif %}">有効中</a>
+
+    <a class="btn {% if status == 'inactive' %}btn-active{% endif %}"
+      href="?status=inactive{% if q %}&q={{ q|urlencode }}{% endif %}{% if order %}&order={{ order }}{% endif %}">終了済</a>
+  </div>
 
 <div class="admin-admins">
   <div class="card">
@@ -24,7 +33,16 @@
       <table class="admin-table">
         <thead>
           <tr>
-            <th>NO</th>
+            <th>
+              <a class="th-sort"
+                href="?status={{ status }}{% if q %}&q={{ q|urlencode }}{% endif %}{% if order == 'id_asc' %}{% else %}&order=id_asc{% endif %}">
+                {% if order == 'id_asc' %}
+                  旧⇅新 <span class="sort-icons">▲</span>
+                {% else %}
+                  新⇅旧 <span class="sort-icons">▼</span>
+                {% endif %}
+              </a>
+            </th>
             <th>会員名</th>
             <th>プラン</th>
             <th>サポート動物</th>
@@ -147,7 +165,7 @@
 
     {% if page_obj.has_previous %}
       <a class="btn"
-         href="?page={{ page_obj.previous_page_number }}&q={{ q }}&status={{ status }}">
+         href="?page={{ page_obj.previous_page_number }}&status={{ status }}{% if q %}&q={{ q|urlencode }}{% endif %}{% if order %}&order={{ order }}{% endif %}">
         前へ
       </a>
     {% else %}
@@ -160,14 +178,16 @@
 
     {% if page_obj.has_next %}
       <a class="btn"
-         href="?page={{ page_obj.next_page_number }}&q={{ q }}&status={{ status }}">
+         href="?page={{ page_obj.next_page_number }}&status={{ status }}{% if q %}&q={{ q|urlencode }}{% endif %}{% if order %}&order={{ order }}{% endif %}">
         次へ
       </a>
     {% else %}
       <button class="btn btn-disabled" disabled>次へ</button>
     {% endif %}
+
   </div>
 {% endif %}
+
 
 
 </div>

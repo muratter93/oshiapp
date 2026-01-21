@@ -324,7 +324,7 @@ def toggle_staff(request: HttpRequest, pk: int) -> HttpResponse:
         return _redirect_admins()
     target.is_staff = not target.is_staff
     target.save(update_fields=["is_staff"])
-    messages.success(request, f"{target.username} の is_staff を {target.is_staff} に変更しました。")
+    # messages.success(request, f"{target.username} の is_staff を {target.is_staff} に変更しました。")
     return _redirect_admins()
 
 
@@ -345,7 +345,7 @@ def toggle_keeper(request: HttpRequest, pk: int) -> HttpResponse:
         return _redirect_admins()
     target.is_keeper = not target.is_keeper
     target.save(update_fields=["is_keeper"])
-    messages.success(request, f"{target.username} の is_keeper を {target.is_keeper} に変更しました。")
+    # messages.success(request, f"{target.username} の is_keeper を {target.is_keeper} に変更しました。")
     return _redirect_admins()
 
 
@@ -367,7 +367,7 @@ def toggle_superuser(request: HttpRequest, pk: int) -> HttpResponse:
         target.save(update_fields=["is_superuser", "is_staff"])
     else:
         target.save(update_fields=["is_superuser"])
-    messages.success(request, f"{target.username} の is_superuser を {target.is_superuser} に変更しました。")
+    # messages.success(request, f"{target.username} の is_superuser を {target.is_superuser} に変更しました。")
     return _redirect_admins()
 
 
@@ -390,7 +390,7 @@ def withdraw_user(request: HttpRequest, pk: int) -> HttpResponse:
         data = s.get_decoded()
         if data.get("_auth_user_id") == str(target.pk):
             s.delete()
-    messages.success(request, f"{target.username} を退会処理しました（ログイン不可）。")
+    # messages.success(request, f"{target.username} を退会処理しました（ログイン不可）。")
     return _redirect_admins()
 
 
@@ -408,7 +408,7 @@ def reactivate_user(request: HttpRequest, pk: int) -> HttpResponse:
         return _redirect_admins()
     target.is_active = True
     target.save(update_fields=["is_active"])
-    messages.success(request, f"{target.username} を再開しました（ログイン可）。")
+    # messages.success(request, f"{target.username} を再開しました（ログイン可）。")
     return _redirect_admins()
 
 
@@ -423,7 +423,7 @@ class StaffCreateView(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
     def form_valid(self, form):
         new_user = form.save()
-        messages.success(self.request, f"管理者ユーザ「{new_user.username}」を作成しました。")
+        # messages.success(self.request, f"管理者ユーザ「{new_user.username}」を作成しました。")
         return super().form_valid(form)
 
 
@@ -461,6 +461,8 @@ class StaffUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return resp
 
 
+from django.db.models import Q
+
 class MemberListView(LoginRequiredMixin, ListView):
     model = User
     template_name = "dashboard/members_list.html"
@@ -472,18 +474,38 @@ class MemberListView(LoginRequiredMixin, ListView):
         if hasattr(User, "is_keeper"):
             qs = qs.filter(is_keeper=False)
 
+        # --- status ---
         status = (self.request.GET.get("status") or "all").strip()
         if status == "active":
             qs = qs.filter(is_active=True)
         elif status == "inactive":
             qs = qs.filter(is_active=False)
 
-        return qs.order_by("-id")
+        # --- 検索（ID / username / name）---
+        q = (self.request.GET.get("q") or "").strip()
+        if q:
+            # 数字ならID検索もする
+            cond = Q(username__icontains=q) | Q(name__icontains=q)
+            if q.isdigit():
+                cond = Q(id=int(q)) | cond
+            qs = qs.filter(cond)
+
+        # --- 並び（新旧）---
+        order = (self.request.GET.get("order") or "").strip()
+        if order == "id_asc":
+            qs = qs.order_by("id")
+        else:
+            qs = qs.order_by("-id")  # デフォルト：新→旧
+
+        return qs
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["status"] = (self.request.GET.get("status") or "all").strip()
+        ctx["q"] = (self.request.GET.get("q") or "").strip()
+        ctx["order"] = (self.request.GET.get("order") or "").strip()
         return ctx
+
 
 class MemberUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = User
@@ -581,13 +603,18 @@ def animals_list(request):
     if zoo_id:
         qs = qs.filter(zoo_id=zoo_id)
 
-    # 並び順
+# 並び順
     if order == "point_desc":
         qs = qs.order_by("-total_point", "-animal_id")
+
+    elif order == "point_asc":
+        qs = qs.order_by("total_point", "-animal_id")
+
     elif order == "id_asc":
-        qs = qs.order_by("animal_id")                 # ← 昇順
+        qs = qs.order_by("animal_id")          # NO 昇順（古い→新しい）
+
     else:
-        qs = qs.order_by("-animal_id")                # ← 降順（デフォルト）
+        qs = qs.order_by("-animal_id")         # NO 降順（新しい→古い：デフォルト）
 
     # --- ページネーション（10件ずつ）---
     paginator = Paginator(qs, 10)
@@ -692,46 +719,54 @@ class SubscriptionListView(LoginRequiredMixin, ListView):
     context_object_name = "subs"
     paginate_by = 30
 
-    def get_queryset(self):
-        qs = (
-            SubMember.objects
-            .select_related("member", "plan", "animal", "animal__zoo")
-            .order_by("-sub_member_id")
+def get_queryset(self):
+    qs = (
+        SubMember.objects
+        .select_related("member", "plan", "animal", "animal__zoo")
+    )
+
+    user = self.request.user
+    if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
+        if getattr(user, "zoo_id", None):
+            qs = qs.filter(animal__zoo_id=user.zoo_id)
+        else:
+            qs = qs.none()
+
+    q = (self.request.GET.get("q") or "").strip()
+    if q:
+        # 会員名 / ユーザ名 / 動物名 / 動物園名あたりを検索（好みに応じて増減OK）
+        qs = qs.filter(
+            Q(member__username__icontains=q) |
+            Q(member__name__icontains=q) |
+            Q(animal__name__icontains=q) |
+            Q(animal__japanese__icontains=q) |
+            Q(animal__zoo__zoo_name__icontains=q) |
+            Q(plan__plan_name__icontains=q)
         )
 
-        user = self.request.user
-        # keeper は自分の動物園だけ（staff/superuser は全体）
-        if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
-            if getattr(user, "zoo_id", None):
-                qs = qs.filter(animal__zoo_id=user.zoo_id)
-            else:
-                qs = qs.none()
+    status = (self.request.GET.get("status") or "all").strip()
+    if status == "active":
+        qs = qs.filter(is_active=True)
+    elif status == "inactive":
+        qs = qs.filter(is_active=False)
 
-        q = (self.request.GET.get("q") or "").strip()
-        if q:
-            qs = qs.filter(member__username__icontains=q)
+    # ★ 新旧（order）
+    order = (self.request.GET.get("order") or "").strip()
+    if order == "id_asc":
+        qs = qs.order_by("sub_member_id")
+    else:
+        qs = qs.order_by("-sub_member_id")  # デフォルト：新→旧
 
-        status = (self.request.GET.get("status") or "all").strip()
-        if status == "active":
-            qs = qs.filter(is_active=True)
-        elif status == "inactive":
-            qs = qs.filter(is_active=False)
-
-        return qs
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx["q"] = (self.request.GET.get("q") or "").strip()
-        ctx["status"] = (self.request.GET.get("status") or "all").strip()
-        return ctx
+    return qs
 
 
+def get_context_data(self, **kwargs):
+    ctx = super().get_context_data(**kwargs)
+    ctx["q"] = (self.request.GET.get("q") or "").strip()
+    ctx["status"] = (self.request.GET.get("status") or "all").strip()
+    ctx["order"] = (self.request.GET.get("order") or "").strip()
+    return ctx
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx["today"] = date.today()
-        ctx["q"] = self.request.GET.get("q") or ""
-        return ctx
 
 
 from django.shortcuts import get_object_or_404, redirect

@@ -26,7 +26,13 @@
         <tbody>
           {% for u in users %}
           <tr class="{% if not u.is_active %}inactive{% endif %}">
-            <td>{{ u.id }}</td>
+            <td>
+              {% if page_obj %}
+                {{ page_obj.start_index|add:forloop.counter0 }}
+              {% else %}
+                {{ forloop.counter }}
+              {% endif %}
+            </td>
             <td>
               {{ u.name }}{% if u == request.user %} <span class="subtle">(自分)</span>{% endif %}
               {% if not u.is_active %} <span class="subtle">(退会済)</span>{% endif %}

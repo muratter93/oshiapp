@@ -86,14 +86,14 @@
 
     <!-- ▼ ログインフォーム -->
     {% if form.errors %}
-      <div class="message error">ユーザ名またはパスワードが違います。</div>
+      <div class="message error">IDまたはパスワードが違います。</div>
     {% endif %}
 
     <form method="post" class="login-form">
       {% csrf_token %}
 
-      <p>ユーザ名：{{ form.username }}</p>
-      <p>パスワード：{{ form.password }}</p>
+      <p>ID{{ form.username }}</p>
+      <p>パスワード{{ form.password }}</p>
 
       <button type="submit">ログイン</button>
     </form>

@@ -142,18 +142,17 @@ body {
   color: #fff;
 }
 
-/* 再開（薄紅系） */
 .btn-restart {
-  background-color: #f8b5c2;   /* 柔らかい桜色ピンク */
-  border-color: #f8b5c2;
-  color: #fff;
+  background-color: #facc15;
+  border-color: #facc15;
+  color: #000;
   transition: background-color .15s ease, border-color .15s ease, color .15s ease;
 }
 
 .btn-restart:hover {
-  background-color: #e996a6;   /* hover時にやや深い紅 */
-  border-color: #e58b9c;
-  color: #fff;
+  background-color: #ffe270;
+  border-color: #ffe270;
+  color: #000;
 }
 
 
@@ -546,6 +545,14 @@ html, body {
   text-align: center;
 }
 
+/* 検索エリア */
+.filter-area input[type="text"] {
+  height: 40px;          /* ← ここを基準に揃える */
+  line-height: 40px;     /* 文字の縦位置も揃う */
+  box-sizing: border-box;
+}
+
+
 /* ===============================
    ステータス列：バッジ化
 ================================ */
@@ -902,9 +909,17 @@ html, body {
 
 /* 列幅調整（10列版：ID/動物名/名前/画像/性別/動物園/誕生日/主食/アクティブ/操作） */
 .animals-page .admin-table th:nth-child(1),
-.animals-page .admin-table td:nth-child(1) { width: 6%;  text-align: center; }
+.animals-page .admin-table td:nth-child(1) {
+  width: 8%;              /* ← 6% → 8% */
+  text-align: center;
+  white-space: nowrap;    /* ← 折り返し防止 */
+}
+
 .animals-page .admin-table th:nth-child(2),
-.animals-page .admin-table td:nth-child(2) { width: 14%; }
+.animals-page .admin-table td:nth-child(2) { 
+  width: 16%;             /* ← 14% → 16% */
+}
+
 .animals-page .admin-table th:nth-child(3),
 .animals-page .admin-table td:nth-child(3) { width: 12%; }
 .animals-page .admin-table th:nth-child(4),
@@ -963,6 +978,18 @@ html, body {
   .animals-page .admin-table td:nth-child(4) { width: 120px; }
   .animals-page .admin-table th:nth-child(6),
   .animals-page .admin-table td:nth-child(6) { width: auto; }
+}
+
+.th-sort{
+  display:inline-flex;
+  align-items:center;
+  gap:.3rem;
+  text-decoration:none;
+  color:inherit;
+}
+
+.sort-icons{
+  font-size:.85em;
 }
 
 
@@ -1265,6 +1292,20 @@ html, body {
   border-right: none;
 }
 
+.filter-area input[type="text"]{
+  height: 40px;
+  line-height: 40px;
+  box-sizing: border-box;
+}
+
+.filter-area input[type="text"]{
+  padding: 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: .6rem;
+  min-width: 260px;
+}
+
+
 /* ========================================
    支援テーブル 5列の幅統一（CSSのみで実現）
 ======================================== */
@@ -1326,4 +1367,133 @@ html, body {
 /* 3：黄（蛍光イエロー） */
 .support-table tbody tr:nth-child(3n+3) td.zoo-name .zoo-mark {
   background: linear-gradient(transparent 60%, #fff59d 60%);
+}
+
+
+/* ================================
+   注文詳細ページ
+================================ */
+.order-detail{
+  display: grid;
+  gap: 14px;
+}
+
+.order-detail .card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+  padding:14px;
+}
+
+.order-summary{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.order-summary__left,
+.order-summary__right{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.order-id{
+  font-size:1.2rem;
+  font-weight:800;
+}
+
+.order-date{
+  font-weight:600;
+}
+
+.order-total{
+  font-size:1.1rem;
+  font-weight:800;
+}
+
+.order-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:14px;
+}
+
+@media (max-width: 900px){
+  .order-grid{ grid-template-columns: 1fr; }
+}
+
+.card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.card-title{
+  margin:0;
+  font-size:1.05rem;
+  font-weight:800;
+}
+
+/* key-value (dl) */
+.kv{
+  margin:0;
+  display:grid;
+  gap:10px;
+}
+
+.kv-row{
+  display:grid;
+  grid-template-columns: 110px 1fr;
+  gap:10px;
+  align-items:start;
+}
+
+.kv-row dt{
+  font-weight:800;
+  color:#111;
+}
+
+.kv-row dd{
+  margin:0;
+  color:#111;
+  word-break:break-word;
+}
+
+.admin-table.compact th,
+.admin-table.compact td{
+  padding:10px 12px;
+}
+
+.order-foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid #e5e7eb;
+}
+
+.order-foot__label{
+  font-weight:800;
+}
+
+.order-foot__value{
+  font-weight:900;
+  font-size:1.05rem;
+}
+
+/* 下のボタン */
+.order-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  align-items:center;
+}
+
+.badge-warning{
+  background:#f59e0b;
+  color:#fff;
 }

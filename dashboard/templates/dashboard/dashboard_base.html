@@ -19,7 +19,12 @@
 <div>
 <h2>
   <a class="nav-link" href="{% url 'dashboard:dashboard' %}">
-    {% block sidebar_title %}管理ダッシュボード{% endblock %}
+  {% block sidebar_title %}
+    管理ダッシュボード
+    {% if request.user.is_keeper and request.user.zoo %}
+      <br><span class="sidebar-zoo-name">({{ request.user.zoo.zoo_name }})</span>
+    {% endif %}
+  {% endblock %}
   </a>
 </h2>
 <ul class="nav">
