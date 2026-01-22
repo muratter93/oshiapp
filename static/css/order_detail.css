@@ -1,0 +1,86 @@
+
+/* 注文内容の確認大箱 */
+#order_detail_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+}
+
+
+/* 注文内容の確認大箱 */
+#order_detail_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* 注文内容の確認小箱 */
+#order_detail_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* 注文内容の確認の中の小箱 */
+#order_detail_small_box_paper {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  border:1px solid rgb(182, 170, 161); /*borderの指定*/
+  border-radius: 1vw;
+}
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+#order_detail_small_box_lang {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.3vw;
+  padding: 2vw;
+  width: 100%;
+  /* background-color: rgb(105, 103, 42); */
+}
+
+#order_detail_small_box_lang_p {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+/* 注文ID発送日 */
+.order_detail_idday_lan {
+  font-size: 1.5vw;
+  font-weight: 900;
+}
+.order_detail_idday_num {
+  font-size: 1.5vw;
+  font-weight: 500;
+}
+
+.order_detail_situation_lan
+
+
+
+
+
+
+
+
+/* マイページへ */
+#order_detail_mypage_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#order_detail_returntop_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+

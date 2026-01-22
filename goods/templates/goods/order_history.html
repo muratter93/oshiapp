@@ -47,11 +47,13 @@
           {% for order in orders %}
           <tr>
             
-            <td class="order_history_table_num">{{ order.id }}</td>
+            <td class="order_history_table_num">
+              <a id="order_history_table_num_a_02" href="{% url 'goods:order_detail' order.id %}">{{ order.id }}</a>
+            </td>
 
             <td id="order_history_table_text_day">{{ order.created_at|date:"Y/m/d H:i" }}</td>
 
-            <td class="order_history_table_num">
+            <td id="order_history_table_num_02">
               {% for item in order.items.all %}
                 {{ item.goods.name }}<br>
               {% endfor %}
@@ -79,14 +81,13 @@
               <a href="{% url 'goods:order_detail' order.id %}">▶詳細を見る</a>
             </td>
 
-            <td class="order_history_table_num">
+            <td id="order_history_table_num_03">
               {% if order.status == 'pending' %}
                 <form action="{% url 'goods:cancel_order' order.id %}" method="post">
                   {% csrf_token %}
-                  <button id="order_history_cancell_button" type="button" onclick="confirmCancel(this.form);">キャンセル</button>
+                  <button id="order_history_cancell_button" type="button" onclick="confirmCancel(this.form);">キャンセルする</button>
                 </form>
               {% else %}
-                -
               {% endif %}
             </td>
 

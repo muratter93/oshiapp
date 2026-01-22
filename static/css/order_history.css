@@ -41,21 +41,22 @@
 
 /* テーブル外周り */
 #order_history_table {
-  width: 70vw;
+  width: 69vw;
   border-collapse: collapse;
   border-spacing: 0;
 }
 .order_history_table_text {
-  padding: 0.6vw;
+  padding: 0.7vw 0 0.7vw 0;
   border-bottom: solid 3px rgb(182, 170, 161);
   color: rgb(182, 170, 161);
 }
-.order_history_table_num {
-  padding: 0.7vw;
+.order_history_table_num, #order_history_table_num_02, 
+#order_history_table_num_03 {
+  padding: 0.7vw 0 0.7vw 0;
   border-bottom: solid 1px rgb(182, 170, 161);
 }
 #order_history_table_text_day {
-  padding: 0.7vw;
+  padding: 0.7vw 0 0.7vw 0;
   border-bottom: solid 1px rgb(182, 170, 161);
 }
 
@@ -68,11 +69,25 @@
   padding-left: 2vw;
 }
 
+
 /* 各数字など内容 */
 .order_history_table_num {
   font-weight: 500;
   font-size: 1.2vw;
   padding-left: 2vw;
+}
+#order_history_table_num_02 {
+  font-weight: 500;
+  font-size: 1vw;
+  padding-left: 2vw;
+  width: 9vw;
+}
+#order_history_table_num_03 {
+  font-weight: 500;
+  font-size: 1.2vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  width: 7.5vw;
 }
 #order_history_table_text_day {
   font-weight: 500;
@@ -85,15 +100,28 @@
   font-size: 1.1vw;
   color: #b09876;
 }
+#order_history_table_num_a_02 {
+  color: rgb(84, 62, 44);
+}
 .order_history_table_num a:link {
   color: #b09876;
+}
+#order_history_table_num_a_02:link {
+  color: rgb(84, 62, 44)
 }
 .order_history_table_num a:visited {
   color: #b09876;
 }
+#order_history_table_num_a_02:visited {
+  color: rgb(84, 62, 44);
+}
 .order_history_table_num a:hover {
   color: #b78033;
 }
+#order_history_table_num_a_02:hover {
+  color: #b78033;
+}
+
 
 /* 未発送・発送済・キャンセル */
 #order_history_table_notyet, #order_history_table_done, 
@@ -116,13 +144,13 @@
 
 /* キャンセルするボタン */
 #order_history_cancell_button {
-  width: 6.5vw;
-  height: 2.2vw;
+  width: 7.5vw;
+  height: 2vw;
   font-family: 'M PLUS Rounded 1c';
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);
   background-color: #c0392b;
-  font-size: 1vw;
+  font-size: 0.85vw;
   font-weight: 500;
   float: right;
   display: flex;
