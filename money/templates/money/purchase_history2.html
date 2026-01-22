@@ -17,6 +17,16 @@
 
       <div id="purchase_history2_small_box_lang">
 
+         {% if messages %}
+            <div class="page-messages">
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
         {% if stanning_purchases %}
 
         <table id="purchase_history2_table">

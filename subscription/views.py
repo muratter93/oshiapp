@@ -10,6 +10,7 @@ from animals.models import Animal, Zoo
 from money.models import Wallet
 from .models import SubscribePlan, SubMember, _add_months
 
+from django.contrib import messages
 
 # ---------------- 購入完了（※ここでは付与処理はしない想定） ----------------
 
@@ -151,7 +152,11 @@ def cancel_subscription(request, sub_member_id):
         # 解約処理
         sub.is_active = False
         sub.save(update_fields=["is_active"])
-        # 完了画面ではなく履歴ページに戻す
+
+        # ★ これを追加
+        messages.success(request, "サブスクが解約されました。")
+
+        # 履歴ページに戻す
         return redirect("money:purchase_history2")
 
     # GETで来た場合は、とりあえず履歴に戻す
