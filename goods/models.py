@@ -42,7 +42,7 @@ class Order(models.Model):
     STATUS_CHOICES = [
     ('pending', '未発送'),
     ('shipped', '発送済み'),
-    ('cancelled', 'キャンセル'),
+    ('cancelled', 'キャンセル済み'),
     ]
     status = models.CharField(
         max_length=10,
