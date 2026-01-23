@@ -1,0 +1,144 @@
+
+
+
+/* 寄付履歴大箱 */
+#donation_history_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+}
+
+
+/* 寄付履歴大箱 */
+#donation_history_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* 寄付履歴小箱 */
+#donation_history_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* ーーーー */
+/* 小箱の中 */
+/* ーーーー */
+
+#donation_history_small_box_lang {
+  text-align: left;
+  font-weight: 800;
+  font-size: 1.3vw;
+  margin: 0 auto;
+  padding: 0;
+  /* background-color: rgb(105, 103, 42); */
+}
+
+/* ーーーーーーーーーーー */
+/* 寄付履歴テーブル */
+/* ーーーーーーーーーーー */
+
+/* テーブル外周り */
+#donation_history_table {
+  width: 67vw;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.donation_history_table_text {
+  padding: 0.5vw 0 0.5vw 0;
+  border-bottom: solid 3px rgb(182, 170, 161);
+  color: rgb(182, 170, 161);
+}
+#donation_history_table_text_01 {
+  padding: 0.5vw 0 0.5vw 0;
+  border-bottom: solid 3px rgb(182, 170, 161);
+  color: rgb(182, 170, 161);
+}
+.donation_history_table_num {
+  padding: 0.4vw 0 0.4vw 0;
+  border-bottom: solid 1px rgb(182, 170, 161);
+}
+#donation_history_table_num_01 {
+  padding: 0.4vw 0 0.4vw 0;
+  border-bottom: solid 1px rgb(182, 170, 161);
+}
+#donation_history_table_num_02 {
+  padding: 0.4vw 0 0.4vw 0;
+  border-bottom: solid 1px rgb(182, 170, 161);
+}
+#donation_history_table_num_03 {
+  padding: 0.4vw 0 0.4vw 0;
+  border-bottom: solid 1px rgb(182, 170, 161);
+}
+
+/* 項目の文字 */
+.donation_history_table_text {
+  font-weight: 700;
+  font-size: 1.2vw;
+  padding-left: 2vw;
+}
+#donation_history_table_text_01 {
+  font-weight: 700;
+  font-size: 1.2vw;
+  padding-right: 2vw;
+  padding-left: 2vw;
+}
+
+/* 各数字 */
+.donation_history_table_num {
+  font-weight: 500;
+  font-size: 1.2vw;
+  padding-left: 2vw;
+}
+/* 各数字（日時） */
+#donation_history_table_num_01 {
+  font-weight: 500;
+  font-size: 1vw;
+  padding-left: 2vw;
+}
+/* 各数字（メッセージ） */
+#donation_history_table_num_02 {
+  font-weight: 500;
+  font-size: 0.9vw;
+  padding-left: 2vw;
+}
+/* 各数字（PDFリンク） */
+#donation_history_table_num_03 {
+  font-weight: 500;
+  font-size: 1.1vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+#donation_history_table_num_03 a {
+  text-decoration: none;
+  color: #b09876;
+}
+#donation_history_table_num_03 a:link {
+  color: #b09876;
+}
+#donation_history_table_num_03 a:visited {
+  color: #b09876;
+}
+#donation_history_table_num_03 a:hover {
+  color: #b78033;
+}
+
+
+
+
+
+/* マイページへ */
+#donation_history_mypage_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#donation_history_returntop_button {
+  text-decoration: none;
+  font-size: 14pt;
+}

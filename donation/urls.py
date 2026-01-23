@@ -6,7 +6,7 @@ from .views import reset_donations
 app_name = "donation"
 
 urlpatterns = [
-    path("", views.donate, name="donate"),
+    path("donate/", views.donate, name="donate"),
     path("confirm/", views.donate_confirm, name="donate_confirm"),
     path("complete/<int:donation_id>/", views.donate_complete, name="donate_complete"),
     path("receipt/<int:donation_id>/", views.donation_receipt_pdf, name="donation_receipt_pdf"),

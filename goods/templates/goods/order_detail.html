@@ -20,11 +20,6 @@
 
             <div id="order_detail_small_box_lang">
 
-
-
-
-
-
                 <div id="order_detail_small_box_lang_p">
                     <p>
                       <span class="order_detail_idday_lan">注文ID　</span>
@@ -34,59 +29,56 @@
                       <span class="order_detail_idday_num">{{ order.created_at|date:"Y/m/d H:i" }}</span>
                     </p>
 
-                  <p>
-                    <span class="order_detail_situation_lan">発送状況　</span>
-                    <span class="order_detail_situation_num">{{ order.get_status_display }}</span>
-                  </p>
+                    <br>
 
-                  <h3>配送先情報</h3>
+                    <p>
+                      <span class="order_detail_situation_lan">発送状況　</span>
+                      <span class="order_detail_situation_num">{{ order.get_status_display }}</span>
+                    </p>
 
-                  <p>
-                    <span class="order_detail_details_lan">名　　前　　</span>
-                    <span class="order_detail_details_num">{{ order.recipient_name }}</span>
-                  </p>
+                    <h3 class="order_detail_title">お届け先情報</h3>
+                    <hr id="order_detail_hr_01">
 
-                  <p>
-                    <span class="order_detail_details_lan">郵便番号　　</span>
-                    <span class="order_detail_details_num">{{ order.postal_code }}</span>
-                  </p>
+                    <p><span class="order_detail_details_num">{{ order.recipient_name }} <span class="order_detail_unit">様</span></span></p>
+                    <p><span class="order_detail_details_num">〒{{ order.postal_code }}</span></p>
+                    <p><span class="order_detail_details_num">{{ order.address }}</span></p>
+                    <p><span class="order_detail_details_num">☎ {{ order.phone_number }}</span></p>
 
-                  <p>
-                    <span class="order_detail_details_lan">住　　所　　</span>
-                    <span class="order_detail_details_num">{{ order.address }}</span>
-                  </p>
+                    <h3 class="order_detail_title">注文内容</h3>
+                    <hr id="order_detail_hr_02">
 
-                  <p>
-                    <span class="order_detail_details_lan">電話番号　　</span>
-                    <span class="order_detail_details_num">{{ order.phone_number }}</span>
-                  </p>
+                    <ul>
+                      {% for item in order.items.all %}
+                        <li>
+                            <div id="order_detail_goods_box">
+                                <div id="order_detail_goods_imagebox">
+                                    <img id="order_detail_goods_image" src="{{ item.goods.image.url }}" alt="{{ item.goods.name }}">
+                                </div>
+                                <p id="order_detail_itemname_01">{{ item.goods.name }}</p>
+                                <p id="order_detail_itemname_02">　× {{ item.quantity }}</p>
+                                <p id="order_detail_itemname_03">　　　{% widthratio item.goods.required_stanning_points 1 item.quantity %}<span class="order_detail_unit">スタポ</span></span></p>
+                            </div>
 
-                  <h3>注文内容</h3>
+                        </li>
+                      {% endfor %}
+                    </ul>
 
-                  <ul>
-                    {% for item in order.items.all %}
-                      <li>{{ item.goods.name }} × {{ item.quantity }}</li>
-                    {% endfor %}
-                  </ul>
+                    <hr id="order_detail_hr_03">
 
-                  <p>合計必要スタポ　　{{ order.total_stanning_points }}</p>
+                    <p id="order_detail_total_unit">
+                      <span id="order_detail_total_lan">合計スタポ　　</span>
+                      <span id="order_detail_total_num">{{ order.total_stanning_points }}</span><span class="order_detail_unit"> スタポ</span>
+                    </p>
 
-                  <a href="{% url 'goods:order_history' %}">◀ 戻る</a>
+                    <br>
+
+                    <a id="order_detail_return_link" href="{% url 'goods:order_history' %}">◀ 交換履歴一覧へ戻る</a>
                 </div>
-
-
-
-
-
 
             </div>
 
         </div>
     </div>
-
-    <a id="order_detail_mypage_button" href="{% url 'accounts:mypage' %}">▶ マイページへ</a>
-
-    <br><br>
 
     <a id="order_detail_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
 

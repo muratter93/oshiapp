@@ -31,6 +31,7 @@
   padding: 0;
   border:1px solid rgb(182, 170, 161); /*borderの指定*/
   border-radius: 1vw;
+  /* width: 30vw; */
 }
 
 /* ーーーーーーーーー */
@@ -52,21 +53,146 @@
   margin: 0;
 }
 
+/* ページ内p */
+#order_detail_small_box_lang_p p {
+  padding: 0;
+  margin: 0;
+}
+
+/* ページ内固定文字（様・スタポ） */
+.order_detail_unit {
+  font-size: 1vw;
+}
+
 /* 注文ID発送日 */
 .order_detail_idday_lan {
-  font-size: 1.5vw;
+  font-size: 1.1vw;
   font-weight: 900;
 }
 .order_detail_idday_num {
-  font-size: 1.5vw;
+  font-size: 1.1vw;
+  font-weight: 400;
+}
+
+/* 発送状況 */
+.order_detail_situation_lan {
+  font-size: 1.1vw;
+  font-weight: 900;
+}
+.order_detail_situation_num {
+  font-size: 1.3vw;
   font-weight: 500;
 }
 
-.order_detail_situation_lan
+/* 個人各種項目 */
+.order_detail_details_num {
+  font-size: 1.2vw;
+  font-weight: 400;
+}
+
+/* 各タイトル（お届け先情報・注文内容） */
+.order_detail_title {
+  font-size: 1.4vw;
+  font-weight: 900;
+}
+
+
+/* お届け先情報の線 */
+#order_detail_hr_01 {
+  margin-left: 9.5vw;
+  margin-top: -2.5vw;
+  margin-bottom: 2vw;
+  border: none;
+  border-top: 1px solid rgb(182, 170, 161);
+  height: 0;
+}
+#order_detail_hr_02 {
+  margin-left: 6.5vw;
+  margin-top: -2.5vw;
+  margin-bottom: 2vw;
+  border: none;
+  border-top: 1px solid rgb(182, 170, 161);
+  height: 0;
+}
+#order_detail_hr_03 {
+  border: none;
+  border-top: 1px solid rgb(182, 170, 161);
+  height: 0;
+}
+
+/* 合計スタポ項目 */
+#order_detail_total_lan {
+  font-weight: 900;
+  font-size: 1.3vw;
+}
+#order_detail_total_num {
+  font-weight: 500;
+  font-size: 2.5vw;
+}
+#order_detail_total_unit {
+  margin: 0 auto;
+  text-align: right;
+}
+
+
+/* 注文内容部分 */
+#order_detail_small_box_lang_p ul {
+  margin: 0;
+  padding: 0;
+}
+#order_detail_small_box_lang_p ul li {
+  list-style: none;
+  font-weight: 400;
+}
+#order_detail_goods_box {
+  display: flex;                /* フレックスボックスを有効化 */
+  justify-content: space-between; /* 要素を両端に配置 */
+  align-items: center;
+  margin-bottom: 1vw;
+}
+/* 注文内容文字 */
+#order_detail_itemname_01 {
+  word-break: break-all;
+  width: 13vw;
+}
+#order_detail_itemname_03 {
+  margin-left: 3vw;
+}
+/* 注文内容画像 */
+#order_detail_goods_imagebox {
+  width: 5vw;
+  margin-right: 1vw;
+}
+#order_detail_goods_image {
+  width: 100%; /* 親要素の幅に合わせる */
+  height: auto; /* 高さは自動調整（縦横比維持） */
+}
 
 
 
 
+
+
+
+
+
+
+/* グッズ交換一覧へ戻るリンク */
+#order_detail_return_link {
+  font-weight: 400;
+  font-size: 1.1vw;
+  text-decoration: none;
+  color: #b09876;
+}
+#order_detail_return_link:link {
+  color: #b09876;
+}
+#order_detail_return_link:visited {
+  color: #b09876;
+}
+#order_detail_return_link:hover {
+  color: #b78033;
+}
 
 
 
