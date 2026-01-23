@@ -1,0 +1,154 @@
+
+
+
+/* チアコインを購入する大箱 */
+#charge_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+  color: rgb(22, 137, 56);
+}
+
+
+/* チアコインを購入する大箱 */
+#charge_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* チアコインを購入する小箱 */
+#charge_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* ーーーー */
+/* 小箱の中 */
+/* ーーーー */
+
+#charge_small_box_lang {
+  text-align: left;
+  font-weight: 800;
+  font-size: 1.3vw;
+  margin: 0 auto;
+  padding: 0;
+  /* background-color: rgb(105, 103, 42); */
+}
+
+/* アカウントネーム */
+#charge_accountname {
+  text-align: center;
+  margin-top: -1vw;
+  font-weight: 500;
+  font-size: 1.2vw;
+  color: rgb(12, 69, 29);
+}
+/* アカウント保持チアコ */
+#charge_account_chiaco {
+  text-align: center;
+  margin: -1.3vw 0 2vw 0;
+  font-size: 3vw;
+  color: rgb(12, 69, 29);
+}
+#charge_account_chiaco_unit {
+  font-size: 1.1vw;
+}
+
+
+
+/* ーーーーーーーーーーー */
+/* チアコインを購入するテーブル */
+/* ーーーーーーーーーーー */
+
+/* テーブル外周り */
+#charge_table {
+  width: 45vw;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.charge_table_text {
+  padding: 0.5vw;
+  border-bottom: solid 3px rgb(201, 232, 212);
+  color: rgb(201, 232, 212);
+}
+.charge_table_num {
+  padding: 0.6vw;
+  border-bottom: solid 1px rgb(201, 232, 212);
+}
+
+/* 項目の文字 */
+.charge_table_text {
+  font-weight: 700;
+  font-size: 1.5vw;
+  padding-left: 3.3vw;
+}
+
+/* 各数字 */
+.charge_table_num {
+  font-weight: 900;
+  font-size: 1.6vw;
+  padding-left: 3.3vw;
+}
+
+/* 各単位（チアコ・円） */
+.charge_buy_chiaco_unit {
+  font-weight: 700;
+  font-size: 0.9vw;
+}
+
+/* デモ注意書きメッセージ */
+#chage_demo_message {
+  font-weight: 400;
+  font-size: 1vw;
+  color: rgb(255, 222, 139);
+}
+
+
+/* 購入ボタン */
+#charge_button {
+  width: 6.5vw;
+  height: 2.3vw;
+  font-family: 'M PLUS Rounded 1c';
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+  font-size: 1.05vw;
+  font-weight: 500;
+  float: right;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+  outline: none;
+  border: none;
+}
+#charge_button:visited {
+  color: rgb(255, 255, 255);
+  background-color: rgb(17, 103, 43);
+}
+#charge_button:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(17, 103, 43);
+}
+#charge_button:hover {
+  background-color: rgb(109, 241, 44);
+}
+
+
+
+
+/* マイページへ */
+#charge_mypage_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#charge_returntop_button {
+  text-decoration: none;
+  font-size: 14pt;
+}

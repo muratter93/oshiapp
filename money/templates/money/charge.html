@@ -1,60 +1,95 @@
 {% extends "common/base.html" %}
 {% load static %}
 {% load humanize %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/charge.css' %}">
+{% endblock %}
+
+{% block title %}アニマルマニア｜チアコイン購入{% endblock %}
+
 {% block content %}
 
-<h1>チアコイン購入</h1>
+<div id="charge_large_box">
 
-{% if user.is_authenticated %}
-  <p>現在の残高：<strong>{{ wallet.cheer_coin_balance|intcomma }}</strong> チアコイン</p>
-{% endif %}
+    <h1 id="charge_lang">チアコインを買う</h1>
 
-<table border="1" cellpadding="8" style="border-collapse:collapse; text-align:center; width:100%; max-width:560px;">
-  <tr><th>チアコイン</th><th>価格</th><th>購入</th></tr>
-  {% for plan in plans %}
-  <tr>
-    <td>{{ plan.coins|intcomma }} チアコ</td>
-    <td>{{ plan.price|intcomma }} 円</td>
-    <td>
-      <button
-        class="purchase-btn"
-        data-url="{% url 'money:buy' plan.coins %}"
-        data-coins="{{ plan.coins }}"
-        data-price="{{ plan.price }}">
-        購入
-      </button>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+    <br>
 
-<p style="margin-top:1rem; color:#666;">
-  ※ ボタン押下で残高だけ増えるデモ挙動です。実際に決済されません。
-</p>
+    <div id="charge_small_box">
 
-<form id="hiddenBuyForm" method="post" style="display:none;">
-  {% csrf_token %}
-</form>
+        <div id="charge_small_box_lang">
 
-{% include "money/modals.html" %}
+            {% if user.is_authenticated %}
+              <p id="charge_accountname">あなたの保有チアコ数</p>
+              <p id="charge_account_chiaco">{{ wallet.cheer_coin_balance|intcomma }}<span id="charge_account_chiaco_unit"> チアコ</span></p>
+            {% endif %}
 
-<script>
-  window.IS_AUTH = {{ user.is_authenticated|yesno:"true,false" }};
-</script>
+            <table id="charge_table">
+                <tr>
+                  <th class="charge_table_text">チアコイン</th>
+                  <th class="charge_table_text">価格</th>
+                  <th class="charge_table_text">購入</th>
+                </tr>
+                
+                {% for plan in plans %}
+                <tr>
+                    <td class="charge_table_num">{{ plan.coins|intcomma }}<span class="charge_buy_chiaco_unit"> チアコ</span></td>
+                    <td class="charge_table_num">{{ plan.price|intcomma }}<span class="charge_buy_chiaco_unit"> 円</span></td>
+                    <td class="charge_table_num">
+                        <button
+                          id="charge_button"
+                          data-url="{% url 'money:buy' plan.coins %}"
+                          data-coins="{{ plan.coins }}"
+                          data-price="{{ plan.price }}">
+                          購入する
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
 
-{% comment %} <p style="margin-top: 1rem;">
-  <a href="{% url 'money:purchase_history' %}">購入履歴を見る</a>
-</p> {% endcomment %}
+            <p id="chage_demo_message">
+              ※ カード決済処理はデモ挙動です。
+            </p>
 
-<div id="charge_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
-<br><br><br><br><br><br><br><br><br><br><br>
+            <form id="hiddenBuyForm" method="post" style="display:none;">
+              {% csrf_token %}
+            </form>
 
-{% comment %} 決済 {% endcomment %}
-<script src="https://js.pay.jp/v2/pay.js"></script>
-<script>
-  const PAYJP_PUBLIC_KEY = "{{ PAYJP_PUBLIC_KEY }}";
-</script>
-<script src="{% static 'js/money.js' %}" ></script>
+            {% include "money/modals.html" %}
+
+            <script>
+              window.IS_AUTH = {{ user.is_authenticated|yesno:"true,false" }};
+            </script>
+
+
+            {% comment %} 決済 {% endcomment %}
+            <script src="https://js.pay.jp/v2/pay.js"></script>
+            <script>
+              const PAYJP_PUBLIC_KEY = "{{ PAYJP_PUBLIC_KEY }}";
+            </script>
+            <script src="{% static 'js/money.js' %}" ></script>
+
+
+
+
+        </div>
+
+
+    </div>
+
+    <a id="charge_mypage_button" href="{% url 'money:purchase_history' %}">▶ チアコ購入履歴</a>
+
+    <br><br>
+
+    <a id="charge_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
+
+
 
 
 {% endblock %}

@@ -13,7 +13,7 @@
   let selectedCoins = null;
   let selectedPrice = null;
 
-  document.querySelectorAll(".purchase-btn").forEach(btn => {
+  document.querySelectorAll("#charge_button").forEach(btn => {
     btn.addEventListener("click", () => {
       if (!IS_AUTH) {
         document.getElementById("authModal").style.display = "block";

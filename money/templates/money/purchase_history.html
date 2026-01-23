@@ -18,34 +18,33 @@
 
     <div id="purchase_history_small_box">
 
-      <div id="purchase_history_small_box_lang">
+        <div id="purchase_history_small_box_lang">
 
-        {% if cheer_purchases %}
+            {% if cheer_purchases %}
 
-        <table id="purchase_history_table">
+            <table id="purchase_history_table">
 
-          <tr>
-            <th class="purchase_history_table_text">購入単位</th>
-            <th class="purchase_history_table_text">購入金額</th>
-            <th class="purchase_history_table_text">購入日時</th>
-          </tr>
+                <tr>
+                  <th class="purchase_history_table_text">購入単位</th>
+                  <th class="purchase_history_table_text">購入金額</th>
+                  <th class="purchase_history_table_text">購入日時</th>
+                </tr>
 
-          {% for p in cheer_purchases %}
-          <tr>
-            <td class="purchase_history_table_num">{{ p.coins }} <span class="purchase_history_table_unit">チアコ</span></td>
-            <td class="purchase_history_table_num">{{ p.price }} <span class="purchase_history_table_unit">円</span></td>
-            <td class="purchase_history_table_num"><span id="purchase_history_table_day">{{ p.purchased_at|date:"Y年m月d日 H:i" }}</span></td>
-          </tr>
-          {% endfor %}
+                {% for p in cheer_purchases %}
+                <tr>
+                  <td class="purchase_history_table_num">{{ p.coins }} <span class="purchase_history_table_unit">チアコ</span></td>
+                  <td class="purchase_history_table_num">{{ p.price }} <span class="purchase_history_table_unit">円</span></td>
+                  <td class="purchase_history_table_num"><span id="purchase_history_table_day">{{ p.purchased_at|date:"Y年m月d日 H:i" }}</span></td>
+                </tr>
+                {% endfor %}
 
-        </table>
+            </table>
 
-        {% else %}
-        <p>まだチアコ購入履歴がありません。</p>
+            {% else %}
+            <p>まだチアコ購入履歴がありません。</p>
+            {% endif %}
 
-        {% endif %}
-
-      </div>
+        </div>
 
 
     </div>
