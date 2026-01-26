@@ -1,0 +1,302 @@
+/* ーーーーーーーーー */
+/* 購入確認ウインドウ */
+/* ーーーーーーーーー */
+
+/* 購入確認大箱 */
+#confirmModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(105, 184, 120, 0.62);
+}
+/* 購入確認小箱 */
+#modals_conf_box {
+  background-color: rgb(255, 255, 255);
+  width: 35vw;
+  margin: 23vh auto;
+  padding: 1.8vw 4vw 3.3vw 4vw;
+  border-radius: 8px;
+}
+/* 購入確認タイトル */
+#modals_conf_title {
+  font-size: 2vw;
+  font-weight: 900;
+  color: rgb(84, 62, 44);
+}
+/* 購入確認本文 */
+#modals_conf_text {
+  font-size: 1.2vw;
+  font-weight: 600;
+  margin-top: -1vw;
+  margin-bottom: 2vw;
+  color: rgb(84, 62, 44);
+}
+/* チアコ・値段の数字部分 */
+#confirmCoinsText, #confirmPriceText {
+  font-size: 2.3vw;
+  font-weight: 700;
+}
+/* チアコ・値段の単位 */
+.modals_unit {
+  font-weight: 900;
+}
+/* ボタンボックス */
+#modals_conf_button_box {
+  text-align: right;
+}
+/* キャンセルボタン */
+#cancelConfirmBtn {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.1vw;
+  font-weight: 500;
+  height: 2.6vw;
+  width: 7.5vw;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(193, 179, 167);
+  border: 2px solid rgb(193, 179, 167);
+}
+#cancelConfirmBtn:hover {
+  color: rgb(84, 62, 44);
+  border: 2px solid rgb(84, 62, 44);
+}
+/* OKボタン */
+#okConfirmBtn {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.1vw;
+  font-weight: 500;
+  height: 2.6vw;
+  width: 7.5vw;
+  border-radius: 8px;
+  background-color: rgb(193, 179, 167);
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(193, 179, 167);
+}
+#okConfirmBtn:hover {
+  background-color: rgb(84, 62, 44);
+  border: 2px solid rgb(84, 62, 44);
+}
+
+
+/* ーーーーーーーーーーーー */
+/* クレジット入力ウインドウ */
+/* ーーーーーーーーーーーー */
+
+/* クレジット入力ボックス大 */
+#payModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(105, 184, 120, 0.62);
+}
+/* クレジット入力ボックス小 */
+#modals_pay_box {
+  background-color: rgb(255, 255, 255);
+  width: 25vw;
+  margin: 23vh auto;
+  padding: 3vw 7vw 3.3vw 7vw;
+  border-radius: 8px;
+}
+/* カード情報入力タイトル */
+#modals_pay_title {
+  font-size: 1.5vw;
+  font-weight: 900;
+  color: rgb(143, 143, 143);
+}
+/* カード情報番号タイトル */
+#modals_pay_cardnum_title {
+  font-size: 1vw;
+  font-weight: 500;
+  color: rgb(143, 143, 143);
+}
+/* カード情報入力部分 */
+#card-number {
+  border: 1px solid rgb(143, 143, 143);
+  padding: 1.3vw;
+  border-radius: 10px;
+  background: #fff;
+}
+/* ボタンボックス */
+#modals_pay_button_box {
+  text-align: right;
+}
+/* 戻るボタン */
+#payBackBtn {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.1vw;
+  font-weight: 500;
+  height: 2.6vw;
+  width: 7vw;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(143, 143, 143);
+  border: 2px solid rgb(143, 143, 143);
+}
+#payBackBtn:hover {
+  color: rgb(0, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
+}
+/* 支払うボタン */
+#paySubmitBtn {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.1vw;
+  font-weight: 500;
+  height: 2.6vw;
+  width: 7vw;
+  border-radius: 8px;
+  background-color: rgb(143, 143, 143);
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(143, 143, 143);
+}
+#paySubmitBtn:hover {
+  background-color: rgb(0, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
+}
+
+
+/* ーーーーーーーーーー */
+/* 購入完了ウインドウ */
+/* ーーーーーーーーーー */
+
+/* 購入完了大箱 */
+#doneModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(105, 184, 120, 0.62);
+}
+/* 購入完了小箱 */
+#modals_done_box {
+  background-color: rgb(255, 255, 255);
+  width: 35vw;
+  margin: 17vh auto;
+  padding: 2vw 5vw 4.7vw 5vw;
+  border-radius: 8px;
+  text-align: center;
+}
+/* 購入完了タイトル */
+#modals_done_title {
+  font-size: 2vw;
+  font-weight: 900;
+  color: rgb(84, 62, 44);
+}
+/* 購入完了本文 */
+#modals_done_text {
+  font-size: 1.2vw;
+  font-weight: 600;
+  margin-top: -1vw;
+  margin-bottom: 2vw;
+  color: rgb(84, 62, 44);
+}
+/* チアコ・値段の数字部分 */
+#doneCoinsText {
+  font-size: 2.3vw;
+  font-weight: 700;
+}
+/* チアコ・値段の単位 */
+#modals_done_02 {
+  font-weight: 500;
+  font-size: 1.6vw;
+}
+/* ありがとう画像 */
+#modals_done_thanks_img {
+  padding-top: -1vw;
+  padding-bottom: 1vw;
+  width: 35%;
+}
+/* ボタンボックス */
+#modals_done_button_box {
+  text-align: center;
+}
+/* OKボタン */
+#doneOkBtn {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.2vw;
+  font-weight: 500;
+  height: 2.6vw;
+  width: 5.5vw;
+  border-radius: 8px;
+  background-color: rgb(193, 179, 167);
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(193, 179, 167);
+}
+#doneOkBtn:hover {
+  background-color: rgb(84, 62, 44);
+  color: rgb(255, 255, 255);
+  border: 2px solid rgb(84, 62, 44);
+}
+
+
+/* ーーーーーーーー */
+/* 会員登録認証誘導 */
+/* ーーーーーーーー */
+
+/* 会員登録認証誘導大箱 */
+#authModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(105, 184, 120, 0.62);
+}
+/* 会員登録認証誘導小箱 */
+#modals_auth_box {
+  background-color: rgb(255, 255, 255);
+  width: 30vw;
+  margin: 23vh auto;
+  padding: 2vw 5vw 4vw 5vw;
+  border-radius: 8px;
+  text-align: center;
+}
+/* 会員登録認証誘導テキスト */
+#modals_auth_text {
+  font-size: 1.5vw;
+  font-weight: 600;
+  color: rgb(22, 137, 56);
+  margin-bottom: 2vw;
+}
+#modals_auth_img {
+  width: 25%;
+  margin-top: -1vw;
+  margin-bottom: 1vw;
+}
+/* キャンセルボタン */
+#authCancelBtn {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.1vw;
+  font-weight: 500;
+  height: 2.6vw;
+  width: 7.5vw;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(22, 137, 56);
+  border: 2px solid rgb(22, 137, 56);
+}
+#authCancelBtn:hover {
+  color: rgb(109, 241, 44);
+  border: 2px solid rgb(109, 241, 44);
+}
+/* 新規登録ボタン */
+#modals_auth_new_button {
+  background-color: rgb(22, 137, 56);
+  color: #fff;
+  padding: 0.4vw 1vw 0.4vw 1vw;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 700;
+}
+#modals_auth_new_button:hover {
+  background-color: rgb(89, 197, 35);
+}
+/* ログインボタン */
+#modals_auth_login_button {
+  background-color: rgb(22, 137, 56);
+  color: #fff;
+  padding: 0.4vw 1vw 0.4vw 1vw;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 700;
+}
+#modals_auth_login_button:hover {
+  background-color: rgb(89, 197, 35);
+}
+

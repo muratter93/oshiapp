@@ -10,11 +10,15 @@
 }
 
 
-/* チアコインを購入する大箱 */
+/* チアコインを購入するタイトル */
 #charge_lang {
   text-align: center;
   font-weight: 900;
   font-size: 3.5vw;
+}
+#charge_title_img_01 {
+  width: 70%;
+  margin-top: -11vw;
 }
 
 /* チアコインを購入する小箱 */
@@ -42,17 +46,17 @@
 /* アカウントネーム */
 #charge_accountname {
   text-align: center;
-  margin-top: -1vw;
+  margin-top: -3vw;
   font-weight: 500;
   font-size: 1.2vw;
-  color: rgb(12, 69, 29);
+  color: rgb(15, 88, 37);
 }
 /* アカウント保持チアコ */
 #charge_account_chiaco {
   text-align: center;
-  margin: -1.3vw 0 2vw 0;
+  margin: -1.3vw 0 3vw 0;
   font-size: 3vw;
-  color: rgb(12, 69, 29);
+  color: rgb(15, 88, 37);
 }
 #charge_account_chiaco_unit {
   font-size: 1.1vw;
@@ -66,32 +70,34 @@
 
 /* テーブル外周り */
 #charge_table {
-  width: 45vw;
+  width: 33vw;
   border-collapse: collapse;
   border-spacing: 0;
 }
-.charge_table_text {
+.charge_table_text, #charge_table_text_01 {
   padding: 0.5vw;
-  border-bottom: solid 3px rgb(201, 232, 212);
-  color: rgb(201, 232, 212);
+  border-bottom: solid 3px rgb(172, 200, 180);
+  color: rgb(172, 200, 180);
 }
-.charge_table_num {
+.charge_table_num, #charge_table_num_01 {
   padding: 0.6vw;
-  border-bottom: solid 1px rgb(201, 232, 212);
+  border-bottom: solid 1px rgb(172, 200, 180);
 }
 
 /* 項目の文字 */
 .charge_table_text {
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.5vw;
-  padding-left: 3.3vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 
 /* 各数字 */
 .charge_table_num {
   font-weight: 900;
   font-size: 1.6vw;
-  padding-left: 3.3vw;
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 
 /* 各単位（チアコ・円） */
@@ -104,13 +110,14 @@
 #chage_demo_message {
   font-weight: 400;
   font-size: 1vw;
-  color: rgb(255, 222, 139);
+  color: rgb(172, 200, 180);
 }
 
 
 /* 購入ボタン */
 #charge_button {
-  width: 6.5vw;
+  width: 100%;
+  padding: 0 1vw 0 1vw;
   height: 2.3vw;
   font-family: 'M PLUS Rounded 1c';
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
@@ -118,7 +125,6 @@
   background-color: rgb(89, 197, 35);
   font-size: 1.05vw;
   font-weight: 500;
-  float: right;
   display: flex;
   justify-content: center; /* 左右中央揃え */
   align-items: center;     /* 上下中央揃え */
