@@ -92,9 +92,9 @@
 /* クレジット入力ボックス小 */
 #modals_pay_box {
   background-color: rgb(255, 255, 255);
-  width: 25vw;
+  width: 30vw;
   margin: 23vh auto;
-  padding: 3vw 7vw 3.3vw 7vw;
+  padding: 3vw 6.5vw 3.3vw 6.5vw;
   border-radius: 8px;
 }
 /* カード情報入力タイトル */
