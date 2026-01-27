@@ -16,8 +16,7 @@
     <div id="purchase_history2_small_box">
 
       <div id="purchase_history2_small_box_lang">
-
-         {% if messages %}
+          {% if messages %}
             <div class="page-messages">
               {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
@@ -43,7 +42,7 @@
           {% for s in stanning_purchases %}
           <tr>
             <td class="purchase_history2_table_num">{{ s.plan.plan_name }}</td>
-            <td class="purchase_history2_table_num">{{ s.animal.japanese }}
+            <td id="purchase_history2_table_num_03">{{ s.animal.name }}
               <span class="purchase_history2_table_unit">{% if a.sex == "M" %} くん{% elif a.sex == "F" %} ちゃん{% else %} さん{% endif %}</span>
             </td>  
             <td class="purchase_history2_table_num">{{ s.plan.st_point }} <span class="purchase_history2_table_unit">スタポ</span></td>
@@ -54,7 +53,8 @@
                   {% if s.is_active %}
                       <form action="{% url 'subscription:cancel_subscription' s.sub_member_id %}" method="post" style="display:inline" class="cancel-form">
                         {% csrf_token %}
-                        <button id="purchase_history2_table_button" type="submit" onclick="return confirm('本当に解約してよろしいですか？');">解約する</button>
+                        <button id="purchase_history2_table_button" type="submit" 
+                        onclick="return confirm('{{ s.animal.name }}{% if a.sex == "M" %} くん{% elif a.sex == "F" %} ちゃん{% else %} さん{% endif %}の{{ s.plan.plan_name }}プランを解約しますか？');">解約する</button>
                       </form>
                   {% else %}
                       <span id="purchase_history2_table_canceled">解約済</span>

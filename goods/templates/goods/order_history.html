@@ -85,7 +85,17 @@
               {% if order.status == 'pending' %}
                 <form action="{% url 'goods:cancel_order' order.id %}" method="post">
                   {% csrf_token %}
-                  <button id="order_history_cancell_button" type="button" onclick="confirmCancel(this.form);">キャンセルする</button>
+                  <button id="order_history_cancell_button" type="button" 
+                  onclick="confirmCancel(this.form);">キャンセルする</button>
+
+                  <script>
+                    function confirmCancel(form) {
+                        if (confirm("注文ID {{ order.id }} の注文をキャンセルしてもよろしいですか？")) {
+                          form.submit();
+                        }
+                      }
+                  </script>
+
                 </form>
               {% else %}
               {% endif %}
@@ -119,16 +129,13 @@
 
 
 
-
-
-
-<script>
+<!-- <script>
   function confirmCancel(form) {
-    if (confirm("この注文をキャンセルします。よろしいですか？")) {
+    if (confirm("{{ order.id }}この注文をキャンセルします。よろしいですか？")) {
       form.submit();
     }
   }
-</script>
+</script> -->
 
 <style>
 

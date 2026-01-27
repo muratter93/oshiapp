@@ -17,8 +17,8 @@
   font-size: 3.5vw;
 }
 #charge_title_img_01 {
-  width: 70%;
-  margin-top: -11vw;
+  width: 54%;
+  margin: -20vw 0 1.5vw -0.3vw;
 }
 
 /* チアコインを購入する小箱 */
@@ -46,7 +46,7 @@
 /* アカウントネーム */
 #charge_accountname {
   text-align: center;
-  margin-top: -3vw;
+  margin-top: -2vw;
   font-weight: 500;
   font-size: 1.2vw;
   color: rgb(15, 88, 37);
@@ -70,7 +70,7 @@
 
 /* テーブル外周り */
 #charge_table {
-  width: 33vw;
+  width: 35vw;
   border-collapse: collapse;
   border-spacing: 0;
 }
@@ -87,7 +87,7 @@
 /* 項目の文字 */
 .charge_table_text {
   font-weight: 500;
-  font-size: 1.5vw;
+  font-size: 1.3vw;
   padding-left: 2vw;
   padding-right: 2vw;
 }
@@ -95,7 +95,7 @@
 /* 各数字 */
 .charge_table_num {
   font-weight: 900;
-  font-size: 1.6vw;
+  font-size: 1.9vw;
   padding-left: 2vw;
   padding-right: 2vw;
 }
@@ -118,7 +118,7 @@
 #charge_button {
   width: 100%;
   padding: 0 1vw 0 1vw;
-  height: 2.3vw;
+  height: 2.2vw;
   font-family: 'M PLUS Rounded 1c';
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);

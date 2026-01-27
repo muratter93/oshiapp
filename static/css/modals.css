@@ -55,6 +55,7 @@
   background-color: rgb(255, 255, 255);
   color: rgb(193, 179, 167);
   border: 2px solid rgb(193, 179, 167);
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #cancelConfirmBtn:hover {
   color: rgb(84, 62, 44);
@@ -71,6 +72,7 @@
   background-color: rgb(193, 179, 167);
   color: rgb(255, 255, 255);
   border: 2px solid rgb(193, 179, 167);
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #okConfirmBtn:hover {
   background-color: rgb(84, 62, 44);
@@ -213,12 +215,13 @@
   font-family: 'M PLUS Rounded 1c';
   font-size: 1.2vw;
   font-weight: 500;
-  height: 2.6vw;
+  height: 2.4vw;
   width: 5.5vw;
   border-radius: 8px;
   background-color: rgb(193, 179, 167);
   color: rgb(255, 255, 255);
   border: 2px solid rgb(193, 179, 167);
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #doneOkBtn:hover {
   background-color: rgb(84, 62, 44);
@@ -265,11 +268,12 @@
   font-size: 1.1vw;
   font-weight: 500;
   height: 2.6vw;
-  width: 7.5vw;
+  width: 7.8vw;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   color: rgb(22, 137, 56);
   border: 2px solid rgb(22, 137, 56);
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #authCancelBtn:hover {
   color: rgb(109, 241, 44);
@@ -279,10 +283,11 @@
 #modals_auth_new_button {
   background-color: rgb(22, 137, 56);
   color: #fff;
-  padding: 0.4vw 1vw 0.4vw 1vw;
+  padding: 0.4vw 1.3vw 0.4vw 1.3vw;
   border-radius: 7px;
   text-decoration: none;
   font-weight: 700;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #modals_auth_new_button:hover {
   background-color: rgb(89, 197, 35);
@@ -291,10 +296,11 @@
 #modals_auth_login_button {
   background-color: rgb(22, 137, 56);
   color: #fff;
-  padding: 0.4vw 1vw 0.4vw 1vw;
+  padding: 0.4vw 1.3vw 0.4vw 1.3vw;
   border-radius: 7px;
   text-decoration: none;
   font-weight: 700;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #modals_auth_login_button:hover {
   background-color: rgb(89, 197, 35);

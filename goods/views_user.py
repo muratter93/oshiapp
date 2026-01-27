@@ -44,7 +44,7 @@ def cancel_order(request, order_id):
         order.status = 'cancelled'
         order.save()
 
-        messages.success(request, "　注文をキャンセルしました。スタポを返却しました。")
+        messages.success(request, f"注文ID {order.id} の注文をキャンセルしました。スタポを返却しました。")
 
     else:
         messages.warning(request, "　発送済みまたはキャンセル済みの注文はキャンセルできません。")

@@ -40,7 +40,7 @@
 
 /* テーブル外周り */
 #purchase_history2_table {
-  width: 70vw;
+  width: 66vw;
   border-collapse: collapse;
   border-spacing: 0;
 }
@@ -58,47 +58,58 @@
   border-bottom: solid 1px rgb(182, 170, 161);
   padding-right: 2vw;
 }
+#purchase_history2_table_num_03 {
+  padding: 0.7vw;
+  border-bottom: solid 1px rgb(182, 170, 161);
+}
 
 
 
 /* 項目の文字 */
 .purchase_history2_table_text {
   font-weight: 700;
-  font-size: 1.2vw;
+  font-size: 1.1vw;
   padding-left: 2vw;
 }
 
 /* 各数字 */
 .purchase_history2_table_num {
   font-weight: 500;
-  font-size: 1.3vw;
+  font-size: 1.2vw;
   padding-left: 2vw;
 }
 #purchase_history2_table_num_02 {
   font-weight: 500;
   font-size: 1.3vw;
   padding-left: 2vw;
+  width: 6vw;
+}
+#purchase_history2_table_num_03 {
+  font-weight: 500;
+  font-size: 1.1vw;
+  padding-left: 2vw;
+  width: 11vw;
+  line-height: 1.3em;
 }
 .purchase_history2_table_day {
-  font-size: 1.1vw;
-  padding-left: 0.1vw;
+  font-size: 1vw;
 }
 
 /* 解約済の文字 */
 #purchase_history2_table_canceled {
-  font-size: 1.3vw;
+  font-size: 1.15vw;
   padding-right: 2vw;
 }
 
 /* 各単位 */
 .purchase_history2_table_unit {
   font-weight: 400;
-  font-size: 1vw;
+  font-size: 0.8vw;
 }
 
 /* 解約するボタン */
 #purchase_history2_table_button {
-  width: 6.5vw;
+  width: 6vw;
   height: 2.2vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);
@@ -139,4 +150,16 @@
 #purchase_history2_returntop_button {
   text-decoration: none;
   font-size: 14pt;
+}
+
+
+
+.alert {
+  margin: 0 0 4vw 0;
+  text-align: center;
+  font-size: 1.5vw;
+  font-weight: 700;
+}
+.alert-success { 
+  color: #c0392b; 
 }
