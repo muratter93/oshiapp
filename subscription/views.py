@@ -154,7 +154,7 @@ def cancel_subscription(request, sub_member_id):
         sub.save(update_fields=["is_active"])
 
         # ★ これを追加
-        messages.success(request, " 〇〇さんの〜プランのサブスクが解約されました。")
+        messages.success(request, f" {sub.animal.name} の{sub.plan.plan_name}プランのサブスクが解約されました。")
 
         # 履歴ページに戻す
         return redirect("money:purchase_history2")

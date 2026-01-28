@@ -1,10 +1,11 @@
 {% extends "common/base.html" %}
 {% load static %}
 
-{% block title %}グッズ交換{% endblock %}
+{% block title %}アニマルマニア｜グッズ交換{% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/goods.css' %}">
+<link rel="stylesheet" href="{% static 'css/goods_list.css' %}">
+
 <style>
   /* 認証誘導モーダル */
   #authModal {
@@ -35,49 +36,95 @@
 </style>
 {% endblock %}
 
+
 {% block content %}
-<div id="goods_main_center">
-  <h1>グッズ交換一覧</h1>
 
-  <div class="goods_grid">
-    {% for goods in goods_list %}
-      <div class="goods_card">
-        <a href="{% url 'goods:goods_detail' goods.id %}">
-          <div class="goods_img_wrapper">
-            {% if goods.image %}
-              <img src="{{ goods.image.url }}" alt="{{ goods.name }}" class="goods_img">
-            {% else %}
-              <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}" class="goods_img">
-            {% endif %}
-          </div>
-        </a>
 
-        <h3>{{ goods.name }}</h3>
-        <p>必要スタポ：{{ goods.required_stanning_points }} pt</p>
 
-        {% if goods.stock == 0 %}
-          <button class="goods_btn disabled" disabled>在庫なし</button>
-        {% else %}
-          {% if goods.stock <= 10 %}
-            <p class="low-stock">残りわずか！</p>
-          {% endif %}
+<div id="goods_large_box">
 
-          {% if user.is_authenticated %}
-              <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">カートに追加</a>
-          {% else %}
-              <a href="{% url 'goods:add_to_cart' goods.id %}" class="goods_btn">カートに追加</a>
-          {% endif %}
+    <h1 id="goods_title_lang">グッズ交換する</h1>
 
-        {% endif %}
-      </div>
-    {% endfor %}
-  </div>
+    <br>
 
-  {% comment %} <a href="{% url 'goods:order_history' %}">交換履歴を見る</a>
-  <a href="{% url 'donation:donate' %}">寄付する</a> {% endcomment %}
+    <div id="goods_small_box">
+
+        <div id="goods_small_box_contents">
+
+
+
+            <div id="goods_grid">
+              {% for goods in goods_list %}
+
+                <div id="goods_card">
+
+                  {% if goods.stock == 0 %}
+                  <div class="good_warning_text_box"></div>
+                  {% else %}
+                      {% if goods.stock <= 10 %}
+                      <div id="good_warning_text_box_02">
+                          <img id="goods_mes_low_stock" src="{% static 'img/goods_lowstocktext_img.png' %}" alt="残りわずか画像">
+                      </div>
+                      {% else %}
+                      <div class="good_warning_text_box"></div>
+                      {% endif %}
+                  {% endif %}
+
+                  <a class="goods_link" href="{% url 'goods:goods_detail' goods.id %}">
+
+                    <div id="goods_img_box">
+                        {% if goods.image %}
+                          <img src="{{ goods.image.url }}" alt="{{ goods.name }}">
+                        {% else %}
+                          <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}">
+                        {% endif %}
+                    </div>
+
+                  </a>
+
+                  <a class="goods_link" href="{% url 'goods:goods_detail' goods.id %}">
+                      <div id="goods_name_box">
+                          <h3 id="goods_name">{{ goods.name }}</h3>
+                      </div>
+                  </a>
+
+                  <p id="goods_stapo_num">{{ goods.required_stanning_points }}<span id="goods_stapo_num_unit">スタポ</span></p>
+
+                  {% if goods.stock == 0 %}
+                    <button id="goods_btn_disabled" disabled>在庫なし</button>
+                  {% else %}
+
+                    {% if user.is_authenticated %}
+                    <a class="goods_add_btn" href="{% url 'goods:add_to_cart' goods.id %}">カートに追加</a>
+                    {% else %}
+                    <a class="goods_add_btn" href="{% url 'goods:add_to_cart' goods.id %}">カートに追加</a>
+                    {% endif %}
+
+                  {% endif %}
+
+                </div>
+
+              {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+
+    <a id="goods_history_button" href="{% url 'goods:order_history' %}">▶ グッズ交換履歴をみる</a>
+
+    <br><br>
+
+    <a id="goods_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
 </div>
 
-<div id="goods_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
+
+
+
+
 
 
 

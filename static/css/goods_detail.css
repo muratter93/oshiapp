@@ -1,0 +1,170 @@
+
+
+/* グッズ詳細大箱 */
+#goods_detail_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* グッズ詳細小箱 */
+#goods_detail_small_box {
+  margin: 0;
+  padding: 0 5vw 80px 5vw;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(255, 102, 0); */
+}
+
+/* ーーーーー */
+/* 画像（左） */
+/* ーーーーー */
+
+/* グッズ詳細小箱の中の画像箱（左） */
+#goods_detail_img_box {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* background-color: aqua; */
+}
+/* 画像（大）箱 */
+#goods_detail_img_box_large {
+  flex: 1;
+  /* background-color: rgb(111, 0, 255); */
+}
+/* 画像（大） */
+.goods_detail_img_large {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+/* 画像（小）箱の中の画像箱 */
+#goods_detail_img_box_small {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5vw;
+  /* background-color: rgb(0, 179, 255); */
+}
+/* 画像（小） */
+#goods_detail_img_small {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ーーーーー */
+/* 文章（右） */
+/* ーーーーー */
+
+/* グッズ詳細小箱の中の説明文箱（右） */
+#goods_detail_text_box {
+  text-align: left;
+  padding: 0 0 0 4vw;
+  margin: 0;
+  color: rgb(15, 88, 37);
+  flex: 1;
+  /* background-color: rgb(135, 51, 51); */
+}
+
+/* グッズ名 */
+#goods_detail_name{
+  font-weight: 900;
+  font-size: 2.5vw;
+  padding: 0;
+  margin: 0;
+}
+
+/* チアコ数 */
+#goods_detail_chiaco {
+  font-weight: 500;
+  font-size: 3vw;
+  padding: 0;
+  margin: 1vw 0 0 0;
+}
+
+/* チアコ数（単位） */
+#goods_detail_chiaco_unit {
+  font-weight: 700;
+  font-size: 1.3vw;
+}
+
+/* カートに入れるボタン */
+#goods_detail_button {
+  display: inline-block;
+  background-color: rgb(15, 88, 37);
+  color: white;
+  text-decoration: none;
+  padding: 0.5vw 1.7vw;
+  /* width: 11vw; */
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  font-weight: 700;
+  font-size: 1.4vw;
+  transition: background-color 0.3s;
+}
+#goods_detail_button:visited {
+  background-color: rgb(15, 88, 37);
+  color: white;
+}
+#goods_detail_button:hover {
+  background-color: rgb(89, 197, 35);
+  color: white;
+  transform: scale(1.03);
+}
+
+/* 説明文 */
+#goods_detail_description {
+  font-weight: 500;
+  font-size: 1.15vw;
+  padding: 0;
+  margin: 1vw 0 0 0;
+}
+
+/* グッズ一覧に戻るボタン */
+#goods_detail_goodslink {
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 交換履歴をみる */
+#goods_detail_history_button {
+  text-decoration: none;
+  font-size: 14pt;
+  display: grid;
+  place-items: center;
+}
+
+/* トップページへもどる */
+#goods_detail_returntop_button {
+  text-decoration: none;
+  font-size: 14pt;
+  display: grid;
+  place-items: center;
+}

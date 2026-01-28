@@ -1,0 +1,197 @@
+
+/* グッズ交換大箱 */
+#goods_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+}
+
+
+/* グッズ交換タイトル */
+#goods_title_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+  color: rgb(22, 137, 56);
+}
+
+/* グッズ交換小箱 */
+#goods_small_box {
+  margin: 0;
+  padding: 0 2vw 80px 2vw;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* ーーーー */
+/* 小箱の中 */
+/* ーーーー */
+
+#goods_small_box_contents {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  /* background-color: rgb(105, 103, 42); */
+}
+
+/* ーーーーーーーーーー */
+/* グッズ交換大箱と中身 */
+/* ーーーーーーーーーー */
+
+/* グッズグリッド箱 */
+#goods_grid {
+  display: grid;
+  width: 100%;
+  /* grid-template-columns: repeat(5, 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  /* background-color: rgb(255, 47, 0); */
+}
+
+/* グッズ個別箱 */
+#goods_card {
+  padding: 0.5vw;
+  text-align: center;
+  height: 100%;
+}
+
+/* グッズ画像 */
+#goods_img_box {
+  width: 100%;
+  height: 11.5vw;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;       /* はみ出た部分は隠す */
+}
+#goods_img_box img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;    /* 縦横比を維持 */
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+/* グッズ名前リンク先 */
+.goods_link {
+  text-decoration: none;
+}
+/* グッズ名前箱 */
+#goods_name_box {
+  margin: 7px 0 0 0;
+  padding: 0;
+  height: 10px;
+  text-align: center;
+  display: grid;
+  place-items: center;
+}
+/* グッズ名前文字 */
+#goods_name {
+  text-align: center;
+  font-weight: 900;
+  font-size: 13pt;
+  line-height: 1em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* 表示する行数 */
+  overflow: hidden;
+  color: rgb(15, 88, 37);
+  margin: 0;
+  padding: 0;
+}
+#goods_name:visited {
+  color: rgb(15, 88, 37);
+}
+#goods_name:hover {
+  color: rgb(89, 197, 35);
+}
+
+
+/* 必要スタポ数文字 */
+#goods_stapo_num {
+  margin: 0;
+  padding: 5px 0 5px 0;
+  font-weight: 700;
+  font-size: 16pt;
+  color: rgb(15, 88, 37);
+}
+/* 必要スタポ数単位 */
+#goods_stapo_num_unit {
+  font-weight: 700;
+  font-size: 10pt;
+}
+
+/* グッズカートへ追加ボタン */
+.goods_add_btn {
+  display: inline-block;
+  background-color: rgb(15, 88, 37);
+  color: white;
+  text-decoration: none;
+  padding: 4px 13px;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  font-weight: 700;
+  font-size: 11pt;
+  transition: background-color 0.3s;
+}
+.goods_add_btn:visited {
+  background-color: rgb(15, 88, 37);
+  color: white;
+}
+.goods_add_btn:hover {
+  background-color: rgb(89, 197, 35);
+  color: white;
+  transform: scale(1.03);
+}
+
+
+/* ーーーーーーーーーーーーー */
+/* グッズ交換在庫メッセージ箱 */
+/* ーーーーーーーーーーーーー */
+
+/* メッセージ箱 */
+.good_warning_text_box {
+  text-align: center;
+  justify-content: center;
+  height: 20px;
+  margin: 10px 0 15px auto;
+  display: grid;
+  place-items: center;
+}
+#good_warning_text_box_02 {
+  text-align: center;
+  justify-content: center;
+  height: 20px;
+  margin: 10px 0 15px auto;
+}
+/* 残りわずか画像 */
+#goods_mes_low_stock {
+  width: 110px;
+}
+
+/* 在庫なし */
+#goods_btn_disabled {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  background-color: #e6e6e6;
+  color: rgb(132, 132, 132);
+  border: none;
+  padding: 4px 13px;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  font-weight: 700;
+  font-size: 11pt;
+}
+
+
+
+
+/* 交換履歴をみる */
+#goods_history_button {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#goods_returntop_button {
+  text-decoration: none;
+  font-size: 14pt;
+}

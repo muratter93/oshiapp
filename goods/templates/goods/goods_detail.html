@@ -1,32 +1,70 @@
-<!-- goods/templates/goods/goods_detail.html -->
 {% extends "common/base.html" %}
 {% load static %}
 
-{% block title %}{{ goods.name }}{% endblock %}
+{% block title %}アニマルマニア｜{{ goods.name }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/goods_detail.css' %}">
+{% endblock %}
+
+
 
 {% block content %}
-<h2>{{ goods.name }}</h2>
 
-<!-- 代表画像 -->
-{% if goods.image %}
-    <img src="{{ goods.image.url }}" alt="{{ goods.name }}" style="width:300px;height:300px;object-fit:cover;">
-{% else %}
-    <img src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}" style="width:300px;height:300px;">
-{% endif %}
 
-<!-- 詳細画像一覧 -->
-{% if goods.detail_images.all %}
-    <div style="display:flex; gap:10px; margin-top:20px;">
-        {% for img in goods.detail_images.all %}
-            <img src="{{ img.image.url }}" alt="{{ goods.name }} 詳細画像{{ forloop.counter }}" 
-                 style="width:150px; height:150px; object-fit:cover; border:1px solid #ccc; border-radius:4px;">
-        {% endfor %}
+
+<div id="goods_detail_large_box">
+
+    <div id="goods_detail_small_box">
+
+        <div id="goods_detail_img_box">
+
+            <div id="goods_detail_img_box_large">
+
+                <!-- 代表画像 -->
+                {% if goods.image %}
+                <img class="goods_detail_img_large" src="{{ goods.image.url }}" alt="{{ goods.name }}">
+                {% else %}
+                <img class="goods_detail_img_large" src="{% static 'img/no_image.png' %}" alt="{{ goods.name }}">
+                {% endif %}
+
+            </div>
+
+            {% if goods.detail_images.all %}
+            <div id="goods_detail_img_box_small">
+                {% for img in goods.detail_images.all %}
+                <img id="goods_detail_img_small" src="{{ img.image.url }}" alt="{{ goods.name }} 詳細画像{{ forloop.counter }}">
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+
+        <div id="goods_detail_text_box">
+
+            <h2 id="goods_detail_name">{{ goods.name }}</h2>
+            <p id="goods_detail_chiaco">{{ goods.required_stanning_points }}<span id="goods_detail_chiaco_unit">スタポ</span></p>
+            <a id="goods_detail_button" href="{% url 'goods:add_to_cart' goods.id %}">カートに入れる</a>
+            <p id="goods_detail_description">{{ goods.description }}</p>
+            <a id="goods_detail_goodslink" href="{% url 'goods:goods_list' %}">◀ グッズ一覧に戻る</a>
+
+        </div>
+
     </div>
-{% endif %}
 
-<p>必要スタポ：{{ goods.required_stanning_points }} pt</p>
-<p>{{ goods.description }}</p>
+    <a id="goods_detail_history_button" href="{% url 'goods:order_history' %}">▶グッズ交換履歴をみる</a>
 
-<a href="{% url 'goods:add_to_cart' goods.id %}" class="btn">カートに入れる</a>
-<a href="{% url 'goods:goods_list' %}">← グッズ一覧に戻る</a>
+    <br>
+
+    <a id="goods_detail_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+
+</div>
+
+
+
+
+
 {% endblock %}

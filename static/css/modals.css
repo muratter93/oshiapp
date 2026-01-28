@@ -276,8 +276,8 @@
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #authCancelBtn:hover {
-  color: rgb(109, 241, 44);
-  border: 2px solid rgb(109, 241, 44);
+  color: rgb(89, 197, 35);
+  border: 2px solid rgb(89, 197, 35);
 }
 /* 新規登録ボタン */
 #modals_auth_new_button {
