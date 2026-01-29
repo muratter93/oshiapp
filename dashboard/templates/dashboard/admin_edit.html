@@ -25,7 +25,11 @@
           <div class="readonly-box">{{ target_user.username }}</div>
         </label>
 
-        <label>名前 {{ form.name }}</label>
+        <label>
+          名前
+          {{ form.name }}
+          {% for e in form.name.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
 
         <label>
           メール

@@ -84,7 +84,7 @@ User = get_user_model()
 class StaffEditForm(forms.ModelForm):
     class Meta:
         model = User
-        # ここに「編集させたい」カラムだけを列挙
+        # 編集させたいカラムだけ
         fields = ("email", "name", "postal_code", "address", "phone", "birth")
         widgets = {
             "birth": forms.DateInput(attrs={"type": "date"}),
@@ -92,37 +92,78 @@ class StaffEditForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # ユーザー名は変更不可 → テンプレで表示だけする or 参考表示
-        # もしフォームに見せたい場合は、下のように「disabledなダミーフィールド」を追加してもOK
-        # self.fields["username_display"] = forms.CharField(
-        #     label="ユーザー名", initial=self.instance.username, disabled=True, required=False
-        # )
+
+        # ★ 必須設定
+        self.fields["email"].required = True
+        self.fields["name"].required = True
+
+        # ★ エラーメッセージ（任意）
+        self.fields["email"].error_messages["required"] = "メールアドレスは必須です。"
+        self.fields["name"].error_messages["required"] = "名前は必須です。"
 
     def clean_email(self):
-        email = self.cleaned_data.get("email", "").strip()
+        email = (self.cleaned_data.get("email") or "").strip()
         if not email:
-            return email  # 空メールを許す設計ならこのまま戻す（許さないならバリデーションを入れる）
+            raise forms.ValidationError("メールアドレスは必須です。")
+
         qs = User.objects.filter(email__iexact=email).exclude(pk=self.instance.pk)
         if qs.exists():
             raise forms.ValidationError("このメールアドレスは既に使用されています。")
         return email
 
+    def clean_name(self):
+        name = (self.cleaned_data.get("name") or "").strip()
+        if not name:
+            raise forms.ValidationError("名前は必須です。")
+        return name
+
 class KeeperEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("email", "name", "postal_code", "address", "phone", "birth", "zoo")
-        widgets = {"birth": forms.DateInput(attrs={"type": "date"})}
+        widgets = {
+            "birth": forms.DateInput(attrs={"type": "date"}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # zoo 選択肢
         self.fields["zoo"].queryset = Zoo.objects.order_by("zoo_name")
+
+        # ★ 必須設定
+        self.fields["email"].required = True
+        self.fields["name"].required = True
+        self.fields["zoo"].required = True
+
+        # ★ エラーメッセージ
+        self.fields["email"].error_messages["required"] = "メールアドレスは必須です。"
+        self.fields["name"].error_messages["required"] = "名前は必須です。"
+        self.fields["zoo"].error_messages["required"] = "所属動物園を選択してください。"
+
+    def clean_email(self):
+        email = (self.cleaned_data.get("email") or "").strip()
+        if not email:
+            raise forms.ValidationError("メールアドレスは必須です。")
+
+        qs = User.objects.filter(email__iexact=email).exclude(pk=self.instance.pk)
+        if qs.exists():
+            raise forms.ValidationError("このメールアドレスは既に使用されています。")
+        return email
+
+    def clean_name(self):
+        name = (self.cleaned_data.get("name") or "").strip()
+        if not name:
+            raise forms.ValidationError("名前は必須です。")
+        return name
 
     def clean(self):
         cleaned = super().clean()
-        # 飼育員なら zoo 必須（安全側チェック）
+        # 飼育員なら zoo 必須（保険）
         if getattr(self.instance, "is_keeper", False) and not cleaned.get("zoo"):
             self.add_error("zoo", "飼育員の所属動物園を選択してください。")
         return cleaned
+
 
 # dashboard/forms.py
 from django import forms

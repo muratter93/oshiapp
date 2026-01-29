@@ -23,10 +23,18 @@
           <div class="readonly-box">{{ target_user.username }}</div>
         </label>
 
-        <label>名前 {{ form.name }}</label>
+        <label>
+          名前
+          {{ form.name }}
+          {% for e in form.name.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
 
-        <label>メールアドレス {{ form.email }}</label>
-        
+        <label>
+          メールアドレス
+          {{ form.email }}
+          {% for e in form.email.errors %}<div class="field-error">{{ e }}</div>{% endfor %}
+        </label>
+
         <details class="optional-section" style="margin-top:8px;">
           <summary class="optional-summary">追加のプロフィール情報</summary>
 
@@ -52,4 +60,5 @@
     </form>
   </div>
 </div>
+
 {% endblock %}
