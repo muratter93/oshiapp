@@ -33,41 +33,44 @@
                         <th class="cart_table_title"></th>
                         <th class="cart_table_title">グッズ名</th>
                         <th class="cart_table_title">スタポ数</th>
+                        <th class="cart_table_title"></th>
                         <th class="cart_table_title">交換数</th>
+                        <th class="cart_table_title"></th>
                         <th class="cart_table_title">小計</th>
-                        <th class="cart_table_title"></th>
-                        <th class="cart_table_title"></th>
                         <th class="cart_table_title"></th>
                     </tr>
 
                     {% for goods_id, data in cart_items.items %}
                     <tr>
-                        <td class="cart_table_contents"><img id="cart_goods_image" src="{{ data.goods.image.url }}" alt="{{ data.goods.name }}"></td>
+                        <td id="cart_table_contents_image"><img id="cart_goods_image" src="{{ data.goods.image.url }}" alt="{{ data.goods.name }}"></td>
                         <td id="cart_table_contents_name">{{ data.goods.name }}</td>
                         <td id="cart_table_contents_stapo">{{ data.goods.required_stanning_points }}<span id="cart_table_contents_stapo_unit">スタポ</span></td>
-                        <td class="cart_table_contents">× {{ data.quantity }}</td>
-                        <td class="cart_table_contents">{% widthratio data.goods.required_stanning_points 1 data.quantity %}</td>
-                        
                         <td class="cart_table_contents_delete">
-                            <a class="cart_table_contents_delete_01" href="{% url 'goods:cart_item_decrease' goods_id %}">－</a><br>
+                            <a class="cart_table_contents_delete_01" href="{% url 'goods:cart_item_decrease' goods_id %}">－</a>
                         </td>
+                        <td id="cart_table_contents_pieces">{{ data.quantity }}</td>
                         <td class="cart_table_contents_delete">
-                            <a class="cart_table_contents_delete_01" href="{% url 'goods:cart_item_increase' goods_id %}">＋</a><br>
+                            <a class="cart_table_contents_delete_01" href="{% url 'goods:cart_item_increase' goods_id %}">＋</a>
                         </td>
+                        <td id="cart_table_contents_subtotal">{% widthratio data.goods.required_stanning_points 1 data.quantity %}</td>
                         <td class="cart_table_contents_delete">
-                            <a id="cart_table_contents_delete_02" href="{% url 'goods:cart_item_remove' goods_id %}">削除する</a>
+                            <a id="cart_table_contents_delete_02" href="{% url 'goods:cart_item_remove' goods_id %}">
+                                <img id="cart_table_contents_dustbox" src="{% static 'img/dust_box.png' %}" alt="ゴミ箱">
+                            </a>
                         </td>
-                        
                     </tr>
-                    {% endfor %}
+                    {% endfor %}                   
                 </table>
 
-                <p>合計{{ total_stanning }}スタポ</p>
+                <p id="cart_total_text">
+                    合計<span class="cart_total_num">24</span>商品　　
+                    合計<span class="cart_total_num">{{ total_stanning }}</span>スタポ
+                </p>
 
                 <!-- ▼ 交換手続きボタン（ここで POP が出る） -->
-                <a href="{% url 'goods:checkout' %}" class="checkout-link">▶交換手続きへ</a>
+                <a id="checkout-link_cart" href="{% url 'goods:checkout' %}">▶交換手続きへ</a>
 
-                <a href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
+                <a id="cart_returngoodspage_button" href="{% url 'goods:goods_list' %}">▶グッズページへ戻る</a>
 
             </div>
 
@@ -111,7 +114,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const checkoutBtn = document.querySelector(".checkout-link");
+    const checkoutBtn = document.querySelector("#checkout-link_cart");
     const authModal = document.getElementById("authModal");
     const cancelBtn = document.getElementById("authCancelBtn");
 

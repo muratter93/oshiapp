@@ -12,6 +12,7 @@
   text-align: center;
   font-weight: 900;
   font-size: 3.5vw;
+  color: rgb(15, 88, 37)
 }
 
 /* カート小箱 */
@@ -29,10 +30,10 @@
   justify-content: center;
   margin: 0 auto;
   padding: 0;
-  border: 2px solid rgb(182, 170, 161); /*borderの指定*/
+  border: 2px solid rgb(172, 200, 180); /*borderの指定*/
   border-radius: 1vw;
   /* background-color: rgb(255, 72, 0); */
-  width: 40vw;
+  width: 47vw;
 }
 
 /* カート小箱の中の小箱の小箱（注文内容テーブル） */
@@ -42,13 +43,13 @@
   font-size: 1.3vw;
   padding: 2vw 3vw 3vw 3vw;
   width: 100%;
+  color: rgb(15, 88, 37)
   /* background-color: rgb(105, 103, 42); */
 }
 
 /* ーーーーーーーーー */
 /* 小箱の中の各種項目 */
 /* ーーーーーーーーー */
-
 
 /* カートテーブル外周り */
 #cart_table {
@@ -58,74 +59,149 @@
 }
 .cart_table_title {
   padding: 0 0.6vw 0.5vw 0.6vw;
-  border-bottom: solid 3px rgb(182, 170, 161);
-  color: rgb(182, 170, 161);
+  border-bottom: solid 3px rgb(172, 200, 180);
+  color: rgb(172, 200, 180);
 }
-.cart_table_contents, #cart_table_contents_name, 
-#cart_table_contents_stapo, .cart_table_contents_delete {
+#cart_table_contents_image, #cart_table_contents_name, 
+#cart_table_contents_stapo, .cart_table_contents_delete, 
+#cart_table_contents_pieces, #cart_table_contents_subtotal {
   padding: 0.6vw;
-  border-bottom: solid 1px rgb(182, 170, 161);
+  border-bottom: solid 1px rgb(172, 200, 180);
 }
-
-
 /* カートテーブル各題名文字 */
 .cart_table_title {
   font-weight: 500;
   font-size: 1vw;
 }
-/* カートテーブル各中身文字 */
-.cart_table_contents {
-  font-weight: 500;
-  font-size: 1.6vw;
+/* カートテーブル商品写真 */
+#cart_table_contents_image {
+  width: 5vw;
+  object-fit: cover;
+  object-position: center;
+}
+#cart_goods_image {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 /* カートテーブル商品名 */
 #cart_table_contents_name {
-  font-weight: 500;
-  font-size: 1.1vw;
+  font-weight: 700;
+  font-size: 1.15vw;
   line-height: 1.1em;
   width: 8vw;
 }
 /* カートテーブルスタポ数字 */
 #cart_table_contents_stapo {
   font-weight: 500;
-  font-size: 1.6vw;
+  font-size: 1.7vw;
+  width: 6vw;
 }
 /* カートテーブルスタポ単位 */
 #cart_table_contents_stapo_unit {
   font-weight: 700;
   font-size: 0.9vw;
 }
+/* カートテーブル個数 */
+#cart_table_contents_pieces {
+  font-weight: 500;
+  font-size: 1.8vw;
+  text-align: center;
+  width: 3vw;
+}
 /* カートテーブル+-削除 */
 .cart_table_contents_delete {
   font-weight: 700;
   font-size: 1vw;
 }
-
+/* カートテーブル+- */
 .cart_table_contents_delete_01 {
   text-decoration: none;
-  padding: 0;
-  margin: 0 auto;
-  width: 1.6vw;
-  height: 1.6vw;
+  padding: 0.28vw 0.3vw 0.3vw 0.28vw;
+  width: 1vw;
+  height: 1vw;
   border-radius: 50%;
-  background-color: aqua;
+  color: rgb(255, 255, 255);
+  background-color: rgb(15, 88, 37);
   font-weight: 900;
-  font-size: 1.5vw;
-  /* display: flex;
+  font-size: 1.3vw;
+  display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
+}
+.cart_table_contents_delete_01:link {
+  color: rgb(255, 255, 255);
+  background-color: rgb(15, 88, 37);
+}
+.cart_table_contents_delete_01:visited {
+  color: rgb(255, 255, 255);
+  background-color: rgb(15, 88, 37);
+}
+.cart_table_contents_delete_01:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+
+/* カートテーブル小計 */
+#cart_table_contents_subtotal {
+  font-weight: 700;
+  font-size: 1.7vw;
+}
+/* カートテーブルゴミ箱 */
+#cart_table_contents_delete_02 {
+  width: 1vw;
+}
+#cart_table_contents_dustbox {
+  padding: 0.1vw 0 0 0.4vw;
+  width: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+#cart_total_text {
+  text-align: right;
+  font-weight: 500;
+  font-size: 1.3vw;
+}
+.cart_total_num {
+  padding: 0 0.2vw 0 0.2vw;
+  font-weight: 500;
+  font-size: 2.5vw;
+}
+
+/* 交換手続きへボタン */
+#checkout-link_cart {
+  width: 100%;
+  padding: 0 1vw 0 1vw;
+  height: 2.2vw;
+  font-family: 'M PLUS Rounded 1c';
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+  font-size: 1.05vw;
+  font-weight: 500;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
   text-align: center;
-  vertical-align: middle;
-  display: inline-block;
+
+}
+#checkout-link_cart:visited {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+#checkout-link_cart:link {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+#checkout-link_cart:hover {
+  background-color: rgb(109, 241, 44);
 }
 
 
 
 
 
-#cart_goods_image {
-    width: 5vw;
-}
 
 
 

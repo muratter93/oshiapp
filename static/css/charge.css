@@ -134,11 +134,11 @@
 }
 #charge_button:visited {
   color: rgb(255, 255, 255);
-  background-color: rgb(17, 103, 43);
+  background-color: rgb(89, 197, 35);
 }
-#charge_button:hover {
+#charge_button:link {
   color: rgb(255, 255, 255);
-  background-color: rgb(17, 103, 43);
+  background-color: rgb(89, 197, 35);
 }
 #charge_button:hover {
   background-color: rgb(109, 241, 44);
