@@ -13,7 +13,7 @@
 #modals_conf_box {
   background-color: rgb(255, 255, 255);
   width: 35vw;
-  margin: 23vh auto;
+  margin: 23vh 0 0 30vw;
   padding: 1.8vw 4vw 3.3vw 4vw;
   border-radius: 8px;
 }
@@ -95,7 +95,7 @@
 #modals_pay_box {
   background-color: rgb(255, 255, 255);
   width: 30vw;
-  margin: 23vh auto;
+  margin: 23vh 0 0 30vw;
   padding: 3vw 6.5vw 3.3vw 6.5vw;
   border-radius: 8px;
 }
@@ -171,7 +171,7 @@
 #modals_done_box {
   background-color: rgb(255, 255, 255);
   width: 35vw;
-  margin: 17vh auto;
+  margin: 17vh 0 0 30vw;
   padding: 2vw 5vw 4.7vw 5vw;
   border-radius: 8px;
   text-align: center;
@@ -245,7 +245,7 @@
 #modals_auth_box {
   background-color: rgb(255, 255, 255);
   width: 30vw;
-  margin: 23vh auto;
+  margin: 23vh 0 0 31.5vw;
   padding: 2vw 5vw 4vw 5vw;
   border-radius: 8px;
   text-align: center;

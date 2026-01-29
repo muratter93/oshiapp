@@ -26,7 +26,9 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  flex-basis: 60%;
   /* background-color: aqua; */
+  height: 100%;
 }
 /* 画像（大）箱 */
 #goods_detail_img_box_large {
@@ -60,48 +62,58 @@
 
 /* グッズ詳細小箱の中の説明文箱（右） */
 #goods_detail_text_box {
+  flex: 1;
+  flex-basis: 40%;
   text-align: left;
-  padding: 0 0 0 4vw;
+  padding: 0 6vw 0 2vw;
   margin: 0;
   color: rgb(15, 88, 37);
-  flex: 1;
   /* background-color: rgb(135, 51, 51); */
 }
 
 /* グッズ名 */
 #goods_detail_name{
   font-weight: 900;
-  font-size: 2.5vw;
+  font-size: 2vw;
+  line-height: 1.1em;
   padding: 0;
-  margin: 0;
+  margin: 3vw 0 0 0;
 }
 
 /* チアコ数 */
 #goods_detail_chiaco {
   font-weight: 500;
-  font-size: 3vw;
+  font-size: 2.6vw;
   padding: 0;
-  margin: 1vw 0 0 0;
+  margin: 1.5vw 0 0 0;
 }
 
 /* チアコ数（単位） */
 #goods_detail_chiaco_unit {
-  font-weight: 700;
-  font-size: 1.3vw;
+  font-weight: 500;
+  font-size: 1.1vw;
+}
+
+/* 残りわずか画像 */
+#goods_detail_lowstock_img {
+  width: 8vw;
+  padding: 0;
+  margin: 0;
 }
 
 /* カートに入れるボタン */
 #goods_detail_button {
-  display: inline-block;
   background-color: rgb(15, 88, 37);
   color: white;
   text-decoration: none;
   padding: 0.5vw 1.7vw;
-  /* width: 11vw; */
+  width: 9.5vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   font-weight: 700;
-  font-size: 1.4vw;
+  font-size: 1.3vw;
   transition: background-color 0.3s;
+  float: right;
+  margin-top: -0.3vw;
 }
 #goods_detail_button:visited {
   background-color: rgb(15, 88, 37);
@@ -112,54 +124,65 @@
   color: white;
   transform: scale(1.03);
 }
+/* 在庫なしボタン */
+#goods_detail_btn_disabled {
+  text-decoration: none;
+  background-color: #e6e6e6;
+  color: rgb(132, 132, 132);
+  border: none;
+  padding: 0.5vw 1.7vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  font-weight: 700;
+  font-size: 1.3vw;
+  transition: background-color 0.3s;
+  float: right;
+}
 
 /* 説明文 */
 #goods_detail_description {
+  clear: both;
   font-weight: 500;
-  font-size: 1.15vw;
-  padding: 0;
-  margin: 1vw 0 0 0;
+  font-size: 1.1vw;
+  line-height: 1.2em;
+  padding: 4vw 0 0 0;
+  margin: 0;
 }
 
 /* グッズ一覧に戻るボタン */
 #goods_detail_goodslink {
   text-decoration: none;
+  color: rgb(15, 88, 37);
+  font-weight: 500;
+  font-size: 1.1vw;
+  margin-top: 1vw;
+  float: right;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 交換履歴をみる */
+#goods_detail_goodslink:visited {
+  color: rgb(15, 88, 37);
+}
+#goods_detail_goodslink:hover {
+  color: rgb(89, 197, 35);
+}
+/* グッズ交換履歴をみる */
 #goods_detail_history_button {
+  clear: both;
   text-decoration: none;
-  font-size: 14pt;
-  display: grid;
-  place-items: center;
+  color: rgb(15, 88, 37);
+  font-weight: 500;
+  font-size: 1.1vw;
+  margin-top: 1vw;
+  float: right;
 }
+#goods_detail_history_button:visited {
+  color: rgb(15, 88, 37);
+}
+#goods_detail_history_button:hover {
+  color: rgb(89, 197, 35);
+}
+
+
+
+
 
 /* トップページへもどる */
 #goods_detail_returntop_button {

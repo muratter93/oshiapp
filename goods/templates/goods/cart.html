@@ -1,90 +1,113 @@
 {% extends "common/base.html" %}
 {% load static %}
 
-{% block title %}カート{% endblock %}
+{% block title %}アニマルマニア｜カート{% endblock %}
 
 {% block extra_head %}
-<style>
-.checkout-link {
-    display:inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: #4CAF50;
-    color: #fff;
-    border-radius: 4px;
-    text-decoration: none;
-}
-</style>
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
 {% endblock %}
 
 {% block content %}
-<h2>カート</h2>
 
-{% if messages %}
-<script>
-    {% for message in messages %}
-        alert("{{ message|escapejs }}");
-    {% endfor %}
-</script>
-{% endif %}
+<div id="cart_large_box">
+    
+    <h1 id="cart_lang">カート</h1>
 
-{% if cart_items %}
-<table class="cart-table">
-    <tr>
-        <th>グッズ</th>
-        <th>数量</th>
-        <th>必要スタポ</th>
-        <th>操作</th>
-    </tr>
+    <div id="cart_small_box">
 
-    {% for goods_id, data in cart_items.items %}
-    <tr>
-        <td>{{ data.goods.name }}</td>
-        <td>{{ data.quantity }}</td>
-        <td>{{ data.goods.required_stanning_points }}</td>
-        <td>
-            <a href="{% url 'goods:cart_item_increase' goods_id %}">＋</a>
-            <a href="{% url 'goods:cart_item_decrease' goods_id %}">－</a>
-            <a href="{% url 'goods:cart_item_remove' goods_id %}">削除する</a>
-        </td>
-    </tr>
-    {% endfor %}
+        {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert("{{ message|escapejs }}");
+            {% endfor %}
+        </script>
+        {% endif %}
 
-    <tr>
-        <td colspan="2"><strong>合計スタポ</strong></td>
-        <td>{{ total_stanning }}</td>
-        <td></td>
-    </tr>
-</table>
+        {% if cart_items %}
+        <div id="cart_small_box_border">
 
-<!-- ▼ 交換手続きボタン（ここで POP が出る） -->
-<a href="{% url 'goods:checkout' %}" class="checkout-link">▶交換手続きへ</a>
+            <div id="cart_small_box_lang">
 
-<a href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
-<div id="cart_returntop_button"><a href="{% url 'main:index' %}">▶トップページへもどる</a></div>
+                <table id="cart_table">
+                    <tr>
+                        <th class="cart_table_title"></th>
+                        <th class="cart_table_title">グッズ名</th>
+                        <th class="cart_table_title">スタポ数</th>
+                        <th class="cart_table_title">交換数</th>
+                        <th class="cart_table_title">小計</th>
+                        <th class="cart_table_title"></th>
+                        <th class="cart_table_title"></th>
+                        <th class="cart_table_title"></th>
+                    </tr>
 
-{% else %}
-<p>カートは空です。</p>
-<a href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
-<div id="cart_returntop_button"><a href="{% url 'main:index' %}">▶トップページへもどる</a></div>
-{% endif %}
+                    {% for goods_id, data in cart_items.items %}
+                    <tr>
+                        <td class="cart_table_contents"><img id="cart_goods_image" src="{{ data.goods.image.url }}" alt="{{ data.goods.name }}"></td>
+                        <td id="cart_table_contents_name">{{ data.goods.name }}</td>
+                        <td id="cart_table_contents_stapo">{{ data.goods.required_stanning_points }}<span id="cart_table_contents_stapo_unit">スタポ</span></td>
+                        <td class="cart_table_contents">× {{ data.quantity }}</td>
+                        <td class="cart_table_contents">{% widthratio data.goods.required_stanning_points 1 data.quantity %}</td>
+                        
+                        <td class="cart_table_contents_delete">
+                            <a class="cart_table_contents_delete_01" href="{% url 'goods:cart_item_decrease' goods_id %}">－</a><br>
+                        </td>
+                        <td class="cart_table_contents_delete">
+                            <a class="cart_table_contents_delete_01" href="{% url 'goods:cart_item_increase' goods_id %}">＋</a><br>
+                        </td>
+                        <td class="cart_table_contents_delete">
+                            <a id="cart_table_contents_delete_02" href="{% url 'goods:cart_item_remove' goods_id %}">削除する</a>
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                </table>
+
+                <p>合計{{ total_stanning }}スタポ</p>
+
+                <!-- ▼ 交換手続きボタン（ここで POP が出る） -->
+                <a href="{% url 'goods:checkout' %}" class="checkout-link">▶交換手続きへ</a>
+
+                <a href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
+
+            </div>
+
+        </div>
+
+        {% else %}
+        <p>カートにはまだ何も入っていません。</p>
+        {% endif %}
+
+    </div>
+
+    {% if cart_items %}
+    {% else %}
+    <a id="cart_goodspage_button" href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
+    <br><br>
+    {% endif %}
+
+    <a id="cart_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
+
 
 
 <!-- ▼ 認証誘導モーダル -->
-<div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
-  <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px; text-align:center;">
-    <h3>ログインが必要です</h3>
-    <p>交換手続きを行うにはログインしてください。</p>
-    <div style="text-align:right;">
-      <button id="authCancelBtn">キャンセル</button>
-      <a href="{% url 'accounts:signup' %}?next={% url 'goods:cart_view' %}"
-         style="background:#6b7280;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">新規登録</a>
-      <a href="{% url 'accounts:login' %}?next={% url 'goods:cart_view' %}"
-         style="background:#2563eb;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">ログイン</a>
+<div id="authModal">
+  <div id="cart_auth_box">
+    <p id="cart_auth_text">グッズ交換の手続きをするには<br> ログインまたは新規会員登録が必要です。</p>
+
+    <img id="cart_auth_img" src="{% static 'img/auth_img.png' %}" alt="カメ画像">
+
+    <div id="cart_auth_button_box">
+      <button id="authCancelBtn" type="button">キャンセル</button>
+      <a id="cart_auth_new_button" href="{% url 'accounts:signup' %}?next={% url 'money:charge' %}">新規会員登録</a>
+      <a id="cart_auth_login_button" href="{% url 'accounts:login' %}?next={% url 'money:charge' %}">ログイン</a>
     </div>
+    
   </div>
 </div>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {

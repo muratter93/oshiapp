@@ -5,41 +5,10 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/goods_list.css' %}">
-
-<style>
-  /* 認証誘導モーダル */
-  #authModal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.35);
-    z-index: 1000;
-  }
-  #authModal .modal_content {
-    background: #fff;
-    width: 90%;
-    max-width: 420px;
-    margin: 10vh auto;
-    padding: 16px;
-    border-radius: 8px;
-  }
-  #authModal h3 { margin-top: 0; }
-  #authModal div { text-align: right; margin-top: 16px; }
-  #authModal a, #authModal button {
-    margin-left: 8px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    text-decoration: none;
-  }
-  #authModal a.signup { background: #6b7280; color: #fff; }
-  #authModal a.login { background: #2563eb; color: #fff; }
-</style>
 {% endblock %}
 
 
 {% block content %}
-
-
 
 <div id="goods_large_box">
 

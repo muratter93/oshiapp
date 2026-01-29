@@ -11,8 +11,6 @@
 
 {% block content %}
 
-
-
 <div id="goods_detail_large_box">
 
     <div id="goods_detail_small_box">
@@ -44,27 +42,35 @@
 
             <h2 id="goods_detail_name">{{ goods.name }}</h2>
             <p id="goods_detail_chiaco">{{ goods.required_stanning_points }}<span id="goods_detail_chiaco_unit">スタポ</span></p>
+
+            <br>
+            {% if goods.stock == 0 %}
+            {% else %}
+                {% if goods.stock <= 10 %}
+                <img id="goods_detail_lowstock_img" src="{% static 'img/goods_lowstocktext_img.png' %}" alt="残りわずか画像">
+                {% else %}
+                {% endif %}
+            {% endif %}
+
+            {% if goods.stock == 0 %}
+            <button id="goods_detail_btn_disabled" disabled>在庫なし</button>
+            {% else %}
             <a id="goods_detail_button" href="{% url 'goods:add_to_cart' goods.id %}">カートに入れる</a>
+            {% endif %}
+
             <p id="goods_detail_description">{{ goods.description }}</p>
-            <a id="goods_detail_goodslink" href="{% url 'goods:goods_list' %}">◀ グッズ一覧に戻る</a>
+            <br>
+            <a id="goods_detail_goodslink" href="{% url 'goods:goods_list' %}">▶ グッズ一覧に戻る</a>
+            <a id="goods_detail_history_button" href="{% url 'goods:order_history' %}">▶ グッズ交換履歴をみる</a>
 
         </div>
 
     </div>
 
-    <a id="goods_detail_history_button" href="{% url 'goods:order_history' %}">▶グッズ交換履歴をみる</a>
-
-    <br>
-
     <a id="goods_detail_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
 
     <br><br><br><br><br>
 
-
 </div>
-
-
-
-
 
 {% endblock %}
