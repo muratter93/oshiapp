@@ -1,70 +1,124 @@
 {% extends "common/base.html" %}
 {% load static %}
 
-{% block title %}住所確認{% endblock %}
+{% block title %}アニマルマニア｜お届け先ご住所の確認{% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/goods.css' %}">
-
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 {% endblock %}
 
+
+
 {% block content %}
-<div id="checkout-main_center">
-  <h2>住所確認ページ</h2>
 
-  <!-- エラーメッセージ -->
-  <div id="error-container" class="checkout-error-message" style="display:none;"></div>
+<div id="checkout_large_box">
+    
+    <h1 id="checkout_lang">お届け先ご住所・注文内容の確認</h1>
 
-  <form method="post" action="{% url 'goods:confirm_exchange' %}" id="address-form">
-      {% csrf_token %}
+    <div id="checkout_small_box">
+        
+        <div id="checkout_small_box_border">
 
-      <h3>配送先の選択</h3>
-      <label>
-          <input type="radio" name="address_option" value="registered" checked> 登録済み住所を使用
-      </label><br>
-      <label>
-          <input type="radio" name="address_option" value="new"> 新しい住所を使用
-      </label>
+            <div id="checkout_small_box_lang">
 
-      <!-- 登録済み住所 -->
-      <div id="registered-address" style="margin-top:10px;">
-          <p><strong>名前:</strong> {{ user.name }}</p>
-          <p><strong>郵便番号:</strong> {{ user.postal_code }}</p>
-          <p><strong>住所:</strong> {{ user.address }}</p>
-          <p><strong>電話番号:</strong> {{ user.phone }}</p>
-      </div>
 
-      <!-- 新しい住所フォーム -->
-      <div id="new-address" class="address-form" style="display:none;">
-          <label>名前
-              <input type="text" name="new_name">
-          </label>
-          <label>郵便番号
-              <input type="text" name="new_postal_code" id="postal_code" placeholder="例：1234567(ハイフン不要)">
-          </label>
-          <label>住所
-              <input type="text" name="new_address" id="address" placeholder="都道府県・市区町村・番地など">
-          </label>
-          <label>電話番号
-              <input type="text" name="new_phone" placeholder="例：09012345678（ハイフン不要）">
-          </label>
-      </div>
+                <!-- エラーメッセージ -->
+                <div id="error-container" class="checkout-error-message" style="display:none;"></div>
 
-      <h3>カート内容</h3>
-      <ul class="checkout-cart">
-          {% for item in cart_items %}
-              <li>{{ item.goods.name }} × {{ item.quantity }}個（{{ item.get_required_stanning_points }}スタポ）</li>
-          {% endfor %}
-      </ul>
+                <form method="post" action="{% url 'goods:confirm_exchange' %}" id="address-form">
+                    
+                    {% csrf_token %}
 
-      <p><strong>合計スタポ:</strong> {{ total_stanning }}</p>
-      <p><strong>現在のウォレット残高:</strong> {{ wallet.stanning_point_balance }}スタポ</p>
+                    <p>お名前　{{ user.name }}</p>
+                    <p>電話番号　{{ user.phone }}</p>
 
-      <button type="button" id="confirm-btn" class="checkout-btn">交換を確定する</button>
-  </form>
+                    <h3>配送先の選択</h3>
+                    <label>
+                        <input type="radio" name="address_option" value="registered" checked> 登録済み住所を使用
+                    </label><br>
+                    <label>
+                        <input type="radio" name="address_option" value="new"> 新しい住所を使用
+                    </label>
 
-  <a href="{% url 'goods:cart_view' %}" class="back-link">← カートに戻る</a>
+                    <!-- 登録済み住所 -->
+                    <div id="registered-address" style="margin-top:10px;">
+                        <p>〒{{ user.postal_code }}</p>
+                        <p><strong>住所:</strong> {{ user.address }}</p>
+                    </div>
+
+                    <!-- 新しい住所フォーム -->
+                    <div id="new-address" class="address-form" style="display:none;">
+                        <label>名前
+                            <input type="text" name="new_name">
+                        </label>
+                        <label>郵便番号
+                            <input type="text" name="new_postal_code" id="postal_code" placeholder="例：1234567(ハイフン不要)">
+                        </label>
+                        <label>住所
+                            <input type="text" name="new_address" id="address" placeholder="都道府県・市区町村・番地など">
+                        </label>
+                        <label>電話番号
+                            <input type="text" name="new_phone" placeholder="例：09012345678（ハイフン不要）">
+                        </label>
+                    </div>
+
+                    <h3>交換商品</h3>
+                    <table id="cart_table">
+                        <tr>
+                            <th class="cart_table_title"></th>
+                            <th class="cart_table_title">グッズ名</th>
+                            <th class="cart_table_title">スタポ数</th>
+                            <th class="cart_table_title">交換数</th>
+                            <th class="cart_table_title">小計</th>
+                        </tr>
+
+                        {% for item in cart_items %}
+                        <tr>
+                            <td id="cart_table_contents_image"><img id="cart_goods_image" src="{{ data.goods.image.url }}" alt="{{ data.goods.name }}"></td>
+                            <td id="cart_table_contents_name">{{ item.goods.name }}</td>
+                            <td id="cart_table_contents_stapo">{{ item.goods.required_stanning_points }}<span id="cart_table_contents_stapo_unit">スタポ</span></td>
+                            <td id="cart_table_contents_pieces">× {{ item.quantity }}</td>
+                            <td id="cart_table_contents_subtotal">{% widthratio item.goods.required_stanning_points 1 item.quantity %}</td>
+                        </tr>
+                        {% endfor %}                  
+                    </table>
+
+
+                    <p id="cart_total_text">
+                        計<span class="cart_total_num">24</span>商品　　
+                        合計<span class="cart_total_num">{{ total_stanning }}</span>スタポ
+                    </p>
+
+                    <p id="cart_have_stapo">{{ user.name|default:user.username|truncatechars:10 }}さんが今お持ちのスタポ数は<span id="cart_have_stapo_num">{{ wallet.stanning_point_balance }}</span>スタポです</p>
+
+
+                    <button type="button" id="confirm-btn" class="checkout-btn">交換を確定する</button>
+
+                </form>
+
+
+                <a id="checkout_cartreturn_link" href="{% url 'goods:cart_view' %}" class="back-link">◀ カートに戻る</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <a id="checkout_goodspage_link" href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
+    <br><br>
+
+    <a id="checkout_returntop_link" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
 </div>
+
+
+
+
+
+
 
 <!--  モーダル部 -->
 <div class="goods_exchange_modal" id="completeModal">
@@ -193,4 +247,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
+
+
+
+
 {% endblock %}

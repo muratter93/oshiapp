@@ -24,6 +24,7 @@
         {% endif %}
 
         {% if cart_items %}
+        
         <div id="cart_small_box_border">
 
             <div id="cart_small_box_lang">
@@ -68,9 +69,12 @@
                 </p>
 
                 <!-- ▼ 交換手続きボタン（ここで POP が出る） -->
+                 <p id="cart_have_stapo">{{ user.name|default:user.username|truncatechars:10 }}さんが今お持ちのスタポ数は<span id="cart_have_stapo_num">{{ wallet.stanning_point_balance }}</span>スタポです</p>
                 <a id="checkout-link_cart" href="{% url 'goods:checkout' %}">▶交換手続きへ</a>
+                
+                <br>
 
-                <a id="cart_returngoodspage_button" href="{% url 'goods:goods_list' %}">▶グッズページへ戻る</a>
+                <a id="cart_returngoodspage_link" href="{% url 'goods:goods_list' %}">◀ グッズページへ戻る</a>
 
             </div>
 

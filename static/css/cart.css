@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0 100px 0 0;
   text-align: center;
+  color: rgb(15, 88, 37)
   /* background-color: rgb(255, 230, 0); */
 }
 
@@ -12,7 +13,6 @@
   text-align: center;
   font-weight: 900;
   font-size: 3.5vw;
-  color: rgb(15, 88, 37)
 }
 
 /* カート小箱 */
@@ -41,7 +41,7 @@
   text-align: left;
   font-weight: 800;
   font-size: 1.3vw;
-  padding: 2vw 3vw 3vw 3vw;
+  padding: 4vw 3vw 3vw 3vw;
   width: 100%;
   color: rgb(15, 88, 37)
   /* background-color: rgb(105, 103, 42); */
@@ -158,53 +158,73 @@
   object-position: center;
 }
 
+/* 合計商品数・合計スタポ数の文字部分 */
 #cart_total_text {
   text-align: right;
   font-weight: 500;
   font-size: 1.3vw;
 }
+/* 合計商品数・合計スタポ数の数字 */
 .cart_total_num {
-  padding: 0 0.2vw 0 0.2vw;
+  padding: 0 0.4vw 0 0.4vw;
   font-weight: 500;
   font-size: 2.5vw;
 }
 
+/* 所持スタポ文 */
+#cart_have_stapo {
+  font-weight: 500;
+  font-size: 1vw;
+  margin-bottom: 2vw;
+  text-align: right;
+}
+/* 所持スタポ数字 */
+#cart_have_stapo_num {
+  font-weight: 900;
+  font-size: 1.3vw;
+}
+
+
 /* 交換手続きへボタン */
 #checkout-link_cart {
-  width: 100%;
-  padding: 0 1vw 0 1vw;
-  height: 2.2vw;
-  font-family: 'M PLUS Rounded 1c';
+  text-decoration: none;
+  font-size: 1.3vw;
+  font-weight: 700;
+  padding: 0.3vw 1.5vw 0.3vw 1.5vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);
-  background-color: rgb(89, 197, 35);
-  font-size: 1.05vw;
-  font-weight: 500;
-  display: flex;
-  justify-content: center; /* 左右中央揃え */
-  align-items: center;     /* 上下中央揃え */
-  text-align: center;
-
+  background-color: rgb(15, 88, 37);
+  float: right;
 }
 #checkout-link_cart:visited {
   color: rgb(255, 255, 255);
-  background-color: rgb(89, 197, 35);
+  background-color: rgb(15, 88, 37);
 }
 #checkout-link_cart:link {
   color: rgb(255, 255, 255);
-  background-color: rgb(89, 197, 35);
+  background-color: rgb(15, 88, 37);
 }
 #checkout-link_cart:hover {
-  background-color: rgb(109, 241, 44);
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
 }
 
-
-
-
-
-
-
-
+/* グッズページへ戻るボタン */
+#cart_returngoodspage_link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1vw;
+  color: rgb(172, 200, 180);
+}
+#cart_returngoodspage_link:visited {
+  color: rgb(172, 200, 180);
+}
+#cart_returngoodspage_link:link {
+  color: rgb(172, 200, 180);
+}
+#cart_returngoodspage_link:hover {
+  color: rgb(89, 197, 35);
+}
 
 
 
@@ -283,26 +303,6 @@
 #cart_auth_login_button:hover {
   background-color: rgb(89, 197, 35);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

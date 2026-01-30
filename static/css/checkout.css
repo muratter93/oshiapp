@@ -1,78 +1,78 @@
 
-
-/* ===== カートアイコン ===== */
-.goods_cart_icon {
-  position: fixed;
-  top: 20px;
-  right: 30px;
-  font-size: 2rem;
-  text-decoration: none;
-  color: #ff66a3;
-}
-
-.goods_cart_badge {
-  position: absolute;
-  top: -5px;
-  right: -10px;
-  background: #ff66a3;
-  color: #fff;
-  font-size: 0.8rem;
-  border-radius: 50%;
-  padding: 3px 7px;
-}
-
-
-
-
-/* ===== スマホ対応 ===== */
-/* @media (max-width: 768px) {
-  .goods_grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .goods_grid {
-    grid-template-columns: 1fr;
-  }
-} */
-
-.cart-icon {
-  position: relative; /* これを追加 */
-  font-size: 2rem;
-  color: #ff66a3;
-  text-decoration: none;
-}
-
-.cart-badge {
-  position: absolute;      /* カートアイコンの上に重ねる */
-  top: -8px;               /* 上の位置調整 */
-  right: -8px;             /* 右の位置調整 */
-  background-color: red;   /* 赤色 */
-  color: white;            /* 文字は白 */
-  font-size: 12px;         /* 数字サイズ */
-  font-weight: bold;       /* 太字で見やすく */
-  border-radius: 50%;      /* 丸にする */
-  width: 20px;             /* 丸の幅 */
-  height: 20px;            /* 丸の高さ */
-  display: flex;           /* 中央寄せ */
-  align-items: center;     /* 縦中央 */
-  justify-content: center; /* 横中央 */
-  box-shadow: 0 0 3px rgba(0,0,0,0.3); /* ちょっと浮かせる */
-}
-
-
-
-
 /* 住所確認ページ */
+
+
+/* カート大箱 */
+#checkout_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+  color: rgb(15, 88, 37)
+  /* background-color: rgb(255, 230, 0); */
+}
+
+/* カートタイトル */
+#checkout_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* カート小箱 */
+#checkout_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* カート小箱の中の小箱 */
+#checkout_small_box_border {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  border: 2px solid rgb(172, 200, 180); /*borderの指定*/
+  border-radius: 1vw;
+  /* background-color: rgb(255, 72, 0); */
+  width: 47vw;
+}
+
+/* カート小箱の中の小箱の小箱（注文内容テーブル） */
+#checkout_small_box_lang {
+  text-align: left;
+  font-weight: 800;
+  font-size: 1.3vw;
+  padding: 4vw 3vw 3vw 3vw;
+  width: 100%;
+  color: rgb(15, 88, 37)
+  /* background-color: rgb(105, 103, 42); */
+}
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ====== 住所確認ページ専用スタイル ====== */
 
-#checkout-main_center {
-    padding-top: 100px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
 
 /* 新しい住所フォーム */
 #checkout-main_center .address-form {
@@ -149,6 +149,17 @@ input.checkout-error {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
 /* --- グッズ交換モーダル専用 --- */
 .goods_exchange_modal {
     display: none; /* 初期は非表示 */
@@ -185,3 +196,18 @@ input.checkout-error {
 
 
 
+
+
+
+
+/* グッズページへ戻る */
+#checkout_goodspage_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#checkout_returntop_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
