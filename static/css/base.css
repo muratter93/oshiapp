@@ -43,7 +43,8 @@ a:visited {
 }
 
 a:hover {
-  color: #b78033;
+  /* color: #b78033; */
+  color: rgb(89, 197, 35);
 }
 
 a:hover img { opacity: 0.7;}
@@ -57,7 +58,8 @@ nav ul li a:visited {
 }
 
 nav ul li a:hover {
-  color: #b78033;
+  /* color: #b78033; */
+  color: rgb(89, 197, 35);
 }
 
 .hamburger_menu_content_a:link {
@@ -69,7 +71,8 @@ nav ul li a:hover {
 }
 
 .hamburger_menu_content_a:hover {
-  color: #b78033;
+  /* color: #b78033; */
+  color: rgb(89, 197, 35);
 }
 
 .hum_name:link {
@@ -81,7 +84,8 @@ nav ul li a:hover {
 }
 
 .hum_name:hover {
-  color: #b78033;
+  /* color: #b78033; */
+  color: rgb(89, 197, 35);
 }
 
 .personal_box_name:link {
@@ -93,7 +97,8 @@ nav ul li a:hover {
 }
 
 .personal_box_name:hover {
-  color: #b78033;
+  /* color: #b78033; */
+  color: rgb(89, 197, 35);
 }
 
 .personal_box_link:link {
@@ -105,7 +110,8 @@ nav ul li a:hover {
 }
 
 .personal_box_link:hover {
-  color: #b78033;
+  /* color: #b78033; */
+  color: rgb(89, 197, 35);
 }
 
 #footer_nav ul li a:hover {

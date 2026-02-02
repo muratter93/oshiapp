@@ -1,5 +1,5 @@
 
-/* 交換完了大箱 */
+/* 交換手続き完了大箱 */
 #exchange_complete_large_box {
   margin: 0;
   padding: 0 100px 0 0;
@@ -8,7 +8,7 @@
   /* background-color: rgb(255, 230, 0); */
 }
 
-/*  交換完了タイトル */
+/*  交換手続き完了タイトル */
 #exchange_complete_lang {
   text-align: center;
   font-weight: 900;
@@ -16,7 +16,7 @@
   padding-bottom: 2vw;
 }
 
-/*  交換完了小箱 */
+/*  交換手続き完了小箱 */
 #exchange_complete_small_box {
   margin: 0;
   padding: 0 0 50px 0;
@@ -25,7 +25,7 @@
   /* background-color: rgb(115, 255, 0); */
 }
 
-/*  交換完了小箱の中の小箱 */
+/*  交換手続き完了小箱の中の小箱 */
 #exchange_complete_small_box_border {
   display: flex;
   justify-content: center;
@@ -34,37 +34,106 @@
   border: 2px solid rgb(172, 200, 180); /*borderの指定*/
   border-radius: 1vw;
   /* background-color: rgb(255, 72, 0); */
+  width: 55vw;
 }
 
-/*  交換完了小箱の中の小箱の小箱（注文者情報内容） */
+/*  交換手続き完了小箱の中の小箱の小箱（注文者情報内容） */
 #exchange_complete_small_box_lang {
   display: flex;
   text-align: center;
   font-weight: 800;
   font-size: 1.3vw;
-  padding: 1vw 3vw 1vw 3vw;
+  padding: 2vw;
+  margin: 0;
   width: 100%;
-  color: rgb(15, 88, 37)
-  /* background-color: rgb(105, 103, 42); */
+  color: rgb(15, 88, 37);
+  /* background-color: rgb(242, 255, 0); */
 }
 
 /* ーーーーーーーーー */
 /* 小箱の中の各種項目 */
 /* ーーーーーーーーー */
 
-
-
-
-
+/*  交換手続き完了ボックス  */
+#exchange_complete_small_box_lang_01 {
+  margin: 0;
+  padding: 0 1vw 0 0;
+  flex: 5;
+  width: 30vw;
+  /* background-color: aquamarine; */
+}
+/*  名前  */
+#exchange_complete_name {
+  font-weight: 700;
+  font-size: 1.4vw;
+}
+#exchange_complete_mrs {
+  font-weight: 500;
+  font-size: 1vw;
+}
+/*  手続き完了メッセージ  */
+#exchange_complete_text {
+  font-weight: 900;
+  font-size: 2vw;
+}
+/*  スタポ数  */
+#exchange_complete_staponum {
+  font-weight: 700;
+  font-size: 1.4vw;
+  margin-top: -1vw;
+}
+#exchange_complete_stapo {
+  font-weight: 500;
+  font-size: 1.1vw;
+}
+/*  アシカありがとう画像  */
 #exchange_complete_thanks_img {
-  width: 30%;
+  width: 45%;
+  padding-top: 2vw;
 }
 
 
 /*  お届け先・住所ボックス  */
 #exchange_complete_small_box_lang_02 {
-    text-align: left;
+  text-align: left;
+  flex: 3;
+  padding: 3vw 0 2vw 2vw;
+  border-left: 2px solid rgb(172, 200, 180);
+  /* background-color: blueviolet; */
 }
+/*  お届けまで暫く〜文言  */
+#exchange_complete_delivery_text {
+  font-weight: 900;
+  font-size: 1.4vw;
+}
+/*  スズメデリバリー画像  */
+#exchange_complete_delivery_img {
+  width: 25%;
+  margin: 0 0 -3vw 8vw;
+}
+/*  お届け先項目  */
+#exchange_complete_delivery {
+  padding-right: 2vw;
+  font-weight: 400;
+  font-size: 1.2vw;
+}
+/*  住所の線  */
+#exchange_complete_small_box_lang_02 hr {
+  border: none;
+  height: 1px;
+  background-color: rgb(172, 200, 180);
+}
+/*  住所  */
+#exchange_complete_delivery_address, #exchange_complete_phone {
+  font-weight: 400;
+  font-size: 1.25vw;
+  line-height: 1.2em;
+}
+
+
+
+
+
 
 
 

@@ -11,7 +11,7 @@
 
 <div id="exchange_complete_large_box">
     
-    <h1 id="exchange_complete_lang">交換完了</h1>
+    <h1 id="exchange_complete_lang">交換手続き完了</h1>
 
     <div id="exchange_complete_small_box">
         
@@ -21,18 +21,19 @@
             <div id="exchange_complete_small_box_lang">
 
                 <div id="exchange_complete_small_box_lang_01">
-                    <p>{{ order.recipient_name }}さま</p>
-                    <h2>交換が完了しました！</h2>
-                    <p>{{ total_stanning }} スタポを使用しました。</p>
+                    <p id="exchange_complete_name">{{ order.recipient_name }}<span id="exchange_complete_mrs"> さま</span></p>
+                    <h2 id="exchange_complete_text">交換手続きが完了しました！</h2>
+                    <p id="exchange_complete_staponum">{{ total_stanning }}<span id="exchange_complete_stapo"> スタポを使用しました。</span></p>
                     <img id="exchange_complete_thanks_img" src="{% static 'img/done_thankyou.png' %}" alt="アシカありがとう画像">
                 </div>
 
                 <div id="exchange_complete_small_box_lang_02">
-                    <p>お届け先</p>
+                    <p id="exchange_complete_delivery_text">お届けまで<br>しばらくお待ちください</p>
+                    <img id="exchange_complete_delivery_img" src="{% static 'img/delivery_img.png' %}" alt="スズメデリバリー画像">
+                    <p id="exchange_complete_delivery">お届け先</p>
                     <hr>
-                    <p>〒{{ order.postal_code }} </p>
-                    <p>{{ order.address }}</p>
-                    <p>☎{{ order.phone_number }}</p>
+                    <p id="exchange_complete_delivery_address">〒{{ order.postal_code }}<br>{{ order.address }}</p>
+                    <p id="exchange_complete_phone">☎ {{ order.phone_number }}</p>
                 </div>
 
             </div>
@@ -49,11 +50,5 @@
     <br><br><br><br><br>
 
 </div>
-
-
-
-
-
-
 
 {% endblock %}

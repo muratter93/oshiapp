@@ -3,135 +3,145 @@
 {% load humanize %}
 
 {% block title %}
-{{ animal.japanese }} | {{ animal.name }} | アニマルマニア
+{{ animal.name }}
+{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
+| アニマルマニア
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
 {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/animal.css' %}">
 
-<div class="wrap">
 
-  <!-- ヘッダー: 大画像 + 基本情報 -->
-  <div class="animal-header">
-    <div class="hero">
-      {% if animal.pic1 %}
-        <img src="{{ animal.pic1.url }}" alt="{{ animal.japanese }}">
-      {% else %}
-        <span class="muted">No Image</span>
-      {% endif %}
-    </div>
+<div id="detail_large_box">
 
-    <div class="meta">
-      <div>
+    <div id="detail_small_box">
+        
+        <div id="detail_small_box_border">
 
-        <!-- 所属動物園（修正済み：zoo_fk → zoo） -->
-        {% if animal.zoo %}
-          <span class="badge">{{ animal.zoo.zoo_name }}</span>
-        {% endif %}
+            <div id="detail_small_box_lang">
 
-        {% if animal.sex %}
-          <span class="badge">
-            {% if animal.sex == "M" %}オス{% elif animal.sex == "F" %}メス{% else %}不明{% endif %}
-          </span>
-        {% endif %}
-        {% if animal.age is not None %}
-          <span class="badge">{{ animal.age }}才</span>
-        {% endif %}
-      </div>
+                <div id="detail_aminal_img_box">
+                    <img id="detail_aminal_img" src="{{ animal.pic1.url }}" alt="{{ animal.japanese }}">
+                </div>
 
-      <!-- 名前と推しP -->
-      <h1 class="animal-jp">{{ animal.japanese }}</h1>
+                <div id="detail_category_info_box">
 
-      <div class="animal-sub">
-        <span class="animal-en">（{{ animal.name }}）</span>
+                    {% if animal.zoo_id == "1" %}
+                    緑
+                    <a id="detail_zooname">
+                        <img id="detail_title_background" src="{% static 'img/suzaka_title.png' %}" alt="緑色須坂背景">
+                        {{ animal.zoo.zoo_name }}
+                    </a>
+                    {% elif animal.zoo_id == "2" %}
+                    ピンク
+                    {% elif animal.zoo_id == "3" %}
+                    黄色
+                    {% else %}
+                    {% endif %}
+                  
+                    <a id="detail_zooname" class="zoo-{{ animal.zoo_id }}">{{ animal.zoo.zoo_name }}</a>
 
-        <!-- ★ 推しP（IDつき） -->
-        <div class="animal-point" id="point-{{ animal.animal_id }}">
-          {{ animal.total_point }} 推しP
+                    <p id="detail_anumal_name">
+                        {{ animal.name }}
+                        {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
+                    </p>
+
+                    <p>{{ animal.age }}才</p>
+
+                    <p>{{ animal.japanese }}</p>
+
+                    <p>{% if animal.sex == "M" %}オス{% elif animal.sex == "F" %}メス{% else %}不明{% endif %}</p>
+
+                    <div class="animal-point">
+                      現在の{{ animal.name }}
+                      {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
+                      の推されポイント
+                      <div class="detail_oshi_point" id="point-{{ animal.animal_id }}">{{ animal.total_point }}</div>
+                      ポイント
+                    </div>
+
+                    <!-- ★ 推しボタン -->
+                    {% if request.user.is_authenticated %}
+                      <button class="push-btn-detail" data-id="{{ animal.animal_id }}">推す</button>
+                    {% endif %}
+
+                    <a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}" class="cta" id="subscribeBtn">
+                        {{ animal.name }}
+                        {% if animal.sex %}
+                            {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
+                        {% endif %}
+                        のサブスクプランをみる
+                    </a>
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- ★ 推しボタン -->
-        {% if request.user.is_authenticated %}
-          <button class="push-btn-detail"
-                  data-id="{{ animal.animal_id }}">
-            推し♡
-          </button>
-        {% endif %}
-      </div>
+        <div id="detail_animal_introduction_text_box">
+            <p id="detail_animal_introduction_text">{{ animal.txt }}</p>
+        </div>
 
-      {% if animal.scientific %}
-        <div class="muted">学名: {{ animal.scientific }}</div>
+    </div>
+
+    <a id="detail_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 返礼品 -->
+<div class="section">
+  <h2>返礼品（サンプル）</h2>
+  <div class="grid">
+
+    {% for gift in gifts %}
+    <div class="card">
+      {% if gift.main_image %}
+        <img src="{{ gift.main_image.url }}" alt="{{ gift.title }}" class="gift-img">
       {% endif %}
 
-      <!-- 画像ギャラリー -->
-      {% with pics=animal.extra_pictures.all|dictsort:"display_order" %}
-        {% if pics %}
-          <div class="gallery">
-            {% for p in pics %}
-              <a class="thumb" href="{{ p.image_url }}" target="_blank" rel="noopener">
-                <img src="{{ p.image_url }}" alt="{{ p.caption|default:animal.japanese }}">
-              </a>
-            {% endfor %}
-          </div>
-        {% endif %}
-      {% endwith %}
+      <strong>{{ gift.price|intcomma }}円 / プラン</strong>
+
+      <p class="muted">{{ gift.title }}</p>
+
+      {% if gift.description %}
+        <p>{{ gift.description }}</p>
+      {% endif %}
     </div>
+    {% empty %}
+    <p class="muted">この動物園の返礼品はまだ登録されていません。</p>
+    {% endfor %}
+
   </div>
-
-  <!-- プランページへ -->
-  <a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}" class="cta" id="subscribeBtn">
-
-    {{ animal.name }}
+</div>
 
 
-        {% if animal.sex %}
-            {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
-        {% endif %}
-        のサブスクプランをみる
-
-
-
-
-  </a>
-
-  <!-- 紹介文 -->
-  {% if animal.txt %}
-    <div class="section">
-      <h2>紹介文</h2>
-      <div class="desc">{{ animal.txt }}</div>
-    </div>
-  {% endif %}
-
-  <!-- 返礼品 -->
-  <div class="section">
-    <h2>返礼品（サンプル）</h2>
-    <div class="grid">
-
-      {% for gift in gifts %}
-      <div class="card">
-        {% if gift.main_image %}
-          <img src="{{ gift.main_image.url }}" alt="{{ gift.title }}" class="gift-img">
-        {% endif %}
-
-        <strong>{{ gift.price|intcomma }}円 / プラン</strong>
-
-        <p class="muted">{{ gift.title }}</p>
-
-        {% if gift.description %}
-          <p>{{ gift.description }}</p>
-        {% endif %}
-      </div>
-      {% empty %}
-      <p class="muted">この動物園の返礼品はまだ登録されていません。</p>
-      {% endfor %}
-
-    </div>
-  </div>
-
-  <!-- 戻るボタン -->
-  <div id="detail_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 
 </div>
+
+
+
+
+
+
+
+
 
 <!-- CSRF -->
 <form style="display:none;">{% csrf_token %}</form>

@@ -91,7 +91,7 @@
 }
 
 /* トップページへもどる */
-#purchase_history_returntop_button {
+#purchase_history_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }
