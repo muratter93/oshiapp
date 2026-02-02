@@ -176,13 +176,13 @@
 
 
 /* マイページへ */
-#order_history_mypage_button {
+#order_history_mypage_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#order_history_returntop_button {
+#order_history_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

@@ -148,13 +148,13 @@
 
 
 /* マイページへ */
-#charge_mypage_button {
+#charge_mypage_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#charge_returntop_button {
+#charge_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

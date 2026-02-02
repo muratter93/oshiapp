@@ -136,13 +136,13 @@
 
 
 /* マイページへ */
-#edit_profile_confirm_mypage_button {
+#edit_profile_confirm_mypage_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#edit_profile_confirm_returntop_button {
+#edit_profile_confirm_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

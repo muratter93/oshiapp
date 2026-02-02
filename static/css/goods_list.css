@@ -185,13 +185,13 @@
 
 
 /* 交換履歴をみる */
-#goods_history_button {
+#goods_history_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#goods_returntop_button {
+#goods_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

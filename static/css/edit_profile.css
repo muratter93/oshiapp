@@ -57,61 +57,10 @@
   margin: 0 auto; /* 上下は0、左右は自動計算 */
 }
 
-/* 確認画面へボタン */
-#edit_profile_changebutton {
-  width: 10vw;
-  height: 3vw;
-  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
-  color: rgb(255, 255, 255);
-  background-color: #b09876;
-  font-family: 'M PLUS Rounded 1c';
-  font-size: 1.3vw;
-  font-weight: 500;
-  display: flex;
-  justify-content: center; /* 左右中央揃え */
-  align-items: center;     /* 上下中央揃え */
-  text-align: center;
-  margin: 0 auto;
-  outline: none;
-  border: none;
-}
-
-#edit_profile_changebutton:visited {
-  color: rgb(255, 255, 255);
-}
-
-#edit_profile_changebutton:hover {
-  color: rgb(255, 255, 255);
-}
-
-#edit_profile_changebutton:hover {
-  background-color: #b78033;
-}
-
-
-
-
-
-/* マイページへ */
-#edit_profile_mypage_button {
-  text-decoration: none;
-  font-size: 14pt;
-}
-
-
-/* トップページへもどる */
-#edit_profile_returntop_button {
-  text-decoration: none;
-  font-size: 14pt;
-}
-
-
-/* form内体裁 */
-
+/* form入力部内体裁 */
 #edit_profile_form {
   padding-top: 1vw;
 }
-
 #edit_profile_form_name input, #edit_profile_form_birth input, 
 #edit_profile_form_postalcode input, #edit_profile_form_address input, 
 #edit_profile_form_phone input, #edit_profile_form_email input {
@@ -126,8 +75,13 @@
   border: none;
   /* background-color: blue; */
 }
-
-
+/* 名前の様 */
+#edit_profile_form_name_p {
+  padding: 0 0 0 1vw;
+  margin: 0 0 0.05vw 0;
+  font-size: 1.3vw;
+  margin-top: auto;
+}
 /* 名前入力form長さ */
 #edit_profile_form_name input {
   width: 17vw;
@@ -149,34 +103,55 @@
 #edit_profile_form_email input {
   width: 30vw;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* 各項目ごとの箱 */
 .edit_profile_form_text {
   margin-top: 2vw;
   display:flex;
 }
-
+/* 各項目ごとの項目文字 */
 #edit_profile_form label {
   font-size: 1.6vw;
   width: 15vw;
 }
 
-#edit_profile_form_name_p {
-  padding: 0 0 0 1vw;
-  margin: 0 0 0.05vw 0;
+/* 確認画面へボタン */
+#edit_profile_changebutton {
+  width: 10vw;
+  height: 3vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  color: rgb(255, 255, 255);
+  background-color: #b09876;
+  font-family: 'M PLUS Rounded 1c';
   font-size: 1.3vw;
-  margin-top: auto;
+  font-weight: 500;
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+  margin: 0 auto;
+  outline: none;
+  border: none;
+}
+#edit_profile_changebutton:visited {
+  color: rgb(255, 255, 255);
+}
+#edit_profile_changebutton:hover {
+  color: rgb(255, 255, 255);
+}
+#edit_profile_changebutton:hover {
+  background-color: #b78033;
+}
+
+
+
+/* マイページへ */
+#edit_profile_mypage_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#edit_profile_returntop_link {
+  text-decoration: none;
+  font-size: 14pt;
 }

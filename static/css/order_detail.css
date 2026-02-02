@@ -177,33 +177,32 @@
 
 
 /* グッズ交換一覧へ戻るリンク */
-#order_detail_return_link {
+#order_detail_returnhistory_link {
   font-weight: 400;
   font-size: 1.1vw;
   text-decoration: none;
   color: #b09876;
 }
-#order_detail_return_link:link {
+#order_detail_returnhistory_link:link {
   color: #b09876;
 }
-#order_detail_return_link:visited {
+#order_detail_returnhistory_link:visited {
   color: #b09876;
 }
-#order_detail_return_link:hover {
+#order_detail_returnhistory_link:hover {
   color: #b78033;
 }
 
 
 
-
 /* マイページへ */
-#order_detail_mypage_button {
+#order_detail_mypage_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#order_detail_returntop_button {
+#order_detail_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

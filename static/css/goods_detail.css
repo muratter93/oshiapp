@@ -185,7 +185,7 @@
 
 
 /* トップページへもどる */
-#goods_detail_returntop_button {
+#goods_detail_returntop_link {
   text-decoration: none;
   font-size: 14pt;
   display: grid;

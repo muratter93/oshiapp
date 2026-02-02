@@ -7,11 +7,22 @@
 }
 
 
-/* サブスク加入履歴大箱 */
+/* サブスク加入履歴タイトル */
 #purchase_history2_lang {
   text-align: center;
   font-weight: 900;
   font-size: 3.5vw;
+}
+
+/* サブスク解約成功文字 */
+.alert {
+  margin: 0 0 4vw 0;
+  text-align: center;
+  font-size: 1.5vw;
+  font-weight: 700;
+}
+.alert-success { 
+  color: #c0392b; 
 }
 
 /* サブスク加入履歴小箱 */
@@ -141,25 +152,14 @@
 
 
 /* マイページへ */
-#purchase_history2_mypage_button {
+#purchase_history2_mypage_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#purchase_history2_returntop_button {
+#purchase_history2_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
-
-
-.alert {
-  margin: 0 0 4vw 0;
-  text-align: center;
-  font-size: 1.5vw;
-  font-weight: 700;
-}
-.alert-success { 
-  color: #c0392b; 
-}

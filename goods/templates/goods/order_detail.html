@@ -72,7 +72,7 @@
 
                     <br>
 
-                    <a id="order_detail_return_link" href="{% url 'goods:order_history' %}">◀ 交換履歴一覧へ戻る</a>
+                    <a id="order_detail_returnhistory_link" href="{% url 'goods:order_history' %}">◀ 交換履歴一覧へ戻る</a>
                 </div>
 
             </div>
@@ -80,7 +80,11 @@
         </div>
     </div>
 
-    <a id="order_detail_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+    <a id="order_detail_mypage_link" href="{% url 'accounts:mypage' %}">▶ マイページへ</a>
+
+    <br><br>
+
+    <a id="order_detail_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
 
     <br><br><br><br><br>
 

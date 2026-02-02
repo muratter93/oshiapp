@@ -376,7 +376,7 @@
 
 
 /* トップページへもどる */
-#mypage_returntop_button {
+#mypage_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

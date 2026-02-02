@@ -69,7 +69,7 @@
                 </p>
 
                 <!-- ▼ 交換手続きボタン（ここで POP が出る） -->
-                 <p id="cart_have_stapo">{{ user.name|default:user.username|truncatechars:10 }}さんが今お持ちのスタポ数は<span id="cart_have_stapo_num">{{ wallet.stanning_point_balance }}</span>スタポです</p>
+                <p id="cart_have_stapo">{{ user.name|default:user.username|truncatechars:10 }}さんが今お持ちのスタポ数は<span id="cart_have_stapo_num">{{ wallet.stanning_point_balance }}</span>スタポです</p>
                 <a id="checkout-link_cart" href="{% url 'goods:checkout' %}">▶交換手続きへ</a>
                 
                 <br>
@@ -88,11 +88,11 @@
 
     {% if cart_items %}
     {% else %}
-    <a id="cart_goodspage_button" href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
+    <a id="cart_goodspage_link" href="{% url 'goods:goods_list' %}">▶グッズページへ戻る</a>
     <br><br>
     {% endif %}
 
-    <a id="cart_returntop_button" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+    <a id="cart_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
 
     <br><br><br><br><br>
 

@@ -95,7 +95,7 @@
 #cart_table_contents_stapo {
   font-weight: 500;
   font-size: 1.7vw;
-  width: 6vw;
+  width: 7vw;
 }
 /* カートテーブルスタポ単位 */
 #cart_table_contents_stapo_unit {
@@ -146,14 +146,15 @@
 #cart_table_contents_subtotal {
   font-weight: 700;
   font-size: 1.7vw;
+  width: 3vw;
 }
 /* カートテーブルゴミ箱 */
 #cart_table_contents_delete_02 {
-  width: 1vw;
+  width: 0.6vw;
 }
 #cart_table_contents_dustbox {
   padding: 0.1vw 0 0 0.4vw;
-  width: 50%;
+  width: 65%;
   object-fit: cover;
   object-position: center;
 }
@@ -309,18 +310,14 @@
 
 
 
-
-
-
-
 /* グッズページへ戻る */
-#cart_goodspage_button {
+#cart_goodspage_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#cart_returntop_button {
+#cart_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

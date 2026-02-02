@@ -1,12 +1,11 @@
 
 #look_large_box {
-  margin: 0 130px 0 0;
+  margin: 0 130px 100px 0;
   text-align: center;
 }
 
-
 .live-box {
-  margin-bottom: 40px;
+  margin-bottom: 100px;
 }
 
 .yt-link {
@@ -18,8 +17,7 @@
 }
 
 
-
-#look_returntop_button a {
+#look_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

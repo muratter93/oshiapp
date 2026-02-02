@@ -50,6 +50,11 @@
   width: 27%;
 }
 
+/* チアコ説明外箱 */
+#structure_sentence_02 {
+  margin-bottom: 60px;
+}
+
 /* チアコとは？の中のチアコ説明画像 */
 #structure_sentence_02_pic {
   margin-bottom: 60px;
@@ -66,8 +71,7 @@
 
 
 /* ▶チアコを買う・▶トップページへ戻る */
-
-#structure_chiaco_button a, #structure_returntop_button a {
+#structure_chiaco_link, #structure_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

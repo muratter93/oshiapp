@@ -1,0 +1,94 @@
+
+/* 交換完了大箱 */
+#exchange_complete_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+  color: rgb(15, 88, 37);
+  /* background-color: rgb(255, 230, 0); */
+}
+
+/*  交換完了タイトル */
+#exchange_complete_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 2.7vw;
+  padding-bottom: 2vw;
+}
+
+/*  交換完了小箱 */
+#exchange_complete_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/*  交換完了小箱の中の小箱 */
+#exchange_complete_small_box_border {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  border: 2px solid rgb(172, 200, 180); /*borderの指定*/
+  border-radius: 1vw;
+  /* background-color: rgb(255, 72, 0); */
+}
+
+/*  交換完了小箱の中の小箱の小箱（注文者情報内容） */
+#exchange_complete_small_box_lang {
+  display: flex;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.3vw;
+  padding: 1vw 3vw 1vw 3vw;
+  width: 100%;
+  color: rgb(15, 88, 37)
+  /* background-color: rgb(105, 103, 42); */
+}
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+
+
+
+
+#exchange_complete_thanks_img {
+  width: 30%;
+}
+
+
+/*  お届け先・住所ボックス  */
+#exchange_complete_small_box_lang_02 {
+    text-align: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 交換履歴をみる */
+#exchange_complete_goodshistory_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#exchange_complete_returntop_link {
+  text-decoration: none;
+  font-size: 14pt;
+}

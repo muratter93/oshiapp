@@ -8,7 +8,6 @@
 {% endblock %}
 
 
-
 {% block content %}
 
 <div id="checkout_large_box">
@@ -23,81 +22,86 @@
 
 
                 <!-- エラーメッセージ -->
-                <div id="error-container" class="checkout-error-message" style="display:none;"></div>
+                <!-- <div id="error-container" class="checkout-error-message" style="display:none;"></div> -->
 
                 <form method="post" action="{% url 'goods:confirm_exchange' %}" id="address-form">
                     
                     {% csrf_token %}
 
-                    <p>お名前　{{ user.name }}</p>
-                    <p>電話番号　{{ user.phone }}</p>
+                    <div id="checkout_name_phone">
+                        <p>お名前 <span class="checkout_name_phone">{{ user.name }}</span> さま</p>
+                        <p>電話番号 <span class="checkout_name_phone">{{ user.phone }}</span></p>
+                    </div>
 
-                    <h3>配送先の選択</h3>
-                    <label>
-                        <input type="radio" name="address_option" value="registered" checked> 登録済み住所を使用
+                    <h3 id="checked_address_choice_text">▼ 配送先を選択してください</h3>
+
+                    <label class="checkout_address_radio_text">
+                        <input class="checkout_address_radio_btn" type="radio" name="address_option" value="registered" checked>
+                        <span class="checkout_radio_design"></span>
+                        登録済み住所を使う
                     </label><br>
-                    <label>
-                        <input type="radio" name="address_option" value="new"> 新しい住所を使用
+                    <div id="checkout_register_address">
+                        <p>〒{{ user.postal_code }}</p>
+                        <p>{{ user.address }}</p>
+                    </div>
+                    <label class="checkout_address_radio_text">
+                        <input class="checkout_address_radio_btn" type="radio" name="address_option" value="new">
+                        <span class="checkout_radio_design"></span>
+                        今回だけ別のお届け先を指定して使う
                     </label>
 
-                    <!-- 登録済み住所 -->
-                    <div id="registered-address" style="margin-top:10px;">
-                        <p>〒{{ user.postal_code }}</p>
-                        <p><strong>住所:</strong> {{ user.address }}</p>
-                    </div>
-
                     <!-- 新しい住所フォーム -->
-                    <div id="new-address" class="address-form" style="display:none;">
-                        <label>名前
-                            <input type="text" name="new_name">
+                    <div id="new-address" class="checkout_address-form" style="display:none;">
+                        <label>お届け先のお名前
+                            <br>
+                            <input class="checkout_address-form_name" type="text" name="new_name">
+                            <div id="error-container" class="checkout-error-message" style="display:none;"></div>
                         </label>
-                        <label>郵便番号
-                            <input type="text" name="new_postal_code" id="postal_code" placeholder="例：1234567(ハイフン不要)">
+                        <label>お届け先郵便番号 <span class="checkout_address-form_caution_01">※ハイフンなしで入力してください。</span>
+                            <br>
+                            <input class="checkout_address-form_address_num" type="text" name="new_postal_code" id="postal_code">
+                            <div id="error-container" class="checkout-error-message" style="display:none;"></div>
                         </label>
-                        <label>住所
-                            <input type="text" name="new_address" id="address" placeholder="都道府県・市区町村・番地など">
+                        <label>お届け先ご住所 <span id="checkout_address-form_caution_02">※都道府県・市区町村・番地・建物名・部屋番号</span>
+                            <br>
+                            <input class="checkout_address-form_address" type="text" name="new_address" id="address">
+                            <div id="error-container" class="checkout-error-message" style="display:none;"></div>
                         </label>
-                        <label>電話番号
-                            <input type="text" name="new_phone" placeholder="例：09012345678（ハイフン不要）">
+                        <label>お届け先電話番号 <span class="checkout_address-form_caution_01">※ハイフンなしで入力してください。</span>
+                            <br>
+                            <input class="checkout_address-form_phone" type="text" name="new_phone">
+                            <div id="error-container" class="checkout-error-message" style="display:none;"></div>
                         </label>
                     </div>
 
-                    <h3>交換商品</h3>
-                    <table id="cart_table">
-                        <tr>
-                            <th class="cart_table_title"></th>
-                            <th class="cart_table_title">グッズ名</th>
-                            <th class="cart_table_title">スタポ数</th>
-                            <th class="cart_table_title">交換数</th>
-                            <th class="cart_table_title">小計</th>
-                        </tr>
+                    <h3 id="checkout_table_title">交換内容</h3>
+                    <table id="checkout_table">
 
                         {% for item in cart_items %}
                         <tr>
-                            <td id="cart_table_contents_image"><img id="cart_goods_image" src="{{ data.goods.image.url }}" alt="{{ data.goods.name }}"></td>
-                            <td id="cart_table_contents_name">{{ item.goods.name }}</td>
-                            <td id="cart_table_contents_stapo">{{ item.goods.required_stanning_points }}<span id="cart_table_contents_stapo_unit">スタポ</span></td>
-                            <td id="cart_table_contents_pieces">× {{ item.quantity }}</td>
-                            <td id="cart_table_contents_subtotal">{% widthratio item.goods.required_stanning_points 1 item.quantity %}</td>
+                            <td id="checkout_table_contents_image"><img id="checkout_goods_image" src="{{ item.goods.image.url }}" alt="{{ item.goods.name }}"></td>
+                            <td id="checkout_table_contents_name">{{ item.goods.name }}</td>
+                            <td id="checkout_table_contents_stapo">{{ item.goods.required_stanning_points }}<span id="checkout_table_contents_stapo_unit">スタポ</span></td>
+                            <td id="checkout_table_contents_pieces">× {{ item.quantity }}</td>
+                            <td id="checkout_table_contents_subtotal">{% widthratio item.goods.required_stanning_points 1 item.quantity %}</td>
                         </tr>
                         {% endfor %}                  
                     </table>
 
-
-                    <p id="cart_total_text">
-                        計<span class="cart_total_num">24</span>商品　　
-                        合計<span class="cart_total_num">{{ total_stanning }}</span>スタポ
+                    <p id="checkout_total_text">
+                        計<span class="checkout_total_num">24</span>商品　　
+                        合計<span class="checkout_total_num">{{ total_stanning }}</span>スタポ
                     </p>
 
-                    <p id="cart_have_stapo">{{ user.name|default:user.username|truncatechars:10 }}さんが今お持ちのスタポ数は<span id="cart_have_stapo_num">{{ wallet.stanning_point_balance }}</span>スタポです</p>
-
+                    <p id="checkout_have_stapo">{{ user.name|default:user.username|truncatechars:10 }}さんが今お持ちのスタポ数は<span id="checkout_have_stapo_num">{{ wallet.stanning_point_balance }}</span>スタポです</p>
 
                     <button type="button" id="confirm-btn" class="checkout-btn">交換を確定する</button>
 
                 </form>
 
+                <br><br>
 
-                <a id="checkout_cartreturn_link" href="{% url 'goods:cart_view' %}" class="back-link">◀ カートに戻る</a>
+                <a id="checkout_cartreturn_link" href="{% url 'goods:cart_view' %}">◀ カートに戻る</a>
 
             </div>
 
@@ -105,10 +109,10 @@
 
     </div>
 
-    <a id="checkout_goodspage_link" href="{% url 'goods:goods_list' %}" class="btn">▶グッズページへ戻る</a>
+    <a id="checkout_goodspage_link" href="{% url 'goods:goods_list' %}">▶グッズページへ戻る</a>
     <br><br>
 
-    <a id="checkout_returntop_link" href="{% url 'main:index' %}#">▶トップページへもどる</a>
+    <a id="checkout_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
 
     <br><br><br><br><br>
 
@@ -128,6 +132,7 @@
       <a href="{% url 'goods:goods_list' %}" class="goods_exchange_btn">OK</a>
   </div>
 </div>
+
 
 
 <script>
@@ -159,8 +164,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 住所エラー表示欄（なければ作成）
     let postalError = document.createElement("div");
-    postalError.style.color = "red";
-    postalError.style.marginTop = "5px";
+    postalError.style.color = "#ff4000";
+    postalError.style.marginTop = "0.05vw";
+    postalError.style.fontSize = "1.1vw";
     postalError.id = "postal-error";
     postalInput.parentNode.appendChild(postalError);
 
@@ -186,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 postalError.textContent = "住所検索に失敗しました。";
             });
         } else if (postal.length > 0) {
-            postalError.textContent = "郵便番号は7桁で入力してください。";
+            postalError.textContent = "※郵便番号は7桁で入力してください。";
         }
     }
 
@@ -200,8 +206,6 @@ document.addEventListener("DOMContentLoaded", function() {
             fetchAddressFromPostal();
         }
 });
-
-
 
 
     // --- バリデーション＋モーダル表示 ---
@@ -221,12 +225,12 @@ document.addEventListener("DOMContentLoaded", function() {
             const phone = form.new_phone.value.trim();
             const errors = [];
 
-            if (!name) { errors.push("名前を入力してください。"); form.new_name.classList.add("checkout-error"); }
-            if (!postal) { errors.push("郵便番号を入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
-            else if (!/^\d{7}$/.test(postal)) { errors.push("郵便番号は7桁の数字で入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
-            if (!address) { errors.push("住所を入力してください。"); form.new_address.classList.add("checkout-error"); }
-            if (!phone) { errors.push("電話番号を入力してください。"); form.new_phone.classList.add("checkout-error"); }
-            else if (!/^\d+$/.test(phone)) { errors.push("電話番号は数字のみで入力してください。"); form.new_phone.classList.add("checkout-error"); }
+            if (!name) { errors.push("※今回のお届け先のお名前を入力してください。"); form.new_name.classList.add("checkout-error"); }
+            if (!postal) { errors.push("※郵便番号を入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
+            else if (!/^\d{7}$/.test(postal)) { errors.push("※郵便番号は7桁の数字で入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
+            if (!address) { errors.push("※ご住所を入力してください。"); form.new_address.classList.add("checkout-error"); }
+            if (!phone) { errors.push("※電話番号を入力してください。"); form.new_phone.classList.add("checkout-error"); }
+            else if (!/^\d+$/.test(phone)) { errors.push("※電話番号は数字のみで入力してください。"); form.new_phone.classList.add("checkout-error"); }
 
             if (errors.length > 0) {
                 valid = false;
