@@ -29,8 +29,8 @@
                 
                 <form id="login-form" action="{% url 'accounts:login' %}" method="post">
                     {% csrf_token %}
-                    <input type="text" name="username" placeholder="ID" class="input-field">
-                    <input type="password" name="password" placeholder="パスワード" class="input-field">
+                    <input type="text" name="username" placeholder="ID" class="input-field" required>
+                    <input type="password" name="password" placeholder="パスワード" class="input-field" required>
 
                     <button type="submit" class="login-button">ログイン</button>
                     <a href="{% url 'accounts:password_reset' %}">パスワードをお忘れの方はこちら</a>
