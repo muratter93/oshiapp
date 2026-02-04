@@ -52,27 +52,36 @@
 
                     <!-- 新しい住所フォーム -->
                     <div id="new-address" class="checkout_address-form" style="display:none;">
-                        <label>お届け先のお名前
-                            <br>
-                            <input class="checkout_address-form_name" type="text" name="new_name">
-                            <div id="error-container" class="checkout-error-message" style="display:none;"></div>
-                        </label>
-                        <label>お届け先郵便番号 <span class="checkout_address-form_caution_01">※ハイフンなしで入力してください。</span>
-                            <br>
-                            <input class="checkout_address-form_address_num" type="text" name="new_postal_code" id="postal_code">
-                            <div id="error-container" class="checkout-error-message" style="display:none;"></div>
-                        </label>
-                        <label>お届け先ご住所 <span id="checkout_address-form_caution_02">※都道府県・市区町村・番地・建物名・部屋番号</span>
-                            <br>
-                            <input class="checkout_address-form_address" type="text" name="new_address" id="address">
-                            <div id="error-container" class="checkout-error-message" style="display:none;"></div>
-                        </label>
-                        <label>お届け先電話番号 <span class="checkout_address-form_caution_01">※ハイフンなしで入力してください。</span>
-                            <br>
-                            <input class="checkout_address-form_phone" type="text" name="new_phone">
-                            <div id="error-container" class="checkout-error-message" style="display:none;"></div>
-                        </label>
+
+                    <label>
+                        お届け先のお名前<br>
+                        <input class="checkout_address-form_name" type="text" name="new_name">
+                        <div id="error-name" class="checkout-error-message"></div>
+                    </label>
+
+                    <label>
+                        お届け先郵便番号
+                        <span class="checkout_address-form_caution_01">※ハイフンなしで入力してください。</span><br>
+                        <input class="checkout_address-form_address_num" type="text" name="new_postal_code" id="postal_code">
+                        <div id="error-postal" class="checkout-error-message"></div>
+                    </label>
+
+                    <label>
+                        お届け先ご住所
+                        <span id="checkout_address-form_caution_02">※都道府県・市区町村・番地・建物名・部屋番号</span><br>
+                        <input class="checkout_address-form_address" type="text" name="new_address" id="address">
+                        <div id="error-address" class="checkout-error-message"></div>
+                    </label>
+
+                    <label>
+                        お届け先電話番号
+                        <span class="checkout_address-form_caution_01">※ハイフンなしで入力してください。</span><br>
+                        <input class="checkout_address-form_phone" type="text" name="new_phone">
+                        <div id="error-phone" class="checkout-error-message"></div>
+                    </label>
+
                     </div>
+
 
                     <h3 id="checkout_table_title">交換内容</h3>
                     <table id="checkout_table">
@@ -208,45 +217,68 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-    // --- バリデーション＋モーダル表示 ---
-    confirmBtn.addEventListener("click", function(event) {
-        errorContainer.style.display = "none";
-        errorContainer.innerHTML = "";
-        const inputs = form.querySelectorAll("input");
-        inputs.forEach(i => i.classList.remove("checkout-error"));
+            // --- バリデーション＋モーダル表示 ---
+        confirmBtn.addEventListener("click", function(event) {
 
-        const selected = document.querySelector('input[name="address_option"]:checked').value;
-        let valid = true;
+            // 既存エラー初期化
+            document.querySelectorAll(".checkout-error-message").forEach(e => {
+                e.textContent = "";
+            });
 
-        if (selected === "new") {
-            const name = form.new_name.value.trim();
-            const postal = form.new_postal_code.value.trim();
-            const address = form.new_address.value.trim();
-            const phone = form.new_phone.value.trim();
-            const errors = [];
+            const inputs = form.querySelectorAll("input");
+            inputs.forEach(i => i.classList.remove("checkout-error"));
 
-            if (!name) { errors.push("※今回のお届け先のお名前を入力してください。"); form.new_name.classList.add("checkout-error"); }
-            if (!postal) { errors.push("※郵便番号を入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
-            else if (!/^\d{7}$/.test(postal)) { errors.push("※郵便番号は7桁の数字で入力してください。"); form.new_postal_code.classList.add("checkout-error"); }
-            if (!address) { errors.push("※ご住所を入力してください。"); form.new_address.classList.add("checkout-error"); }
-            if (!phone) { errors.push("※電話番号を入力してください。"); form.new_phone.classList.add("checkout-error"); }
-            else if (!/^\d+$/.test(phone)) { errors.push("※電話番号は数字のみで入力してください。"); form.new_phone.classList.add("checkout-error"); }
+            const selected = document.querySelector('input[name="address_option"]:checked').value;
+            let valid = true;
 
-            if (errors.length > 0) {
-                valid = false;
-                errorContainer.innerHTML = errors.join("<br>");
-                errorContainer.style.display = "block";
-                window.scrollTo({ top: 0, behavior: "smooth" });
+            if (selected === "new") {
+                const name = form.new_name.value.trim();
+                const postal = form.new_postal_code.value.trim();
+                const address = form.new_address.value.trim();
+                const phone = form.new_phone.value.trim();
+
+                if (!name) {
+                    document.getElementById("error-name").textContent =
+                        "※今回のお届け先のお名前を入力してください。";
+                    form.new_name.classList.add("checkout-error");
+                    valid = false;
+                }
+
+                if (!postal) {
+                    document.getElementById("error-postal").textContent =
+                        "※郵便番号を入力してください。";
+                    form.new_postal_code.classList.add("checkout-error");
+                    valid = false;
+                } else if (!/^\d{7}$/.test(postal)) {
+                    document.getElementById("error-postal").textContent =
+                        "※郵便番号は7桁の数字で入力してください。";
+                    form.new_postal_code.classList.add("checkout-error");
+                    valid = false;
+                }
+
+                if (!address) {
+                    document.getElementById("error-address").textContent =
+                        "※ご住所を入力してください。";
+                    form.new_address.classList.add("checkout-error");
+                    valid = false;
+                }
+
+                if (!phone) {
+                    document.getElementById("error-phone").textContent =
+                        "※電話番号を入力してください。";
+                    form.new_phone.classList.add("checkout-error");
+                    valid = false;
+                } else if (!/^\d+$/.test(phone)) {
+                    document.getElementById("error-phone").textContent =
+                        "※電話番号は数字のみで入力してください。";
+                    form.new_phone.classList.add("checkout-error");
+                    valid = false;
+                }
             }
-        }
 
-        if (valid) {
-            //  バリデーション通過したらフォーム送信！
-            form.submit();
-
-            //  送信後にモーダル演出を見せたいなら少し遅らせてもOK
-            // modal.style.display = "flex";
-        }
+            if (valid) {
+                form.submit();
+            }
     });
 
 });
