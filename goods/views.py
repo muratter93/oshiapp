@@ -133,15 +133,18 @@ def checkout(request):
 
     cart_items = []
     total_stanning = 0
+    total_quantity = 0
 
     for g in goods_dict:
         qty = cart.get(str(g.id), 0)
+        total_quantity += qty
+        subtotal = g.required_stanning_points * qty
         cart_items.append({
             "goods": g,
             "quantity": qty,
-            "subtotal": g.required_stanning_points * qty
+            "subtotal": subtotal
         })
-        total_stanning += g.required_stanning_points * qty
+        total_stanning += subtotal
 
     wallet = request.user.wallet
 
@@ -152,6 +155,7 @@ def checkout(request):
     return render(request, 'goods/checkout.html', {
         "cart_items": cart_items,
         "total_stanning": total_stanning,
+        "total_quantity": total_quantity,
         "wallet": wallet
     })
 
