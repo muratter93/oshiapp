@@ -10,13 +10,16 @@
 
 {% block content %}
 
+<div id="plan_list_large_box" class="zoo-{{ animal.zoo_id }}">
 
-<div id="plan_list_large_box">
-    
     <h1 id="plan_list_lang">{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}の
         <br>サブスクプラン</h1>
-    <h2>{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
-        を推して{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}を応援しよう！！！</h5>
+    
+    <div id="plan_list_aminal_img_box" class="zoo-{{ animal.zoo_id }}">
+        <img id="plan_list_aminal_img" src="{{ animal.pic1.url }}" alt="{{ animal.japanese }}">
+    </div>
+
+    <p id="plan_list_lang_02">{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}を応援しよう！！！</p>
 
     <div id="plan_list_small_box">
         
@@ -24,27 +27,27 @@
 
             <div id="plan_list_small_box_lang">
 
+                {% for plan in plans %}
+                <div id="plan_list_box">
 
+                    <div id="plan_list_box_01">
+                        <div id="plan_list_course" class="zoo-{{ animal.zoo_id }}">
+                            <span id="plan_list_course_num">{{ plan.amount }} </span>円/月コース
+                        </div>
+                    </div>
 
+                    <div id="plan_list_box_02">
+                        <div id="plan_list_stapo">{{ plan.st_point }}スタポ<span id="plan_list_stapo_month">/月</span> 付与</div>
+                    </div>
 
+                    <div id="plan_list_box_03">
+                        <div id="plan_list_join_btn_box_03">
+                            <a id="plan_list_join_btn" class="zoo-{{ animal.zoo_id }}" href="{% url 'subscription:confirm_plan' plan.id animal.animal_id %}">加入する</a>
+                        </div>
+                    </div>
 
-
-                <ul>
-                  {% for plan in plans %}
-                    <li id="plan_list_box">
-                      <!-- <div id="plan_list_box"> -->
-                          <div id="plan_list_course">月{{ plan.amount }}円コース</div>
-                          <p id="plan_list_stapo">月<span id="plan_list_stapo_num">{{ plan.st_point }}</span>スタポ付与</p>
-                          <a id="plan_list_join_btn" href="{% url 'subscription:confirm_plan' plan.id animal.animal_id %}">加入する</a>
-                      <!-- </div> -->
-                    </li>
-                  {% endfor %}
-                </ul>
-
-
-
-
-
+                </div>
+                {% endfor %}
 
             </div>
 
@@ -60,8 +63,5 @@
     <br><br><br><br><br>
 
 </div>
-
-
-
 
 {% endblock %}

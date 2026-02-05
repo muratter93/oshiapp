@@ -99,7 +99,7 @@
 }
 
 /* 動物園文字 */
-.detail_zooname_box {
+#detail_zooname_box {
   padding: 0.3vw 2vw 0.3vw 1.5vw;
   width: 6vw;
   height: 1.8vw;
@@ -111,16 +111,41 @@
   text-align: center;
   position: relative;
 }
-.detail_zooname {
+/* zoo_id = 1 の色 */
+#detail_zooname_box.zoo-1 {
+  background: rgb(156, 201, 166); /* 緑 */
+}
+/* zoo_id = 2 の色 */
+#detail_zooname_box.zoo-2 {
+  background: rgb(250, 201, 166); /* 青の例 */
+}
+/* zoo_id = 3 の色 */
+#detail_zooname_box.zoo-3 {
+  background: rgb(255, 240, 174); /* オレンジの例 */
+}
+
+#detail_zooname {
   position: absolute;
   font-size: 1.2vw;
   font-weight: 700;
   padding-left: 0.5vw;
 }
+/* zoo_id = 1 の色 */
+#detail_zooname.zoo-1 {
+  color: rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#detail_zooname.zoo-2 {
+  color: rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#detail_zooname.zoo-3 {
+  color: rgb(237, 179, 41);
+}
 /* 動物種別 */
 #detail_animal_type {
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 0.7px rgb(17, 103, 43);
+  -webkit-text-stroke: 0.7px rgb(15, 88, 37);
   font-size: 1.5vw;
   margin: 1.5vw 0 0 0;
   line-height: 1.2em;
@@ -128,7 +153,7 @@
 /* 名前 */
 #detail_animal_name {
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 1px rgb(17, 103, 43);
+  -webkit-text-stroke: 1px rgb(15, 88, 37);
   font-size: 2.4vw;
   margin: 0.7vw 0 0 0;
   line-height: 1em;
@@ -136,7 +161,7 @@
 /* さん・くん・ちゃん */
 #detail_animal_name_mrs {
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 1.5px rgb(17, 103, 43);
+  -webkit-text-stroke: 1.5px rgb(15, 88, 37);
   font-size: 1.5vw;
   text-align: right;
   margin: -0.5vw 0 0 0;
@@ -145,7 +170,7 @@
 /* 年齢 */
 #detail_animal_age {
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 0.8px rgb(17, 103, 43);
+  -webkit-text-stroke: 0.8px rgb(15, 88, 37);
   font-size: 1.5vw;
   margin: 0;
 }
@@ -285,7 +310,7 @@
   width: 14.5vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);
-  background-color: rgb(17, 103, 43);
+  background-color: rgb(15, 88, 37);
   font-size: 1.1vw;
   font-weight: 700;
   line-height: 1.2em;
@@ -297,11 +322,11 @@
 }
 #detail_subsc_btn:visited {
   color: rgb(255, 255, 255);
-  background-color: rgb(17, 103, 43);
+  background-color: rgb(15, 88, 37);
 }
 #detail_subsc_btn:link {
   color: rgb(255, 255, 255);
-  background-color: rgb(17, 103, 43);
+  background-color: rgb(15, 88, 37);
 }
 #detail_subsc_btn:hover {
   background-color: rgb(89, 197, 35);
@@ -320,9 +345,9 @@
 }
 #detail_animal_introduction_text {
   text-align: left;
-  color: rgb(17, 103, 43);
+  color: rgb(15, 88, 37);
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 0.7px rgb(17, 103, 43);
+  -webkit-text-stroke: 0.7px rgb(15, 88, 37);
   font-size: 1.5vw;
 }
 
@@ -331,7 +356,7 @@
 /* ーーー */
 
 /* 動物園の名前 */
-.detail_zooname_box_02 {
+#detail_zooname_box_02 {
   margin: 4vw 0 3vw 0;
   padding: 0.3vw 2vw 0.3vw 1.5vw;
   width: 15vw;
@@ -345,22 +370,60 @@
   align-items: center;     /* 上下中央揃え */
   text-align: center;
   position: relative;
+  background: rgb(15, 88, 37);
+  color: rgb(255, 255, 255);
 }
-.detail_zooname_02 {
+/* zoo_id = 1 の色 */
+#detail_zooname_box_02.zoo-1 {
+  background: rgb(156, 201, 166); /* 緑 */
+}
+/* zoo_id = 2 の色 */
+#detail_zooname_box_02.zoo-2 {
+  background: rgb(250, 201, 166); /* 青の例 */
+}
+/* zoo_id = 3 の色 */
+#detail_zooname_box_02.zoo-3 {
+  background: rgb(255, 240, 174); /* オレンジの例 */
+}
+#detail_zooname_02 {
   position: absolute;
   font-size: 1.6vw;
   font-weight: 700;
   padding-left: 0.5vw;
 }
+/* zoo_id = 1 の色 */
+#detail_zooname_02.zoo-1 {
+  color: rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#detail_zooname_02.zoo-2 {
+  color: rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#detail_zooname_02.zoo-3 {
+  color: rgb(237, 179, 41);
+}
 
 /* 返礼品大箱（グリッド設定） */
-.detail_regift_large_box {
+#detail_regift_large_box {
   display: grid;
   gap: 1vw;
   grid-template-columns: repeat(5, 1fr);
   /* background-color: aliceblue; */
   width: 90%;
   position: relative;
+}
+/* zoo_id = 1 の色 */
+#detail_regift_large_box.zoo-1 {
+  color: rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#detail_regift_large_box.zoo-2 {
+  color: rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#detail_regift_large_box.zoo-3 {
+  color: rgb(237, 179, 41);
 }
 /* グリッドの箱 */
 #detail_regift_box {
@@ -381,7 +444,7 @@
   line-height: 1.1em;
 }
 /* 返礼品サブスクの金額 */
-.detail_regift_coursemoney_box {
+#detail_regift_coursemoney_box {
   margin: -0.5vw auto 1vw auto;
   padding: 0.1vw 1.5vw 0.1vw 1.5vw;
   width: 8vw;
@@ -393,13 +456,39 @@
   align-items: center;     /* 上下中央揃え */
   text-align: center;
   position: relative;
+  border: 3px solid rgb(15, 88, 37);
 }
-.detail_regift_coursemoney {
+/* zoo_id = 1 の色 */
+#detail_regift_coursemoney_box.zoo-1 {
+  border: 3px solid rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#detail_regift_coursemoney_box.zoo-2 {
+  border: 3px solid rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#detail_regift_coursemoney_box.zoo-3 {
+  border: 3px solid rgb(237, 179, 41);
+}
+#detail_regift_coursemoney {
   position: absolute;
   font-weight: 900;
   font-size: 1vw;
   /* padding-left: 0.5vw; */
 }
+/* zoo_id = 1 の色 */
+#detail_regift_coursemoney.zoo-1 {
+  color: rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#detail_regift_coursemoney.zoo-2 {
+  color: rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#detail_regift_coursemoney.zoo-3 {
+  color: rgb(237, 179, 41);
+}
+
 /* 画像（大）箱 */
 #detail_regift_largeimg_box {
   height: 15vw;

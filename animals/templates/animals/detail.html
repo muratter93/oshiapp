@@ -30,16 +30,16 @@
                 <div id="detail_category_info_box">
 
                     {% if animal.zoo_id == 1 %}
-                    <div class="detail_zooname_box" style="background-color: rgb(156, 201, 166);">
-                        <p class="detail_zooname" style="color: rgb(39, 117, 33);">{{ animal.zoo.zoo_name }}</p>  
+                    <div id="detail_zooname_box" class="zoo-{{ animal.zoo_id }}">
+                        <p id="detail_zooname" class="zoo-{{ animal.zoo_id }}">{{ animal.zoo.zoo_name }}</p> 
                     </div>
                     {% elif animal.zoo_id == 2 %}
-                    <div class="detail_zooname_box" style="background-color: rgb(250, 201, 166);">
-                        <p class="detail_zooname" style="color: rgb(248, 104, 143);">{{ animal.zoo.zoo_name }}</p>   
+                    <div id="detail_zooname_box" class="zoo-{{ animal.zoo_id }}">
+                        <p id="detail_zooname" class="zoo-{{ animal.zoo_id }}">{{ animal.zoo.zoo_name }}</p> 
                     </div>
                     {% elif animal.zoo_id == 3 %}
-                    <div class="detail_zooname_box" style="background-color: rgb(255, 240, 174);">
-                        <p class="detail_zooname" style="color: rgb(237, 179, 41);">{{ animal.zoo.zoo_name }}</p> 
+                    <div id="detail_zooname_box" class="zoo-{{ animal.zoo_id }}">
+                        <p id="detail_zooname" class="zoo-{{ animal.zoo_id }}">{{ animal.zoo.zoo_name }}</p> 
                     </div>
                     {% else %}
                     {% endif %}
@@ -114,32 +114,22 @@
             <p id="detail_animal_introduction_text">{{ animal.txt }}</p>
         </div>
 
-
         {% if animal.zoo_id == 1 %}
-        <div class="detail_zooname_box_02" style="background-color: rgb(156, 201, 166);">
-            <p class="detail_zooname_02" style="color: rgb(39, 117, 33);">{{ animal.zoo.zoo_name }}の返礼品</p>  
+        <div id="detail_zooname_box_02" class="zoo-{{ animal.zoo_id }}">
+            <p id="detail_zooname_02" class="zoo-{{ animal.zoo_id }}">{{ animal.zoo.zoo_name }}の返礼品</p> 
         </div>
         {% elif animal.zoo_id == 2 %}
-        <div class="detail_zooname_box_02" style="background-color: rgb(250, 201, 166);">
-            <p class="detail_zooname_02" style="color: rgb(248, 104, 143);">{{ animal.zoo.zoo_name }}の返礼品</p>   
+        <div id="detail_zooname_box_02" class="zoo-{{ animal.zoo_id }}">
+            <p id="detail_zooname_02" class="zoo-{{ animal.zoo_id }}">{{ animal.zoo.zoo_name }}の返礼品</p> 
         </div>
         {% elif animal.zoo_id == 3 %}
-        <div class="detail_zooname_box_02" style="background-color: rgb(255, 240, 174);">
-            <p class="detail_zooname_02" style="color: rgb(237, 179, 41);">{{ animal.zoo.zoo_name }}の返礼品</p> 
+        <div id="detail_zooname_box_02" class="zoo-{{ animal.zoo_id }}">
+            <p id="detail_zooname_02" class="zoo-{{ animal.zoo_id }}">{{ animal.zoo.zoo_name }}の返礼品</p> 
         </div>
         {% else %}
         {% endif %}
 
-
-
-        {% if animal.zoo_id == 1 %}
-        <div class="detail_regift_large_box" style="color: rgb(39, 117, 33);">
-        {% elif animal.zoo_id == 2 %}
-        <div class="detail_regift_large_box" style="color: rgb(248, 104, 143);">
-        {% elif animal.zoo_id == 3 %}
-        <div class="detail_regift_large_box" style="color: rgb(237, 179, 41);">
-        {% else %}
-        {% endif %}
+        <div id="detail_regift_large_box" class="zoo-{{ animal.zoo_id }}">
 
             {% for gift in gifts %}
 
@@ -149,20 +139,9 @@
                     <br>サブスクリプション
                 </p>
 
-                {% if animal.zoo_id == 1 %}
-                <div class="detail_regift_coursemoney_box" style="border: 3px solid rgb(39, 117, 33);">
-                    <p class="detail_regift_coursemoney" style="color: rgb(39, 117, 33);">月{{ gift.price|intcomma }}円コース</p>  
+                <div id="detail_regift_coursemoney_box" class="zoo-{{ animal.zoo_id }}">
+                    <p id="detail_regift_coursemoney" class="zoo-{{ animal.zoo_id }}">月{{ gift.price|intcomma }}円コース</p> 
                 </div>
-                {% elif animal.zoo_id == 2 %}
-                <div class="detail_regift_coursemoney_box" style="border: 3px solid rgb(248, 104, 143);">
-                    <p class="detail_regift_coursemoney" style="color: rgb(248, 104, 143);">月{{ gift.price|intcomma }}円コース</p>   
-                </div>
-                {% elif animal.zoo_id == 3 %}
-                <div class="detail_regift_coursemoney_box" style="border: 3px solid rgb(237, 179, 41);">
-                    <p class="detail_regift_coursemoney" style="color: rgb(237, 179, 41);">月{{ gift.price|intcomma }}円コース</p> 
-                </div>
-                {% else %}
-                {% endif %}
 
                 <div id="detail_regift_img_box">
 

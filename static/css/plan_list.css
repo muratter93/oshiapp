@@ -5,7 +5,19 @@
   padding: 0 100px 0 0;
   text-align: center;
   color: rgb(15, 88, 37);
-  background-color: rgb(255, 230, 0);
+  /* background-color: rgb(255, 230, 0); */
+}
+/* zoo_id = 1 の色 */
+#plan_list_large_box.zoo-1 {
+  color: rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#plan_list_large_box.zoo-2 {
+  color: rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#plan_list_large_box.zoo-3 {
+  color: rgb(237, 179, 41);
 }
 
 /* サブスクプランタイトル */
@@ -14,6 +26,60 @@
   font-weight: 900;
   font-size: 2.7vw;
   padding-bottom: 2vw;
+  line-height: 1.1em;
+}
+
+/* 動物写真ボックス */
+#plan_list_aminal_img_box {
+  width: 10vw;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  border-radius: 50%;
+  background: none;
+  text-transform: uppercase;
+  margin: -2vw auto 2vw auto;
+}
+/* 動物写真 */
+#plan_list_aminal_img {
+  object-position: 50% 40%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+/* 動物写真枠後ろの色部分基本の after 共通設定 */
+#plan_list_aminal_img_box:after,
+#plan_list_aminal_img_box.zoo-1:after,
+#plan_list_aminal_img_box.zoo-2:after,
+#plan_list_aminal_img_box.zoo-3:after {
+  position: absolute;
+  top: -0.5vw;
+  left: -0.5vw;
+  content: "";
+  height: 100%;
+  width: 103%;
+  z-index:-999;
+  -webkit-transform: rotate(0deg);
+     -moz-transform: rotate(0deg);
+     border-radius: 50%;
+}
+/* zoo_id = 1 の色 */
+#plan_list_aminal_img_box.zoo-1:after {
+  background: rgb(156, 201, 166); /* 緑 */
+}
+/* zoo_id = 2 の色 */
+#plan_list_aminal_img_box.zoo-2:after {
+  background: rgb(250, 201, 166); /* 青の例 */
+}
+/* zoo_id = 3 の色 */
+#plan_list_aminal_img_box.zoo-3:after {
+  background: rgb(255, 240, 174); /* オレンジの例 */
+}
+
+/* サブスクプラン応援文字 */
+#plan_list_lang_02 {
+  font-weight: 700;
+  font-size: 1.2vw;
 }
 
 /* サブスクプラン小箱 */
@@ -22,7 +88,7 @@
   padding: 0 0 50px 0;
   display: flex;
   justify-content: center;
-  background-color: rgb(115, 255, 0);
+  /* background-color: rgb(115, 255, 0); */
 }
 
 /* サブスクプラン小箱の中の小箱 */
@@ -31,20 +97,17 @@
   justify-content: center;
   margin: 0 auto;
   padding: 0;
-  border: 2px solid rgb(172, 200, 180); /*borderの指定*/
-  border-radius: 1vw;
-  background-color: rgb(255, 72, 0);
-  width: 45vw;
+  /* background-color: rgb(255, 72, 0); */
+  /* width: 45vw; */
 }
 
 /* サブスクプラン小箱の中の小箱の小箱（注文内容テーブル） */
 #plan_list_small_box_lang {
-  text-align: left;
+  /* text-align: left; */
   font-weight: 800;
   font-size: 1.3vw;
   padding: 3vw 3vw 3vw 3vw;
   width: 100%;
-  color: rgb(15, 88, 37);
   /* background-color: rgb(105, 103, 42); */
 }
 
@@ -52,27 +115,146 @@
 /* 小箱の中の各種項目 */
 /* ーーーーーーーーー */
 
-/* プラン繰り返しのli */
+/* コースが入っている大箱 */
 #plan_list_box {
   display: flex;
+  width: 100%;
+}
+/* 各コース名箱 */
+#plan_list_box_01 {
+  width: 15vw;
+  margin-bottom: 5vw;
 }
 /* 各コース名 */
-
-/* 返礼品サブスクの金額 */
 #plan_list_course {
-  margin: -0.5vw auto 1vw auto;
-  padding: 0.1vw 1.5vw 0.1vw 1.5vw;
-  width: 8vw;
-  height: 1.7vw;
+  text-align: left;
+  font-weight: 900;
+  font-size: 1.1vw;
+  padding: 0.3vw 1.5vw 0.3vw 1.5vw;
+  height: 2vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   /* background-color: rgb(17, 226, 101); */
   display: flex;
-  justify-content: center; /* 左右中央揃え */
   align-items: center;     /* 上下中央揃え */
-  text-align: center;
-  position: relative;
+  border: 3px solid rgb(15, 88, 37);
+  align-items: flex-end;
+  position: absolute;
+}
+/* zoo_id = 1 の色 */
+#plan_list_course.zoo-1 {
+  border: 3px solid rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#plan_list_course.zoo-2 {
+  border: 3px solid rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#plan_list_course.zoo-3 {
+  border: 3px solid rgb(237, 179, 41);
+}
+#plan_list_course_num {
+  font-size: 1.9vw;
+  margin-bottom: -0.4vw;
 }
 
+
+/* 月間付与金額箱 */
+#plan_list_box_02 {
+  width: 15vw;
+  text-align: left;
+}
+/* 月間付与金額 */
+#plan_list_stapo {
+  padding: 0.3vw 0 0.3vw 2vw;
+  font-weight: 700;
+  font-size: 1.3vw;
+  height: 2vw;
+  line-height: 1.9em;
+}
+#plan_list_stapo_month {
+  font-weight: 700;
+  font-size: 1vw;
+}
+
+/* 加入するボタン */
+#plan_list_box_03 {
+  height: 100%;
+  position: relative;
+  padding-top: 0.3vw;
+}
+#plan_list_join_btn {
+  text-decoration: none;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2vw;
+  padding: 0.1vw 1vw 0.1vw 1vw;
+  /* width: 100%; */
+  height: 2vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  background-color: rgb(89, 197, 35);
+  color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center; /* 上下中央 */
+  justify-content: center; /* 左右中央 */
+}
+/* ボタンリンク時 */
+/* zoo_id = 1となし の色 */
+#plan_list_join_btn {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+/* zoo_id = 2 の色 */
+#plan_list_join_btn.zoo-2 {
+  background: rgb(243, 52, 76); /* 青の例 */
+}
+/* zoo_id = 3 の色 */
+#plan_list_join_btn.zoo-3 {
+  background: rgb(230, 115, 0); /* オレンジの例 */
+}
+
+/* ボタン訪問後時 */
+/* zoo_id = 1となし の色 */
+#plan_list_join_btn:visited {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+/* zoo_id = 2 の色 */
+#plan_list_join_btn.zoo-2:visited {
+  background: rgb(243, 52, 76);
+}
+/* zoo_id = 3 の色 */
+#plan_list_join_btn.zoo-3:visited {
+  background: rgb(230, 115, 0); /* オレンジの例 */
+}
+
+/* ボタンリンク時 */
+/* zoo_id = 1となし の色 */
+#plan_list_join_btn:link {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+/* zoo_id = 2 の色 */
+#plan_list_join_btn.zoo-2:link {
+  background: rgb(243, 52, 76); /* 青の例 */
+}
+/* zoo_id = 3 の色 */
+#plan_list_join_btn.zoo-3:link {
+  background: rgb(230, 115, 0); /* オレンジの例 */
+}
+
+/* ボタンホバー時 */
+/* zoo_id = 1となし の色 */
+#plan_list_join_btn:hover {
+  background-color: rgb(109, 241, 44);
+}
+/* zoo_id = 2 の色 */
+#plan_list_join_btn.zoo-2:hover {
+  background: rgb(243, 52, 76); /* 青の例 */
+}
+/* zoo_id = 3 の色 */
+#plan_list_join_btn.zoo-3:hover {
+  background: rgb(235, 226, 0); /* オレンジの例 */
+}
 
 
 
