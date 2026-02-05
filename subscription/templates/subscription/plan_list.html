@@ -33,8 +33,8 @@
                   {% for plan in plans %}
                     <li id="plan_list_box">
                       <!-- <div id="plan_list_box"> -->
-                          <p id="plan_list_course">月{{ plan.amount }}円コース</p>
-                          <p id="plan_list_stapo">月{{ plan.st_point }}スタポ付与</p>
+                          <div id="plan_list_course">月{{ plan.amount }}円コース</div>
+                          <p id="plan_list_stapo">月<span id="plan_list_stapo_num">{{ plan.st_point }}</span>スタポ付与</p>
                           <a id="plan_list_join_btn" href="{% url 'subscription:confirm_plan' plan.id animal.animal_id %}">加入する</a>
                       <!-- </div> -->
                     </li>

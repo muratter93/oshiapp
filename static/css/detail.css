@@ -10,7 +10,7 @@
 /* 動物単独ページ小箱 */
 #detail_small_box {
   margin: 0;
-  padding: 0 0 50px 0;
+  padding: 0 0 150px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,7 +52,6 @@
   border-radius: 12% 42% 17% 21% / 45% 9% 33% 17%;
   background:none;
   text-transform:uppercase;
-  cursor:pointer;
   flex: 7;
 }
 /* 動物写真 */
@@ -267,7 +266,9 @@
 
 /* サブスク誘導文画像 */
 #detail_sbsc_text_box {
+  position: relative;
   width: 15vw;
+  z-index: -1;
 }
 #detail_sbsc_text_img {
   width: 100%;
@@ -275,6 +276,8 @@
 }
 /* サブスク見るボタン*/
 #detail_subsc_btn {
+  position: relative;
+  z-index: 1;
   float: right;
   margin: -2vw 0 0 0;
   text-decoration: none;
@@ -357,6 +360,7 @@
   grid-template-columns: repeat(5, 1fr);
   /* background-color: aliceblue; */
   width: 90%;
+  position: relative;
 }
 /* グリッドの箱 */
 #detail_regift_box {
@@ -440,13 +444,16 @@
   line-height: 1.2em;
 }
 
-
 /* 返礼品が無かった時の説明文 */
 .detail_regift_emptytext {
+  font-weight: 500;
+  font-size: 1.1vw;
   text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 自身の半分だけ戻す */
 }
-
-
 
 
 

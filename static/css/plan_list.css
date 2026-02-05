@@ -45,15 +45,33 @@
   padding: 3vw 3vw 3vw 3vw;
   width: 100%;
   color: rgb(15, 88, 37);
-  background-color: rgb(105, 103, 42);
+  /* background-color: rgb(105, 103, 42); */
 }
 
 /* ーーーーーーーーー */
 /* 小箱の中の各種項目 */
 /* ーーーーーーーーー */
 
+/* プラン繰り返しのli */
+#plan_list_box {
+  display: flex;
+}
+/* 各コース名 */
 
-
+/* 返礼品サブスクの金額 */
+#plan_list_course {
+  margin: -0.5vw auto 1vw auto;
+  padding: 0.1vw 1.5vw 0.1vw 1.5vw;
+  width: 8vw;
+  height: 1.7vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  /* background-color: rgb(17, 226, 101); */
+  display: flex;
+  justify-content: center; /* 左右中央揃え */
+  align-items: center;     /* 上下中央揃え */
+  text-align: center;
+  position: relative;
+}
 
 
 
