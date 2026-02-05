@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block content %}
-
+<script src="{% static 'js/detail.js' %}"></script>
 
 <div id="detail_large_box">
 
@@ -23,58 +23,87 @@
 
             <div id="detail_small_box_lang">
 
-                <div id="detail_aminal_img_box">
+                <div id="detail_aminal_img_box" class="zoo-{{ animal.zoo_id }}">
                     <img id="detail_aminal_img" src="{{ animal.pic1.url }}" alt="{{ animal.japanese }}">
                 </div>
 
                 <div id="detail_category_info_box">
 
-                    {% if animal.zoo_id == "1" %}
-                    緑
-                    <a id="detail_zooname">
-                        <img id="detail_title_background" src="{% static 'img/suzaka_title.png' %}" alt="緑色須坂背景">
-                        {{ animal.zoo.zoo_name }}
-                    </a>
-                    {% elif animal.zoo_id == "2" %}
-                    ピンク
-                    {% elif animal.zoo_id == "3" %}
-                    黄色
+                    {% if animal.zoo_id == 1 %}
+                    <div class="detail_zooname_box" style="background-color: rgb(156, 201, 166);">
+                        <p class="detail_zooname" style="color: rgb(39, 117, 33);">{{ animal.zoo.zoo_name }}</p>  
+                    </div>
+                    {% elif animal.zoo_id == 2 %}
+                    <div class="detail_zooname_box" style="background-color: rgb(250, 201, 166);">
+                        <p class="detail_zooname" style="color: rgb(248, 104, 143);">{{ animal.zoo.zoo_name }}</p>   
+                    </div>
+                    {% elif animal.zoo_id == 3 %}
+                    <div class="detail_zooname_box" style="background-color: rgb(255, 240, 174);">
+                        <p class="detail_zooname" style="color: rgb(237, 179, 41);">{{ animal.zoo.zoo_name }}</p> 
+                    </div>
                     {% else %}
                     {% endif %}
-                  
-                    <a id="detail_zooname" class="zoo-{{ animal.zoo_id }}">{{ animal.zoo.zoo_name }}</a>
 
-                    <p id="detail_anumal_name">
+                    <p id="detail_animal_type">{{ animal.japanese }}</p>
+
+                    <p id="detail_animal_name">
                         {{ animal.name }}
-                        {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
+                        <span id="detail_animal_name_mrs">{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
                     </p>
 
-                    <p>{{ animal.age }}才</p>
+                    <p id="detail_animal_age">
+                        {{ animal.age }}<span id="detail_animal_age_unit"> 才</span>
+                        　{% if animal.sex == "M" %}♂{% elif animal.sex == "F" %}♀{% else %}{% endif %}
+                    </p>
 
-                    <p>{{ animal.japanese }}</p>
+                    <div id="detail_oshi_box">
 
-                    <p>{% if animal.sex == "M" %}オス{% elif animal.sex == "F" %}メス{% else %}不明{% endif %}</p>
+                        <div id="detail_oshi_text">
+                        {{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}の今の推され度
+                        </div>
 
-                    <div class="animal-point">
-                      現在の{{ animal.name }}
-                      {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
-                      の推されポイント
-                      <div class="detail_oshi_point" id="point-{{ animal.animal_id }}">{{ animal.total_point }}</div>
-                      ポイント
+                        <div id="detail_oshi_arrow_box">
+                            <img id="detail_oshi_arrow_img" src="{% static 'img/detail_arrow.png' %}" alt="矢印">
+                        </div>
+
+                        <div id="detail_oshi_point_box">
+                            <div class="detail_oshi_point" id="point-{{ animal.animal_id }}">{{ animal.total_point }}</div>
+                            <p id="detail_oshi_point_unit">ポイント</p>
+                        </div>
+
                     </div>
 
-                    <!-- ★ 推しボタン -->
-                    {% if request.user.is_authenticated %}
-                      <button class="push-btn-detail" data-id="{{ animal.animal_id }}">推す</button>
-                    {% endif %}
+                    
+                    <div id="detail_oshi_btn_box">
 
-                    <a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}" class="cta" id="subscribeBtn">
-                        {{ animal.name }}
-                        {% if animal.sex %}
-                            {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
+                        <div id="detail_oshi_btn_text">
+                        推しボタンをクリックして{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}を応援しよう！
+                        <br>
+                        <span id="detail_oshi_btn_text_small">※推しボタン１クリックにつき<br>　1スタポが消費されます。</span>
+                        </div>
+
+                        <div id="detail_oshi_hand_box">
+                            <img id="detail_oshi_hand_img" src="{% static 'img/detail_cursor.png' %}" alt="カーソル画像">
+                        </div>
+
+                        {% if request.user.is_authenticated %}
+                        <button class="push-btn-detail" data-id="{{ animal.animal_id }}">
+                            <img id="detail_oshi_btn_img" src="{% static 'img/oshi_button.png' %}" alt="推すボタン画像">
+                        </button>
                         {% endif %}
-                        のサブスクプランをみる
+
+                    </div>
+                    
+                    <div id="detail_sbsc_text_box">
+                        <img id="detail_sbsc_text_img" src="{% static 'img/detail_sbsc_text.png' %}" alt="サブスクおすすめ画像">
+                    </div>
+                    <a id="detail_subsc_btn" href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}">
+                        {% if animal.sex %}
+                        {{ animal.name|truncatechars:7 }}
+                        {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}の<br>サブスクプランをみる
+                        {% endif %}
                     </a>
+
                 </div>
 
             </div>
@@ -85,6 +114,96 @@
             <p id="detail_animal_introduction_text">{{ animal.txt }}</p>
         </div>
 
+
+        {% if animal.zoo_id == 1 %}
+        <div class="detail_zooname_box_02" style="background-color: rgb(156, 201, 166);">
+            <p class="detail_zooname_02" style="color: rgb(39, 117, 33);">{{ animal.zoo.zoo_name }}の返礼品</p>  
+        </div>
+        {% elif animal.zoo_id == 2 %}
+        <div class="detail_zooname_box_02" style="background-color: rgb(250, 201, 166);">
+            <p class="detail_zooname_02" style="color: rgb(248, 104, 143);">{{ animal.zoo.zoo_name }}の返礼品</p>   
+        </div>
+        {% elif animal.zoo_id == 3 %}
+        <div class="detail_zooname_box_02" style="background-color: rgb(255, 240, 174);">
+            <p class="detail_zooname_02" style="color: rgb(237, 179, 41);">{{ animal.zoo.zoo_name }}の返礼品</p> 
+        </div>
+        {% else %}
+        {% endif %}
+
+
+
+        {% if animal.zoo_id == 1 %}
+        <div class="detail_regift_large_box" style="color: rgb(39, 117, 33);">
+        {% elif animal.zoo_id == 2 %}
+        <div class="detail_regift_large_box" style="color: rgb(248, 104, 143);">
+        {% elif animal.zoo_id == 3 %}
+        <div class="detail_regift_large_box" style="color: rgb(237, 179, 41);">
+        {% else %}
+        {% endif %}
+
+            {% for gift in gifts %}
+
+            <div id="detail_regift_box">
+
+                <p id="detail_regift_coursename">{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}
+                    <br>サブスクリプション
+                </p>
+
+                {% if animal.zoo_id == 1 %}
+                <div class="detail_regift_coursemoney_box" style="border: 3px solid rgb(39, 117, 33);">
+                    <p class="detail_regift_coursemoney" style="color: rgb(39, 117, 33);">月{{ gift.price|intcomma }}円コース</p>  
+                </div>
+                {% elif animal.zoo_id == 2 %}
+                <div class="detail_regift_coursemoney_box" style="border: 3px solid rgb(248, 104, 143);">
+                    <p class="detail_regift_coursemoney" style="color: rgb(248, 104, 143);">月{{ gift.price|intcomma }}円コース</p>   
+                </div>
+                {% elif animal.zoo_id == 3 %}
+                <div class="detail_regift_coursemoney_box" style="border: 3px solid rgb(237, 179, 41);">
+                    <p class="detail_regift_coursemoney" style="color: rgb(237, 179, 41);">月{{ gift.price|intcomma }}円コース</p> 
+                </div>
+                {% else %}
+                {% endif %}
+
+                <div id="detail_regift_img_box">
+
+                    <div id="detail_regift_largeimg_box">
+
+                        <!-- 代表画像 -->
+                        {% if gift.main_image %}
+                        <img class="detail_regift_largeimg" src="{{ gift.main_image.url }}" alt="{{ gift.title }}">
+                        {% else %}
+                        <img class="detail_regift_largeimg" src="{% static 'img/no_image.png' %}" alt="{{ gift.title }}">
+                        {% endif %}
+
+                    </div>
+
+                    <div id="detail_regift_smallimg_box">
+                        {% for img in gift.images.all %}
+                        <img id="detail_regift_smallimg" src="{{ img.image.url }}" alt="{{ gift.title }}その他画像">
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <p id="detail_regift_coursetitle">{{ gift.title }}</p>
+                <p id="detail_regift_coursetext">{{ gift.description }}</p>
+
+            </div>
+
+            {% empty %}
+            {% if animal.zoo_id == 1 %}
+            <p class="detail_regift_emptytext">この動物園の返礼品はまだ登録されていません。</p>
+            {% elif animal.zoo_id == 2 %}
+            <p class="detail_regift_emptytext">この動物園の返礼品はまだ登録されていません。</p>
+            {% elif animal.zoo_id == 3 %}
+            <p class="detail_regift_emptytext">この動物園の返礼品はまだ登録されていません。</p>
+            {% else %}
+            {% endif %}
+            
+            {% endfor %}
+
+        </div>
+
     </div>
 
     <a id="detail_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
@@ -92,49 +211,6 @@
     <br><br><br><br><br>
     
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 返礼品 -->
-<div class="section">
-  <h2>返礼品（サンプル）</h2>
-  <div class="grid">
-
-    {% for gift in gifts %}
-    <div class="card">
-      {% if gift.main_image %}
-        <img src="{{ gift.main_image.url }}" alt="{{ gift.title }}" class="gift-img">
-      {% endif %}
-
-      <strong>{{ gift.price|intcomma }}円 / プラン</strong>
-
-      <p class="muted">{{ gift.title }}</p>
-
-      {% if gift.description %}
-        <p>{{ gift.description }}</p>
-      {% endif %}
-    </div>
-    {% empty %}
-    <p class="muted">この動物園の返礼品はまだ登録されていません。</p>
-    {% endfor %}
-
-  </div>
-</div>
-
-
-
-</div>
-
 
 
 
@@ -192,9 +268,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const p = document.getElementById(`point-${id}`);
             if (p) {
-                p.textContent = `${addComma(data.total_point)} 推しP`;
-                p.style.transform = "scale(1.2)";
-                setTimeout(() => { p.style.transform = "scale(1)"; }, 150);
+                p.textContent = `${addComma(data.total_point)}`;
+                setTimeout(() => { p.style.transform }, 150);
             }
 
             const walletEl = document.getElementById("wallet-balance");
@@ -211,8 +286,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => stapoEl.classList.remove("flash"), 250);
             }
 
-            btn.style.transform = "scale(0.9)";
-            setTimeout(() => btn.style.transform = "scale(1)", 120);
+            // btn.style.transform = "scale(1)";
+            // setTimeout(() => btn.style.transform = "scale(1)", 120);
         })
         .catch(() => {
             alert("通信エラーが発生しました");

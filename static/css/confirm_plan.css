@@ -1,0 +1,82 @@
+
+/* サブスク加入確認大箱 */
+#plan_list_large_box {
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+  color: rgb(15, 88, 37);
+  background-color: rgb(255, 230, 0);
+}
+
+/* サブスク加入確認タイトル */
+#plan_list_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 2.7vw;
+  padding-bottom: 2vw;
+}
+
+/* サブスク加入確認小箱 */
+#plan_list_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(115, 255, 0);
+}
+
+/* サブスク加入確認小箱の中の小箱 */
+#plan_list_small_box_border {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  border: 2px solid rgb(172, 200, 180); /*borderの指定*/
+  border-radius: 1vw;
+  background-color: rgb(255, 72, 0);
+  width: 45vw;
+}
+
+/* サブスク加入確認小箱の中の小箱の小箱（注文内容テーブル） */
+#plan_list_small_box_lang {
+  text-align: left;
+  font-weight: 800;
+  font-size: 1.3vw;
+  padding: 3vw 3vw 3vw 3vw;
+  width: 100%;
+  color: rgb(15, 88, 37);
+  background-color: rgb(105, 103, 42);
+}
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* グッズページへ戻る */
+#plan_list_animalpage_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#plan_list_returntop_link {
+  text-decoration: none;
+  font-size: 14pt;
+}

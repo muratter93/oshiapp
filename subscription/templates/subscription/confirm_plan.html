@@ -1,19 +1,58 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<title>確認 - {{ animal.name }}のプラン</title>
-</head>
-<body>
-<h1>{{ animal.name }}を推す！</h1>
+{% extends "common/base.html" %}
+{% load static %}
+{% load humanize %}
 
-<p>プラン: {{ plan.plan_name }}<br>
-金額: {{ plan.amount }}円 / スタポ: {{ plan.st_point }}</p>
+{% block title %}ご加入確認 | アニマルマニア{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/confirm_plan.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div id="plan_list_large_box">
+    
+    <h1 id="plan_list_lang">サブスクプランご加入の確認</h1>
+
+    <div id="plan_list_small_box">
+        
+        <div id="plan_list_small_box_border">
+
+            <div id="plan_list_small_box_lang">
+
+
+<p>{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}のサブスクプラン</p>
+
+<p>月{{ plan.amount }}円コース</p>
+
+<p>月{{ plan.st_point }}スタポ付与</p>
+
+<p>上記に加入する場合はボタンをクリックしてください▼</p>
 
 <!-- 実際に加入するボタン -->
 <a href="{% url 'subscription:join_plan' plan.id animal.animal_id %}">このプランに加入する</a>
 
+
+
 <br><br>
 <a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}">戻る</a>
-</body>
-</html>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <a id="plan_list_animalpage_link" href="{% url 'animals:animal_detail' animal.animal_id %}">▶{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}のページへもどる</a>
+    <br><br>
+
+    <a id="plan_list_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
+
+
+{% endblock %}

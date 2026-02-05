@@ -360,11 +360,6 @@ input.checkout-error {
 
 
 
-
-
-
-
-
 /* --- グッズ交換モーダル専用 --- */
 .goods_exchange_modal {
     display: none; /* 初期は非表示 */
@@ -397,8 +392,6 @@ input.checkout-error {
 .goods_exchange_btn:hover {
     background-color: #0056b3;
 }
-
-
 
 
 
