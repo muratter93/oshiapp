@@ -4,39 +4,35 @@
 /* ーーーーーー */
 
 /* 動物ボックスランキング部分も入っている外の大枠 */
-
 #index_mainbox_large {
   display: flex;
 }
 
 /* 動物の写真とボタンと文字まで入っている外の大枠 */
-
 #index_mainbox {
   padding: 0;
   margin: 0;
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  flex: 1;
+  flex: 1; */
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  /* background-color: rgb(255, 47, 0); */
 }
 
 /* 動物の写真とボタンと文字まで入っている内側の枠（動物ID振ってある） */
-
 #index_animal_box {
-  /* max-width: 380px; */
-  min-width: 250px;
-  flex: 1;
-  padding-right: 5px;
-  position: relative;
+  margin-right: 5px;
+  /* position: relative; */
 }
 
 /* 動物の写真とボタンが入っている枠 */
-
 #index_amimal_photobutton_box {
   position: relative;
 }
 
 /* 動物の写真が入っている枠 */
-
 #index_amimal_photo_box {
   aspect-ratio: 4 / 3;
   position: relative;
@@ -45,6 +41,15 @@
   background:none;
   text-transform:uppercase;
   cursor:pointer;
+}
+/* 動物写真 */
+#index_amimal_photo_box img {
+  object-position: 50% 40%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
 }
 
 /* 動物写真枠後ろの色部分基本の after 共通設定 */
@@ -63,7 +68,6 @@
      -moz-transform: rotate(0deg);
      border-radius: 17% 26% 17% 21% / 26% 22% 33% 17%;
 }
- 
 /* zoo_id = 1 の色 */
 #index_amimal_photo_box.zoo-1:after {
   background: rgb(156, 201, 166); /* 緑 */
@@ -77,21 +81,7 @@
   background: rgb(255, 240, 174); /* オレンジの例 */
 }
 
-
-/* 動物写真 */
-
-#index_amimal_photo_box img {
-  object-position: 50% 40%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
-}
-
-
 /* 各種ボタン入りボタンボックス */
-
 #index_button_box {
   position: absolute;
   top: 0;
@@ -101,7 +91,6 @@
 }
 
 /* 推されポイント表示 */
-
 #index_oshii-badge {
   position: absolute;
   display: flex;
@@ -110,39 +99,39 @@
   top: 3%;
   left: 13%;
 }
-
 #index_oshii-badge_lang {
-  font-size: 18pt;
+  font-size: 17pt;
   font-weight: 900;
   margin: 0 5px -3px 0;
   padding: 0;
-  color: rgb(211, 211, 211);
+  color: rgb(229, 255, 0);
   opacity: 0.8;
 }
-
 #index_point {
-  font-size: 20pt;
-  color: rgb(211, 211, 211);
+  font-size: 19pt;
+  color: rgb(229, 255, 0);
   font-weight: 900;
   padding: 0;
   margin: 0;
   opacity: 0.8;
 }
-
 #index_oshii-badge.shine::after {
   animation: index-shineMove 0.7s ease forwards;
 }
 
 /* 推しハートボタン */
-
 #index_push-btn {
   position: absolute;
-  top: 63%;
+  top: 60%;
   left: -5%;
   border: none;
   background-color: transparent;
   position: relative; /* 変化のため必要 */
   cursor: pointer;
+  width: 42%;
+}
+#index_push-btn img {
+  width: 100%;
 }
 
 #index_push-btn:hover {
@@ -178,7 +167,11 @@
 #index_intro-btn_box {
   position: absolute;
   right: 0%;
-  top: 76%;
+  top: 75%;
+  width: 55%;
+}
+#index_intro-btn img {
+  width: 100%;
 }
 
 #index_intro-btn_box:hover {
@@ -188,15 +181,19 @@
 /* 担当ボタン */
 #index_oshi-label {
   position: absolute;
-  top: -10%;
+  top: -18%;
   right: -3%;
+  width: 45%;
+  transform: rotate(-25deg);
 }
 
 #index_oshi-label_hidden {
   position: absolute;
   visibility: hidden;
-  top: -11%;
+  top: -18%;
   right: -3%;
+  width: 45%;
+  transform: rotate(-25deg);
 }
 
 /* 動物の名前等各種文字 */
@@ -214,34 +211,33 @@
 /* 動物名 */
 #index_animal_namelang {
   font-family: 'Zen Kurenaido';
-  font-size: 18pt;
+  font-size: 16pt;
   font-weight: 900;
   display: inline-block; /* インライン要素に幅を指定できるようにする */
-
-  /* 要素の最大幅を指定する */
-  /* max-width: 125px; */
-  /* 改行を禁止する */
-  /* white-space: nowrap; */
-  /* はみ出た部分を非表示にする */
-  /* overflow: hidden;
-  text-overflow: ellipsis; */
-  
+  -webkit-text-stroke: 0.4px rgb(84, 62, 44);
+  paint-order: stroke fill;
   margin: 2px 0px -10px 0;
   padding: 0;
 }
-
 #index_animal_namelang_a:visited {
   color: rgb(84, 62, 44);
+  -webkit-text-stroke: 0.4px rgb(84, 62, 44);
 }
-
+#index_animal_namelang_a:link {
+  color: rgb(84, 62, 44);
+  -webkit-text-stroke: 0.4px rgb(84, 62, 44);
+}
 #index_animal_namelang_a:hover {
   color: #b78033;
+  -webkit-text-stroke: 0.4px #b78033;
 }
 
 /* 動物名の後のさん付け */
 #index_animal-namegenderlang {
   font-family: 'Zen Kurenaido';
   font-size: 12pt;
+  -webkit-text-stroke: 0.3px rgb(84, 62, 44);
+  paint-order: stroke fill;
   font-weight: 900;
   margin: 0;
   padding: 0;
@@ -252,6 +248,7 @@
   margin: -3px 0 10px 0;
   padding: 0;
   font-size: 11pt;
+  font-weight: 700;
 }
 
 
@@ -263,10 +260,13 @@
 /* ランキングボックス大枠 */
 
 #index_ranking_box {
-  position: relative;
-  width: 230px;
+  /* position: relative; */
+  width: 220px;
   padding: 0 100px 0 0;
-  /* background-color: brown; */
+  /* height: 100%;
+  position: sticky;
+  top: 0; */
+  /* align-self: flex-start; */
 }
 
 #index_animal_top10 {
@@ -282,8 +282,8 @@
   /* position: absolute; */
   top: 0;
   left: 0;
-  width: 190px;
-  padding: 20px 20px 15px 20px;
+  width: 180px;
+  padding: 40px 20px 50px 25px;
   background-image: url("/static/img/ranking_background.png");
   background-size: cover;
   /* border-radius: 18% 13% 10% 12% / 3% 6% 6% 10%; */

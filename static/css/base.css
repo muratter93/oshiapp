@@ -145,18 +145,15 @@ nav {
   position: fixed;
   bottom: 20px;
   left: 0px;
-  font-weight: 600;
+  font-weight: bold;
   font-family: 'Zen Kurenaido';
-  font-size: 18px;
+  font-size: 17px;
   color: rgb(22, 137, 56);
+  -webkit-text-stroke: 5px rgb(255, 255, 255);
+  paint-order: stroke fill;
   transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
-    text-shadow:
-    2px 2px 0 rgba(255, 255, 255, 0.81),
-    -2px -2px 0 rgba(255, 255, 255, 0.81),
-    -2px 2px 0 rgba(255, 255, 255, 0.81),
-    2px -2px 0 rgba(255, 255, 255, 0.81);
+  line-height: 1.25em;
 }
-
 #nav_amimal {
   letter-spacing: -0.2em;
 }
@@ -180,7 +177,7 @@ nav ul li a {
 
 #main_center {
   margin: 0 50px 0 210px;
-  padding: 115px 0px 0px 0px;
+  padding: 80px 0px 0px 0px;
   /* background-color: rgb(168, 168, 234); */
 }
 
@@ -262,6 +259,10 @@ nav ul li a {
   text-decoration: none;
 }
 
+#personal_box_2to3 {
+  display: flex;
+}
+
 #personal_box_01 {
   margin-bottom: 3px;
 }
@@ -335,7 +336,7 @@ nav ul li a {
 /* 右部分ハンバーガーメニュー部分 */
 
 #hamburger_menu {
-  mix-blend-mode: screen;
+  /* mix-blend-mode: screen; */
   pointer-events: auto;
   position: fixed;
   right: 54px;
@@ -351,6 +352,8 @@ nav ul li a {
 
 .hamburger_line {
   border: 2px solid rgb(22, 137, 56);
+  outline: 3px solid rgb(255, 255, 255);
+  background-color: rgb(22, 137, 56);
   border-radius: 5px;
   margin-bottom: 13px;
   width: 80%;
@@ -375,7 +378,7 @@ nav ul li a {
   right: 0;
   pointer-events: auto;
   border-radius: 7px;
-  margin: 65px 46px 0px 0px;
+  margin: 74px 54px 0px 0px;
   display: none;
   background-color: rgba(230, 246, 179, 0.95);
   font-family: 'Zen Kurenaido';
@@ -405,6 +408,9 @@ nav ul li a {
 
 .hum_name:visited {
   color: rgb(22, 137, 56);
+}
+.hum_name:hover {
+  color: rgb(89, 197, 35);
 }
 
 #hamburger_menu_content_02 {
@@ -449,35 +455,25 @@ nav ul li a {
 
 /* 右部分トップ戻るボタン部分 */
 
-.pagetop {
-  mix-blend-mode: screen;
+#pagetop {
+  /* mix-blend-mode: screen; */
   pointer-events: auto;
   position: fixed;
   right: 54px;
-  bottom: 60px;
+  bottom: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
   text-decoration: none;
+  width: 65px;
 }
-
-.pagetop_arrow {
-  height: 40px;
-  width: 40px;
-  border-top: 3.5px solid rgb(22, 137, 56);
-  border-right: 3.5px solid rgb(22, 137, 56);
-  border-top-right-radius: 8px;
-  transform: translateY(20%) rotate(-45deg);
+#pagetop_img {
+  width: 100%;
 }
-
-.pagetop_lang {
-  color: rgb(22, 137, 56);
-  text-align: center;
-  line-height: 18px;
-  font-weight: 600;
-  font-size: 16px;
+#pagetop_img:hover {
+  opacity: 1;
 }
 
 
@@ -498,7 +494,7 @@ footer {
   width: 100%;
   /* height: 120px; */
 }
- 
+
 .goods-track {
   display: flex;
   flex-wrap: nowrap;

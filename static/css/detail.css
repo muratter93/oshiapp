@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0 100px 0 0;
   text-align: center;
-  color: rgb(15, 88, 37);
+  color: rgb(84, 62, 44);
   /* background-color: rgb(255, 230, 0); */
 }
 
@@ -35,7 +35,6 @@
   font-size: 1.3vw;
   margin: 0;
   width: 100%;
-  color: rgb(15, 88, 37);
   width: 72vw;
   /* background-color: rgb(255, 68, 0); */
 }
@@ -145,7 +144,7 @@
 /* 動物種別 */
 #detail_animal_type {
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 0.7px rgb(15, 88, 37);
+  -webkit-text-stroke: 0.7px rgb(84, 62, 44);
   font-size: 1.4vw;
   margin: 1.5vw 0 0 0;
   line-height: 1.2em;
@@ -153,7 +152,7 @@
 /* 名前 */
 #detail_animal_name {
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 1px rgb(15, 88, 37);
+  -webkit-text-stroke: 1px rgb(84, 62, 44);
   font-size: 2.2vw;
   margin: 0.7vw 0 0 0;
   line-height: 1em;
@@ -161,7 +160,7 @@
 /* さん・くん・ちゃん */
 #detail_animal_name_mrs {
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 1.5px rgb(15, 88, 37);
+  -webkit-text-stroke: 1.5px rgb(84, 62, 44);
   font-size: 1.5vw;
   text-align: right;
   margin: -0.5vw 0 0 0;
@@ -170,7 +169,7 @@
 /* 年齢 */
 #detail_animal_age {
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 0.8px rgb(15, 88, 37);
+  -webkit-text-stroke: 0.8px rgb(84, 62, 44);
   font-size: 1.5vw;
   margin: 0;
 }
@@ -318,7 +317,7 @@
   width: 14.5vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
   color: rgb(255, 255, 255);
-  background-color: rgb(15, 88, 37);
+  background-color: rgb(84, 62, 44);
   font-size: 1.1vw;
   font-weight: 700;
   line-height: 1.2em;
@@ -330,14 +329,14 @@
 }
 #detail_subsc_btn:visited {
   color: rgb(255, 255, 255);
-  background-color: rgb(15, 88, 37);
+  background-color: rgb(84, 62, 44);
 }
 #detail_subsc_btn:link {
   color: rgb(255, 255, 255);
-  background-color: rgb(15, 88, 37);
+  background-color: rgb(84, 62, 44);
 }
 #detail_subsc_btn:hover {
-  background-color: rgb(89, 197, 35);
+  background-color: #b78033;
 }
 
 
@@ -353,9 +352,8 @@
 }
 #detail_animal_introduction_text {
   text-align: left;
-  color: rgb(15, 88, 37);
   font-family: 'Zen Kurenaido';
-  -webkit-text-stroke: 0.7px rgb(15, 88, 37);
+  -webkit-text-stroke: 0.7px rgb(84, 62, 44);
   font-size: 1.5vw;
 }
 

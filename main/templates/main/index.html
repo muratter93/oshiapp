@@ -36,16 +36,26 @@
           </div>
           {% if request.user.is_authenticated %}
           <button id="index_push-btn" data-id="{{ a.animal_id }}">
-            <img src="{% static 'img/oshi_button.png' %}" alt="押しボタン" width="98px">
+            <img src="{% static 'img/oshi_button.png' %}" alt="押しボタン">
           </button>
           {% endif %}
 
           <div id="index_intro-btn_box">
-            <a id="index_intro-btn" href="/animals/{{ a.animal_id }}/"><img src="{% static 'img/animal_detail_button.png' %}" alt="詳細ボタン" width="145px"></a>
+            <a id="index_intro-btn" href="/animals/{{ a.animal_id }}/">
+              {% if a.zoo_id == 1 %}
+              <img src="{% static 'img/animal_detail_button_01.png' %}" alt="詳細ボタン">
+              {% elif a.zoo_id == 2 %}
+              <img src="{% static 'img/animal_detail_button_02.png' %}" alt="詳細ボタン">
+              {% elif a.zoo_id == 3 %}
+              <img src="{% static 'img/animal_detail_button_03.png' %}" alt="詳細ボタン">
+              {% else %}
+              <img src="{% static 'img/animal_detail_button.png' %}" alt="詳細ボタン">
+              {% endif %}
+            </a>
           </div>
 
           {% if a.animal_id in subscribed_animal_ids %}
-            <img id="index_oshi-label" src="{% static 'img/tantou_button.png' %}" alt="担当ボタン" width="120px">
+            <img id="index_oshi-label" src="{% static 'img/tantou_button.png' %}" alt="担当ボタン">
           {% endif %}
           
           <!-- {% if a.pic2 %}<div class="dots"></div>{% endif %} -->
@@ -59,7 +69,7 @@
       <div id="index_amnimal_datalang">
         <p id="index_animal_nameagegenlang">
           <!-- <span id="index_animal_namelang">{{ a.name|truncatechars:6 }}</span> -->
-          <a id="index_animal_namelang_a" href="/animals/{{ a.animal_id }}/"><span id="index_animal_namelang">{{ a.name|truncatechars:6 }}</span></a>
+          <a id="index_animal_namelang_a" href="/animals/{{ a.animal_id }}/"><span id="index_animal_namelang">{{ a.name|truncatechars:7 }}</span></a>
           <span id="index_animal-namegenderlang">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
         </p>
         <p id="index_animal_typelang">{{ a.japanese|truncatechars:10 }}
