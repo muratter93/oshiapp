@@ -1,9 +1,20 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load humanize %}
 
-{% block title %}寄付する{% endblock %}
+{% block title %}
+{{ animal.name }}寄付する | アニマルマニア
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/donate.css' %}">
+{% endblock %}
 
 {% block content %}
+
+
+
+
 <h1>動物園に寄付する</h1>
 
 <!-- 寄付の説明部分９～４３まで -->
@@ -47,6 +58,10 @@
   <p style="color:red">{{ error }}</p>
 {% endif %}
 
+
+
+
+
 <form id="donationForm" method="post">
   {% csrf_token %}
 
@@ -73,6 +88,25 @@
 
 <div id="donation_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- 認証誘導モーダル -->
 <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
   <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px;">
@@ -87,6 +121,7 @@
     </div>
   </div>
 </div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

@@ -69,7 +69,10 @@
                 </p>
 
                 <!-- ▼ 交換手続きボタン（ここで POP が出る） -->
+                 {% if user.is_authenticated and wallet %}
                 <p id="cart_have_stapo">{{ user.name|default:user.username|truncatechars:10 }}さんが今お持ちのスタポ数は<span id="cart_have_stapo_num">{{ wallet.stanning_point_balance }}</span>スタポです</p>
+                {% else %}
+                {% endif %}
                 <a id="checkout-link_cart" href="{% url 'goods:checkout' %}">▶交換手続きへ</a>
                 
                 <br>

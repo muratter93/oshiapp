@@ -76,6 +76,7 @@
                     
                     <div id="detail_oshi_btn_box">
 
+                        {% if user.is_authenticated and wallet %}
                         <div id="detail_oshi_btn_text">
                         推しボタンをクリックして{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}を応援しよう！
                         <br>
@@ -86,10 +87,13 @@
                             <img id="detail_oshi_hand_img" src="{% static 'img/detail_cursor.png' %}" alt="カーソル画像">
                         </div>
 
-                        {% if request.user.is_authenticated %}
                         <button class="push-btn-detail" data-id="{{ animal.animal_id }}">
                             <img id="detail_oshi_btn_img" src="{% static 'img/oshi_button.png' %}" alt="推すボタン画像">
                         </button>
+                        {% else %}
+                        <div id="detail_oshi_btn_text_logout">
+                        新規会員登録またはログインすると{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}をさらに応援することができます！
+                        </div>
                         {% endif %}
 
                     </div>
@@ -195,26 +199,26 @@
 
 
 
-
-
-
 <!-- CSRF -->
 <form style="display:none;">{% csrf_token %}</form>
 
+
 <!-- 認証誘導モーダル -->
-<div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
-  <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px;">
-    <h3>会員登録が必要です</h3>
-    <p>プランページに進むにはログインまたは新規登録をしてください。</p>
-    <div style="text-align:right;">
-      <button id="authCancelBtn">キャンセル</button>
-      <a href="{% url 'accounts:signup' %}?next={% url 'subscription:plan_list_by_animal' animal.animal_id %}"
-         style="background:#6b7280;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">新規登録</a>
-      <a href="{% url 'accounts:login' %}?next={% url 'subscription:plan_list_by_animal' animal.animal_id %}"
-         style="background:#2563eb;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">ログイン</a>
+<div id="authModal">
+  <div id="detail_auth_box">
+    <p id="detail_auth_text">サブスクプランページに進むには<br> ログインまたは新規会員登録が必要です。</p>
+
+    <img id="detail_auth_img" src="{% static 'img/auth_img.png' %}" alt="カメ画像">
+
+    <div id="detail_auth_button_box">
+      <button id="authCancelBtn" type="button">キャンセル</button>
+      <a id="detail_auth_new_button" href="{% url 'accounts:signup' %}?next={% url 'subscription:plan_list_by_animal' animal.animal_id %}">新規会員登録</a>
+      <a id="detail_auth_login_button" href="{% url 'accounts:login' %}?next={% url 'subscription:plan_list_by_animal' animal.animal_id %}">ログイン</a>
     </div>
+    
   </div>
 </div>
+
 
 <!-- 推し♡ボタンのJS -->
 <script>
@@ -275,10 +279,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
 <!-- 未ログイン時にモーダル表示 -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const subscribeBtn = document.getElementById("subscribeBtn");
+  const subscribeBtn = document.getElementById("detail_subsc_btn");
   const authModal = document.getElementById("authModal");
   const cancelBtn = document.getElementById("authCancelBtn");
 

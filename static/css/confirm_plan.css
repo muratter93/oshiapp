@@ -1,15 +1,27 @@
 
 /* サブスク加入確認大箱 */
-#plan_list_large_box {
+#confirm_plan_large_box {
   margin: 0;
   padding: 0 100px 0 0;
   text-align: center;
   color: rgb(15, 88, 37);
-  background-color: rgb(255, 230, 0);
+  /* background-color: rgb(255, 230, 0); */
+}
+/* zoo_id = 1 の色 */
+#confirm_plan_large_box.zoo-1 {
+  color: rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_large_box.zoo-2 {
+  color: rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_large_box.zoo-3 {
+  color: rgb(237, 179, 41);
 }
 
 /* サブスク加入確認タイトル */
-#plan_list_lang {
+#confirm_plan_lang {
   text-align: center;
   font-weight: 900;
   font-size: 2.7vw;
@@ -17,66 +29,319 @@
 }
 
 /* サブスク加入確認小箱 */
-#plan_list_small_box {
+#confirm_plan_small_box {
   margin: 0;
   padding: 0 0 50px 0;
   display: flex;
   justify-content: center;
-  background-color: rgb(115, 255, 0);
+  /* background-color: rgb(115, 255, 0); */
 }
 
 /* サブスク加入確認小箱の中の小箱 */
-#plan_list_small_box_border {
+#confirm_plan_small_box_border {
   display: flex;
   justify-content: center;
   margin: 0 auto;
   padding: 0;
   border: 2px solid rgb(172, 200, 180); /*borderの指定*/
   border-radius: 1vw;
-  background-color: rgb(255, 72, 0);
-  width: 45vw;
+  /* background-color: rgb(255, 72, 0); */
+  /* width: 45vw; */
+}
+/* 普通色 */
+#confirm_plan_small_box_border {
+  border: 2px solid rgb(172, 200, 180);
+}
+/* zoo_id = 1 の色 */
+#confirm_plan_small_box_border.zoo-1 {
+  border: 2px solid rgb(156, 201, 166);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_small_box_border.zoo-2 {
+  border: 2px solid rgb(250, 201, 166);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_small_box_border.zoo-3 {
+  border: 2px solid rgb(255, 240, 174);
 }
 
-/* サブスク加入確認小箱の中の小箱の小箱（注文内容テーブル） */
-#plan_list_small_box_lang {
+/* サブスク加入確認小箱の中の小箱の小箱 */
+#confirm_plan_small_box_lang {
   text-align: left;
   font-weight: 800;
   font-size: 1.3vw;
-  padding: 3vw 3vw 3vw 3vw;
+  padding: 3vw 3.4vw 3vw 3vw;
   width: 100%;
-  color: rgb(15, 88, 37);
-  background-color: rgb(105, 103, 42);
+  /* background-color: rgb(105, 103, 42); */
 }
 
 /* ーーーーーーーーー */
 /* 小箱の中の各種項目 */
 /* ーーーーーーーーー */
 
+/* 写真とプランが入っている箱 */
+#confirm_plan_imgplan_box {
+  display: flex;
+  justify-content: center;
+}
+
+/* 動物写真ボックス */
+#confirm_plan_aminal_img_box {
+  width: 7vw;
+  height: 7vw;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  border-radius: 50%;
+  background: none;
+  text-transform: uppercase;
+  margin: -0.7vw 0 0 0;
+}
+/* 動物写真 */
+#confirm_plan_aminal_img {
+  object-position: 50% 40%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* 名前とプラン箱 */
+#confirm_plan_nameplan_box {
+  margin-left: 1.5vw;
+  padding: 0;
+}
+#confirm_plan_name {
+  font-weight: 700;
+  font-size: 1.4vw;
+  padding-left: 0.3vw;
+  padding: 0 0 0.5vw 0.3vw;
+  margin: 0;
+}
+#confirm_plan_name_mrs {
+  font-size: 1vw;
+}
+/* コース箱 */
+#confirm_plan_box {
+  display: flex;
+  width: 100%;
+}
+/* 各コース名箱 */
+/* #confirm_plan_box_01 {
+} */
+/* 各コース名 */
+#confirm_plan_course {
+  text-align: left;
+  font-weight: 900;
+  font-size: 1.1vw;
+  padding: 0.3vw 1.5vw 0.3vw 1.5vw;
+  height: 2vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  /* background-color: rgb(17, 226, 101); */
+  display: flex;
+  align-items: center;     /* 上下中央揃え */
+  border: 3px solid rgb(15, 88, 37);
+  align-items: flex-end;
+}
+/* zoo_id = 1 の色 */
+#confirm_plan_course.zoo-1 {
+  border: 3px solid rgb(39, 117, 33);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_course.zoo-2 {
+  border: 3px solid rgb(248, 104, 143);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_course.zoo-3 {
+  border: 3px solid rgb(237, 179, 41);
+}
+#confirm_plan_course_num {
+  font-size: 1.9vw;
+  margin-bottom: -0.4vw;
+}
+
+/* 月間付与金額箱 */
+/* #confirm_plan_box_02 {
+} */
+/* 月間付与金額 */
+#confirm_plan_stapo {
+  padding: 0.3vw 0 0.3vw 1vw;
+  font-weight: 700;
+  font-size: 1.3vw;
+  height: 2vw;
+  line-height: 1.9em;
+}
+#confirm_plan_stapo_month {
+  font-weight: 700;
+  font-size: 1vw;
+}
+
+/* 加入ボタン確認テキスト */
+#confirm_plan_join_text {
+  font-weight: 700;
+  font-size: 1.1vw;
+  text-align: right;
+  margin-top: 2vw;
+}
+
+/* 加入ボタン */
+#confirm_plan_join_btn {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.2vw;
+  padding: 0.4vw 1.5vw 0.3vw 1.5vw;
+  /* width: 100%; */
+  height: 2vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  background-color: rgb(89, 197, 35);
+  color: rgb(255, 255, 255);
+  float: right;
+}
+/* ボタンリンク時 */
+/* zoo_id = 1となし の色 */
+#confirm_plan_join_btn {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_join_btn.zoo-2 {
+  background: rgb(243, 52, 76); /* 青の例 */
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_join_btn.zoo-3 {
+  background: rgb(230, 115, 0); /* オレンジの例 */
+}
+
+/* ボタン訪問後時 */
+/* zoo_id = 1となし の色 */
+#confirm_plan_join_btn:visited {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_join_btn.zoo-2:visited {
+  background: rgb(243, 52, 76);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_join_btn.zoo-3:visited {
+  background: rgb(230, 115, 0); /* オレンジの例 */
+}
+
+/* ボタンリンク時 */
+/* zoo_id = 1となし の色 */
+#confirm_plan_join_btn:link {
+  color: rgb(255, 255, 255);
+  background-color: rgb(89, 197, 35);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_join_btn.zoo-2:link {
+  background: rgb(243, 52, 76);
+  
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_join_btn.zoo-3:link {
+  background: rgb(230, 115, 0);
+}
+
+/* ボタンホバー時 */
+/* zoo_id = 1となし の色 */
+#confirm_plan_join_btn:hover {
+  background-color: rgb(109, 241, 44);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_join_btn.zoo-2:hover {
+  background: rgb(252, 187, 176);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_join_btn.zoo-3:hover {
+  background: rgb(235, 226, 0);
+}
+
+
+/* プランページ（前）へ戻るリンク */
+#confirm_plan_returnplan {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1vw;
+  color: rgb(172, 200, 180);
+  clear: both;
+  padding-top: 1vw;
+  position: absolute;
+}
+/* zoo_id = 1 の色 */
+#confirm_plan_returnplan.zoo-1 {
+  color: rgb(156, 201, 166);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_returnplan.zoo-2 {
+  color: rgb(250, 201, 166);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_returnplan.zoo-3 {
+  color: rgb(255, 240, 174);
+}
+/* visited */
+/* 普通色 */
+#confirm_plan_returnplan:visited {
+  color: rgb(172, 200, 180);
+}
+/* zoo_id = 1 の色 */
+#confirm_plan_returnplan.zoo-1:visited {
+  color: rgb(156, 201, 166);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_returnplan.zoo-2:visited {
+  color: rgb(250, 201, 166);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_returnplan.zoo-3:visited {
+  color: rgb(255, 240, 174);
+}
+/* link */
+/* 普通色 */
+#confirm_plan_returnplan:link {
+  color: rgb(172, 200, 180);
+}
+/* zoo_id = 1 の色 */
+#confirm_plan_returnplan.zoo-1:link {
+  color: rgb(156, 201, 166);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_returnplan.zoo-2:link {
+  color: rgb(250, 201, 166);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_returnplan.zoo-3:link {
+  color: rgb(255, 240, 174);
+}
+/* ホバー時 */
+/* 普通色 */
+#confirm_plan_returnplan:hover {
+  color: rgb(89, 197, 35);
+}
+/* zoo_id = 1 の色 */
+#confirm_plan_returnplan.zoo-1:hover {
+  color: rgb(89, 197, 35);
+}
+/* zoo_id = 2 の色 */
+#confirm_plan_returnplan.zoo-2:hover {
+  color: rgb(239, 146, 129);
+}
+/* zoo_id = 3 の色 */
+#confirm_plan_returnplan.zoo-3:hover {
+  color: rgb(235, 226, 0);
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* グッズページへ戻る */
-#plan_list_animalpage_link {
+/* 個別動物ページへ戻る */
+#confirm_plan_animalpage_link {
   text-decoration: none;
   font-size: 14pt;
 }
 
 /* トップページへもどる */
-#plan_list_returntop_link {
+#confirm_plan_returntop_link {
   text-decoration: none;
   font-size: 14pt;
 }

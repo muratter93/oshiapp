@@ -141,7 +141,7 @@ nav ul li a:hover {
 /* 左部分ナビゲーション部分 */
 
 nav {
-  mix-blend-mode: color-dodge;
+  /* mix-blend-mode: color-dodge; */
   position: fixed;
   bottom: 20px;
   left: 0px;
@@ -150,6 +150,11 @@ nav {
   font-size: 18px;
   color: rgb(22, 137, 56);
   transition: opacity 0.1s ease-in-out, visibility 0.1s ease-in-out;
+    text-shadow:
+    2px 2px 0 rgba(255, 255, 255, 0.81),
+    -2px -2px 0 rgba(255, 255, 255, 0.81),
+    -2px 2px 0 rgba(255, 255, 255, 0.81),
+    2px -2px 0 rgba(255, 255, 255, 0.81);
 }
 
 #nav_amimal {

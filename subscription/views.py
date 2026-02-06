@@ -73,7 +73,7 @@ def join_plan(request, plan_id, animal_id):
         return render(request, "subscription/join_done.html", {
             "animal": animal,
             "plan": plan,
-            "error": f"すでに {animal.name} に有効な加入プランがあります（プラン: {existing_active.plan.plan_name}）",
+            "error": f"すでに {animal.name} さんの他のコース（{existing_active.plan.plan_name}）に加入しています。",
         })
 
     # ① 新規加入レコードを作成

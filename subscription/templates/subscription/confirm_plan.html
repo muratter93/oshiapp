@@ -10,34 +10,49 @@
 
 {% block content %}
 
-<div id="plan_list_large_box">
+<div id="confirm_plan_large_box" class="zoo-{{ animal.zoo_id }}">
     
-    <h1 id="plan_list_lang">サブスクプランご加入の確認</h1>
+    <h1 id="confirm_plan_lang">サブスクプランご加入の確認</h1>
 
-    <div id="plan_list_small_box">
+    <div id="confirm_plan_small_box">
         
-        <div id="plan_list_small_box_border">
+        <div id="confirm_plan_small_box_border" class="zoo-{{ animal.zoo_id }}">
 
-            <div id="plan_list_small_box_lang">
+            <div id="confirm_plan_small_box_lang">
 
+                <div id="confirm_plan_imgplan_box">
 
-<p>{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}のサブスクプラン</p>
+                    <div id="confirm_plan_aminal_img_box">
+                        <img id="confirm_plan_aminal_img" src="{{ animal.pic1.url }}" alt="{{ animal.japanese }}">
+                    </div>
 
-<p>月{{ plan.amount }}円コース</p>
+                    <div id="confirm_plan_nameplan_box">
 
-<p>月{{ plan.st_point }}スタポ付与</p>
+                        <p id="confirm_plan_name">{{ animal.name }}<span id="confirm_plan_name_mrs"> {% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+                        
+                        <div id="confirm_plan_box">
 
-<p>上記に加入する場合はボタンをクリックしてください▼</p>
+                            <div id="confirm_plan_box_01">
+                                <div id="confirm_plan_course" class="zoo-{{ animal.zoo_id }}">
+                                    <span id="confirm_plan_course_num">{{ plan.amount }} </span>円/月コース
+                                </div>
+                            </div>
 
-<!-- 実際に加入するボタン -->
-<a href="{% url 'subscription:join_plan' plan.id animal.animal_id %}">このプランに加入する</a>
+                            <div id="confirm_plan_box_02">
+                                <div id="confirm_plan_stapo">{{ plan.st_point }}スタポ<span id="confirm_plan_stapo_month">/月</span> 付与</div>
+                            </div>
 
+                        </div>
 
+                    </div>
 
-<br><br>
-<a href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}">戻る</a>
+                </div>
 
+                <p id="confirm_plan_join_text">上記に加入する場合は加入ボタンをクリックしてください ▼</p>
 
+                <a id="confirm_plan_join_btn" class="zoo-{{ animal.zoo_id }}" href="{% url 'subscription:join_plan' plan.id animal.animal_id %}">このプランに加入する</a>
+
+                <a id="confirm_plan_returnplan" class="zoo-{{ animal.zoo_id }}" href="{% url 'subscription:plan_list_by_animal' animal.animal_id %}">◀ プランページへ戻る</a>
 
             </div>
 
@@ -45,14 +60,13 @@
 
     </div>
 
-    <a id="plan_list_animalpage_link" href="{% url 'animals:animal_detail' animal.animal_id %}">▶{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}のページへもどる</a>
+    <a id="confirm_plan_animalpage_link" href="{% url 'animals:animal_detail' animal.animal_id %}">▶{{ animal.name }}{% if animal.sex == "M" %}くん{% elif animal.sex == "F" %}ちゃん{% else %}さん{% endif %}のページへもどる</a>
     <br><br>
 
-    <a id="plan_list_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
+    <a id="confirm_plan_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
 
     <br><br><br><br><br>
 
 </div>
-
 
 {% endblock %}

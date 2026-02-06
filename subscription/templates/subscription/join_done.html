@@ -2,13 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>{{ animal.name }}の加入完了</title>
+<title>サブスク加入完了</title>
 <script>
 window.onload = function() {
     {% if error %}
         alert("{{ error }}");
     {% else %}
-        alert("{{ animal.name }}を推します！\nプラン: {{ plan.plan_name }}");
+        alert("{{ animal.name }}さんの\n{{ plan.plan_name }}コースに加入して\n{{ animal.name }}さんを推します！");
     {% endif %}
     window.location.href = "{% url 'animals:animal_detail' animal.animal_id %}";
 }

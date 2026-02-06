@@ -287,6 +287,7 @@
   border-radius: 7px;
   text-decoration: none;
   font-weight: 700;
+  font-size: 1.15vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #modals_auth_new_button:hover {
@@ -300,6 +301,7 @@
   border-radius: 7px;
   text-decoration: none;
   font-weight: 700;
+  font-size: 1.15vw;
   border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
 }
 #modals_auth_login_button:hover {

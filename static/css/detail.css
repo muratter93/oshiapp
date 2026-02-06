@@ -146,7 +146,7 @@
 #detail_animal_type {
   font-family: 'Zen Kurenaido';
   -webkit-text-stroke: 0.7px rgb(15, 88, 37);
-  font-size: 1.5vw;
+  font-size: 1.4vw;
   margin: 1.5vw 0 0 0;
   line-height: 1.2em;
 }
@@ -154,7 +154,7 @@
 #detail_animal_name {
   font-family: 'Zen Kurenaido';
   -webkit-text-stroke: 1px rgb(15, 88, 37);
-  font-size: 2.4vw;
+  font-size: 2.2vw;
   margin: 0.7vw 0 0 0;
   line-height: 1em;
 }
@@ -237,6 +237,14 @@
   font-size: 1vw;
   line-height: 1em;
   width: 12vw;
+}
+#detail_oshi_btn_text_logout {
+  font-weight: 700;
+  font-size: 1vw;
+  line-height: 1em;
+  /* width: 12vw; */
+  margin: -0.5vw 0 2vw 0;
+  /* text-align: right; */
 }
 #detail_oshi_btn_text_small {
   font-weight: 700;
@@ -550,5 +558,84 @@
 #detail_returntop_link {
   text-decoration: none;
   font-size: 14pt;
+}
+
+
+/* ーーーーーーーー */
+/* 会員登録認証誘導 */
+/* ーーーーーーーー */
+
+/* 会員登録認証誘導大箱 */
+#authModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(105, 184, 120, 0.62);
+}
+/* 会員登録認証誘導小箱 */
+#detail_auth_box {
+  background-color: rgb(255, 255, 255);
+  width: 30vw;
+  margin: 23vh 0 0 31.5vw;
+  padding: 2vw 5vw 4vw 5vw;
+  border-radius: 8px;
+  text-align: center;
+}
+/* 会員登録認証誘導テキスト */
+#detail_auth_text {
+  font-size: 1.5vw;
+  font-weight: 600;
+  color: rgb(22, 137, 56);
+  margin-bottom: 2vw;
+}
+#detail_auth_img {
+  width: 25%;
+  margin-top: -1vw;
+  margin-bottom: 1vw;
+}
+/* キャンセルボタン */
+#authCancelBtn {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.1vw;
+  font-weight: 500;
+  height: 2.6vw;
+  width: 7.8vw;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(22, 137, 56);
+  border: 2px solid rgb(22, 137, 56);
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+}
+#authCancelBtn:hover {
+  color: rgb(89, 197, 35);
+  border: 2px solid rgb(89, 197, 35);
+}
+/* 新規登録ボタン */
+#detail_auth_new_button {
+  background-color: rgb(22, 137, 56);
+  color: #fff;
+  padding: 0.4vw 1.3vw 0.4vw 1.3vw;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+}
+#detail_auth_new_button:hover {
+  background-color: rgb(89, 197, 35);
+}
+/* ログインボタン */
+#detail_auth_login_button {
+  background-color: rgb(22, 137, 56);
+  color: #fff;
+  padding: 0.4vw 1.3vw 0.4vw 1.3vw;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+}
+#detail_auth_login_button:hover {
+  background-color: rgb(89, 197, 35);
 }
 

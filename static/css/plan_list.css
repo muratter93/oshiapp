@@ -65,15 +65,15 @@
 }
 /* zoo_id = 1 の色 */
 #plan_list_aminal_img_box.zoo-1:after {
-  background: rgb(156, 201, 166); /* 緑 */
+  background: rgb(156, 201, 166);
 }
 /* zoo_id = 2 の色 */
 #plan_list_aminal_img_box.zoo-2:after {
-  background: rgb(250, 201, 166); /* 青の例 */
+  background: rgb(250, 201, 166);
 }
 /* zoo_id = 3 の色 */
 #plan_list_aminal_img_box.zoo-3:after {
-  background: rgb(255, 240, 174); /* オレンジの例 */
+  background: rgb(255, 240, 174);
 }
 
 /* サブスクプラン応援文字 */
@@ -101,7 +101,7 @@
   /* width: 45vw; */
 }
 
-/* サブスクプラン小箱の中の小箱の小箱（注文内容テーブル） */
+/* サブスクプラン小箱の中の小箱の小箱 */
 #plan_list_small_box_lang {
   /* text-align: left; */
   font-weight: 800;
@@ -235,11 +235,12 @@
 }
 /* zoo_id = 2 の色 */
 #plan_list_join_btn.zoo-2:link {
-  background: rgb(243, 52, 76); /* 青の例 */
+  background: rgb(243, 52, 76);
+  
 }
 /* zoo_id = 3 の色 */
 #plan_list_join_btn.zoo-3:link {
-  background: rgb(230, 115, 0); /* オレンジの例 */
+  background: rgb(230, 115, 0);
 }
 
 /* ボタンホバー時 */
@@ -249,27 +250,17 @@
 }
 /* zoo_id = 2 の色 */
 #plan_list_join_btn.zoo-2:hover {
-  background: rgb(243, 52, 76); /* 青の例 */
+  background: rgb(252, 187, 176);
 }
 /* zoo_id = 3 の色 */
 #plan_list_join_btn.zoo-3:hover {
-  background: rgb(235, 226, 0); /* オレンジの例 */
+  background: rgb(235, 226, 0);
 }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-/* グッズページへ戻る */
+/* 動物ページへ戻る */
 #plan_list_animalpage_link {
   text-decoration: none;
   font-size: 14pt;
