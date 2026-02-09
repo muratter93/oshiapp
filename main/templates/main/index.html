@@ -35,7 +35,7 @@
             <p id="index_point">{{ a.total_point }}</p>
           </div>
           {% if request.user.is_authenticated %}
-          <button id="index_push-btn" data-id="{{ a.animal_id }}">
+          <button id="index_push-btn" data-id="{{ a.animal_id }}" data-diet="{{ a.diet }}">
             <img src="{% static 'img/oshi_button.png' %}" alt="押しボタン">
           </button>
           {% endif %}

@@ -2,11 +2,11 @@
 
 // 主食タイプ → 画像
 const DIET_ICON_MAP = {
-  A: '/static/img/food_meat.png',
-  B: '/static/img/food_grass.png',
-  C: '/static/img/food_fish.png',
-  D: '/static/img/food_fruit.png',
-  E: '/static/img/food_bug.png',
+  A: '/static/img/food_meat1.png',
+  B: '/static/img/food_grass2.png',
+  C: '/static/img/food_fish3.png',
+  D: '/static/img/food_fruit4.png',
+  E: '/static/img/food_bug5.png',
 };
 
 const DEFAULT_HEART = '/static/img/heart-cl9.png';

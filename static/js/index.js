@@ -14,30 +14,46 @@ function getCookie(name){
   return cookieValue;
 }
 
-/* ❤️ ハートを飛ばす（.index 内に追加、position:fixed想定） */
+const DIET_ICON_MAP = {
+  A: '/static/img/food_meat1.png',
+  B: '/static/img/food_grass2.png',
+  C: '/static/img/food_fish3.png',
+  D: '/static/img/food_fruit4.png',
+  E: '/static/img/food_bug5.png',
+};
+
+const DEFAULT_HEART = '/static/img/heart-cl9.png';
+
+
+// ⭐ ここに置く
 function spawnHearts(button, count = 1) {
-  const wrapper = button.closest('#index_mainbox_large') || document.body;
+  const wrapper = document.body;
   const rect = button.getBoundingClientRect();
+  const diet = button.dataset.diet;
 
   for (let i = 0; i < count; i++) {
     const el = document.createElement('img');
-    el.className = 'index_heart'; // CSSは .index_heart で定義
-    el.src = 'static/img/heart-cl9.png';
-    el.alt = 'heart';
-    
-    const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 40;
-    const y = rect.top + rect.height / 2;
-    el.style.left = `${x}px`;
-    el.style.top = `${y}px`;
+    el.className = 'index_heart';
+    el.alt = 'icon';
 
-    // ここで飛ばす画像サイズ指定（例：幅30px）
-    el.style.width = `50px`;
-    el.style.position = 'fixed';
-    el.style.pointerEvents = 'none'; // クリックを無視
+    const isFood = Math.random() < 0.5;
+
+    el.src = isFood
+      ? (DIET_ICON_MAP[diet] || DEFAULT_HEART)
+      : DEFAULT_HEART;
+
+  const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 40;
+  const y = rect.top  + rect.height / 2;
+
+    el.style.left = `${x + window.scrollX}px`;
+    el.style.top  = `${y + window.scrollY}px`;
+    el.style.width = '50px';
+    el.style.position = 'absolute';
+    el.style.pointerEvents = 'none';
+    el.style.zIndex = 9999;
 
     wrapper.appendChild(el);
     setTimeout(() => el.remove(), 4000);
-
   }
 
   // キラッ✨
