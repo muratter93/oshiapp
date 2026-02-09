@@ -2,9 +2,7 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}
-{{ animal.name }}寄付する | アニマルマニア
-{% endblock %}
+{% block title %}動物園に寄付する | アニマルマニア{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/donate.css' %}">
@@ -12,103 +10,94 @@
 
 {% block content %}
 
+<div id="donate_large_box">
+    
+    <h1 id="donate_lang">動物園に寄付する</h1>
 
+    <div id="donate_small_box">
 
+        <div id="donate_small_box_contents">
 
-<h1>動物園に寄付する</h1>
+            <div id="donate_left_box">
 
-<!-- 寄付の説明部分９～４３まで -->
-<div class="donation_info_container">
-  <!-- ヘッダー -->
-  <header class="donation_header">
-    <h2>動物園への寄付について</h2>
-    <p class="subtitle">ふるさと納税のように、寄附金受領証明書が発行されます</p>
-  </header>
+                <div id="donate_about_box">
+                    <h2 class="donate_title">動物園への寄付について</h2>
+                    <p class="donate_text">各動物園では、皆さまからの寄付金を受けつけています。<br>
+                        皆さまからの寄付金は、寄付してくださった動物園の<br>
+                        動物たちの飼育や環境設備などの費用に使われます。</p>
+                    <img id="donate_about_img" src="{% static 'img/animalkeeper_other.png' %}" alt="アシカお食事画像">
+                </div>
 
-  <!-- 寄付の目的・意義 -->
-  <section class="donation_purpose">
-    <h3>寄付の目的・意義</h3>
-    <p>寄付金は動物園の動物たちの飼育や環境整備に使われます。</p>
-    {% comment %} <img src="{% static 'img/zoo_sample.jpg' %}" alt="動物園イメージ" class="donation_image"> {% endcomment %}
-  </section>
+                <img id="donate_ex_img" src="{% static 'img/donate_ex.png' %}" alt="寄付の流れ説明画像">
 
-  <!-- 寄付の流れ -->
-  <section class="donation_flow">
-    <h3>寄付の流れ</h3>
-    <ol>
-      <li>寄付する動物園と金額を選びます</li>
-      <li>確認ページで内容をチェックします</li>
-      <li>寄付完了 → PDFで「寄附金受領証明書」が発行されます</li>
-    </ol>
-  </section>
+                <div id="donate_document_box">
+                    <h2 class="donate_title">寄附金受領証明書について</h2>
+                    <img id="donate_certificate_img" src="{% static 'img/donate_certificate.png' %}" alt="証明書画像">
+                    <p class="donate_text">寄付してくださったかたには、寄付金受領証明書が発行されます。<br>
+                        この証明書は税金控除に利用する事ができます。<br>
+                        寄付金受領証明書は、寄付履歴ページPDFリンクよりご覧ください。</p>
+                    <img id="donate_document_img" src="{% static 'img/torou.png' %}" alt="寄附金受領証明書サンプル">
+                    <br>
+                    <a id="donate_document_link" href="{% static 'pdf/tarou1.pdf' %}" target="_blank">▶ 寄附金受領証明書サンプルPDFを見る</a>
+                </div>
 
-  <!-- 寄附金受領証明書について -->
-  <section class="donation_certificate">
-    <h3>寄附金受領証明書について</h3>
-    <p>この証明書は税金控除に利用できます。</p>
-    <p>サンプルPDFを確認する: <a href="{% static 'pdf/tarou1.pdf' %}" target="_blank">PDFサンプルを見る</a></p>
-    <img src="{% static 'img/torou.png' %}" 
-       alt="PDFサンプルサムネイル" 
-       class="certificate_thumb"
-       style="max-width: 200px; height: auto; display:block; margin-top:8px;">
-  </section>
-</div> 
+            </div>
 
-{% if error %}
-  <p style="color:red">{{ error }}</p>
-{% endif %}
+            <form id="donationForm" method="post">
+                {% csrf_token %}
 
+                <p id="donationorm_title">寄付フォーム</p>
 
+                <label class="donationorm_eachtitle">寄付する動物園</label>
+                <br>
+                <select name="zoo" class="donationform_text">
+                    <option value="">選択してください</option>
+                    {% for zoo in zoos %}
+                    <option value="{{ zoo.pk }}">{{ zoo.zoo_name }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
 
+                <label class="donationorm_eachtitle">寄付する金額</label>
+                <br>
+                <select name="amount" class="donationform_text">
+                    <option value="10000">10,000円</option>
+                    <option value="50000">50,000円</option>
+                    <option value="100000">100,000円</option>
+                </select>
+                <br>
 
+                {% if error %}
+                <p id="donationorm_error">▲{{ error }}</p>
+                <button id="donate_btn_02" type="submit">上記の内容で寄付する</button>
+                {% else %}
+                <button id="donate_btn_01" type="submit">上記の内容で寄付する</button>
+                {% endif %}
 
-<form id="donationForm" method="post">
-  {% csrf_token %}
+                <img id="donationorm_img" src="{% static 'img/alpaca.png' %}" alt="アルパカ画像">
 
-  <label>動物園を選択:</label>
-  <select name="zoo">
-    <option value="">選択してください</option>
-    {% for zoo in zoos %}
-      <option value="{{ zoo.pk }}">{{ zoo.zoo_name }}</option>
-    {% endfor %}
-  </select>
-  <br><br>
+            </form>
 
-  <label>寄付額:</label>
-  <select name="amount">
-    <option value="10000">10,000円</option>
-    <option value="50000">50,000円</option>
-    <option value="100000">100,000円</option>
-  </select>
-  <br><br>
+        </div>
 
-  <button type="submit">上記の内容で寄付する</button>
-  {% comment %} <a href="{% url 'donation:donation_history' %}">寄付履歴を見る</a> {% endcomment %}
-</form>
+    </div>
 
-<div id="donation_returntop_button"><a href="{% url 'main:index' %}#">▶トップページへもどる</a></div>
+    <a id="donate_historypage_link" href="{% url 'donation:donation_history' %}">▶寄付履歴を見る</a>
 
+    <br><br>
 
+    <a id="donate_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
 
+    <br><br><br><br><br>
 
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 
 
 
 
 <!-- 認証誘導モーダル -->
-<div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
+<!-- <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.35);">
   <div style="background:#fff; width:90%; max-width:420px; margin:10vh auto; padding:16px; border-radius:8px;">
     <h3>会員登録が必要です</h3>
     <p>寄付するにはログインまたは新規登録をしてください。</p>
@@ -120,7 +109,23 @@
          style="background:#2563eb;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;">ログイン</a>
     </div>
   </div>
+</div> -->
+
+<div id="authModal">
+  <div id="donate_auth_box">
+    <p id="donate_auth_text">寄付をするには<br> ログインまたは新規会員登録が必要です。</p>
+
+    <img id="donate_auth_img" src="{% static 'img/auth_img.png' %}" alt="カメ画像">
+
+    <div id="donate_auth_button_box">
+      <button id="authCancelBtn" type="button">キャンセル</button>
+      <a id="donate_auth_new_button" href="{% url 'accounts:signup' %}?next={% url 'donation:donate' %}">新規会員登録</a>
+      <a id="donate_auth_login_button" href="{% url 'accounts:login' %}?next={% url 'donation:donate' %}">ログイン</a>
+    </div>
+    
+  </div>
 </div>
+
 
 
 <script>

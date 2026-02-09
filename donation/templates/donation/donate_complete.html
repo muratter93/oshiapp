@@ -1,14 +1,47 @@
 {% extends "common/base.html" %}
+{% load static %}
+{% load humanize %}
 
-{% block title %}寄付完了{% endblock %}
+{% block title %}寄付完了 | アニマルマニア{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/donate_complete.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>寄付が完了しました！</h1>
-<p>{{ donation.zoo.zoo_name }} に {{ donation.amount }}円 寄付しました。</p>
-<p>
-    <a href="{% url 'donation:donation_receipt_pdf' donation.donation_id %}" target="_blank">
-        寄附金受領証明書（PDF）を見る
-    </a>
-</p>
-<a href="{% url 'donation:donate' %}">別の寄付をする</a>
+
+<div id="donate_complete_large_box">
+    
+    <h1 id="donate_complete_lang">寄付完了</h1>
+
+    <div id="donate_complete_small_box">
+
+        <div id="donate_complete_small_box_contents">
+
+            <p id="donate_complete_username">{{ user.name }}<span id="donate_complete_username_mrs">さま</span></p>
+            <p class="donate_complete_text">寄付が完了しました！</p>
+            <p class="donate_complete_text"><span class="donate_complete_item">{{ donation.zoo.zoo_name }}</span> に<span class="donate_complete_item">{{ donation.amount|intcomma }}円</span> 寄付しました。</p>
+            <p class="donate_complete_text">ありがとうございます！！！</p>
+            <img id="donate_confirm_img" src="{% static 'img/thankyou_tiger.png' %}" alt="トラありがとう画像">
+            <br>
+            <a class="donate_complete_link" href="{% url 'donation:donation_receipt_pdf' donation.donation_id %}" target="_blank">
+                ▶ 寄附金受領証明書（PDF）を見る
+            </a>
+            <br>
+            <a class="donate_complete_link" href="{% url 'donation:donate' %}">▶ 別の寄付をする</a>
+
+        </div>
+
+    </div>
+
+    <a id="donate_complete_historypage_link" href="{% url 'donation:donation_history' %}">▶寄付履歴を見る</a>
+
+    <br><br>
+
+    <a id="donate_complete_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
+
 {% endblock %}

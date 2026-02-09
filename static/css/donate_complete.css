@@ -1,0 +1,108 @@
+
+/* 寄付完了大箱 */
+#donate_complete_large_box {
+  color: rgb(16, 162, 116);
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+    /* background-color: rgb(56, 122, 122); */
+}
+
+/* 寄付完了タイトル */
+#donate_complete_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* 寄付完了小箱 */
+#donate_complete_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+/* 小箱枠 */
+#donate_complete_small_box_contents {
+  border: 2px solid rgb(93, 194, 162); /*borderの指定*/
+  border-radius: 1vw;
+  padding: 1.5vw 3vw 3vw 3vw;
+  /* width: 30vw; */
+  /* background-color: rgb(105, 103, 42); */
+  text-align: center;
+}
+/* 完了文 */
+#donate_complete_username {
+  font-weight: 700;
+  font-size: 1.3vw;
+  margin-bottom: 1vw;
+}
+#donate_complete_username_mrs {
+  font-weight: 700;
+  font-size: 1vw;
+}
+.donate_complete_text {
+  font-weight: 500;
+  font-size: 1.15vw;
+  margin-bottom: -1vw;
+}
+.donate_complete_item {
+  font-weight: 700;
+  font-size: 1.3vw;
+}
+/* トラありがとう画像 */
+#donate_confirm_img {
+  width: 11vw;
+  padding: 2.5vw 2.5vw 1.5vw 0;
+}
+/* 証明書・別の寄付リンク */
+.donate_complete_link {
+  text-decoration: none;
+  color: rgb(145, 204, 186);
+  font-size: 1.05vw;
+}
+.donate_complete_link:visited {
+  color: rgb(145, 204, 186);
+}
+.donate_complete_link:link {
+  color: rgb(145, 204, 186);
+}
+.donate_complete_link:hover {
+  color: rgb(0, 255, 170);
+}
+
+/* 別の寄付をするリンク */
+#donate_complete_returnlink {
+  text-decoration: none;
+  color: rgb(145, 204, 186);
+  font-size: 1.15vw;
+}
+#donate_complete_returnlink:visited {
+  color: rgb(145, 204, 186);
+}
+#donate_complete_returnlink:link {
+  color: rgb(145, 204, 186);
+}
+#donate_complete_returnlink:hover {
+  color: rgb(0, 255, 170);
+}
+
+
+/* 寄付履歴へ */
+#donate_complete_historypage_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#donate_complete_returntop_link {
+  text-decoration: none;
+  font-size: 14pt;
+}

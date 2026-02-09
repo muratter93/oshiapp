@@ -6,6 +6,7 @@
 /* 動物ボックスランキング部分も入っている外の大枠 */
 #index_mainbox_large {
   display: flex;
+  margin-top: 25px;
 }
 
 /* 動物の写真とボタンと文字まで入っている外の大枠 */
@@ -260,19 +261,16 @@
 /* ランキングボックス大枠 */
 
 #index_ranking_box {
-  /* position: relative; */
   width: 220px;
   padding: 0 100px 0 0;
-  /* height: 100%;
-  position: sticky;
-  top: 0; */
-  /* align-self: flex-start; */
+  color: rgb(237, 179, 41);
 }
 
 #index_animal_top10 {
   margin-left: -15px;
   padding: 0;
   text-align: center;
+  width: 210px;
 }
 
 /* 右ランキング内※インクルード物 */
@@ -295,7 +293,7 @@
 /* ランキング内タイトル文字 */
 #index_ranking_title {
   font-size: 17pt;
-  color: rgb(84, 62, 44);
+  color: rgb(237, 179, 41);
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -314,7 +312,7 @@
 /* ランキングナンバー */
 .index_rank_number {
   font-weight: 900;
-  color: rgb(84, 62, 44); 
+  color: rgb(237, 179, 41); 
   font-size: 27pt;
   padding: 0;
   margin: -7px 0 -25px 0;
@@ -325,14 +323,14 @@
   border: none;
   margin: 0 55px 0 32px;
   padding: 0;
-  border-top: 1.5px solid rgb(84, 62, 44);
+  border-top: 1.5px solid rgb(237, 179, 41);
 }
 
 #index_ranking_num_underline_02 {
   border: none;
   margin: 0 60px 0 55px;
   padding: 0;
-  border-top: 1.5px solid rgb(84, 62, 44);
+  border-top: 1.5px solid rgb(237, 179, 41);
 }
 
 /* ランキング内名前と動物名要素 */
@@ -346,8 +344,17 @@
 
 /* ランキング内動物名前 */
 .index_rank_link_name {
-  color: rgb(84, 62, 44);
+  color: rgb(181, 114, 14);
   text-decoration: none;
+}
+.index_rank_link_name:visited {
+  color: rgb(181, 114, 14);
+}
+.index_rank_link_name:link {
+  color: rgb(181, 114, 14);
+}
+.index_rank_link_name:hover {
+  color: rgb(90, 58, 6);
 }
 
 /* ランキング内動物名前のみ */
@@ -356,25 +363,17 @@
   font-weight: 700;
 }
 
-.index_rank_link_name:visited {
-  color: rgb(84, 62, 44);
-}
-
-.index_rank_link_name:hover {
-  color: #b78033;
-}
-
 /* ランキング内動物名前さん付け */
 #index_animal-namegenderlang_ranking {
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 700;
   margin-left: -3px;
 }
 
 /* ランキング内動物種類 */
 .index_rank_japanese { 
-  color: rgb(84, 62, 44);
-  font-size: 9pt;
+  color: rgb(237, 179, 41);
+  font-size: 7.5pt;
   margin: 2px 0 0 0;
   padding: 0;
   font-weight: 700;

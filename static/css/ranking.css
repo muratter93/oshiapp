@@ -1,37 +1,26 @@
 
-@font-face {
-  font-family: 'JikiTourai'; /* 好きな名前（英数字） */
-  src: url('../fonts/JikiTourai.ttf') format('ttf'); /* フォントファイルのパス */
-  /* 別の形式も指定可能 */
-       /* url('../fonts/MyCustomFont-Regular.woff') format('woff');  */
-       
-  font-weight: normal; /* フォントの太さ */
-  font-style: normal;  /* フォントのスタイル */
-  font-display: swap;  /* フォント読み込み時の表示制御（オプション） */
-}
-
-
-
-
 /* ランキング外枠大箱 */
 
 #rankig_box_big_all {
   margin: 0 140px 0 0;
   padding: 0;
+  font-family: 'M PLUS Rounded 1c';
   /* width: 100%; */
+  /* background-color: #007bff; */
 }
 
 /* ランキング1-3大箱 */
 #rankig_box_large_1to3 {
   display: grid;
   grid-template-columns: 3fr 2fr;
-  height: 600px;
+  height: 40vw;
   width: 100%;
+  /* background-color: #c037ab; */
 }
 
 /* ランキング1-3中箱 ※1が入 */
 #rank_box_middle_1to3_01 {
-  height: 600px;
+  height: 100%;
   position: relative;
 }
 
@@ -63,40 +52,42 @@
 /* 順位1位の文字箱 */
 #rank_num_box_1 {
   position: absolute;
-  top: 360px;
-  left: 0px;
+  top: 58%;
+  left: 0%;
   background-color: #000000;
-  width: 120px;
+  width: 8vw;
   height: 18%;
+  text-align: center;
 }
 
 
 #rank_1_num {
-  text-align: center;
-  top: 78%;
-  transform: translate(0, -78%); /* 要素自身の半分の位置を上にずらす */
+  position: absolute;
+  top: -7%;
+  left: 6%;
   font-family: 'Rubik';
   font-weight: 700;
-  font-size: 83pt;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 7vw;
   color: #ffffff;
+  padding: 0;
+  margin: 0;
 }
 
 #rank_1_num_rank {
   font-family: 'M PLUS Rounded 1c';
   font-weight: 900;
-  font-size: 35pt;
+  font-size: 3vw;
+  position: absolute;
+  top: 36%;
 }
 
 /* 名前文字 */
 #rank_1_animalname {
   position: absolute;
   font-weight: 900;
-  font-size: 35pt;
-  bottom: 15px;
-  left: 15px;
+  font-size: 3.3vw;
+  bottom: 1.5%;
+  left: 2%;
   color: #ffffff;
 
   white-space: nowrap;
@@ -105,16 +96,16 @@
 }
 
 #rank_animal-namegenderlang_1 {
-  font-size: 20pt;
+  font-size: 1.8vw;
 }
 
 /* 種別文字 */
 #rank_1_animaltype {
   position: absolute;
   font-weight: 900;
-  font-size: 20pt;
-  bottom: 3px;
-  left: 15px;
+  font-size: 1.7vw;
+  bottom: 1%;
+  left: 2%;
   color: #ffffff;
 
   white-space: nowrap;
@@ -135,14 +126,14 @@
 /* ランキング1-3中箱 ※2-3が入 */
 #rank_box_middle_1to3_02 {
   position: relative;
-  height: 600px;
+  height: 100%;
 }
 
 /* ランキング1-3中箱の中の2-3が入っている中の小箱 */
 #rank_box_middle_2to3 {
   display: flex;
   flex-direction: column;
-  height: 600px;
+  height: 100%;
 }
 
 #rank_box_small_2, #rank_box_small_3 {
@@ -157,7 +148,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 300px;
+  height: 50%;
 }
 
 #rank_img_large_box_3 {
@@ -165,7 +156,7 @@
   top: 250;
   left: 0;
   width: 100%;
-  height: 300px;
+  height: 50%;
 }
 
 #rank_img_box_2, #rank_img_box_3 {
@@ -330,7 +321,7 @@
 /* ランキング4-6大箱 */
 #rank_box_middle_4to6 {
   display: flex;
-  height: 300px;
+  height: 20vw;
 }
 
 /* ランキング4-6小箱 */
@@ -429,7 +420,7 @@
 /* ランキング7-10大箱 */
 #rank_box_middle_7to10 {
   display: flex;
-  height: 300px;
+  height: 18vw;
 }
 
 /* ランキング7-10小箱 */
@@ -527,7 +518,7 @@
 /* ランキング11-15と16-20の大箱 */
 #rank_box_middle_11to15, #rank_box_middle_16to20 {
   display: flex;
-  height: 250px;
+  height: 17vw;
 }
 
 /* ランキング11-15と16-20の小箱 */
@@ -644,7 +635,7 @@
 #rank_box_small_21to {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 14vw;
   background: none;
   text-transform: uppercase;
   cursor: pointer;
@@ -674,7 +665,7 @@
 }
 
 #rank_21to_num {
-  font-family: 'JikiTourai';
+  font-family: 'Rubik';
 }
 
 #rank_21to_animalname {

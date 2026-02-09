@@ -1,16 +1,53 @@
 {% extends "common/base.html" %}
+{% load static %}
+{% load humanize %}
 
-{% block title %}寄付確認{% endblock %}
+{% block title %}寄付のご確認 | アニマルマニア{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/donate_confirm.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1>寄付内容確認</h1>
-<p>動物園: {{ zoo.zoo_name }}</p>
-<p>寄付額: {{ amount }}円</p>
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">寄付を確定する</button>
-</form>
+<div id="donate_confirm_large_box">
+    
+    <h1 id="donate_confirm_lang">寄付内容のご確認</h1>
 
-<a href="{% url 'donation:donate' %}">戻る</a>
+    <div id="donate_confirm_small_box">
+
+        <div id="donate_confirm_small_box_contents">
+
+            <p class="donate_confirm_item">
+              寄付先　　　<span id="donate_confirm_zooname">{{ zoo.zoo_name }}</span>
+            </p>
+            <p class="donate_confirm_item">寄付金額　　
+              <span id="donate_confirm_money">{{ amount|intcomma }}
+                <span id="donate_confirm_money_unit">円</span>
+              </span>
+            </p>
+            <img id="donate_confirm_img" src="{% static 'img/monkey.png' %}" alt="サル画像">
+
+            <form id="donate_confirm_form" method="post">
+              {% csrf_token %}
+              <button id="donate_confirm_btn" type="submit">寄付を確定する</button>
+            </form>
+            <br>
+
+            <a id="donate_confirm_returnlink" href="{% url 'donation:donate' %}">◀ 寄付ページへ戻る</a>
+
+        </div>
+
+    </div>
+
+    <a id="donate_confirm_historypage_link" href="{% url 'donation:donation_history' %}">▶寄付履歴を見る</a>
+
+    <br><br>
+
+    <a id="donate_confirm_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
+
+    <br><br><br><br><br>
+
+</div>
+
 {% endblock %}

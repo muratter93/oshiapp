@@ -1,0 +1,300 @@
+
+/* 寄付する大箱 */
+#donate_large_box {
+  color: rgb(16, 162, 116);
+  margin: 0;
+  padding: 0 100px 0 0;
+  text-align: center;
+    /* background-color: rgb(56, 122, 122); */
+}
+
+/* 寄付するタイトル */
+#donate_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* 寄付する小箱 */
+#donate_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* 寄付する小箱の小箱 */
+#donate_small_box_contents {
+  padding: 0 10vw 5vw 10vw;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(105, 103, 42); */
+}
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+/* 左の箱 */
+#donate_left_box {
+  text-align: center;
+  /* background-color: aquamarine; */
+  width: 38vw;
+  margin-top: 2vw;
+}
+
+/* 寄付についてアシカイラスト */
+#donate_about_img {
+  width: 15vw;
+}
+/* 寄付の流れ画像 */
+#donate_ex_img {
+  width: 100%;
+  margin-top: 2.5vw;
+}
+
+/* 寄付についてと受領書共通部分 */
+.donate_title {
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+  font-size: 2.1vw;
+}
+.donate_text {
+  font-weight: 400;
+  font-size: 1.2vw;
+}
+
+/* 寄付の流れ画像 */
+#donate_ex_img {
+  width: 100%;
+}
+
+/* 寄附金受領証明書について */
+#donate_document_box {
+  margin-top: 3vw;
+  /* background-color: cadetblue; */
+}
+#donate_certificate_img {
+  width: 5vw;
+  margin-top: 1.5vw;
+}
+/* 受領書PDFサンプル */
+#donate_document_img {
+  width: 12vw;
+  margin: 1vw 0;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+/* 受領書サンプルリンク */
+#donate_document_link {
+  text-decoration: none;
+}
+#donate_document_link:link {
+  color: rgb(16, 162, 116);
+}
+#donate_document_link:visited {
+  color: rgb(16, 162, 116);
+}
+#donate_document_link:hover {
+  color: rgb(0, 255, 170);
+}
+
+/* ーーーーーー */
+/* 寄付フォーム */
+/* ーーーーーー */
+
+/* 寄付フォーム大箱 */
+#donationForm {
+  background-color: rgb(93, 194, 162);
+  color: rgb(255, 255, 255);
+  /* text-align: left; */
+  border: 2px solid rgb(93, 194, 162); /*borderの指定*/
+  border-radius: 1vw;
+  margin: 2vw 0 auto 2vw;
+  padding: 1vw 1vw 3vw 1vw;
+  /* background-color: brown; */
+  width: 18vw;
+}
+/* 寄付フォーム箱内タイトル */
+#donationorm_title {
+  font-weight: 700;
+  font-size: 2vw;
+}
+/* 各選択部タイトル */
+.donationorm_eachtitle {
+  font-weight: 700;
+  font-size: 1.4vw;
+}
+/* 各選択部分 */
+.donationform_text {
+  font-family: 'M PLUS Rounded 1c';
+  color: rgb(9, 109, 76);
+  margin-top: 0.5vw;
+  padding: 0.4vw 1.5vw 0.5vw 1.5vw;
+  font-weight: 500;
+  font-size: 1.2vw;
+  border-radius: 0.5vw;
+  border: 2px solid rgb(255, 255, 255); /*borderの指定*/
+}
+.donationform_text:focus {
+  outline: none;
+}
+/* 未選択時エラーメッセージ表示 */
+#donationorm_error {
+  color: rgb(255, 0, 0);
+  font-weight: 700;
+  font-size: 1vw;
+  margin-top: 3vw;
+}
+/* 寄付を確定するボタン */
+#donate_btn_01 {
+  font-family: 'M PLUS Rounded 1c';
+  text-decoration: none;
+  font-size: 1.3vw;
+  font-weight: 700;
+  margin: 3vw 0 2vw 0;
+  padding: 0.3vw 1.5vw 0.4vw 1.5vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  color: rgb(255, 255, 255);
+  background-color: rgb(9, 109, 76);
+  border: none;
+}
+#donate_btn_01:visited {
+  color: rgb(255, 255, 255);
+  background-color: rgb(9, 109, 76);
+}
+#donate_btn_01:link {
+  color: rgb(255, 255, 255);
+  background-color: rgb(9, 109, 76);
+}
+#donate_btn_01:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 255, 170);
+}
+/* エラーメッセージが出た場合のボタン */
+#donate_btn_02 {
+  font-family: 'M PLUS Rounded 1c';
+  text-decoration: none;
+  font-size: 1.3vw;
+  font-weight: 700;
+  margin: 0.5vw 0 2vw 0;
+  padding: 0.3vw 1.5vw 0.4vw 1.5vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+  color: rgb(255, 255, 255);
+  background-color: rgb(9, 109, 76);
+  border: none;
+}
+#donate_btn_02:visited {
+  color: rgb(255, 255, 255);
+  background-color: rgb(9, 109, 76);
+}
+#donate_btn_02:link {
+  color: rgb(255, 255, 255);
+  background-color: rgb(9, 109, 76);
+}
+#donate_btn_02:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 255, 170);
+}
+
+/* アルパカ画像 */
+#donationorm_img {
+  width: 7vw;
+}
+
+
+
+/* 寄付履歴へ */
+#donate_historypage_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+/* トップページへもどる */
+#donate_returntop_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+
+
+
+/* ーーーーーーーー */
+/* 会員登録認証誘導 */
+/* ーーーーーーーー */
+
+/* 会員登録認証誘導大箱 */
+#authModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(105, 184, 120, 0.62);
+}
+/* 会員登録認証誘導小箱 */
+#donate_auth_box {
+  background-color: rgb(255, 255, 255);
+  width: 30vw;
+  margin: 23vh 0 0 31.5vw;
+  padding: 2vw 5vw 4vw 5vw;
+  border-radius: 8px;
+  text-align: center;
+}
+/* 会員登録認証誘導テキスト */
+#donate_auth_text {
+  font-size: 1.5vw;
+  font-weight: 600;
+  color: rgb(22, 137, 56);
+  margin-bottom: 2vw;
+}
+#donate_auth_img {
+  width: 25%;
+  margin-top: -1vw;
+  margin-bottom: 1vw;
+}
+/* キャンセルボタン */
+#authCancelBtn {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.1vw;
+  font-weight: 500;
+  height: 2.6vw;
+  width: 7.8vw;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(22, 137, 56);
+  border: 2px solid rgb(22, 137, 56);
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+}
+#authCancelBtn:hover {
+  color: rgb(89, 197, 35);
+  border: 2px solid rgb(89, 197, 35);
+}
+/* 新規登録ボタン */
+#donate_auth_new_button {
+  background-color: rgb(22, 137, 56);
+  color: #fff;
+  padding: 0.4vw 1.3vw 0.4vw 1.3vw;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+}
+#donate_auth_new_button:hover {
+  background-color: rgb(89, 197, 35);
+}
+/* ログインボタン */
+#donate_auth_login_button {
+  background-color: rgb(22, 137, 56);
+  color: #fff;
+  padding: 0.4vw 1.3vw 0.4vw 1.3vw;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15vw;
+  border-radius: 20% 15% 20% 10% / 39% 59% 39% 45% ;
+}
+#donate_auth_login_button:hover {
+  background-color: rgb(89, 197, 35);
+}

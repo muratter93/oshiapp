@@ -1,7 +1,7 @@
 {% load static %}
 
 <aside id="index_animal_ranking_sidebar">
-  <img id="index_animal_top10" src="{% static 'img/animal_top10.png' %}" alt="アニマルトップ10タイトル画像" width="224px">
+  <img id="index_animal_top10" src="{% static 'img/animal_top10.png' %}" alt="アニマルトップ10タイトル画像">
   <ol id="index_animal_ranking_list">
     {% for a in ranking %}
     <p class="index_rank_number">{{ forloop.counter }}</p>

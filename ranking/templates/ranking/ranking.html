@@ -31,13 +31,12 @@
                 </a>
             </div>
 
+
             <div id="rank_num_box_1">
                 <h2 id="rank_1_num">1<span id="rank_1_num_rank">位</span></h2>
             </div>
 
-            <p id="rank_1_animalname">{{ a.name }}
-                <span id="rank_animal-namegenderlang_1">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
-            </p>
+            <p id="rank_1_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_1">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
             <p id="rank_1_animaltype">{{ a.japanese }}</p>
             <p id="rank_1_pointlang">推しP{{ a.total_point }}</p>
 
