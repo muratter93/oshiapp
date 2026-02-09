@@ -106,7 +106,7 @@
   margin: 0 5px -3px 0;
   padding: 0;
   color: rgb(255, 255, 255);
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
 #index_point {
   font-size: 19pt;
@@ -114,11 +114,11 @@
   font-weight: 900;
   padding: 0;
   margin: 0;
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
-#index_oshii-badge.shine::after {
+/* #index_oshii-badge.shine::after {
   animation: index-shineMove 0.7s ease forwards;
-}
+} */
 
 /* 推しハートボタン */
 #index_push-btn {
@@ -163,22 +163,22 @@
 }
 
 .rank-up {
-  color: #ff4081;
+  color: #e5ff00;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 2vw;
   animation: flyUp 1.2s ease-out forwards;
 }
 
 .flash {
   color: #e5ff00 !important;
   transform: scale(1.15);
-  transition: 0.2s;
+  transition: 0.05s;
 }
 
 .flash-heart {
   color: #e5ff00 !important;
   transform: scale(1.2);
-  transition: 0.2s;
+  transition: 0.05s;
 }
 
 /* もっと詳しくボタン */
