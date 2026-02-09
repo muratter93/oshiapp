@@ -183,29 +183,29 @@
 
 .sparkle-effect {
   width: 40px;
-  transform: translate(-50%, -50%) scale(0.2);
-  animation: sparkleBurst 2s ease-out forwards;
+  transform: translate(-50%, -50%) scale(0.3);
+  animation: sparkleFloat 2s ease-out forwards;
 }
 
-@keyframes sparkleBurst {
+@keyframes sparkleFloat {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    transform: translate(-50%, -50%) scale(0.3);
   }
 
-  25% {
+  20% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.6) rotate(15deg);
+    transform: translate(-50%, -70%) scale(1.2);
   }
 
   70% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(2.4) rotate(30deg);
+    transform: translate(-50%, -120%) scale(1.5);
   }
 
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(3.2) rotate(45deg);
+    transform: translate(-50%, -160%) scale(1.8);
   }
 }
 

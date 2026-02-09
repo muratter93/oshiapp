@@ -18,7 +18,7 @@ function spawnHearts(button, count = 1) {
   const wrapper = document.body;
   const rect = button.getBoundingClientRect();
 
-  const diet = button.dataset.diet;  // ← HTMLから取得
+  const diet = button.dataset.diet;
 
   for (let i = 0; i < count; i++) {
     const el = document.createElement('img');

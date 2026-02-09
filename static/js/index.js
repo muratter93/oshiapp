@@ -24,8 +24,9 @@ const DIET_ICON_MAP = {
 
 const DEFAULT_HEART = '/static/img/heart-cl9.png';
 
+let lastHeartType = null;
+let sameCount = 0;
 
-// ⭐ ここに置く
 function spawnHearts(button, count = 1) {
   const wrapper = document.body;
   const rect = button.getBoundingClientRect();
@@ -38,9 +39,29 @@ function spawnHearts(button, count = 1) {
 
     const isFood = Math.random() < 0.5;
 
-    el.src = isFood
+    let type;
+
+    // もし3回以上同じなら強制的に逆にする
+    if (sameCount >= 3) {
+      type = lastHeartType === 'food' ? 'heart' : 'food';
+      sameCount = 0;  // リセット
+    } else {
+      type = Math.random() < 0.5 ? 'food' : 'heart';
+    }
+
+    // 画像決定
+    el.src = type === 'food'
       ? (DIET_ICON_MAP[diet] || DEFAULT_HEART)
       : DEFAULT_HEART;
+
+    // 連続カウント管理
+    if (type === lastHeartType) {
+      sameCount++;
+    } else {
+      lastHeartType = type;
+      sameCount = 1;
+    }
+
 
   const x = rect.left + rect.width / 2 + (Math.random() - 0.5) * 40;
   const y = rect.top  + rect.height / 2;
