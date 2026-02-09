@@ -162,6 +162,25 @@
   100% { opacity: 0; transform: translate(-50%, -180%) scale(1.25); } /* ←消したいなら0に */
 }
 
+.rank-up {
+  color: #ff4081;
+  font-weight: bold;
+  font-size: 1.1rem;
+  animation: flyUp 1.2s ease-out forwards;
+}
+
+.flash {
+  color: #e5ff00 !important;
+  transform: scale(1.15);
+  transition: 0.2s;
+}
+
+.flash-heart {
+  color: #e5ff00 !important;
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
 /* もっと詳しくボタン */
 
 #index_intro-btn_box {

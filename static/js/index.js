@@ -158,15 +158,23 @@ window.addEventListener('DOMContentLoaded', () => {
             // ★ 成功（total_point が返ってくる）
             if (data.total_point !== undefined) {
 
-              // ① 推しポイント更新
-              const card = btn.closest('#index_animal_box');
-              const pointElem = card?.querySelector('#index_point');
-              if (pointElem) {
-                pointElem.textContent = data.total_point;
-                pointElem.classList.add('flash');
-                setTimeout(() => pointElem.classList.remove('flash'), 350);
-              }
+            // ① 推しポイント更新
+            const card = btn.closest('#index_animal_box');
+            const pointElem = card?.querySelector('#index_point');
+            const heartElem = card?.querySelector('#index_oshii-badge_lang');
 
+            if (pointElem) {
+              pointElem.textContent = data.total_point;
+
+              // 数字
+              pointElem.classList.add('flash');
+              setTimeout(() => pointElem.classList.remove('flash'), 350);
+
+              // ハート
+              heartElem?.classList.add('flash-heart');
+              setTimeout(() => heartElem?.classList.remove('flash-heart'), 350);
+            }
+            
               // バッジ演出
               const badge = card?.querySelector('#index_oshii-badge');
               if (badge) {
@@ -185,20 +193,22 @@ window.addEventListener('DOMContentLoaded', () => {
                 return current;
               }
 
-              // 💫 UP↑エフェクト
+              // 💫 UP↑エフェクト（最前面に出す版）
               function showUpEffect(targetEl) {
+                const rect = targetEl.getBoundingClientRect();
+
                 const up = document.createElement('span');
                 up.textContent = 'UP↑';
                 up.className = 'rank-up';
-                targetEl.style.position = 'relative';
+
                 up.style.position = 'absolute';
-                up.style.right = '-40px';
-                up.style.top = '0';
-                up.style.color = '#ff4081';
-                up.style.fontWeight = 'bold';
-                up.style.fontSize = '1.1rem';
-                up.style.animation = 'flyUp 1.2s ease-out forwards';
-                targetEl.appendChild(up);
+                up.style.left = rect.right + window.scrollX + 'px';
+                up.style.top  = rect.top + window.scrollY + 'px';
+                up.style.zIndex = '999999';
+                up.style.pointerEvents = 'none';
+
+                document.body.appendChild(up);
+
                 setTimeout(() => up.remove(), 1200);
               }
 
