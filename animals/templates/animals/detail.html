@@ -87,7 +87,7 @@
                             <img id="detail_oshi_hand_img" src="{% static 'img/detail_cursor.png' %}" alt="カーソル画像">
                         </div>
 
-                        <button class="push-btn-detail" data-id="{{ animal.animal_id }}">
+                        <button class="push-btn-detail" data-id="{{ animal.animal_id }}" data-diet="{{ animal.diet }}">
                             <img id="detail_oshi_btn_img" src="{% static 'img/oshi_button.png' %}" alt="推すボタン画像">
                         </button>
                         {% else %}
@@ -244,15 +244,18 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(async (res) => {
             const data = await res.json().catch(() => ({}));
 
+            // ❌ 失敗 → ハート出さない
             if (!res.ok || !data.success) {
                 alert(data.error || "エラーが発生しました。");
                 return;
             }
 
+            // ✅ 成功 → ハート
+            spawnHearts(btn, 1);
+
             const p = document.getElementById(`point-${id}`);
             if (p) {
                 p.textContent = `${addComma(data.total_point)}`;
-                setTimeout(() => { p.style.transform }, 150);
             }
 
             const walletEl = document.getElementById("wallet-balance");
@@ -268,9 +271,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 stapoEl.classList.add("flash");
                 setTimeout(() => stapoEl.classList.remove("flash"), 250);
             }
-
-            // btn.style.transform = "scale(1)";
-            // setTimeout(() => btn.style.transform = "scale(1)", 120);
         })
         .catch(() => {
             alert("通信エラーが発生しました");
@@ -278,6 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
+
 
 
 <!-- 未ログイン時にモーダル表示 -->

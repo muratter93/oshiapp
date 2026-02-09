@@ -59,7 +59,7 @@
           {% for s in subs %}
           {# 行自体の見た目も is_active で切り替え #}
           <tr class="{% if not s.is_active %}inactive{% endif %}">
-            <td>{{ s.sub_member_id }}</td>
+            <td>{{ forloop.counter }}</td>
 
             <td>
               <a href="{% url 'dashboard:member_detail' s.member.id %}" class="member-link">
@@ -132,7 +132,7 @@
                     <form method="post" action="{% url 'dashboard:sub_restart' s.sub_member_id %}">
                       {% csrf_token %}
                       <button
-                        class="btn btn-secondary"
+                        class="btn btn-restart"
                         type="submit"
                         onclick="return confirm('このサブスクを再開しますか？');"
                       >

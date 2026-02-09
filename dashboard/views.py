@@ -249,7 +249,7 @@ class StaffListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = User
     template_name = "dashboard/admins_list.html"
     context_object_name = "users"
-    paginate_by = 10
+    paginate_by = 5
 
     def test_func(self):
         return is_staff_or_keeper(self.request.user)
@@ -467,7 +467,7 @@ class MemberListView(LoginRequiredMixin, ListView):
     model = User
     template_name = "dashboard/members_list.html"
     context_object_name = "users"
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         qs = User.objects.filter(is_staff=False, is_superuser=False)
@@ -507,9 +507,20 @@ class MemberListView(LoginRequiredMixin, ListView):
         return ctx
 
 
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+from django.contrib.auth import get_user_model
+from .forms import MemberEditForm   # ★ 追加
+
+User = get_user_model()
+
+
 class MemberUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = User
-    fields = ["username", "name", "email", "birth", "postal_code", "address", "phone"]
+    form_class = MemberEditForm      # ★ fields をやめて Form を使う
     template_name = "dashboard/member_edit.html"
     context_object_name = "member"
     success_url = reverse_lazy("dashboard:member_list")
@@ -519,23 +530,7 @@ class MemberUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         obj = self.get_object()
         return u.is_superuser or u.is_staff or (u == obj)
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-
-        username = (request.POST.get("username") or "").strip()
-        if not username:
-            form.add_error("username", "ユーザ名は必須です。")
-            return self.form_invalid(form)
-
-        return super().post(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        # messages.success(self.request, "会員情報を更新しました。")
-        return super().form_valid(form)
-
     def handle_no_permission(self):
-        # messages.error(self.request, "権限がありません。")
         return redirect("dashboard:member_list")
 
 
@@ -617,7 +612,7 @@ def animals_list(request):
         qs = qs.order_by("-animal_id")         # NO 降順（新しい→古い：デフォルト）
 
     # --- ページネーション（10件ずつ）---
-    paginator = Paginator(qs, 10)
+    paginator = Paginator(qs, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
@@ -712,60 +707,56 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from subscription.models import SubMember
 
-
 class SubscriptionListView(LoginRequiredMixin, ListView):
     model = SubMember
     template_name = "dashboard/subscription_list.html"
     context_object_name = "subs"
-    paginate_by = 30
+    paginate_by = 5
 
-def get_queryset(self):
-    qs = (
-        SubMember.objects
-        .select_related("member", "plan", "animal", "animal__zoo")
-    )
-
-    user = self.request.user
-    if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
-        if getattr(user, "zoo_id", None):
-            qs = qs.filter(animal__zoo_id=user.zoo_id)
-        else:
-            qs = qs.none()
-
-    q = (self.request.GET.get("q") or "").strip()
-    if q:
-        # 会員名 / ユーザ名 / 動物名 / 動物園名あたりを検索（好みに応じて増減OK）
-        qs = qs.filter(
-            Q(member__username__icontains=q) |
-            Q(member__name__icontains=q) |
-            Q(animal__name__icontains=q) |
-            Q(animal__japanese__icontains=q) |
-            Q(animal__zoo__zoo_name__icontains=q) |
-            Q(plan__plan_name__icontains=q)
+    def get_queryset(self):
+        qs = (
+            SubMember.objects
+            .select_related("member", "plan", "animal", "animal__zoo")
         )
 
-    status = (self.request.GET.get("status") or "all").strip()
-    if status == "active":
-        qs = qs.filter(is_active=True)
-    elif status == "inactive":
-        qs = qs.filter(is_active=False)
+        user = self.request.user
+        if getattr(user, "is_keeper", False) and not (user.is_staff or user.is_superuser):
+            if getattr(user, "zoo_id", None):
+                qs = qs.filter(animal__zoo_id=user.zoo_id)
+            else:
+                qs = qs.none()
 
-    # ★ 新旧（order）
-    order = (self.request.GET.get("order") or "").strip()
-    if order == "id_asc":
-        qs = qs.order_by("sub_member_id")
-    else:
-        qs = qs.order_by("-sub_member_id")  # デフォルト：新→旧
+        q = (self.request.GET.get("q") or "").strip()
+        if q:
+            qs = qs.filter(
+                Q(member__username__icontains=q) |
+                Q(member__name__icontains=q) |
+                Q(animal__name__icontains=q) |
+                Q(animal__japanese__icontains=q) |
+                Q(animal__zoo__zoo_name__icontains=q) |
+                Q(plan__plan_name__icontains=q)
+            )
 
-    return qs
+        status = (self.request.GET.get("status") or "all").strip()
+        if status == "active":
+            qs = qs.filter(is_active=True)
+        elif status == "inactive":
+            qs = qs.filter(is_active=False)
 
+        order = (self.request.GET.get("order") or "").strip()
+        if order == "id_asc":
+            qs = qs.order_by("sub_member_id")
+        else:
+            qs = qs.order_by("-sub_member_id")
 
-def get_context_data(self, **kwargs):
-    ctx = super().get_context_data(**kwargs)
-    ctx["q"] = (self.request.GET.get("q") or "").strip()
-    ctx["status"] = (self.request.GET.get("status") or "all").strip()
-    ctx["order"] = (self.request.GET.get("order") or "").strip()
-    return ctx
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["q"] = (self.request.GET.get("q") or "").strip()
+        ctx["status"] = (self.request.GET.get("status") or "all").strip()
+        ctx["order"] = (self.request.GET.get("order") or "").strip()
+        return ctx
 
 
 
@@ -830,7 +821,7 @@ def gift_list(request: HttpRequest) -> HttpResponse:
 
     qs = qs.order_by("-id")  # 新しい順
 
-    paginator = Paginator(qs, 10)
+    paginator = Paginator(qs, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 

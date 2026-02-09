@@ -5,49 +5,58 @@
 {% block content %}
 <div class="staff-edit">
   <div class="container">
-    <form method="post">
+    <form method="post" novalidate>
       {% csrf_token %}
       <div class="form-grid">
 
         <label>
           ID
-          <input type="text" name="username" value="{{ member.username }}"
-           required>
+          <input type="text" name="username" value="{{ form.username.value|default_if_none:'' }}">
         </label>
-
         {% if form.username.errors %}
-          <div class="message error">ID名が重複しています。</div>
+          <div class="message error">
+            {{ form.username.errors.0 }}
+          </div>
         {% endif %}
 
         <label>
           名前
-          <input type="text" name="name" value="{{ member.name }}">
+          <input type="text" name="name" value="{{ form.name.value|default_if_none:'' }}">
         </label>
+        {% if form.name.errors %}
+          <div class="message error">
+            {{ form.name.errors.0 }}
+          </div>
+        {% endif %}
 
         <label>
           メール
-          <input type="email" name="email" value="{{ member.email }}"
-          required>
+          <input type="email" name="email" value="{{ form.email.value|default_if_none:'' }}">
         </label>
+        {% if form.email.errors %}
+          <div class="message error">
+            {{ form.email.errors.0 }}
+          </div>
+        {% endif %}
 
         <label>
           生年月日
-          <input type="date" name="birth" value="{{ member.birth|date:'Y-m-d' }}">
+          <input type="date" name="birth" value="{{ form.birth.value|default_if_none:'' }}">
         </label>
 
         <label>
           郵便番号
-          <input type="text" name="postal_code" value="{{ member.postal_code }}">
+          <input type="text" name="postal_code" value="{{ form.postal_code.value|default_if_none:'' }}">
         </label>
 
         <label>
           住所
-          <input type="text" name="address" value="{{ member.address }}">
+          <input type="text" name="address" value="{{ form.address.value|default_if_none:'' }}">
         </label>
 
         <label>
           電話番号
-          <input type="text" name="phone" value="{{ member.phone }}">
+          <input type="text" name="phone" value="{{ form.phone.value|default_if_none:'' }}">
         </label>
 
       </div>

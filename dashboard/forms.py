@@ -351,3 +351,55 @@ class GiftForm(forms.ModelForm):
             self.fields["zoo"].queryset = Zoo.objects.filter(pk=user.zoo_id)
         else:
             self.fields["zoo"].queryset = Zoo.objects.all()
+
+
+# dashboard/forms.py
+import re
+from django import forms
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class MemberEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = (
+            "username",
+            "name",
+            "email",
+            "birth",
+            "postal_code",
+            "address",
+            "phone",
+        )
+        widgets = {
+            "birth": forms.DateInput(attrs={"type": "date"}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # ★ HTML5 required を無効化
+        self.use_required_attribute = False
+
+        # ★ animal_create と同じ「必須」
+        self.fields["username"].required = True
+        self.fields["name"].required = True
+        self.fields["email"].required = True
+
+    def clean_username(self):
+        username = (self.cleaned_data.get("username") or "").strip()
+        if not username:
+            raise forms.ValidationError("ユーザー名は必須です。")
+        if re.search(r"\s", username):
+            raise forms.ValidationError("ユーザー名に空白は使用できません。")
+        return username
+
+    def clean_email(self):
+        email = (self.cleaned_data.get("email") or "").strip()
+        if not email:
+            raise forms.ValidationError("メールアドレスは必須です。")
+
+        if User.objects.filter(email__iexact=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("このメールアドレスは既に使用されています。")
+        return email

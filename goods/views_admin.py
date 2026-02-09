@@ -48,7 +48,7 @@ def admin_check(user):
 def goods_admin_list(request):
     goods = Goods.objects.all().order_by('-id')
 
-    paginator = Paginator(goods, 10) 
+    paginator = Paginator(goods, 5) 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
@@ -129,7 +129,7 @@ def admin_order_list(request):
         order_qs = order_qs.order_by("-created_at")     # 新 → 旧（デフォルト）
 
     # ▼ ページネーション
-    paginator = Paginator(order_qs, 10)
+    paginator = Paginator(order_qs, 5)
     page_number = request.GET.get("page")
     pagenated = paginator.get_page(page_number)
 

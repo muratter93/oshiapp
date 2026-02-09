@@ -272,29 +272,38 @@
 }
 .push-btn-detail:hover {
   transform: scale(1.08);
-  transition: all 0.1s ease-in-out; /* アニメーションを滑らかに */
+  transition: all 0.1s ease-in-out; 
 }
 .push-btn-detail:active {
-  top: 2px; /* 少し下に沈ませる */
-  transition: all 0.6s ease-in-out; /* アニメーションを滑らかに */
-}
-/* 飛ぶハート（.index 内に追加される前提） */
-/* .detail_heart {
-  position: fixed;
-  left: 0;
-  top: 0;
-  transform: translate(-50%, -50%);
-  animation: heart-float 3s ease-out forwards;
-  pointer-events: none;
-  z-index: 5;
-  will-change: transform, opacity;
+  top: 2px;
+  transition: all 0.6s ease-in-out; 
 }
 
-@keyframes heart-float {
-  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  70%  { opacity: 1; transform: translate(-50%, -150%) scale(1.15); }
-  100% { opacity: 0; transform: translate(-50%, -180%) scale(1.25); }
-} */
+.detail_heart {
+  position: absolute;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform, opacity;
+  animation:
+    heart-rise 2.2s linear forwards,
+    heart-sway 0.9s ease-in-out infinite;
+}
+
+/* 上昇＋フェード（一定速度） */
+@keyframes heart-rise {
+  0%   { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  80%  { opacity: 1; transform: translate(-50%, -145px) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -180px) scale(1.2); }
+}
+
+
+/* 左右ゆらゆら（周期運動） */
+@keyframes heart-sway {
+  0%   { margin-left: 0; }
+  50%  { margin-left: 10px; }
+  100% { margin-left: 0; }
+}
+
 
 /* サブスク誘導文画像 */
 #detail_sbsc_text_box {
@@ -309,7 +318,7 @@
 /* サブスク見るボタン*/
 #detail_subsc_btn {
   position: relative;
-  z-index: 1;
+  z-index: 0;
   float: right;
   margin: -2vw 0 0 0;
   text-decoration: none;
