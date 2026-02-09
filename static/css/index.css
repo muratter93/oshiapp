@@ -170,16 +170,45 @@
 }
 
 .flash {
-  color: #e5ff00 !important;
+  color: rgb(255, 230, 0) !important;
   transform: scale(1.15);
   transition: 0.05s;
 }
 
 .flash-heart {
-  color: #e5ff00 !important;
+  color: rgb(255, 230, 0) !important;
   transform: scale(1.2);
   transition: 0.05s;
 }
+
+.sparkle-effect {
+  width: 40px;
+  transform: translate(-50%, -50%) scale(0.2);
+  animation: sparkleBurst 2s ease-out forwards;
+}
+
+@keyframes sparkleBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.6) rotate(15deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(2.4) rotate(30deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.2) rotate(45deg);
+  }
+}
+
 
 /* もっと詳しくボタン */
 

@@ -61,8 +61,24 @@ function spawnHearts(button, count = 1) {
   // setTimeout(() => button.classList.remove('shine'), 700);
 }
 
+// キラッ✨
+function sparkleAtElement(el) {
+  const rect = el.getBoundingClientRect();
 
+  const sparkle = document.createElement('img');
+  sparkle.src = '/static/img/stars.png';
+  sparkle.className = 'sparkle-effect';
 
+  sparkle.style.position = 'absolute';
+  sparkle.style.left = rect.left + window.scrollX + rect.width / 2 + 'px';
+  sparkle.style.top  = rect.top  + window.scrollY + rect.height / 2 + 'px';
+  sparkle.style.pointerEvents = 'none';
+  sparkle.style.zIndex = '999999';
+
+  document.body.appendChild(sparkle);
+
+  setTimeout(() => sparkle.remove(), 2000);
+}
 
 /* カードを順番に出す（コンテナ単位） */
 function revealCards(container, stagger = 90, initialDelay = 120) {
@@ -173,8 +189,10 @@ window.addEventListener('DOMContentLoaded', () => {
               // ハート
               heartElem?.classList.add('flash-heart');
               setTimeout(() => heartElem?.classList.remove('flash-heart'), 350);
+
+              sparkleAtElement(pointElem);
             }
-            
+
               // バッジ演出
               const badge = card?.querySelector('#index_oshii-badge');
               if (badge) {
