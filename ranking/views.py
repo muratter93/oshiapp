@@ -3,7 +3,7 @@ from django.shortcuts import render
 from animals.models import Animal
 
 def ranking(request):
-    all_animals = Animal.objects.all().order_by('-total_point')
+    all_animals = Animal.objects.filter(is_active=True).order_by('-total_point')
     other_animals = all_animals[20:]
     
     #21位以降に1ページずつに表示される動物の数↓

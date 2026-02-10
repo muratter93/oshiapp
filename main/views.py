@@ -57,8 +57,15 @@ def like(request, pk):
     animal.save(update_fields=["total_point"])
 
     from django.template.loader import render_to_string
-    ranking = Animal.objects.order_by('-total_point')[:10]
-    ranking_html = render_to_string("ranking/top.html", {"ranking": ranking}, request=request)
+    ranking = Animal.objects.filter(
+        is_active=True
+    ).order_by('-total_point')[:10]
+
+    ranking_html = render_to_string(
+        "ranking/top.html",
+        {"ranking": ranking},
+        request=request
+    )
 
     return JsonResponse({
         "total_point": animal.total_point,
