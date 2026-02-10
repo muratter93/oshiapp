@@ -1,8 +1,56 @@
 
+/* 動画大箱 */
 #look_large_box {
-  margin: 0 130px 100px 0;
+  margin: 0;
+  padding: 0 100px 0 0;
   text-align: center;
 }
+
+/* 動画タイトル */
+#look_lang {
+  text-align: center;
+  font-weight: 900;
+  font-size: 3.5vw;
+}
+
+/* 動画小箱 */
+#look_small_box {
+  margin: 0;
+  padding: 0 0 50px 0;
+  display: flex;
+  justify-content: center;
+  /* background-color: rgb(115, 255, 0); */
+}
+
+/* 動画の中の小箱 */
+#look_small_box_paper {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  border:1px solid rgb(182, 170, 161); /*borderの指定*/
+  border-radius: 1vw;
+  /* width: 30vw; */
+}
+
+/* ーーーーーーーーー */
+/* 小箱の中の各種項目 */
+/* ーーーーーーーーー */
+
+#look_small_box_lang {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.3vw;
+  padding: 2vw;
+  width: 100%;
+  /* background-color: rgb(105, 103, 42); */
+    display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1vw;
+}
+
+
+
 
 .live-box {
   margin-bottom: 100px;
@@ -17,6 +65,17 @@
 }
 
 
+#look_returntop_link {
+  text-decoration: none;
+  font-size: 14pt;
+}
+
+
+
+
+
+
+/* トップページへもどる */
 #look_returntop_link {
   text-decoration: none;
   font-size: 14pt;

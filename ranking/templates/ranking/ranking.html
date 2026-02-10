@@ -1,16 +1,10 @@
 {% extends "common/base.html" %}
 {% load static %}
 
-{% block title %}
-    アニマルランキング | アニマルマニア
-{% endblock %}
+{% block title %}アニマルランキング | アニマルマニア{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/ranking.css' %}">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 {% endblock %}
 
 
@@ -171,9 +165,9 @@
 
             <div id="rank_num_box_7to10_large">
 
-                {% if a.animals == 10 %}
+                {% if a == 10 %}
                 <div id="rank_num_box_7to10_02">
-                    <h2 id="rank_7to10_num">10<span id="rank_7to10_num_rank">位</span></h2>
+                    <h2 id="rank_7to10_num">{{ forloop.counter|add:6 }}<span id="rank_7to10_num_rank">位</span></h2>
                 </div>
                 {% else %}
                 <div id="rank_num_box_7to10">

@@ -1,113 +1,149 @@
 {% extends "common/base.html" %}
 {% load static %}
 
-{% block title %}
-    動物たちの様子を見る | アニマルマニア
+{% block title %}動物たちの様子を見る | アニマルマニア{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/look.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/look.css' %}">
+
 
 <div id="look_large_box">
-
-    <h1>須坂市動物園</h1>
-
-    <div class="live-box">
-    <img
-        class="gif-toggle"
-        src="{% static 'img/gif2.png' %}"
-        data-gif="{% static 'img/gif2.gif' %}"
-        data-still="{% static 'img/gif2.png' %}"
-        alt="フンボルトペンギン"
-    >
-    <div class="live-name">フンボルトペンギン</div>
-    </div>
-
-    <div class="live-box">
-    <img
-        class="gif-toggle"
-        src="{% static 'img/gif1.png' %}"
-        data-gif="{% static 'img/gif1.gif' %}"
-        data-still="{% static 'img/gif1.png' %}"
-        alt="ラマ"
-    >
-    <div class="live-name">ラマ</div>
-    </div>
-
-    <div class="live-box">
-    <img
-        class="gif-toggle"
-        src="{% static 'img/gif3.png' %}"
-        data-gif="{% static 'img/gif3.gif' %}"
-        data-still="{% static 'img/gif3.png' %}"
-        alt="カピバラ"
-    >
-    <div class="live-name">カピバラ</div>
-    </div>
-
-    <div class="live-box">
-    <img
-        class="gif-toggle"
-        src="{% static 'img/gif4.png' %}"
-        data-gif="{% static 'img/gif4.gif' %}"
-        data-still="{% static 'img/gif4.png' %}"
-        alt="ホオジロカンムリヅル"
-    >
-    <div class="live-name">ホオジロカンムリヅル</div>
-    </div>
-
-    <div class="live-box">
-        <iframe width="315" height="576" src="https://www.youtube.com/embed/M3w8AwQ1JJY" title="【JPzoo】[カピバラ]／いい湯だな～気持ちいい～／須坂市動物園 #動物 #カピバラ #かわいい #入浴" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <div>
-            <a class="yt-link" href="https://www.youtube.com/@YouTube" target="_blank" rel="noopener">
-                → YouTubeチャンネルを見る
-            </a>
-        </div>
-    </div>
-
-    <h1>城山動物園</h1>
-    <div class="live-box">
-        <iframe width="315" height="576" src="https://www.youtube.com/embed/hIBcCIVcKdo" title="ケープハイラックスのおやきちゃんのあくび。［城山動物園］ #おやき #ケープハイラックス #城山動物園" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <div>
-            <a class="yt-link" href="https://www.youtube.com/shorts/g-wnRzlv0Og" target="_blank" rel="noopener">
-                → YouTubeで見る
-            </a>
-        </div>
-    </div>
-
-    <div class="live-box">
-        <iframe width="656" height="369" src="https://www.youtube.com/embed/GpFJr3RNw2c" title="無料で楽しめる城山動物園を紹介" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <div>
-            <a class="yt-link" href="https://www.youtube.com/@YouTube" target="_blank" rel="noopener">
-                → YouTubeチャンネルを見る
-            </a>
-        </div>
-    </div>
     
+    <h1 id="look_lang">動物たちの様子を見る</h1>
 
-    <h1>茶臼山動物園</h1>
-    <div class="live-box">
-        <iframe width="656" height="369" src="https://www.youtube.com/embed/aXAsMcmtJTc" title="Seals live | Phase 3 @ WEC Lauwersoog, Netherlands (Stichting Zeehondencentrum Pieterburen)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <div>
-            <a class="yt-link" href="https://www.youtube.com/@YouTube" target="_blank" rel="noopener">
-                → YouTubeチャンネルを見る
-            </a>
-        </div>
-    </div>
+    <div id="look_small_box">
 
-    <div class="live-box">
-        <iframe width="315" height="576" src="https://www.youtube.com/embed/AA8wqLXJhgU" title="ライオン　キュウゾウくんとつむぎちゃんはなかよし　【茶臼山動物園】Lion Chausuyama Zoo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <div>
-            <a class="yt-link" href="https://www.youtube.com/@YouTube" target="_blank" rel="noopener">
-                → YouTubeチャンネルを見る
-            </a>
+        <div id="look_small_box_paper">
+
+            <div id="look_small_box_lang">
+
+
+
+
+
+                <div class="live-box">
+                <h1>須坂市動物園</h1>
+                <img width="300px"
+                    class="gif-toggle"
+                    src="{% static 'img/gif2.png' %}"
+                    data-gif="{% static 'img/gif2.gif' %}"
+                    data-still="{% static 'img/gif2.png' %}"
+                    alt="フンボルトペンギン"
+                >
+                <div class="live-name">フンボルトペンギン</div>
+                </div>
+
+                <div class="live-box">
+                <h1>須坂市動物園</h1>
+                <img width="300px"
+                    class="gif-toggle"
+                    src="{% static 'img/gif1.png' %}"
+                    data-gif="{% static 'img/gif1.gif' %}"
+                    data-still="{% static 'img/gif1.png' %}"
+                    alt="ラマ"
+                >
+                <div class="live-name">ラマ</div>
+                </div>
+
+                <div class="live-box">
+                <h1>須坂市動物園</h1>
+                <img width="300px"
+                    class="gif-toggle"
+                    src="{% static 'img/gif3.png' %}"
+                    data-gif="{% static 'img/gif3.gif' %}"
+                    data-still="{% static 'img/gif3.png' %}"
+                    alt="カピバラ"
+                >
+                <div class="live-name">カピバラ</div>
+                </div>
+
+                <div class="live-box">
+                <h1>須坂市動物園</h1>
+                <img width="300px"
+                    class="gif-toggle"
+                    src="{% static 'img/gif4.png' %}"
+                    data-gif="{% static 'img/gif4.gif' %}"
+                    data-still="{% static 'img/gif4.png' %}"
+                    alt="ホオジロカンムリヅル"
+                >
+                <div class="live-name">ホオジロカンムリヅル</div>
+                </div>
+
+                <div class="live-box">
+                    <h1>須坂市動物園</h1>
+                    <iframe width="300px" src="https://www.youtube.com/embed/M3w8AwQ1JJY" title="【JPzoo】[カピバラ]／いい湯だな～気持ちいい～／須坂市動物園 #動物 #カピバラ #かわいい #入浴" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div>
+                        <a class="yt-link" href="https://www.youtube.com/@YouTube" target="_blank" rel="noopener">
+                            → YouTubeチャンネルを見る
+                        </a>
+                    </div>
+                </div>
+
+                
+                <div class="live-box">
+                <h1>城山動物園</h1>
+                    <iframe width="300px" src="https://www.youtube.com/embed/hIBcCIVcKdo" title="ケープハイラックスのおやきちゃんのあくび。［城山動物園］ #おやき #ケープハイラックス #城山動物園" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div>
+                        <a class="yt-link" href="https://www.youtube.com/shorts/g-wnRzlv0Og" target="_blank" rel="noopener">
+                            → YouTubeで見る
+                        </a>
+                    </div>
+                </div>
+
+                <div class="live-box">
+                <h1>城山動物園</h1>
+                    <iframe width="300px" src="https://www.youtube.com/embed/GpFJr3RNw2c" title="無料で楽しめる城山動物園を紹介" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div>
+                        <a class="yt-link" href="https://www.youtube.com/@YouTube" target="_blank" rel="noopener">
+                            → YouTubeチャンネルを見る
+                        </a>
+                    </div>
+                </div>
+                
+
+                
+                <div class="live-box">
+                <h1>茶臼山動物園</h1>
+                    <iframe width="300px" src="https://www.youtube.com/embed/aXAsMcmtJTc" title="Seals live | Phase 3 @ WEC Lauwersoog, Netherlands (Stichting Zeehondencentrum Pieterburen)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div>
+                        <a class="yt-link" href="https://www.youtube.com/@YouTube" target="_blank" rel="noopener">
+                            → YouTubeチャンネルを見る
+                        </a>
+                    </div>
+                </div>
+
+                <div class="live-box">
+                <h1>茶臼山動物園</h1>
+                    <iframe width="300px" src="https://www.youtube.com/embed/AA8wqLXJhgU" title="ライオン　キュウゾウくんとつむぎちゃんはなかよし　【茶臼山動物園】Lion Chausuyama Zoo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div>
+                        <a class="yt-link" href="https://www.youtube.com/@YouTube" target="_blank" rel="noopener">
+                            → YouTubeチャンネルを見る
+                        </a>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
         </div>
     </div>
 
     <a id="look_returntop_link" href="{% url 'main:index' %}">▶トップページへもどる</a>
 
+    <br><br><br><br><br>
+
 </div>
+
+
+
+
+
 
 <script>
     document.querySelectorAll(".gif-toggle").forEach(img => {
