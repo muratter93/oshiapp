@@ -46,14 +46,34 @@
   /* background-color: rgb(105, 103, 42); */
     display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1vw;
+  gap: 3vw;
 }
+
 
 
 
 
 .live-box {
   margin-bottom: 100px;
+  position: relative;
+    /* background-image: url("/static/img/TV_mask.png"); */
+}
+
+.move_box {
+    display: inline-block; /* または block */
+  text-decoration: none; /* 下線を消す */
+  line-height: 0;       /* 画像下の余計な隙間を消す */
+}
+
+.tv_box {
+  position: absolute;
+  top: 4.2vw;
+  left: -0.45vw;
+  pointer-events: none;
+}
+
+.live-name {
+  margin-top: 1vw;
 }
 
 .yt-link {
