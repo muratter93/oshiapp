@@ -72,7 +72,9 @@ def ranking(request):
         context['is_page_1'] = False
         
         if page_obj:
-            context['start_rank'] = 20 + page_obj.start_index()
+            # context['start_rank'] = 20 + page_obj.start_index()
+            context['start_rank'] = 20 + page_obj.start_index() - 1
+
         else:
             context['start_rank'] = 21 
             
