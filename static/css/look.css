@@ -58,6 +58,9 @@
   position: relative;
     /* background-image: url("/static/img/TV_mask.png"); */
 }
+/* .live-box h3 {
+  margin-top: -3vw;
+} */
 
 .move_box {
     display: inline-block; /* または block */
@@ -71,6 +74,12 @@
   left: -0.45vw;
   pointer-events: none;
 }
+.phone_box {
+    position: absolute;
+  top: 2.9vw;
+  left: 2.65vw;
+  pointer-events: none;
+}
 
 .live-name {
   margin-top: 1vw;
@@ -78,7 +87,7 @@
 
 .yt-link {
   display: inline-block;
-  margin-top: 8px;
+  margin-top: 1vw;
   color: #006633;
   font-weight: bold;
   text-decoration: none;
