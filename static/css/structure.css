@@ -12,12 +12,12 @@
 
 #structure_sentence_01_headline {
   font-weight: 800;
-  font-size: 3.6vw;
+  font-size: 3.2vw;
 }
 
 #structure_sentence_02_headline,
 #structure_sentence_03_headline {
-  width: 32%;
+  width: 28%;
   margin-bottom: 20px;
 }
 
@@ -25,7 +25,7 @@
 
 #structure_sentence_01_main, #structure_sentence_02_main,
 #structure_sentence_03_main {
-  font-size: 1.6vw;
+  font-size: 1.3vw;
 }
 
 /* アニマルマニアのしくみ画像 */
@@ -47,7 +47,7 @@
 #structure_sentence_01_pic_03 {
   margin-left: -20px;
   margin-bottom: 110px;
-  width: 27%;
+  width: 23%;
 }
 
 /* チアコ説明外箱 */
@@ -58,17 +58,20 @@
 /* チアコとは？の中のチアコ説明画像 */
 #structure_sentence_02_pic {
   margin-bottom: 60px;
-  width: 68%;
+  width: 60%;
 }
 
 
 /* スタポとは？のスタポ説明画像 */
 #structure_sentence_03_pic_01 {
   margin-bottom: 40px;
-  width: 68%;
+  width: 53%;
 }
-
-
+/* 動物画像 */
+#structure_sentence_03_pic_02 {
+  margin-bottom: 40px;
+  width: 70%;
+}
 
 /* ▶チアコを買う・▶トップページへ戻る */
 #structure_chiaco_link, #structure_returntop_link {

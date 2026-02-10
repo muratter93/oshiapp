@@ -1,22 +1,20 @@
 
-
+/* ランキングタイトル */
 #rank_title_img_box {
   text-align: center;
 }
 #rank_title_img {
   width: 40%;
-  /* margin-left: 22%; */
-  margin-bottom: 2vw;
-  margin-right: 120px;
+  margin: -50px 120px 2vw 0;
 }
 
 /* ランキング外枠大箱 */
 
 #rankig_box_big_all {
-  margin: 0 170px 0 30px;
+  margin: 0 140px 0 0;
   padding: 0;
   font-family: 'M PLUS Rounded 1c';
-  /* width: 100%; */
+  align-items: center;
   /* background-color: #007bff; */
 }
 
@@ -25,7 +23,8 @@
   display: grid;
   grid-template-columns: 3fr 2fr;
   height: 40vw;
-  width: 100%;
+  width: 65vw;
+  margin: 0 auto;
   /* background-color: #c037ab; */
 }
 
@@ -35,6 +34,9 @@
   position: relative;
 }
 
+/* ーーーー */
+/* 1位内容 */
+/* ーーーー */
 
 /* ランキング1内箱写真入 */
 /* 写真 */
@@ -46,7 +48,6 @@
   outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
   outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
-
 #rank_img_1 {
   position: absolute;
   object-position: 50% 30%;
@@ -58,24 +59,27 @@
 }
 
 
-/* ランキング1内写真以外の箱 */
+/* ランキング1内写真とポイント以外の大箱 */
+#rank_num_box_1_large {
+  position: absolute;
+  bottom: 3vw;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
 
 /* 順位1位の文字箱 */
 #rank_num_box_1 {
-  position: absolute;
-  top: 58%;
-  left: 0%;
   background-color: #000000;
-  width: 8vw;
-  height: 18%;
+  width: 9vw;
+  height: 5.05vw;
   text-align: center;
 }
-
-
+/* 順位1位の文字 */
 #rank_1_num {
   position: absolute;
-  top: -7%;
-  left: 6%;
+  top: -1.6vw;
+  left: 0.9vw;
   font-family: 'Rubik';
   font-weight: 700;
   font-size: 7vw;
@@ -83,7 +87,6 @@
   padding: 0;
   margin: 0;
 }
-
 #rank_1_num_rank {
   font-family: 'M PLUS Rounded 1c';
   font-weight: 900;
@@ -91,48 +94,56 @@
   position: absolute;
   top: 36%;
 }
-
 /* 名前文字 */
 #rank_1_animalname {
-  position: absolute;
+  margin: 1.5vw 0 0.3vw 1vw;
   font-weight: 900;
   font-size: 3.3vw;
-  bottom: 1.5%;
-  left: 2%;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1em;
+  padding-right: 1vw;
 }
-
 #rank_animal-namegenderlang_1 {
   font-size: 1.8vw;
 }
-
 /* 種別文字 */
 #rank_1_animaltype {
-  position: absolute;
+  width: 80%;
+  margin: -0.5vw 0 0 1vw;
   font-weight: 900;
-  font-size: 1.7vw;
-  bottom: 1%;
-  left: 2%;
+  font-size: 1.6vw;
+  line-height: 1em;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* 推しポイント文字 */
-#rank_1_pointlang {
+#rank_1_point_box {
   position: absolute;
-  font-size: 30pt;
-  top: 0px;
-  left: 15px;
-  color: #ffffff;
+  bottom: 16.5vw;
+  left: 1vw;
+  color: #e1ff00;
+  border: 4px solid #e1ff00;
+  border-radius: 1vw;
+  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
+  display: grid;
+  place-items: center;
+}
+#rank_1_pointlang_01 {
+  font-weight: 900;
+  font-size: 1.2vw;
+  margin: 0;
+  padding: 0.5vw 0.5vw 0 0.8vw;
+}
+#rank_1_pointlang_02 {
+  font-weight: 900;
+  font-size: 3.1vw;
+  margin: -1.2vw 0 -0.9vw 0;
+  padding: 0 0.6vw 0.5vw 0.8vw;
 }
 
+/* ーーーー */
+/* 2位〜3位内容 */
+/* ーーーー */
 
 /* ランキング1-3中箱 ※2-3が入 */
 #rank_box_middle_1to3_02 {
@@ -146,14 +157,11 @@
   flex-direction: column;
   height: 100%;
 }
-
 #rank_box_small_2, #rank_box_small_3 {
   flex-grow: 1;
 }
 
-
 /* 2-3が入っている中の小箱内写真箱 */
-
 #rank_img_large_box_2 {
   position: absolute;
   top: 0;
@@ -161,7 +169,6 @@
   width: 100%;
   height: 50%;
 }
-
 #rank_img_large_box_3 {
   position: absolute;
   top: 250;
@@ -169,7 +176,6 @@
   width: 100%;
   height: 50%;
 }
-
 #rank_img_box_2, #rank_img_box_3 {
   position: relative;
   width: 100%;
@@ -180,7 +186,6 @@
   outline: 6px solid rgb(0, 0, 0);/*outlineで線を追加*/
   outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
-
 #rank_img_2, #rank_img_3 {
   object-position: 50% 30%;
   width: 100%;
@@ -191,141 +196,169 @@
   outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
 
-
-/* 2-3が入っている中の小箱内写真以外の箱 */
+/* ランキング2内写真とポイント以外の大箱 */
+#rank_num_box_2_large {
+  position: absolute;
+  bottom: 22.3vw;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
 /* 順位2位の文字箱 */
 #rank_num_box_2 {
-  position: absolute;
-  top: 125px;
-  left: 0px;
   background-color: #000000;
-  width: 100px;
-  height: 13%;
-}
-
-#rank_2_num {
+  width: 7.5vw;
+  height: 4vw;
   text-align: center;
-  top: 80%;
-  transform: translate(0, -80%); /* 要素自身の半分の位置を上にずらす */
+}
+/* 順位2位の文字 */
+#rank_2_num {
+  position: absolute;
+  top: -1.25vw;
+  left: 0.9vw;
   font-family: 'Rubik';
   font-weight: 700;
-  font-size: 61pt;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 5.5vw;
   color: #ffffff;
+  padding: 0;
+  margin: 0;
 }
-
 #rank_2_num_rank {
   font-family: 'M PLUS Rounded 1c';
   font-weight: 900;
-  font-size: 23pt;
+  font-size: 2.3vw;
+  position: absolute;
+  top: 36%;
 }
-
-/* 順位2位の名前・種類・ポイント */
+/* 名前文字 */
 #rank_2_animalname {
-  position: absolute;
+  margin: 1vw 0 0vw 1vw;
   font-weight: 900;
-  font-size: 23pt;
-  bottom: 315px;
-  left: 15px;
+  font-size: 2.3vw;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  width: 100%;
+  line-height: 1em;
+  padding-right: 1vw;
 }
-
 #rank_animal-namegenderlang_2 {
-  font-size: 13pt;
+  font-size: 1.3vw;
 }
-
+/* 種別文字 */
 #rank_2_animaltype {
-  position: absolute;
+  width: 80%;
+  margin: 0 0 0 1vw;
   font-weight: 900;
-  font-size: 15pt;
-  bottom: 304px;
-  left: 15px;
+  font-size: 1.2vw;
+  line-height: 1em;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+/* 推しポイント文字 */
+#rank_2_point_box {
+  position: absolute;
+  bottom: 32vw;
+  left: 1vw;
+  color: #e1ff00;
+  border: 4px solid #e1ff00;
+  border-radius: 1vw;
+  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
+  display: grid;
+  place-items: center;
+}
+#rank_2_pointlang_01 {
+  font-weight: 900;
+  font-size: 1vw;
+  margin: 0;
+  padding: 0.5vw 0.5vw 0 0.8vw;
+}
+#rank_2_pointlang_02 {
+  font-weight: 900;
+  font-size: 2.7vw;
+  margin: -0.9vw 0 -0.9vw 0;
+  padding: 0 0.6vw 0.5vw 0.8vw;
 }
 
-#rank_2_pointlang {
+/* ランキング3内写真とポイント以外の大箱 */
+#rank_num_box_3_large {
   position: absolute;
-  left: 20px;
-  top: 5px;
+  bottom: 2.3vw;
+  left: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 順位3位の文字箱 */
-
 #rank_num_box_3 {
-  position: absolute;
-  top: 425px;
-  left: 0px;
   background-color: #000000;
-  width: 100px;
-  height: 13%;
-}
-
-#rank_3_num {
+  width: 7.5vw;
+  height: 4vw;
   text-align: center;
-  top: 80%;
-  transform: translate(0, -80%); /* 要素自身の半分の位置を上にずらす */
+}
+/* 順位3位の文字 */
+#rank_3_num {
+  position: absolute;
+  top: -1.25vw;
+  left: 0.9vw;
   font-family: 'Rubik';
   font-weight: 700;
-  font-size: 61pt;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 5.5vw;
   color: #ffffff;
+  padding: 0;
+  margin: 0;
 }
-
 #rank_3_num_rank {
   font-family: 'M PLUS Rounded 1c';
   font-weight: 900;
-  font-size: 23pt;
+  font-size: 2.3vw;
+  position: absolute;
+  top: 36%;
 }
-
-
-/* 順位3位の名前・種類・ポイント */
+/* 名前文字 */
 #rank_3_animalname {
-  position: absolute;
+  margin: 0.8vw 0 0vw 1vw;
   font-weight: 900;
-  font-size: 23pt;
-  bottom: 15px;
-  left: 15px;
+  font-size: 2.3vw;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1em;
+  padding-right: 1vw;
 }
-
 #rank_animal-namegenderlang_3 {
-  font-size: 13pt;
+  font-size: 1.3vw;
 }
-
+/* 種別文字 */
 #rank_3_animaltype {
-  position: absolute;
+  width: 80%;
+  margin: 0 0 0 1vw;
   font-weight: 900;
-  font-size: 15pt;
-  bottom: 4px;
-  left: 15px;
+  font-size: 1.2vw;
+  line-height: 1em;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-#rank_3_pointlang {
+/* 推しポイント文字 */
+#rank_3_point_box {
   position: absolute;
-  left: 20px;
-  top: 305px;
+  bottom: 12vw;
+  left: 1vw;
+  color: #e1ff00;
+  border: 4px solid #e1ff00;
+  border-radius: 1vw;
+  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
+  display: grid;
+  place-items: center;
+}
+#rank_3_pointlang_01 {
+  font-weight: 900;
+  font-size: 1vw;
+  margin: 0;
+  padding: 0.5vw 0.5vw 0 0.8vw;
+}
+#rank_3_pointlang_02 {
+  font-weight: 900;
+  font-size: 2.7vw;
+  margin: -0.9vw 0 -0.9vw 0;
+  padding: 0 0.6vw 0.5vw 0.8vw;
 }
 
 
@@ -333,6 +366,8 @@
 #rank_box_middle_4to6 {
   display: flex;
   height: 20vw;
+    width: 65vw;
+  margin: 0 auto;
 }
 
 /* ランキング4-6小箱 */
@@ -359,72 +394,87 @@
   outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
 
-/* ランキング4-6中箱の中の順位・名前・種類・ポイント */
-#rank_num_box_4to6 {
+/* ランキング4-6内写真とポイント以外の大箱 */
+#rank_num_box_4to6_large {
   position: absolute;
-  top: 143px;
-  left: 0px;
-  background-color: #000000;
-  width: 90px;
-  height: 23%;
+  bottom: 2.3vw;
+  left: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-#rank_4to6_num {
+/* 順位4to6位の文字箱 */
+#rank_num_box_4to6 {
+  background-color: #000000;
+  width: 6.5vw;
+  height: 3.7vw;
   text-align: center;
-  top: 77%;
-  transform: translate(0, -77%); /* 要素自身の半分の位置を上にずらす */
+}
+/* 順位4to6位の文字 */
+#rank_4to6_num {
+  position: absolute;
+  top: -1.1vw;
+  left: 0.6vw;
   font-family: 'Rubik';
   font-weight: 700;
-  font-size: 52pt;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 5vw;
   color: #ffffff;
+  padding: 0;
+  margin: 0;
 }
-
 #rank_4to6_num_rank {
   font-family: 'M PLUS Rounded 1c';
   font-weight: 900;
-  font-size: 17pt;
+  font-size: 2vw;
+  position: absolute;
+  top: 37.5%;
 }
-
+/* 名前文字 */
 #rank_4to6_animalname {
-  position: absolute;
+  margin: 1vw 0 0vw 1vw;
   font-weight: 900;
-  font-size: 18pt;
-  left: 15px;
-  bottom: 23px;
+  font-size: 1.9vw;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1em;
+  padding-right: 1vw;
 }
-
 #rank_animal-namegenderlang_4to6 {
-  font-size: 13pt;
+  font-size: 1.3vw;
 }
-
+/* 種別文字 */
 #rank_4to6_animaltype {
-  position: absolute;
+  width: 80%;
+  margin: 0 0 0 1vw;
   font-weight: 900;
-  font-size: 16px;
-  left: 15px;
-  bottom: 13px;
+  font-size: 1.05vw;
+  line-height: 1em;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-#rank_4to6_pointlang {
+/* ボタン */
+#rank_4to6_point_box {
   position: absolute;
-  top: 10px;
-  left: 20px;
-  color: #c037ab;
+  bottom: 11vw;
+  left: 1vw;
+  color: #e1ff00;
+  border: 4px solid #e1ff00;
+  border-radius: 1vw;
+  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
+  display: grid;
+  place-items: center;
 }
-
+#rank_4to6_pointlang_01 {
+  font-weight: 900;
+  font-size: 0.95vw;
+  margin: 0;
+  padding: 0.4vw 0.5vw 0 0.8vw;
+}
+#rank_4to6_pointlang_02 {
+  font-weight: 900;
+  font-size: 2.5vw;
+  margin: -0.9vw 0 -0.9vw 0;
+  padding: 0 0.6vw 0.5vw 0.8vw;
+}
 
 
 
@@ -432,6 +482,8 @@
 #rank_box_middle_7to10 {
   display: flex;
   height: 18vw;
+  width: 65vw;
+  margin: 0 auto;
 }
 
 /* ランキング7-10小箱 */
@@ -450,7 +502,7 @@
 
 /* ランキング7-10画像 */
 #rank_img_7to10 {
-  object-position: 50% 30%;
+  object-position: 38% 30%;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -459,70 +511,92 @@
   outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
 
-/* ランキング7-10中箱の中の順位・名前・種類・ポイント */
-#rank_num_box_7to10 {
+/* ランキング7to10内写真とポイント以外の大箱 */
+#rank_num_box_7to10_large {
   position: absolute;
-  top: 165px;
-  left: 0px;
-  background-color: #000000;
-  width: 90px;
-  height: 18%;
+  bottom: 2.3vw;
+  left: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-#rank_7to10_num {
+/* 順位7to10位の文字箱 */
+#rank_num_box_7to10 {
+  background-color: #000000;
+  width: 5.8vw;
+  height: 3.1vw;
   text-align: center;
-  top: 77%;
-  transform: translate(0, -77%); /* 要素自身の半分の位置を上にずらす */
+}
+#rank_num_box_7to10_02 {
+  background-color: #000000;
+  width: 15vw;
+  height: 3.1vw;
+  text-align: center;
+}
+/* 順位7to10位の文字 */
+#rank_7to10_num {
+  position: absolute;
+  top: -0.9vw;
+  left: 0.6vw;
   font-family: 'Rubik';
   font-weight: 700;
-  font-size: 40pt;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 4.2vw;
   color: #ffffff;
+  padding: 0;
+  margin: 0;
 }
-
 #rank_7to10_num_rank {
   font-family: 'M PLUS Rounded 1c';
   font-weight: 900;
-  font-size: 14pt;
+  font-size: 1.7vw;
+  position: absolute;
+  top: 37.5%;
 }
-
+/* 名前文字 */
 #rank_7to10_animalname {
-  position: absolute;
+  margin: 0.9vw 0 0vw 1vw;
   font-weight: 900;
-  font-size: 15pt;
-  left: 15px;
-  bottom: 25px;
+  font-size: 1.5vw;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1em;
+  padding-right: 2vw;
 }
-
 #rank_animal-namegenderlang_7to10 {
-  font-size: 10pt;
+  font-size: 0.9vw;
 }
-
+/* 種別文字 */
 #rank_7to10_animaltype {
-  position: absolute;
+  margin: 0 0 0 1vw;
   font-weight: 900;
-  font-size: 15px;
-  left: 15px;
-  bottom: 11px;
+  font-size: 1.1vw;
+  line-height: 1em;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-left: 1vw;
 }
 
-#rank_7to10_pointlang {
+/* 7-10ポイント */
+#rank_7to10_point_box {
   position: absolute;
-  top: 5px;
-  left: 20px;
-  color: #c037ab;
+  bottom: 10vw;
+  left: 1vw;
+  color: #e1ff00;
+  border: 4px solid #e1ff00;
+  border-radius: 1vw;
+  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
+  display: grid;
+  place-items: center;
+}
+#rank_7to10_pointlang_01 {
+  font-weight: 900;
+  font-size: 0.8vw;
+  margin: 0;
+  padding: 0.4vw 0.5vw 0 0.8vw;
+}
+#rank_7to10_pointlang_02 {
+  font-weight: 900;
+  font-size: 2.1vw;
+  margin: -0.8vw 0 -0.9vw 0;
+  padding: 0 0.8vw 0.6vw 0.4vw;
 }
 
 
@@ -530,6 +604,8 @@
 #rank_box_middle_11to15, #rank_box_middle_16to20 {
   display: flex;
   height: 17vw;
+  width: 65vw;
+  margin: 0 auto;
 }
 
 /* ランキング11-15と16-20の小箱 */
@@ -548,7 +624,7 @@
 
 /* ランキング11-15と16-20の画像 */
 #rank_img_11to15, #rank_img_16to20 {
-  object-position: 50% 30%;
+  object-position: 40% 40%;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -559,78 +635,87 @@
 
 /* ランキング11-15と16-20の順位・名前・種類・ポイント */
 
-#rank_num_box_11to15, #rank_num_box_16to20 {
+/* ランキング11-15内写真とポイント以外の大箱 */
+#rank_num_box_11to15_large, #rank_num_box_16to20_large {
   position: absolute;
-  top: 140px;
-  left: 0px;
-  background-color: #000000;
-  width: 79px;
-  height: 18%;
+  bottom: 2vw;
+  left: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-#rank_11to15_num, #rank_16to20_num {
+/* 順位11-15位の文字箱 */
+#rank_num_box_11to15, #rank_num_box_16to20 {
+  background-color: #000000;
+  width: 6.5vw;
+  height: 2.35vw;
   text-align: center;
-  top: 75.3%;
-  transform: translate(0, -75.3%); /* 要素自身の半分の位置を上にずらす */
+}
+/* 順位11-15位の文字 */
+#rank_11to15_num, #rank_16to20_num {
+  position: absolute;
+  top: -0.8vw;
+  left: 0.6vw;
   font-family: 'Rubik';
   font-weight: 700;
-  font-size: 32pt;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 3.3vw;
   color: #ffffff;
+  padding: 0;
+  margin: 0;
 }
-
 #rank_11to15_num_rank, #rank_16to20_num_rank {
   font-family: 'M PLUS Rounded 1c';
   font-weight: 900;
-  font-size: 10pt;
+  font-size: 1.3vw;
+  position: absolute;
+  top: 37.5%;
 }
-
+/* 名前文字 */
 #rank_11to15_animalname, #rank_16to20_animalname {
-  position: absolute;
+  margin: 0.9vw 0 0vw 1vw;
   font-weight: 900;
-  font-size: 13pt;
-  left: 15px;
-  bottom: 20px;
+  font-size: 1.25vw;
   color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1em;
+  padding-right: 0.5vw;
 }
-
 #rank_animal-namegenderlang_11to15, #rank_animal-namegenderlang_16to20 {
-  font-size: 9pt;
+  font-size: 0.9vw;
 }
-
-#rank_11to15_animaltype {
-  position: absolute;
+/* 種別文字 */
+#rank_11to15_animaltype, #rank_16to20_animaltype {
+  margin: 0 0 0 1vw;
   font-weight: 900;
-  font-size: 13px;
-  left: 15px;
-  bottom: 9px;
+  font-size: 0.9vw;
+  line-height: 1em;
   color: #ffffff;
+  margin-left: 1vw;
 }
 
-#rank_11to15_pointlang, #rank_16to20_pointlang {
+/* ポイント */
+#rank_11to15_point_box, #rank_16to20_point_box {
   position: absolute;
-  top: 5px;
-  left: 20px;
-  color: #c037ab;
+  bottom: 8.5vw;
+  left: 1vw;
+  color: #e1ff00;
+  border: 4px solid #e1ff00;
+  border-radius: 1vw;
+  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
+  display: grid;
+  place-items: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
+#rank_11to15_pointlang_01, #rank_16to20_pointlang_01 {
+  font-weight: 900;
+  font-size: 0.8vw;
+  margin: 0;
+  padding: 0.4vw 0.5vw 0 0.8vw;
+}
+#rank_11to15_pointlang_02, #rank_16to20_pointlang_02 {
+  font-weight: 900;
+  font-size: 2.1vw;
+  margin: -0.8vw 0 -0.9vw 0;
+  padding: 0 0.8vw 0.6vw 0.4vw;
+}
 
 
 
@@ -656,7 +741,7 @@
 
 /* ランキング21-画像 */
 #rank_img_21to {
-  object-position: 50% 30%;
+  object-position: 10% 30%;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -665,40 +750,87 @@
   outline-offset: -3px;/*outline-offsetの値を-6pxにして内側に調整*/
 }
 
-/* ランキング21-中箱の中の順位・名前・種類・ポイント */
+/* ランキング11-15内写真とポイント以外の大箱 */
+#rank_num_box_21to_large {
+  position: absolute;
+  bottom: 1.6vw;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 順位11-15位の文字箱 */
 #rank_num_box_21to {
-  position: absolute;
-  top: 0;
-  left: 20px;
-  width: 50%;
-  height: 27%;
-  background-color: #007bff;
+  background-color: #000000;
+  width: 6vw;
+  height: 2.05vw;
+  text-align: center;
 }
-
+/* 順位11-15位の文字 */
 #rank_21to_num {
+  position: absolute;
+  top: -0.6vw;
+  left: 0.6vw;
   font-family: 'Rubik';
+  font-weight: 700;
+  font-size: 2.8vw;
+  color: #ffffff;
+  padding: 0;
+  margin: 0;
 }
-
+#rank_21to_num_rank {
+  font-family: 'M PLUS Rounded 1c';
+  font-weight: 900;
+  font-size: 1.1vw;
+  position: absolute;
+  top: 37.5%;
+}
+/* 名前文字 */
 #rank_21to_animalname {
-  position: absolute;
-  top: 50;
-  left: 20px;
+  margin: 0.6vw 0 0vw 1vw;
+  font-weight: 900;
+  font-size: 1.25vw;
+  color: #ffffff;
+  line-height: 1em;
+  padding-right: 0.5vw;
 }
-
+#rank_animal-namegenderlang_21to {
+  font-size: 0.9vw;
+}
+/* 種別文字 */
 #rank_21to_animaltype {
-  position: absolute;
-  top: 300;
-  left: 20px;
-  color: #7969ac;
+  margin: 0 0 0 1vw;
+  font-weight: 900;
+  font-size: 0.9vw;
+  line-height: 1em;
+  color: #ffffff;
+  margin-left: 1vw;
 }
 
-#rank_21to_pointlang {
+/* ポイント */
+#rank_21to_point_box {
   position: absolute;
-  top: 40px;
-  left: 20px;
-  color: #c037ab;
+  bottom: 7.3vw;
+  left: 0.7vw;
+  color: #e1ff00;
+  border: 4px solid #e1ff00;
+  border-radius: 1vw;
+  border-radius: 19% 42% 17% 21% / 45% 25% 33% 17%;
+  display: grid;
+  place-items: center;
 }
-
+#rank_21to_pointlang_01 {
+  font-weight: 900;
+  font-size: 0.8vw;
+  margin: 0;
+  padding: 0.2vw 0.25vw 0 0.4vw;
+}
+#rank_21to_pointlang_02 {
+  font-weight: 900;
+  font-size: 1.8vw;
+  margin: -0.4vw 0 -0.5vw 0;
+  padding: 0 0.4vw 0.3vw 0.2vw;
+}
 
 
 

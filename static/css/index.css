@@ -182,7 +182,7 @@
 }
 
 .sparkle-effect {
-  width: 40px;
+  width: 60px;
   transform: translate(-50%, -50%) scale(0.3);
   animation: sparkleFloat 2s ease-out forwards;
 }

@@ -35,14 +35,21 @@
                 </a>
             </div>
 
+            <div id="rank_num_box_1_large">
 
-            <div id="rank_num_box_1">
-                <h2 id="rank_1_num">1<span id="rank_1_num_rank">位</span></h2>
+                <div id="rank_num_box_1">
+                    <h2 id="rank_1_num">1<span id="rank_1_num_rank">位</span></h2>
+                </div>
+
+                <p id="rank_1_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_1">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+                <p id="rank_1_animaltype">{{ a.japanese }}</p>
+
             </div>
-
-            <p id="rank_1_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_1">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
-            <p id="rank_1_animaltype">{{ a.japanese }}</p>
-            <p id="rank_1_pointlang">推しP{{ a.total_point }}</p>
+            
+            <div id="rank_1_point_box" data-id="{{ a.animal_id }}">
+                <p id="rank_1_pointlang_01">推され度♥</p>
+                <p id="rank_1_pointlang_02">{{ a.total_point }}</p>
+            </div>
 
             {% endif %}
             {% endwith %}
@@ -65,15 +72,21 @@
                         </div>
                     </div>
 
-                    <div id="rank_num_box_2">
-                        <h2 id="rank_2_num">2<span id="rank_2_num_rank">位</span></h2>
+                    <div id="rank_num_box_2_large">
+
+                        <div id="rank_num_box_2">
+                            <h2 id="rank_2_num">2<span id="rank_2_num_rank">位</span></h2>
+                        </div>
+
+                        <p id="rank_2_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_2">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+                        <p id="rank_2_animaltype">{{ a.japanese }}</p>
+
                     </div>
-                    
-                    <p id="rank_2_animalname">{{ a.name }}
-                        <span id="rank_animal-namegenderlang_2">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
-                    </p>
-                    <p id="rank_2_animaltype">{{ a.japanese }}</p>
-                    <p id="rank_2_pointlang">推しP{{ a.total_point }}</p>
+
+                    <div id="rank_2_point_box" data-id="{{ a.animal_id }}">
+                        <p id="rank_2_pointlang_01">推され度♥</p>
+                        <p id="rank_2_pointlang_02">{{ a.total_point }}</p>
+                    </div>
 
                 </div>
                 {% endif %}
@@ -92,15 +105,21 @@
                         </div>
                     </div>
 
-                    <div id="rank_num_box_3">
-                        <h2 id="rank_3_num">3<span id="rank_3_num_rank">位</span></h2>
+                    <div id="rank_num_box_3_large">
+
+                        <div id="rank_num_box_3">
+                            <h2 id="rank_3_num">3<span id="rank_3_num_rank">位</span></h2>
+                        </div>
+
+                        <p id="rank_3_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_3">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+                        <p id="rank_3_animaltype">{{ a.japanese }}</p>
+
                     </div>
 
-                    <p id="rank_3_animalname">{{ a.name }}
-                        <span id="rank_animal-namegenderlang_3">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
-                    </p>
-                    <p id="rank_3_animaltype">{{ a.japanese }}</p>
-                    <p id="rank_3_pointlang">推しP{{ a.total_point }}</p>
+                    <div id="rank_3_point_box" data-id="{{ a.animal_id }}">
+                        <p id="rank_3_pointlang_01">推され度♥</p>
+                        <p id="rank_3_pointlang_02">{{ a.total_point }}</p>
+                    </div>
 
                 </div>
                 {% endif %}
@@ -121,15 +140,21 @@
                 <img id="rank_img_4to6" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
             </a>
 
-            <div id="rank_num_box_4to6">
-                <h2 id="rank_4to6_num">{{ forloop.counter|add:3 }}<span id="rank_4to6_num_rank">位</span></h2>
+            <div id="rank_num_box_4to6_large">
+
+                <div id="rank_num_box_4to6">
+                    <h2 id="rank_4to6_num">{{ forloop.counter|add:3 }}<span id="rank_4to6_num_rank">位</span></h2>
+                </div>
+
+                <p id="rank_4to6_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_4to6">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+                <p id="rank_4to6_animaltype">{{ a.japanese }}</p>
+
             </div>
 
-            <p id="rank_4to6_animalname">{{ a.name }}
-                <span id="rank_animal-namegenderlang_4to6">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
-            </p>
-            <p id="rank_4to6_animaltype">{{ a.japanese }}</p>
-            <p id="rank_4to6_pointlang">推しP{{ a.total_point }}</p>
+            <div id="rank_4to6_point_box" data-id="{{ a.animal_id }}">
+                <p id="rank_4to6_pointlang_01">推され度♥</p>
+                <p id="rank_4to6_pointlang_02">{{ a.total_point }}</p>
+            </div>
 
         </div>
         {% endfor %}
@@ -144,15 +169,27 @@
                 <img id="rank_img_7to10" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
             </a>
 
-            <div id="rank_num_box_7to10">
-                <h2 id="rank_7to10_num">{{ forloop.counter|add:6 }}<span id="rank_7to10_num_rank">位</span></h2>
+            <div id="rank_num_box_7to10_large">
+
+                {% if a.animals == 10 %}
+                <div id="rank_num_box_7to10_02">
+                    <h2 id="rank_7to10_num">10<span id="rank_7to10_num_rank">位</span></h2>
+                </div>
+                {% else %}
+                <div id="rank_num_box_7to10">
+                    <h2 id="rank_7to10_num">{{ forloop.counter|add:6 }}<span id="rank_7to10_num_rank">位</span></h2>
+                </div>
+                {% endif %}
+
+                <p id="rank_7to10_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_7to10">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+                <p id="rank_7to10_animaltype">{{ a.japanese }}</p>
+
             </div>
 
-            <p id="rank_7to10_animalname">{{ a.name }}
-                <span id="rank_animal-namegenderlang_7to10">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
-            </p>
-            <p id="rank_7to10_animaltype">{{ a.japanese }}</p>
-            <p id="rank_7to10_pointlang">推しP{{ a.total_point }}</p>
+            <div id="rank_7to10_point_box" data-id="{{ a.animal_id }}">
+                <p id="rank_7to10_pointlang_01">推され度♥</p>
+                <p id="rank_7to10_pointlang_02">{{ a.total_point }}</p>
+            </div>
 
         </div>
         {% endfor %}
@@ -167,15 +204,21 @@
                 <img id="rank_img_11to15" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
             </a>
 
-            <div id="rank_num_box_11to15">
-                <h2 id="rank_11to15_num">{{ forloop.counter|add:10 }}<span id="rank_11to15_num_rank">位</span></h2>
+            <div id="rank_num_box_11to15_large">
+
+                <div id="rank_num_box_11to15">
+                    <h2 id="rank_11to15_num">{{ forloop.counter|add:10 }}<span id="rank_11to15_num_rank">位</span></h2>
+                </div>
+
+                <p id="rank_11to15_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_11to15">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+                <p id="rank_11to15_animaltype">{{ a.japanese }}</p>
+
             </div>
 
-            <p id="rank_11to15_animalname">{{ a.name }}
-                <span id="rank_animal-namegenderlang_11to15">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
-            </p>
-            <p id="rank_11to15_animaltype">{{ a.japanese }}</p>
-            <p id="rank_11to15_pointlang">推しP{{ a.total_point }}</p>
+            <div id="rank_11to15_point_box" data-id="{{ a.animal_id }}">
+                <p id="rank_11to15_pointlang_01">推され度♥</p>
+                <p id="rank_11to15_pointlang_02">{{ a.total_point }}</p>
+            </div>
 
         </div>
         {% endfor %}
@@ -191,15 +234,21 @@
                 <img id="rank_img_16to20" src="{{ a.pic1.url }}" alt="{{ a.japanese }}">
             </a>
 
-            <div id="rank_num_box_16to20">
-                <h2 id="rank_16to20_num">{{ forloop.counter|add:15 }}<span id="rank_16to20_num_rank">位</span></h2>
+            <div id="rank_num_box_16to20_large">
+
+                <div id="rank_num_box_16to20">
+                    <h2 id="rank_16to20_num">{{ forloop.counter|add:15 }}<span id="rank_16to20_num_rank">位</span></h2>
+                </div>
+
+                <p id="rank_16to20_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_16to20">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+                <p id="rank_16to20_animaltype">{{ a.japanese }}</p>
+
             </div>
 
-            <p id="rank_16to20_animalname">{{ a.name }}
-                <span id="rank_animal-namegenderlang_16to20">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
-            </p>
-            <p id="rank_16to20_animaltype">{{ a.japanese }}</p>
-            <p id="rank_16to20_pointlang">推しP{{ a.total_point }}</p>
+            <div id="rank_16to20_point_box" data-id="{{ a.animal_id }}">
+                <p id="rank_16to20_pointlang_01">推され度♥</p>
+                <p id="rank_16to20_pointlang_02">{{ a.total_point }}</p>
+            </div>
 
         </div>
         {% endfor %}
@@ -217,15 +266,21 @@
             <img id="rank_img_21to" src="{{ a.pic1.url }}" alt="{{ a.japanese }}" width="100px">
         </a>
 
-        <div id="rank_num_box_21to">
-            <h2 id="rank_21to_num">{{ forloop.counter|add:start_rank }}位</h2>
+        <div id="rank_num_box_21to_large">
+
+            <div id="rank_num_box_21to">
+                <h2 id="rank_21to_num">{{ forloop.counter|add:start_rank }}<span id="rank_21to_num_rank">位</span></h2>
+            </div>
+
+            <p id="rank_21to_animalname">{{ a.name }}<span id="rank_animal-namegenderlang_21to">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span></p>
+            <p id="rank_21to_animaltype">{{ a.japanese }}</p>
+
         </div>
 
-        <p id="rank_21to_animalname">{{ a.name }}
-            <span id="rank_animal-namegenderlang_21to">{% if a.sex == "M" %}くん{% elif a.sex == "F" %}ちゃん{% else %}さん{% endif %}</span>
-        </p>
-        <p id="rank_21to_animaltype">{{ a.japanese }}</p>
-        <p id="rank_21to_pointlang">推しP{{ a.total_point }}</p>
+        <div id="rank_21to_point_box" data-id="{{ a.animal_id }}">
+            <p id="rank_21to_pointlang_01">推され度♥</p>
+            <p id="rank_21to_pointlang_02">{{ a.total_point }}</p>
+        </div>
 
     </div>
 
