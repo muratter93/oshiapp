@@ -28,7 +28,7 @@
   justify-content: center;
   margin: 0 auto;
   padding: 0;
-  border:1px solid rgb(182, 170, 161); /*borderの指定*/
+  /* border:1px solid rgb(182, 170, 161); */
   border-radius: 1vw;
   /* width: 30vw; */
 }
@@ -41,12 +41,12 @@
   text-align: center;
   font-weight: 800;
   font-size: 1.3vw;
-  padding: 2vw;
+  padding: 2vw 5vw 2vw 2vw;
   width: 100%;
   /* background-color: rgb(105, 103, 42); */
     display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3vw;
+  gap: 2vw;
 }
 
 
@@ -54,13 +54,13 @@
 
 
 .live-box {
-  margin-bottom: 100px;
+  /* margin-bottom: 100px; */
   position: relative;
     /* background-image: url("/static/img/TV_mask.png"); */
 }
-/* .live-box h3 {
-  margin-top: -3vw;
-} */
+.text_phone {
+  margin-bottom: 3vw;
+}
 
 .move_box {
     display: inline-block; /* または block */
@@ -76,10 +76,15 @@
 }
 .phone_box {
     position: absolute;
-  top: 2.9vw;
-  left: 2.65vw;
+  top: 4vw;
+  left: 3vw;
   pointer-events: none;
 }
+/* .phone {
+  margin-top: 3vw;
+} */
+
+
 
 .live-name {
   margin-top: 1vw;
@@ -87,7 +92,7 @@
 
 .yt-link {
   display: inline-block;
-  margin-top: 1vw;
+  margin-top: 4vw;
   color: #006633;
   font-weight: bold;
   text-decoration: none;
